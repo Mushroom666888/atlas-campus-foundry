@@ -1,5 +1,5 @@
 {
-  "collectedAt": "2026-10-09T18:03:15.664Z",
+  "collectedAt": "2026-10-09T18:28:30.294Z",
   "method": "GitHub repository search; README and selected dependency files only. No claim of complete code audit.",
   "queries": [
     {
@@ -537,7 +537,7 @@
         "social",
         "social-network"
       ],
-      "inspection": "README_AND_SELECTED_FILES",
+      "inspection": "README_ONLY",
       "matchedQueries": [
         "university campus application",
         "campus social network"
@@ -622,7 +622,7 @@
         "redux",
         "university"
       ],
-      "inspection": "README_AND_SELECTED_FILES",
+      "inspection": "README_ONLY",
       "matchedQueries": [
         "university campus application"
       ],
@@ -686,7 +686,7 @@
         "social-networking-app",
         "social-networking-platform"
       ],
-      "inspection": "README_AND_SELECTED_FILES",
+      "inspection": "README_ONLY",
       "matchedQueries": [
         "campus social network"
       ],
@@ -728,7 +728,7 @@
       "archived": false,
       "license": "UNKNOWN",
       "topics": [],
-      "inspection": "README_AND_SELECTED_FILES",
+      "inspection": "README_ONLY",
       "matchedQueries": [
         "campus social network"
       ],
@@ -766,7 +766,7 @@
         "jklu",
         "marketplace"
       ],
-      "inspection": "README_AND_SELECTED_FILES",
+      "inspection": "README_ONLY",
       "matchedQueries": [
         "campus marketplace"
       ],
@@ -811,7 +811,7 @@
       "archived": false,
       "license": "MIT",
       "topics": [],
-      "inspection": "README_AND_SELECTED_FILES",
+      "inspection": "README_ONLY",
       "matchedQueries": [
         "campus marketplace"
       ],
@@ -854,7 +854,7 @@
         "tailwind-css",
         "typescript"
       ],
-      "inspection": "README_AND_SELECTED_FILES",
+      "inspection": "README_ONLY",
       "matchedQueries": [
         "campus marketplace"
       ],
@@ -895,7 +895,7 @@
       "archived": false,
       "license": "UNKNOWN",
       "topics": [],
-      "inspection": "README_AND_SELECTED_FILES",
+      "inspection": "README_ONLY",
       "matchedQueries": [
         "campus marketplace"
       ],
@@ -933,7 +933,7 @@
       "archived": false,
       "license": "UNKNOWN",
       "topics": [],
-      "inspection": "README_AND_SELECTED_FILES",
+      "inspection": "README_ONLY",
       "matchedQueries": [
         "campus second hand trading"
       ],
@@ -974,7 +974,7 @@
       "archived": false,
       "license": "UNKNOWN",
       "topics": [],
-      "inspection": "README_AND_SELECTED_FILES",
+      "inspection": "README_ONLY",
       "matchedQueries": [
         "campus second hand trading"
       ],
@@ -1011,7 +1011,7 @@
       "archived": false,
       "license": "UNKNOWN",
       "topics": [],
-      "inspection": "README_AND_SELECTED_FILES",
+      "inspection": "README_ONLY",
       "matchedQueries": [
         "campus second hand trading"
       ],
@@ -1054,7 +1054,7 @@
       "archived": false,
       "license": "UNKNOWN",
       "topics": [],
-      "inspection": "README_AND_SELECTED_FILES",
+      "inspection": "README_ONLY",
       "matchedQueries": [
         "campus second hand trading"
       ],
@@ -1096,7 +1096,7 @@
       "archived": false,
       "license": "UNKNOWN",
       "topics": [],
-      "inspection": "README_AND_SELECTED_FILES",
+      "inspection": "README_ONLY",
       "matchedQueries": [
         "campus second hand trading"
       ],
@@ -1141,7 +1141,7 @@
         "reactnative",
         "typescript"
       ],
-      "inspection": "README_AND_SELECTED_FILES",
+      "inspection": "README_ONLY",
       "matchedQueries": [
         "university event management",
         "student club management"
@@ -1196,7 +1196,7 @@
         "mongodb",
         "reactjs"
       ],
-      "inspection": "README_AND_SELECTED_FILES",
+      "inspection": "README_ONLY",
       "matchedQueries": [
         "university event management"
       ],
@@ -1250,7 +1250,7 @@
         "website",
         "workshop"
       ],
-      "inspection": "README_AND_SELECTED_FILES",
+      "inspection": "README_ONLY",
       "matchedQueries": [
         "student club management"
       ],
@@ -1310,7 +1310,7 @@
         "svce",
         "svce-acm"
       ],
-      "inspection": "README_AND_SELECTED_FILES",
+      "inspection": "README_ONLY",
       "matchedQueries": [
         "student club management"
       ],
@@ -1352,7 +1352,7 @@
       "archived": false,
       "license": "UNKNOWN",
       "topics": [],
-      "inspection": "README_AND_SELECTED_FILES",
+      "inspection": "README_ONLY",
       "matchedQueries": [
         "student club management"
       ],
@@ -1397,7 +1397,7 @@
       "archived": false,
       "license": "UNKNOWN",
       "topics": [],
-      "inspection": "README_AND_SELECTED_FILES",
+      "inspection": "README_ONLY",
       "matchedQueries": [
         "campus navigation"
       ],
@@ -1431,7 +1431,7 @@
       "archived": false,
       "license": "UNKNOWN",
       "topics": [],
-      "inspection": "README_AND_SELECTED_FILES",
+      "inspection": "README_ONLY",
       "matchedQueries": [
         "campus navigation"
       ],
@@ -1468,7 +1468,7 @@
       "archived": false,
       "license": "UNKNOWN",
       "topics": [],
-      "inspection": "README_AND_SELECTED_FILES",
+      "inspection": "README_ONLY",
       "matchedQueries": [
         "campus navigation"
       ],
@@ -1503,7 +1503,7 @@
       "archived": false,
       "license": "UNKNOWN",
       "topics": [],
-      "inspection": "README_AND_SELECTED_FILES",
+      "inspection": "README_ONLY",
       "matchedQueries": [
         "campus navigation"
       ],
@@ -1538,7 +1538,7 @@
       "archived": false,
       "license": "MIT",
       "topics": [],
-      "inspection": "README_AND_SELECTED_FILES",
+      "inspection": "README_ONLY",
       "matchedQueries": [
         "campus navigation"
       ],
@@ -1603,7 +1603,7 @@
         "uplb",
         "vercel"
       ],
-      "inspection": "README_AND_SELECTED_FILES",
+      "inspection": "README_ONLY",
       "matchedQueries": [
         "campus map"
       ],
@@ -1649,7 +1649,7 @@
       "archived": false,
       "license": "GPL-2.0",
       "topics": [],
-      "inspection": "README_AND_SELECTED_FILES",
+      "inspection": "README_ONLY",
       "matchedQueries": [
         "campus map"
       ],
@@ -1691,7 +1691,7 @@
         "campus-map",
         "cityengine"
       ],
-      "inspection": "README_AND_SELECTED_FILES",
+      "inspection": "README_ONLY",
       "matchedQueries": [
         "campus map"
       ],
@@ -1735,7 +1735,7 @@
         "map",
         "waterloo"
       ],
-      "inspection": "README_AND_SELECTED_FILES",
+      "inspection": "README_ONLY",
       "matchedQueries": [
         "campus map"
       ],
@@ -1774,7 +1774,7 @@
         "redis",
         "spring-boot"
       ],
-      "inspection": "README_AND_SELECTED_FILES",
+      "inspection": "README_ONLY",
       "matchedQueries": [
         "campus lost found"
       ],
@@ -1818,7 +1818,7 @@
       "archived": false,
       "license": "UNKNOWN",
       "topics": [],
-      "inspection": "README_AND_SELECTED_FILES",
+      "inspection": "README_ONLY",
       "matchedQueries": [
         "campus lost found"
       ],
@@ -1862,7 +1862,7 @@
       "archived": false,
       "license": "UNKNOWN",
       "topics": [],
-      "inspection": "README_AND_SELECTED_FILES",
+      "inspection": "README_ONLY",
       "matchedQueries": [
         "campus lost found"
       ],
@@ -1905,7 +1905,7 @@
       "archived": false,
       "license": "UNKNOWN",
       "topics": [],
-      "inspection": "README_AND_SELECTED_FILES",
+      "inspection": "README_ONLY",
       "matchedQueries": [
         "campus lost found"
       ],
@@ -1954,7 +1954,7 @@
         "tailwindcss",
         "typescript"
       ],
-      "inspection": "README_AND_SELECTED_FILES",
+      "inspection": "README_ONLY",
       "matchedQueries": [
         "campus lost found"
       ],
@@ -2002,7 +2002,7 @@
       "archived": false,
       "license": "MIT",
       "topics": [],
-      "inspection": "README_AND_SELECTED_FILES",
+      "inspection": "README_ONLY",
       "matchedQueries": [
         "university course planner"
       ],
@@ -2037,7 +2037,7 @@
       "archived": false,
       "license": "MIT",
       "topics": [],
-      "inspection": "README_AND_SELECTED_FILES",
+      "inspection": "README_ONLY",
       "matchedQueries": [
         "university course planner"
       ],
@@ -2086,7 +2086,7 @@
         "uw",
         "uw-campus"
       ],
-      "inspection": "README_AND_SELECTED_FILES",
+      "inspection": "README_ONLY",
       "matchedQueries": [
         "university course planner"
       ],
@@ -2131,7 +2131,7 @@
         "degree-planner",
         "northeastern-university"
       ],
-      "inspection": "README_AND_SELECTED_FILES",
+      "inspection": "README_ONLY",
       "matchedQueries": [
         "university course planner"
       ],
@@ -2182,7 +2182,7 @@
         "springmvc",
         "thymeleaf"
       ],
-      "inspection": "README_AND_SELECTED_FILES",
+      "inspection": "README_ONLY",
       "matchedQueries": [
         "student timetable"
       ],
@@ -2224,7 +2224,7 @@
       "archived": false,
       "license": "UNKNOWN",
       "topics": [],
-      "inspection": "README_AND_SELECTED_FILES",
+      "inspection": "README_ONLY",
       "matchedQueries": [
         "student timetable"
       ],
@@ -2264,7 +2264,7 @@
         "magic-mirror-modules",
         "magicmirror"
       ],
-      "inspection": "README_AND_SELECTED_FILES",
+      "inspection": "README_ONLY",
       "matchedQueries": [
         "student timetable"
       ],
@@ -2304,7 +2304,7 @@
       "archived": false,
       "license": "GPL-3.0",
       "topics": [],
-      "inspection": "README_AND_SELECTED_FILES",
+      "inspection": "README_ONLY",
       "matchedQueries": [
         "student timetable"
       ],
@@ -2354,7 +2354,7 @@
         "student",
         "timetable"
       ],
-      "inspection": "README_AND_SELECTED_FILES",
+      "inspection": "README_ONLY",
       "matchedQueries": [
         "student timetable"
       ],
@@ -2393,7 +2393,7 @@
       "archived": false,
       "license": "UNKNOWN",
       "topics": [],
-      "inspection": "README_AND_SELECTED_FILES",
+      "inspection": "README_ONLY",
       "matchedQueries": [
         "campus chat application"
       ],
@@ -2467,7 +2467,7 @@
       "archived": false,
       "license": "MIT",
       "topics": [],
-      "inspection": "README_AND_SELECTED_FILES",
+      "inspection": "README_ONLY",
       "matchedQueries": [
         "campus chat application"
       ],
@@ -2510,7 +2510,7 @@
         "signalr",
         "typescript"
       ],
-      "inspection": "README_AND_SELECTED_FILES",
+      "inspection": "README_ONLY",
       "matchedQueries": [
         "university forum"
       ],
@@ -2558,7 +2558,7 @@
         "mysql",
         "python"
       ],
-      "inspection": "README_AND_SELECTED_FILES",
+      "inspection": "README_ONLY",
       "matchedQueries": [
         "university forum"
       ],
@@ -2598,7 +2598,7 @@
       "archived": false,
       "license": "UNKNOWN",
       "topics": [],
-      "inspection": "README_AND_SELECTED_FILES",
+      "inspection": "README_ONLY",
       "matchedQueries": [
         "university forum"
       ],
@@ -2648,7 +2648,7 @@
         "react",
         "reactjs"
       ],
-      "inspection": "README_AND_SELECTED_FILES",
+      "inspection": "README_ONLY",
       "matchedQueries": [
         "campus booking"
       ],
@@ -2689,7 +2689,7 @@
       "archived": false,
       "license": "UNKNOWN",
       "topics": [],
-      "inspection": "README_AND_SELECTED_FILES",
+      "inspection": "README_ONLY",
       "matchedQueries": [
         "campus booking"
       ],
@@ -2728,7 +2728,7 @@
       "archived": false,
       "license": "MIT",
       "topics": [],
-      "inspection": "README_AND_SELECTED_FILES",
+      "inspection": "README_ONLY",
       "matchedQueries": [
         "campus booking"
       ],
@@ -2818,7 +2818,7 @@
         "reactjs",
         "rest-api"
       ],
-      "inspection": "README_AND_SELECTED_FILES",
+      "inspection": "README_ONLY",
       "matchedQueries": [
         "campus resource sharing"
       ],
@@ -2869,7 +2869,7 @@
         "fpt-university",
         "learning-resources"
       ],
-      "inspection": "README_AND_SELECTED_FILES",
+      "inspection": "README_ONLY",
       "matchedQueries": [
         "campus resource sharing"
       ],
@@ -2938,7 +2938,7 @@
       "archived": false,
       "license": "UNKNOWN",
       "topics": [],
-      "inspection": "README_AND_SELECTED_FILES",
+      "inspection": "README_ONLY",
       "matchedQueries": [
         "校园 二手"
       ],
@@ -2976,7 +2976,7 @@
       "archived": false,
       "license": "MIT",
       "topics": [],
-      "inspection": "README_AND_SELECTED_FILES",
+      "inspection": "README_ONLY",
       "matchedQueries": [
         "校园 二手"
       ],
@@ -3021,7 +3021,7 @@
       "archived": false,
       "license": "GPL-2.0",
       "topics": [],
-      "inspection": "README_AND_SELECTED_FILES",
+      "inspection": "README_ONLY",
       "matchedQueries": [
         "校园 二手",
         "校园 活动"
@@ -3069,7 +3069,7 @@
       "archived": false,
       "license": "UNKNOWN",
       "topics": [],
-      "inspection": "README_AND_SELECTED_FILES",
+      "inspection": "README_ONLY",
       "matchedQueries": [
         "校园 二手"
       ],
@@ -3115,7 +3115,7 @@
         "wechat-app",
         "wechat-mini-program"
       ],
-      "inspection": "README_AND_SELECTED_FILES",
+      "inspection": "README_ONLY",
       "matchedQueries": [
         "校园 课表"
       ],
@@ -3154,7 +3154,7 @@
       "archived": false,
       "license": "GPL-3.0",
       "topics": [],
-      "inspection": "README_AND_SELECTED_FILES",
+      "inspection": "README_ONLY",
       "matchedQueries": [
         "校园 课表"
       ],
@@ -3199,7 +3199,7 @@
         "nodejs",
         "vue"
       ],
-      "inspection": "README_AND_SELECTED_FILES",
+      "inspection": "README_ONLY",
       "matchedQueries": [
         "校园 课表"
       ],

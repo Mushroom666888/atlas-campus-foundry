@@ -1,0 +1,48 @@
+services:
+  postgres:
+    image: postgres:17-bookworm
+    environment:
+      POSTGRES_DB: foundry
+      POSTGRES_USER: foundry
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:?Set POSTGRES_PASSWORD locally}
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+    healthcheck:
+      test: [CMD-SHELL, "pg_isready -U foundry"]
+      interval: 5s
+      retries: 10
+    networks: [control]
+  studio:
+    build: .
+    image: campus-foundry:local
+    command: [node, --import, tsx, server/main.ts]
+    environment:
+      HOST: 0.0.0.0
+      PORT: 3000
+      DATA_DIR: /data
+      DATABASE_URL: postgresql://foundry:${POSTGRES_PASSWORD}@postgres:5432/foundry
+      ALLOW_REGISTRATION: ${ALLOW_REGISTRATION:-false}
+      DEPLOYMENT_PROVIDER: local-trusted
+      LLM_BASE_URL: ${LLM_BASE_URL:-https://api.openai.com/v1}
+      LLM_MODEL: ${LLM_MODEL:-}
+      LLM_API_KEY: ${LLM_API_KEY:-}
+      DOTENV_CONFIG_PATH: /tmp/no-env
+    ports: ["127.0.0.1:3000:3000"]
+    volumes: ["foundry-data:/data"]
+    depends_on:
+      postgres:
+        condition: service_healthy
+    cap_drop: [ALL]
+    security_opt: ["no-new-privileges:true"]
+    pids_limit: 256
+    mem_limit: 2g
+    networks: [control]
+    healthcheck:
+      test: [CMD, node, -e, "fetch('http://127.0.0.1:3000/api/health').then(r=>process.exit(r.ok?0:1))"]
+      interval: 15s
+      retries: 3
+volumes:
+  postgres-data:
+  foundry-data:
+networks:
+  control:

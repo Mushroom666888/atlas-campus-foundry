@@ -15,7 +15,7 @@
 
 Platform accounts, teams, projects, applications, module installations, jobs, module releases and deployments live in the control database. Runtime accounts, schools, school membership, profiles, entities, messages, media and notifications live in a different database directory per app. The same email may register separately in several apps; there is no implicit cross-app identity or data access. School membership is self-declared, email verification is not university identity proof. Teams and cross-app grants currently have schema only; their collaborative/sharing workflows remain PLANNED. Project APIs enforce owner authorization.
 
-PostgreSQL migrations are versioned and transactional. Local PGlite is PostgreSQL compiled to WASM with real disk storage, not an in-memory mock. The server adapter uses `pg` transactions and parameterized SQL. Control-plane PostgreSQL server and Docker Compose are not considered TESTED until executed.
+PostgreSQL migrations are versioned and transactional. Local PGlite is PostgreSQL compiled to WASM with real disk storage, not an in-memory mock. The server adapter uses `pg` transactions and parameterized SQL. Windows native PostgreSQL 18.4 migrations and restart persistence are TESTED. Docker Compose remains untested.
 
 ## Module lifecycle
 
@@ -32,5 +32,7 @@ Local-trusted mode starts ONLY shipped runtime source in an independent process 
 Docker mode uses read-only root, explicit data/config/workspace mounts, an internal per-app network, non-root user, CPU/memory/PID limits, no capabilities and no-new-privileges. Build has no network and no provider credentials. Host Docker access remains privileged and requires a dedicated runner service before exposing the control plane to untrusted developers. Production requires HTTPS ingress, authenticated routing, OS-level tenant enforcement, PostgreSQL roles/RLS review, backup/restore tests, signed images, secret rotation and operational review. Those are not implied by local checks.
 
 ## Expansion
+
+Local embedded database ownership uses an OS endpoint keyed by canonical directory: Windows named pipe (TESTED), Linux abstract socket (IMPLEMENTED only). Ownership is released by the kernel on process death; unresponsive processes do not lose it to timeout. This prevents accidental same-host concurrent use, not cross-container or network-filesystem writers. Offline backups require all local locks, preserve file/directory manifests and hashes, reject unsupported storage, and restore to a fresh directory with relocated artifacts. External PostgreSQL/container-native and offsite scheduled backups remain separate engineering work.
 
 Move durable job claims to leased workers, deploy behind a dedicated runner API, use per-app database credentials and signed immutable module artifacts, then add collaborative team authorization and explicitly audited cross-app contracts. No Kubernetes requirement for the first server.

@@ -1,7 +1,63 @@
-import { createCipheriv, createDecipheriv, randomBytes } from 'node:crypto';
-import { readFile, writeFile } from 'node:fs/promises';
-import path from 'node:path';
-import type { Database } from './db.js';
-export async function vaultKey(root:string){const target=path.join(root,'vault.key');try{return await readFile(target);}catch(error){if((error as NodeJS.ErrnoException).code!=='ENOENT')throw error;const key=randomBytes(32);try{await writeFile(target,key,{mode:0o600,flag:'wx'});return key;}catch(race){if((race as NodeJS.ErrnoException).code!=='EEXIST')throw race;return readFile(target);}}}
-export async function encryptSecret(root:string,value:string){const key=await vaultKey(root),iv=randomBytes(12),cipher=createCipheriv('aes-256-gcm',key,iv);const ciphertext=Buffer.concat([cipher.update(value,'utf8'),cipher.final()]);return [iv.toString('base64'),cipher.getAuthTag().toString('base64'),ciphertext.toString('base64')].join('.');}
-export async function applicationSecrets(db:Database,root:string,appId:string){const rows=(await db.query<{name:string;encrypted_value:string}>('SELECT name,encrypted_value FROM app_secrets WHERE app_id=$1',[appId])).rows;if(!rows.length)return {};const key=await vaultKey(root);return Object.fromEntries(rows.map(row=>{const [iv,tag,body]=row.encrypted_value.split('.').map(v=>Buffer.from(v,'base64'));const decipher=createDecipheriv('aes-256-gcm',key,iv);decipher.setAuthTag(tag);return [row.name,Buffer.concat([decipher.update(body),decipher.final()]).toString('utf8')];}));}
+import { createCipheriv, createDecipheriv, randomBytes } from "node:crypto";
+import { readFile, writeFile } from "node:fs/promises";
+import path from "node:path";
+import type { Database } from "./db.js";
+export async function vaultKey(root: string) {
+  const target = path.join(root, "vault.key");
+  try {
+    return await readFile(target);
+  } catch (error) {
+    if ((error as NodeJS.ErrnoException).code !== "ENOENT") throw error;
+    const key = randomBytes(32);
+    try {
+      await writeFile(target, key, { mode: 0o600, flag: "wx" });
+      return key;
+    } catch (race) {
+      if ((race as NodeJS.ErrnoException).code !== "EEXIST") throw race;
+      return readFile(target);
+    }
+  }
+}
+export async function encryptSecret(root: string, value: string) {
+  const key = await vaultKey(root),
+    iv = randomBytes(12),
+    cipher = createCipheriv("aes-256-gcm", key, iv);
+  const ciphertext = Buffer.concat([
+    cipher.update(value, "utf8"),
+    cipher.final(),
+  ]);
+  return [
+    iv.toString("base64"),
+    cipher.getAuthTag().toString("base64"),
+    ciphertext.toString("base64"),
+  ].join(".");
+}
+export async function applicationSecrets(
+  db: Database,
+  root: string,
+  appId: string,
+) {
+  const rows = (
+    await db.query<{ name: string; encrypted_value: string }>(
+      "SELECT name,encrypted_value FROM app_secrets WHERE app_id=$1",
+      [appId],
+    )
+  ).rows;
+  if (!rows.length) return {};
+  const key = await vaultKey(root);
+  return Object.fromEntries(
+    rows.map((row) => {
+      const [iv, tag, body] = row.encrypted_value
+        .split(".")
+        .map((v) => Buffer.from(v, "base64"));
+      const decipher = createDecipheriv("aes-256-gcm", key, iv);
+      decipher.setAuthTag(tag);
+      return [
+        row.name,
+        Buffer.concat([decipher.update(body), decipher.final()]).toString(
+          "utf8",
+        ),
+      ];
+    }),
+  );
+}
