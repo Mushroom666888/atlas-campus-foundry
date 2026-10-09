@@ -1,0 +1,58 @@
+import Fastify from 'fastify';
+import { z } from 'zod';
+import path from 'node:path';
+import { createCipheriv, createDecipheriv, randomBytes } from 'node:crypto';
+import { mkdir, readFile, writeFile } from 'node:fs/promises';
+import { Database } from './db.js';
+import { setupAuth, requireUser } from './auth.js';
+import { errors, serveFrontend } from './http.js';
+import { Projects } from './projects.js';
+import { Deployments } from './deployment.js';
+import { Agent } from './agent.js';
+import { AppError } from '../packages/contracts/src/index.js';
+import { IsolatedExecutor, dockerAvailable } from './executor.js';
+
+export async function createControl(options:{dataDir?:string;databaseUrl?:string;frontend?:boolean;logger?:boolean;recover?:boolean}={}) {
+  const root=path.resolve(options.dataDir??process.env.DATA_DIR??'.data');await mkdir(root,{recursive:true});
+  const db=await new Database(path.join(root,'control'),options.databaseUrl??process.env.DATABASE_URL).init();await db.migrate('control');
+  const projects=new Projects(db,root);await projects.seed();const deployments=new Deployments(projects),agent=new Agent(projects,deployments),executor=new IsolatedExecutor();
+  const app=Fastify({logger:options.logger??false,bodyLimit:1024*1024});errors(app);await setupAuth(app,db,'control',true);
+  const id=(request:{params:unknown})=>(request.params as {id:string}).id;
+  app.get('/api/health',async()=>{await db.query('SELECT 1');return {status:'ok',service:'campus-foundry',database:options.databaseUrl||process.env.DATABASE_URL?'postgresql-server':'pglite-postgresql'};});
+  app.get('/api/system',async request=>{requireUser(request);return {llm:{configured:Boolean(process.env.LLM_API_KEY&&process.env.LLM_MODEL),model:process.env.LLM_MODEL||null},deployment:{provider:process.env.DEPLOYMENT_PROVIDER||'local-trusted',docker:await dockerAvailable(),untrustedCode:'docker-required'},version:'0.1.0'};});
+  app.get('/api/projects',async request=>{const user=requireUser(request);return {items:(await db.query('SELECT p.*,a.id AS app_id FROM projects p JOIN applications a ON a.project_id=p.id WHERE p.owner_id=$1 ORDER BY p.updated_at DESC',[user.id])).rows};});
+  app.post('/api/projects',async(request,reply)=>{const user=requireUser(request);const input=z.object({spec:z.unknown(),idea:z.string().max(12000).default('Explicit module assembly')}).parse(request.body);return reply.code(201).send(await projects.create(user.id,input.spec,input.idea));});
+  app.get('/api/projects/:id',async request=>{const user=requireUser(request);return {project:await projects.get(id(request),user.id),application:await projects.application(id(request),user.id),installs:await projects.installs(id(request),user.id)};});
+  app.put('/api/projects/:id',async request=>projects.update(id(request),requireUser(request).id,request.body));
+  app.get('/api/projects/:id/files',async request=>({items:await projects.files(id(request),requireUser(request).id)}));
+  app.get('/api/projects/:id/file',async request=>({content:await projects.read(id(request),requireUser(request).id,z.object({path:z.string()}).parse(request.query).path)}));
+  app.put('/api/projects/:id/file',async request=>{const input=z.object({path:z.string(),content:z.string()}).parse(request.body);return projects.write(id(request),requireUser(request).id,input.path,input.content);});
+  app.get('/api/modules',async request=>{const user=requireUser(request);const {q}=z.object({q:z.string().max(100).default('')}).parse(request.query);return {items:(await projects.available(user.id)).filter(m=>JSON.stringify(m).toLowerCase().includes(q.toLowerCase()))};});
+  app.post('/api/projects/:id/modules',async request=>{const input=z.object({modules:z.array(z.string()).min(1),pins:z.record(z.string(),z.string()).default({})}).parse(request.body);return {items:await projects.install(id(request),requireUser(request).id,input.modules,input.pins)};});
+  app.post('/api/projects/:id/modules/rollback',async request=>({items:await projects.rollbackModules(id(request),requireUser(request).id)}));
+  app.get('/api/projects/:id/modules/history',async request=>{const application=await projects.application(id(request),requireUser(request).id);return {items:(await db.query('SELECT * FROM install_history WHERE app_id=$1 ORDER BY created_at DESC',[application.id])).rows};});
+  app.post('/api/projects/:id/extract',async request=>projects.extract(id(request),requireUser(request).id,request.body));
+  app.get('/api/modules/pending',async request=>{const user=requireUser(request);return {items:(await db.query("SELECT module_id,version,manifest,recipe,status,owner_id FROM module_versions WHERE status='pending' AND ($1='admin' OR owner_id=$2)",[user.role,user.id])).rows};});
+  app.post('/api/modules/:id/approve',async request=>projects.review(requireUser(request),id(request),z.object({version:z.string()}).parse(request.body).version));
+  app.get('/api/jobs',async request=>{const user=requireUser(request);const {projectId}=z.object({projectId:z.uuid().optional()}).parse(request.query);return {items:(await db.query('SELECT * FROM jobs WHERE owner_id=$1 AND ($2::text IS NULL OR project_id=$2) ORDER BY created_at DESC LIMIT 100',[user.id,projectId??null])).rows};});
+  app.post('/api/jobs',async(request,reply)=>{const user=requireUser(request);const input=z.object({input:z.string(),projectId:z.uuid().optional()}).parse(request.body);return reply.code(202).send(await agent.create(user.id,input.input,input.projectId));});
+  app.get('/api/jobs/:id',async request=>{const user=requireUser(request);const job=await agent.get(id(request),user.id);return {job,events:(await db.query('SELECT * FROM job_events WHERE job_id=$1 ORDER BY id',[job.id])).rows};});
+  app.post('/api/jobs/:id/cancel',async request=>agent.cancel(id(request),requireUser(request).id));
+  app.post('/api/jobs/:id/retry',async request=>{const user=requireUser(request),job=await agent.get(id(request),user.id);return agent.create(user.id,job.input,job.project_id??undefined);});
+  app.post('/api/projects/:id/validate',async request=>{const user=requireUser(request);await projects.get(id(request),user.id);const {kind}=z.object({kind:z.enum(['build','test'])}).parse(request.body);const result=await executor.run(projects.workspace(id(request)),kind);await projects.audit(user.id,`project.${kind}`,id(request),result);return result;});
+  app.get('/api/deployments',async request=>{const user=requireUser(request);const {projectId}=z.object({projectId:z.uuid().optional()}).parse(request.query);return {items:(await db.query('SELECT d.*,p.name AS project_name FROM deployments d JOIN applications a ON a.id=d.app_id JOIN projects p ON p.id=a.project_id WHERE d.owner_id=$1 AND ($2::text IS NULL OR p.id=$2) ORDER BY d.created_at DESC LIMIT 100',[user.id,projectId??null])).rows};});
+  app.post('/api/projects/:id/deploy',async request=>deployments.deploy(id(request),requireUser(request).id));
+  app.post('/api/deployments/:id/stop',async request=>deployments.stop(id(request),requireUser(request).id));
+  app.post('/api/deployments/:id/restart',async request=>deployments.restart(id(request),requireUser(request).id));
+  app.post('/api/deployments/:id/rollback',async request=>deployments.rollback(id(request),requireUser(request).id));
+  app.delete('/api/deployments/:id',async request=>deployments.remove(id(request),requireUser(request).id));
+  app.get('/api/deployments/:id/logs',async request=>({logs:await deployments.logs(id(request),requireUser(request).id)}));
+  app.get('/api/deployments/:id/health',async request=>deployments.health(id(request),requireUser(request).id));
+  app.get('/api/audit',async request=>({items:(await db.query('SELECT * FROM audit_log WHERE actor_id=$1 ORDER BY id DESC LIMIT 100',[requireUser(request).id])).rows}));
+  app.get('/api/projects/:id/env',async request=>{const application=await projects.application(id(request),requireUser(request).id);return {items:(await db.query('SELECT name FROM app_secrets WHERE app_id=$1',[application.id])).rows};});
+  app.put('/api/projects/:id/env',async request=>{const user=requireUser(request),application=await projects.application(id(request),user.id);const input=z.object({name:z.string().regex(/^APP_[A-Z0-9_]{1,60}$/),value:z.string().min(1).max(8192)}).parse(request.body);const keyFile=path.join(root,'vault.key');let key:Buffer;try{key=await readFile(keyFile);}catch(error){if((error as NodeJS.ErrnoException).code!=='ENOENT')throw error;key=randomBytes(32);await writeFile(keyFile,key,{mode:0o600,flag:'wx'});}const iv=randomBytes(12),cipher=createCipheriv('aes-256-gcm',key,iv);const ciphertext=Buffer.concat([cipher.update(input.value,'utf8'),cipher.final()]);const encrypted=[iv.toString('base64'),cipher.getAuthTag().toString('base64'),ciphertext.toString('base64')].join('.');await db.query('INSERT INTO app_secrets(app_id,name,encrypted_value) VALUES($1,$2,$3) ON CONFLICT(app_id,name) DO UPDATE SET encrypted_value=$3',[application.id,input.name,encrypted]);await projects.audit(user.id,'environment.updated',application.id,{name:input.name});return {name:input.name,status:'stored-encrypted',injection:'docker-only'};});
+  app.delete('/api/projects/:id/env/:name',async request=>{const user=requireUser(request),application=await projects.application(id(request),user.id);const name=(request.params as {name:string}).name;await db.query('DELETE FROM app_secrets WHERE app_id=$1 AND name=$2',[application.id,name]);return {ok:true};});
+  if(options.frontend)await serveFrontend(app);
+  if(options.recover){await deployments.recover();await agent.recover();}
+  app.addHook('onClose',async()=>{await deployments.close();await db.close();});return {app,db,projects,deployments,agent};
+}

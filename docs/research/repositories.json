@@ -1,0 +1,3571 @@
+{
+  "collectedAt": "2026-10-09T18:03:15.664Z",
+  "method": "GitHub repository search; README and selected dependency files only. No claim of complete code audit.",
+  "queries": [
+    {
+      "query": "university campus application",
+      "url": "https://api.github.com/search/repositories?q=university%20campus%20application&sort=stars&per_page=5",
+      "status": "ok",
+      "totalCount": 1220,
+      "accessedAt": "2026-10-09T17:54:19.763Z",
+      "results": [
+        "sgermosen/tSocialNetworkMvc",
+        "ghua-ac/ENF-WHU-Dataset",
+        "NanaYngvarrdottir/Software-Testing",
+        "BuildmLearn/University-Campus-Portal-UCP",
+        "iampranavdhar/campusmind"
+      ]
+    },
+    {
+      "query": "student community platform",
+      "url": "https://api.github.com/search/repositories?q=student%20community%20platform&sort=stars&per_page=5",
+      "status": "ok",
+      "totalCount": 2853,
+      "accessedAt": "2026-10-09T17:54:27.951Z",
+      "results": [
+        "cirosantilli/china-dictatorship",
+        "gege-circle/.github",
+        "cirosantilli/china-dictatroship-7",
+        "Sfedfcv/redesigned-pancake",
+        "mRFWq7LwNPZjaVv5v6eo/cihna-dictattorshrip-8"
+      ]
+    },
+    {
+      "query": "campus social network",
+      "url": "https://api.github.com/search/repositories?q=campus%20social%20network&sort=stars&per_page=5",
+      "status": "ok",
+      "totalCount": 313,
+      "accessedAt": "2026-10-09T17:54:35.673Z",
+      "results": [
+        "sgermosen/tSocialNetworkMvc",
+        "subhashissuara/my-campus",
+        "stellablack528/arcane-campus-online",
+        "saurabhbhatia/campusfever",
+        "ssapra/linguamocha"
+      ]
+    },
+    {
+      "query": "campus marketplace",
+      "url": "https://api.github.com/search/repositories?q=campus%20marketplace&sort=stars&per_page=5",
+      "status": "ok",
+      "totalCount": 2432,
+      "accessedAt": "2026-10-09T17:54:43.600Z",
+      "results": [
+        "Sfedfcv/redesigned-pancake",
+        "shawshank1307/COLLEGE-MARKETPLACE",
+        "Kanjo-Elkamira-Ndi/CampusGigs",
+        "mwakidenis/University-Marketplace",
+        "Priyans00/PesXChange"
+      ]
+    },
+    {
+      "query": "campus second hand trading",
+      "url": "https://api.github.com/search/repositories?q=campus%20second%20hand%20trading&sort=stars&per_page=5",
+      "status": "ok",
+      "totalCount": 247,
+      "accessedAt": "2026-10-09T17:54:51.349Z",
+      "results": [
+        "gdufeZLYL/springboot-squirrel",
+        "229394/CollegeIdleApp",
+        "YuLin-Coder/No19SecondHandGoodsTradingOnCampusManagementSystem",
+        "nature924/No.405Campus-second-hand-book-trading-platform",
+        "SimpleGraduationProjects/CampusSecond_handTradingPlatformManagementSystem"
+      ]
+    },
+    {
+      "query": "university event management",
+      "url": "https://api.github.com/search/repositories?q=university%20event%20management&sort=stars&per_page=5",
+      "status": "ok",
+      "totalCount": 1457,
+      "accessedAt": "2026-10-09T17:54:59.241Z",
+      "results": [
+        "swati1024/torrents",
+        "Aryia-Behroziuan/References",
+        "KusalkaSilva/Learning-Management-System",
+        "roshankumar0036singh/Uni-Event",
+        "Developer-Student-Clubs-VSSUT-Burla/CEM-frontend"
+      ]
+    },
+    {
+      "query": "student club management",
+      "url": "https://api.github.com/search/repositories?q=student%20club%20management&sort=stars&per_page=5",
+      "status": "ok",
+      "totalCount": 831,
+      "accessedAt": "2026-10-09T17:55:07.269Z",
+      "results": [
+        "amfoss/club-website-2018",
+        "bearlike/REMS-For-Organisations",
+        "OPTIMUM-LINKUP/Latest-Optimum-School-System",
+        "roshankumar0036singh/Uni-Event",
+        "wangjianlin1985/Springboot_Vue_Student_club_management"
+      ]
+    },
+    {
+      "query": "campus navigation",
+      "url": "https://api.github.com/search/repositories?q=campus%20navigation&sort=stars&per_page=5",
+      "status": "ok",
+      "totalCount": 3535,
+      "accessedAt": "2026-10-09T17:55:15.001Z",
+      "results": [
+        "Oscheibe/ARIndoorNav",
+        "SuperChenSSS/TongDaCampusNavigation",
+        "tianbing111/CUG_Campus-navigation",
+        "DaviDee/Indoor-Navigation",
+        "Amanda2026-crypto/smart-campus-connect"
+      ]
+    },
+    {
+      "query": "campus map",
+      "url": "https://api.github.com/search/repositories?q=campus%20map&sort=stars&per_page=5",
+      "status": "ok",
+      "totalCount": 3858,
+      "accessedAt": "2026-10-09T17:55:22.845Z",
+      "results": [
+        "uplbtools/room-tba",
+        "bhardwaj75/Campus-Placement-Preparation",
+        "Wscga1/miniprogram-CampusMap",
+        "RalucaNicola/campus-map",
+        "lucky-bai/WATisRain"
+      ]
+    },
+    {
+      "query": "student matching",
+      "url": "https://api.github.com/search/repositories?q=student%20matching&sort=stars&per_page=5",
+      "status": "ok",
+      "totalCount": 2901,
+      "accessedAt": "2026-10-09T17:55:30.700Z",
+      "results": [
+        "Luo-Yihong/TDM",
+        "hcw-00/STPM_anomaly_detection",
+        "SOYJUN/FTP-implement-based-on-UDP",
+        "nyaundid/EC2-AWS-AND-SHELL",
+        "cospDiDi/REFILLED"
+      ]
+    },
+    {
+      "query": "study group application",
+      "url": "https://api.github.com/search/repositories?q=study%20group%20application&sort=stars&per_page=5",
+      "status": "ok",
+      "totalCount": 595,
+      "accessedAt": "2026-10-09T17:55:38.610Z",
+      "results": [
+        "Aryia-Behroziuan/neurons",
+        "weblab-tw/ddia-study-group",
+        "sayantann11/clustering-modelsfor-ML",
+        "reddyprasade/Machine-Learning-Interview-Preparation",
+        "dia2018/What-is-the-Difference-Between-AI-and-Machine-Learning"
+      ]
+    },
+    {
+      "query": "campus lost found",
+      "url": "https://api.github.com/search/repositories?q=campus%20lost%20found&sort=stars&per_page=5",
+      "status": "ok",
+      "totalCount": 4115,
+      "accessedAt": "2026-10-09T17:55:46.492Z",
+      "results": [
+        "gongsir0630/LostAndFoundOnCampus",
+        "SahayaAngelS/campus-lost-found",
+        "nature924/No4Campus-lost-and-found-system",
+        "Descartes007/no049_CampusLostAndFoundManagementSys",
+        "Gaurav-205/KampusKart"
+      ]
+    },
+    {
+      "query": "university course planner",
+      "url": "https://api.github.com/search/repositories?q=university%20course%20planner&sort=stars&per_page=5",
+      "status": "ok",
+      "totalCount": 277,
+      "accessedAt": "2026-10-09T17:55:54.371Z",
+      "results": [
+        "kilicbaran/boun-course-planner",
+        "TigerAppsOrg/TigerPath",
+        "AlexEidt/UW-Course-Planner",
+        "yannickBurkhardt/ReinforcementPlanner",
+        "nayugu/nu-map"
+      ]
+    },
+    {
+      "query": "student timetable",
+      "url": "https://api.github.com/search/repositories?q=student%20timetable&sort=stars&per_page=5",
+      "status": "ok",
+      "totalCount": 3964,
+      "accessedAt": "2026-10-09T17:56:02.080Z",
+      "results": [
+        "shuhongfan/Student_management_system",
+        "ayush96agrawal/Automatic-Time-Table-Generator",
+        "pinsdorf/MMM-WeeklySchedule",
+        "ArmanJR/termustat",
+        "sookcha/every2cal"
+      ]
+    },
+    {
+      "query": "campus chat application",
+      "url": "https://api.github.com/search/repositories?q=campus%20chat%20application&sort=stars&per_page=5",
+      "status": "ok",
+      "totalCount": 147,
+      "accessedAt": "2026-10-09T17:56:09.859Z",
+      "results": [
+        "kaleabteweld/freelancer",
+        "lsb22/CampusConnect",
+        "pandeyroshan/CampusConnect",
+        "bdice/CampusChatter",
+        "ayushmaanFCB/ANPR-Application-with-PowerBI-Dashboard-and-Chatbot"
+      ]
+    },
+    {
+      "query": "university forum",
+      "url": "https://api.github.com/search/repositories?q=university%20forum&sort=stars&per_page=5",
+      "status": "ok",
+      "totalCount": 659,
+      "accessedAt": "2026-10-09T17:56:17.649Z",
+      "results": [
+        "abusufyanvu/6S191_MIT_DeepLearning",
+        "ZJU-CC98/Forum",
+        "weijiang1994/university-bbs",
+        "OxfordCodeReviewNet/forum",
+        "lll618xxx/University-Students-Forum"
+      ]
+    },
+    {
+      "query": "campus booking",
+      "url": "https://api.github.com/search/repositories?q=campus%20booking&sort=stars&per_page=5",
+      "status": "ok",
+      "totalCount": 1569,
+      "accessedAt": "2026-10-09T17:56:25.462Z",
+      "results": [
+        "Bilal025/EventoEMS",
+        "Shifrahcarnelian/vibe-campus",
+        "mohitsinghnegi1/JetFlix2",
+        "athirazizi/campus-crib",
+        "FuhadSanin/VenueNow-MiniProject"
+      ]
+    },
+    {
+      "query": "campus resource sharing",
+      "url": "https://api.github.com/search/repositories?q=campus%20resource%20sharing&sort=stars&per_page=5",
+      "status": "ok",
+      "totalCount": 285,
+      "accessedAt": "2026-10-09T17:56:33.439Z",
+      "results": [
+        "Sfedfcv/redesigned-pancake",
+        "Victor-Kipruto-Rop/CAMPUSHUB",
+        "NanaYngvarrdottir/Software-Testing",
+        "duongttr/FPTU-Learning-Resources",
+        "HRgowda/Campus-Connect"
+      ]
+    },
+    {
+      "query": "校园 二手",
+      "url": "https://api.github.com/search/repositories?q=%E6%A0%A1%E5%9B%AD%20%E4%BA%8C%E6%89%8B&sort=stars&per_page=5",
+      "status": "ok",
+      "totalCount": 2046,
+      "accessedAt": "2026-10-09T17:56:41.170Z",
+      "results": [
+        "xuhuai66/used-book-pro",
+        "wsk1103/Used-Trading-Platform",
+        "ynwynw/allProject",
+        "Xin-Felix/Mango",
+        "zhuyuzhu/Secondhand-goods-on-campus"
+      ]
+    },
+    {
+      "query": "校园 活动",
+      "url": "https://api.github.com/search/repositories?q=%E6%A0%A1%E5%9B%AD%20%E6%B4%BB%E5%8A%A8&sort=stars&per_page=5",
+      "status": "ok",
+      "totalCount": 547,
+      "accessedAt": "2026-10-09T17:56:49.383Z",
+      "results": [
+        "cirosantilli/x86-bare-metal-examples",
+        "cirosantilli/china-dictatorship",
+        "gege-circle/.github",
+        "Xin-Felix/Mango",
+        "cirosantilli/china-dictatroship-7"
+      ]
+    },
+    {
+      "query": "校园 课表",
+      "url": "https://api.github.com/search/repositories?q=%E6%A0%A1%E5%9B%AD%20%E8%AF%BE%E8%A1%A8&sort=stars&per_page=5",
+      "status": "ok",
+      "totalCount": 141,
+      "accessedAt": "2026-10-09T17:56:57.380Z",
+      "results": [
+        "cirosantilli/china-dictatorship",
+        "gege-circle/.github",
+        "mohuishou/scuplus-wechat",
+        "danbaixi/yunxiaozhi",
+        "214140846/TOGO_School_Miniprograme"
+      ]
+    },
+    {
+      "query": "校园 社团",
+      "url": "https://api.github.com/search/repositories?q=%E6%A0%A1%E5%9B%AD%20%E7%A4%BE%E5%9B%A2&sort=stars&per_page=5",
+      "status": "ok",
+      "totalCount": 242,
+      "accessedAt": "2026-10-09T17:57:05.421Z",
+      "results": [
+        "cirosantilli/x86-bare-metal-examples",
+        "ynwynw/allProject",
+        "giteecode/allProject",
+        "cirosantilli/cirosantilli",
+        "small-bears/server"
+      ]
+    },
+    {
+      "query": "\"study buddy\" in:name,description",
+      "url": "https://api.github.com/search/repositories?q=%22study%20buddy%22%20in%3Aname%2Cdescription&sort=stars&per_page=5",
+      "status": "ok",
+      "totalCount": 12772,
+      "accessedAt": "2026-10-09T18:02:30.101Z",
+      "results": [
+        "samiahraf/study-dost-ai",
+        "aws-samples/sample-kiro-study-buddy",
+        "pdichone/vincibits-study-buddy-knwoledge-retrieval",
+        "Capstone-Projects-2023-Spring/project-virtual-pet",
+        "hoangsonww/StudySync-Study-Buddy-App"
+      ]
+    },
+    {
+      "query": "\"student matching\" in:name,description",
+      "url": "https://api.github.com/search/repositories?q=%22student%20matching%22%20in%3Aname%2Cdescription&sort=stars&per_page=5",
+      "status": "ok",
+      "totalCount": 150,
+      "accessedAt": "2026-10-09T18:02:37.997Z",
+      "results": [
+        "luisarojas/student-matching",
+        "Nathen-Smith/HippoCampus",
+        "Prathamesh02092004/Placewise-Smart-Campus-Placement-Management-System",
+        "ayushscodes/mentorly",
+        "XinHeCS/shanghaiTechTSmatching"
+      ]
+    }
+  ],
+  "excluded": [
+    {
+      "fullName": "ghua-ac/ENF-WHU-Dataset",
+      "url": "https://github.com/ghua-ac/ENF-WHU-Dataset",
+      "reason": "Manual metadata screening: unrelated domain, learning material/dataset, generic school administration, or multi-project source advertisement; not a representative campus product."
+    },
+    {
+      "fullName": "NanaYngvarrdottir/Software-Testing",
+      "url": "https://github.com/NanaYngvarrdottir/Software-Testing",
+      "reason": "Manual metadata screening: unrelated domain, learning material/dataset, generic school administration, or multi-project source advertisement; not a representative campus product."
+    },
+    {
+      "fullName": "cirosantilli/china-dictatorship",
+      "url": "https://github.com/cirosantilli/china-dictatorship",
+      "reason": "Manual metadata screening: unrelated domain, learning material/dataset, generic school administration, or multi-project source advertisement; not a representative campus product."
+    },
+    {
+      "fullName": "gege-circle/.github",
+      "url": "https://github.com/gege-circle/.github",
+      "reason": "Manual metadata screening: unrelated domain, learning material/dataset, generic school administration, or multi-project source advertisement; not a representative campus product."
+    },
+    {
+      "fullName": "cirosantilli/china-dictatroship-7",
+      "url": "https://github.com/cirosantilli/china-dictatroship-7",
+      "reason": "Manual metadata screening: unrelated domain, learning material/dataset, generic school administration, or multi-project source advertisement; not a representative campus product."
+    },
+    {
+      "fullName": "Sfedfcv/redesigned-pancake",
+      "url": "https://github.com/Sfedfcv/redesigned-pancake",
+      "reason": "Manual metadata screening: unrelated domain, learning material/dataset, generic school administration, or multi-project source advertisement; not a representative campus product."
+    },
+    {
+      "fullName": "mRFWq7LwNPZjaVv5v6eo/cihna-dictattorshrip-8",
+      "url": "https://github.com/mRFWq7LwNPZjaVv5v6eo/cihna-dictattorshrip-8",
+      "reason": "Manual metadata screening: unrelated domain, learning material/dataset, generic school administration, or multi-project source advertisement; not a representative campus product."
+    },
+    {
+      "fullName": "stellablack528/arcane-campus-online",
+      "url": "https://github.com/stellablack528/arcane-campus-online",
+      "reason": "Manual metadata screening: unrelated domain, learning material/dataset, generic school administration, or multi-project source advertisement; not a representative campus product."
+    },
+    {
+      "fullName": "ssapra/linguamocha",
+      "url": "https://github.com/ssapra/linguamocha",
+      "reason": "Manual metadata screening: unrelated domain, learning material/dataset, generic school administration, or multi-project source advertisement; not a representative campus product."
+    },
+    {
+      "fullName": "swati1024/torrents",
+      "url": "https://github.com/swati1024/torrents",
+      "reason": "Manual metadata screening: unrelated domain, learning material/dataset, generic school administration, or multi-project source advertisement; not a representative campus product."
+    },
+    {
+      "fullName": "Aryia-Behroziuan/References",
+      "url": "https://github.com/Aryia-Behroziuan/References",
+      "reason": "Manual metadata screening: unrelated domain, learning material/dataset, generic school administration, or multi-project source advertisement; not a representative campus product."
+    },
+    {
+      "fullName": "KusalkaSilva/Learning-Management-System",
+      "url": "https://github.com/KusalkaSilva/Learning-Management-System",
+      "reason": "Manual metadata screening: unrelated domain, learning material/dataset, generic school administration, or multi-project source advertisement; not a representative campus product."
+    },
+    {
+      "fullName": "OPTIMUM-LINKUP/Latest-Optimum-School-System",
+      "url": "https://github.com/OPTIMUM-LINKUP/Latest-Optimum-School-System",
+      "reason": "Manual metadata screening: unrelated domain, learning material/dataset, generic school administration, or multi-project source advertisement; not a representative campus product."
+    },
+    {
+      "fullName": "bhardwaj75/Campus-Placement-Preparation",
+      "url": "https://github.com/bhardwaj75/Campus-Placement-Preparation",
+      "reason": "Manual metadata screening: unrelated domain, learning material/dataset, generic school administration, or multi-project source advertisement; not a representative campus product."
+    },
+    {
+      "fullName": "Luo-Yihong/TDM",
+      "url": "https://github.com/Luo-Yihong/TDM",
+      "reason": "Manual metadata screening: unrelated domain, learning material/dataset, generic school administration, or multi-project source advertisement; not a representative campus product."
+    },
+    {
+      "fullName": "hcw-00/STPM_anomaly_detection",
+      "url": "https://github.com/hcw-00/STPM_anomaly_detection",
+      "reason": "Manual metadata screening: unrelated domain, learning material/dataset, generic school administration, or multi-project source advertisement; not a representative campus product."
+    },
+    {
+      "fullName": "SOYJUN/FTP-implement-based-on-UDP",
+      "url": "https://github.com/SOYJUN/FTP-implement-based-on-UDP",
+      "reason": "Manual metadata screening: unrelated domain, learning material/dataset, generic school administration, or multi-project source advertisement; not a representative campus product."
+    },
+    {
+      "fullName": "nyaundid/EC2-AWS-AND-SHELL",
+      "url": "https://github.com/nyaundid/EC2-AWS-AND-SHELL",
+      "reason": "Manual metadata screening: unrelated domain, learning material/dataset, generic school administration, or multi-project source advertisement; not a representative campus product."
+    },
+    {
+      "fullName": "cospDiDi/REFILLED",
+      "url": "https://github.com/cospDiDi/REFILLED",
+      "reason": "Manual metadata screening: unrelated domain, learning material/dataset, generic school administration, or multi-project source advertisement; not a representative campus product."
+    },
+    {
+      "fullName": "Aryia-Behroziuan/neurons",
+      "url": "https://github.com/Aryia-Behroziuan/neurons",
+      "reason": "Manual metadata screening: unrelated domain, learning material/dataset, generic school administration, or multi-project source advertisement; not a representative campus product."
+    },
+    {
+      "fullName": "weblab-tw/ddia-study-group",
+      "url": "https://github.com/weblab-tw/ddia-study-group",
+      "reason": "Manual metadata screening: unrelated domain, learning material/dataset, generic school administration, or multi-project source advertisement; not a representative campus product."
+    },
+    {
+      "fullName": "sayantann11/clustering-modelsfor-ML",
+      "url": "https://github.com/sayantann11/clustering-modelsfor-ML",
+      "reason": "Manual metadata screening: unrelated domain, learning material/dataset, generic school administration, or multi-project source advertisement; not a representative campus product."
+    },
+    {
+      "fullName": "reddyprasade/Machine-Learning-Interview-Preparation",
+      "url": "https://github.com/reddyprasade/Machine-Learning-Interview-Preparation",
+      "reason": "Manual metadata screening: unrelated domain, learning material/dataset, generic school administration, or multi-project source advertisement; not a representative campus product."
+    },
+    {
+      "fullName": "dia2018/What-is-the-Difference-Between-AI-and-Machine-Learning",
+      "url": "https://github.com/dia2018/What-is-the-Difference-Between-AI-and-Machine-Learning",
+      "reason": "Manual metadata screening: unrelated domain, learning material/dataset, generic school administration, or multi-project source advertisement; not a representative campus product."
+    },
+    {
+      "fullName": "yannickBurkhardt/ReinforcementPlanner",
+      "url": "https://github.com/yannickBurkhardt/ReinforcementPlanner",
+      "reason": "Manual metadata screening: unrelated domain, learning material/dataset, generic school administration, or multi-project source advertisement; not a representative campus product."
+    },
+    {
+      "fullName": "kaleabteweld/freelancer",
+      "url": "https://github.com/kaleabteweld/freelancer",
+      "reason": "Manual metadata screening: unrelated domain, learning material/dataset, generic school administration, or multi-project source advertisement; not a representative campus product."
+    },
+    {
+      "fullName": "ayushmaanFCB/ANPR-Application-with-PowerBI-Dashboard-and-Chatbot",
+      "url": "https://github.com/ayushmaanFCB/ANPR-Application-with-PowerBI-Dashboard-and-Chatbot",
+      "reason": "Manual metadata screening: unrelated domain, learning material/dataset, generic school administration, or multi-project source advertisement; not a representative campus product."
+    },
+    {
+      "fullName": "abusufyanvu/6S191_MIT_DeepLearning",
+      "url": "https://github.com/abusufyanvu/6S191_MIT_DeepLearning",
+      "reason": "Manual metadata screening: unrelated domain, learning material/dataset, generic school administration, or multi-project source advertisement; not a representative campus product."
+    },
+    {
+      "fullName": "OxfordCodeReviewNet/forum",
+      "url": "https://github.com/OxfordCodeReviewNet/forum",
+      "reason": "Manual metadata screening: unrelated domain, learning material/dataset, generic school administration, or multi-project source advertisement; not a representative campus product."
+    },
+    {
+      "fullName": "mohitsinghnegi1/JetFlix2",
+      "url": "https://github.com/mohitsinghnegi1/JetFlix2",
+      "reason": "Manual metadata screening: unrelated domain, learning material/dataset, generic school administration, or multi-project source advertisement; not a representative campus product."
+    },
+    {
+      "fullName": "ynwynw/allProject",
+      "url": "https://github.com/ynwynw/allProject",
+      "reason": "Manual metadata screening: unrelated domain, learning material/dataset, generic school administration, or multi-project source advertisement; not a representative campus product."
+    },
+    {
+      "fullName": "cirosantilli/x86-bare-metal-examples",
+      "url": "https://github.com/cirosantilli/x86-bare-metal-examples",
+      "reason": "Manual metadata screening: unrelated domain, learning material/dataset, generic school administration, or multi-project source advertisement; not a representative campus product."
+    },
+    {
+      "fullName": "giteecode/allProject",
+      "url": "https://github.com/giteecode/allProject",
+      "reason": "Manual metadata screening: unrelated domain, learning material/dataset, generic school administration, or multi-project source advertisement; not a representative campus product."
+    },
+    {
+      "fullName": "cirosantilli/cirosantilli",
+      "url": "https://github.com/cirosantilli/cirosantilli",
+      "reason": "Manual metadata screening: unrelated domain, learning material/dataset, generic school administration, or multi-project source advertisement; not a representative campus product."
+    },
+    {
+      "fullName": "small-bears/server",
+      "url": "https://github.com/small-bears/server",
+      "reason": "Manual metadata screening: unrelated domain, learning material/dataset, generic school administration, or multi-project source advertisement; not a representative campus product."
+    }
+  ],
+  "repositories": [
+    {
+      "fullName": "sgermosen/tSocialNetworkMvc",
+      "url": "https://github.com/sgermosen/tSocialNetworkMvc",
+      "description": "Is an open source social networking web application that provides a robust app on which to build all kinds of social environments, from a campus wide social network for your university, school or college or an internal collaborative platform for your organization through to a brand-building communications tool for your company and its clients.",
+      "stars": 85,
+      "language": "C#",
+      "defaultBranch": "master",
+      "updatedAt": "2026-07-17T02:01:22Z",
+      "pushedAt": "2026-07-17T02:01:19Z",
+      "archived": false,
+      "license": "MIT",
+      "topics": [
+        "csharp",
+        "entity-framework",
+        "mvc",
+        "mvc-framework",
+        "net",
+        "social",
+        "social-network"
+      ],
+      "inspection": "README_AND_SELECTED_FILES",
+      "matchedQueries": [
+        "university campus application",
+        "campus social network"
+      ],
+      "evidence": [
+        {
+          "url": "https://raw.githubusercontent.com/sgermosen/tSocialNetworkMvc/master/README.md",
+          "file": "evidence/sgermosen__tSocialNetworkMvc.readme.txt",
+          "accessedAt": "2026-10-09T17:57:19.920Z"
+        }
+      ],
+      "reuse": "Requires license and dependency review; no code copied",
+      "features": [
+        "identity",
+        "profile",
+        "content",
+        "notifications",
+        "events",
+        "groups",
+        "courses"
+      ],
+      "stackSignals": [
+        "React",
+        "Flutter"
+      ],
+      "testEvidence": "README mentions tests; not executed",
+      "targetUsers": "Inferred campus/student users from search; requires per-repository qualification",
+      "permissionMechanism": "Not verified by full source audit",
+      "databaseEntities": "Not verified by full source audit",
+      "apiDesign": "Not verified by full source audit"
+    },
+    {
+      "fullName": "BuildmLearn/University-Campus-Portal-UCP",
+      "url": "https://github.com/BuildmLearn/University-Campus-Portal-UCP",
+      "description": "Free & Open source Web application for Universities",
+      "stars": 13,
+      "language": "JavaScript",
+      "defaultBranch": "master",
+      "updatedAt": "2025-12-25T14:43:13Z",
+      "pushedAt": "2017-02-27T00:57:46Z",
+      "archived": false,
+      "license": "BSD-3-Clause",
+      "topics": [],
+      "inspection": "METADATA_ONLY",
+      "matchedQueries": [
+        "university campus application"
+      ],
+      "evidence": [
+        {
+          "url": "https://raw.githubusercontent.com/BuildmLearn/University-Campus-Portal-UCP/master/requirements.txt",
+          "file": "evidence/BuildmLearn__University-Campus-Portal-UCP.requirements_txt.txt",
+          "accessedAt": "2026-10-09T18:00:18.283Z"
+        }
+      ],
+      "reuse": "Requires license and dependency review; no code copied",
+      "features": [],
+      "stackSignals": [],
+      "testEvidence": "Not established from inspected files",
+      "targetUsers": "Inferred campus/student users from search; requires per-repository qualification",
+      "permissionMechanism": "Not verified by full source audit",
+      "databaseEntities": "Not verified by full source audit",
+      "apiDesign": "Not verified by full source audit"
+    },
+    {
+      "fullName": "iampranavdhar/campusmind",
+      "url": "https://github.com/iampranavdhar/campusmind",
+      "description": "Campus Mind a Complete Full Stack Mobile Application which manages all the activities of a university",
+      "stars": 13,
+      "language": "JavaScript",
+      "defaultBranch": "main",
+      "updatedAt": "2026-03-11T14:57:55Z",
+      "pushedAt": "2024-09-03T16:28:09Z",
+      "archived": false,
+      "license": "MIT",
+      "topics": [
+        "android",
+        "firebase",
+        "fullstack-development",
+        "javascript",
+        "nodejs",
+        "react-native",
+        "redux",
+        "university"
+      ],
+      "inspection": "README_AND_SELECTED_FILES",
+      "matchedQueries": [
+        "university campus application"
+      ],
+      "evidence": [
+        {
+          "url": "https://raw.githubusercontent.com/iampranavdhar/campusmind/main/README.md",
+          "file": "evidence/iampranavdhar__campusmind.readme.txt",
+          "accessedAt": "2026-10-09T18:00:20.244Z"
+        }
+      ],
+      "reuse": "Requires license and dependency review; no code copied",
+      "features": [
+        "identity",
+        "profile",
+        "chat",
+        "notifications",
+        "events",
+        "media",
+        "courses"
+      ],
+      "stackSignals": [
+        "React",
+        "Express",
+        "MongoDB",
+        "Firebase"
+      ],
+      "testEvidence": "Not established from inspected files",
+      "targetUsers": "Inferred campus/student users from search; requires per-repository qualification",
+      "permissionMechanism": "Not verified by full source audit",
+      "databaseEntities": "Not verified by full source audit",
+      "apiDesign": "Not verified by full source audit"
+    },
+    {
+      "fullName": "subhashissuara/my-campus",
+      "url": "https://github.com/subhashissuara/my-campus",
+      "description": "A social networking app that connects users based on personality, interests, and lifestyle with a comprehensive questionnaire, match engine, and secure chat system, developed with Flutter, Flask, and Firebase.",
+      "stars": 9,
+      "language": "Dart",
+      "defaultBranch": "master",
+      "updatedAt": "2026-09-14T03:57:55Z",
+      "pushedAt": "2023-05-04T11:41:55Z",
+      "archived": false,
+      "license": "MIT",
+      "topics": [
+        "chat",
+        "chat-application",
+        "chat-system",
+        "firebase",
+        "flask",
+        "flutter",
+        "flutter-app",
+        "flutter-ui",
+        "matching-algorithm",
+        "matching-engine",
+        "mbti-personality",
+        "mbti-test",
+        "mycampus",
+        "mycampus-app",
+        "people-match",
+        "secure-chat",
+        "social-networking-app",
+        "social-networking-platform"
+      ],
+      "inspection": "README_AND_SELECTED_FILES",
+      "matchedQueries": [
+        "campus social network"
+      ],
+      "evidence": [
+        {
+          "url": "https://api.github.com/repos/subhashissuara/my-campus/readme",
+          "file": "evidence/subhashissuara__my-campus.readme.txt",
+          "accessedAt": "2026-10-09T18:02:45.667Z"
+        }
+      ],
+      "reuse": "Requires license and dependency review; no code copied",
+      "features": [
+        "identity",
+        "profile",
+        "search",
+        "chat",
+        "media"
+      ],
+      "stackSignals": [
+        "Flask",
+        "Firebase",
+        "Flutter"
+      ],
+      "testEvidence": "Not established from inspected files",
+      "targetUsers": "Inferred campus/student users from search; requires per-repository qualification",
+      "permissionMechanism": "Not verified by full source audit",
+      "databaseEntities": "Not verified by full source audit",
+      "apiDesign": "Not verified by full source audit"
+    },
+    {
+      "fullName": "saurabhbhatia/campusfever",
+      "url": "https://github.com/saurabhbhatia/campusfever",
+      "description": "social-networking for educational institutions",
+      "stars": 6,
+      "language": "Ruby",
+      "defaultBranch": "master",
+      "updatedAt": "2024-12-19T17:37:18Z",
+      "pushedAt": "2013-10-24T09:32:58Z",
+      "archived": false,
+      "license": "UNKNOWN",
+      "topics": [],
+      "inspection": "README_AND_SELECTED_FILES",
+      "matchedQueries": [
+        "campus social network"
+      ],
+      "evidence": [
+        {
+          "url": "https://api.github.com/repos/saurabhbhatia/campusfever/readme",
+          "file": "evidence/saurabhbhatia__campusfever.readme.txt",
+          "accessedAt": "2026-10-09T18:02:46.175Z"
+        }
+      ],
+      "reuse": "Reference only; no code reuse authorized",
+      "features": [],
+      "stackSignals": [],
+      "testEvidence": "Not established from inspected files",
+      "targetUsers": "Inferred campus/student users from search; requires per-repository qualification",
+      "permissionMechanism": "Not verified by full source audit",
+      "databaseEntities": "Not verified by full source audit",
+      "apiDesign": "Not verified by full source audit"
+    },
+    {
+      "fullName": "shawshank1307/COLLEGE-MARKETPLACE",
+      "url": "https://github.com/shawshank1307/COLLEGE-MARKETPLACE",
+      "description": "JKLU Swap — A campus marketplace for JK Lakshmipat University students to buy & sell textbooks, electronics, and more.",
+      "stars": 13,
+      "language": "JavaScript",
+      "defaultBranch": "main",
+      "updatedAt": "2026-09-10T08:58:14Z",
+      "pushedAt": "2026-08-16T13:55:25Z",
+      "archived": false,
+      "license": "MIT",
+      "topics": [
+        "college",
+        "flask",
+        "javascript",
+        "jklu",
+        "marketplace"
+      ],
+      "inspection": "README_AND_SELECTED_FILES",
+      "matchedQueries": [
+        "campus marketplace"
+      ],
+      "evidence": [
+        {
+          "url": "https://api.github.com/repos/shawshank1307/COLLEGE-MARKETPLACE/readme",
+          "file": "evidence/shawshank1307__COLLEGE-MARKETPLACE.readme.txt",
+          "accessedAt": "2026-10-09T18:02:46.757Z"
+        }
+      ],
+      "reuse": "Requires license and dependency review; no code copied",
+      "features": [
+        "identity",
+        "profile",
+        "content",
+        "search",
+        "chat",
+        "groups",
+        "media",
+        "marketplace",
+        "bookings"
+      ],
+      "stackSignals": [
+        "Flask",
+        "PostgreSQL"
+      ],
+      "testEvidence": "Not established from inspected files",
+      "targetUsers": "Inferred campus/student users from search; requires per-repository qualification",
+      "permissionMechanism": "Not verified by full source audit",
+      "databaseEntities": "Not verified by full source audit",
+      "apiDesign": "Not verified by full source audit"
+    },
+    {
+      "fullName": "Kanjo-Elkamira-Ndi/CampusGigs",
+      "url": "https://github.com/Kanjo-Elkamira-Ndi/CampusGigs",
+      "description": "A student gig marketplace for Cameroon — connecting university students to odd jobs & freelance work, with Mobile Money payments and escrow protection.",
+      "stars": 11,
+      "language": "TypeScript",
+      "defaultBranch": "main",
+      "updatedAt": "2026-09-02T16:09:26Z",
+      "pushedAt": "2026-09-02T16:02:44Z",
+      "archived": false,
+      "license": "MIT",
+      "topics": [],
+      "inspection": "README_AND_SELECTED_FILES",
+      "matchedQueries": [
+        "campus marketplace"
+      ],
+      "evidence": [
+        {
+          "url": "https://api.github.com/repos/Kanjo-Elkamira-Ndi/CampusGigs/readme",
+          "file": "evidence/Kanjo-Elkamira-Ndi__CampusGigs.readme.txt",
+          "accessedAt": "2026-10-09T18:02:47.245Z"
+        }
+      ],
+      "reuse": "Requires license and dependency review; no code copied",
+      "features": [
+        "profile",
+        "search",
+        "marketplace"
+      ],
+      "stackSignals": [
+        "Next.js"
+      ],
+      "testEvidence": "Not established from inspected files",
+      "targetUsers": "Inferred campus/student users from search; requires per-repository qualification",
+      "permissionMechanism": "Not verified by full source audit",
+      "databaseEntities": "Not verified by full source audit",
+      "apiDesign": "Not verified by full source audit"
+    },
+    {
+      "fullName": "mwakidenis/University-Marketplace",
+      "url": "https://github.com/mwakidenis/University-Marketplace",
+      "description": "Welcome to Kuza Market – a modern digital platform that connects sellers and buyers across campus! 🇰🇪 Whether you're selling second-hand items or looking to buy, Kuza Market makes it fast, simple, and convenient. ✨📲",
+      "stars": 11,
+      "language": "TypeScript",
+      "defaultBranch": "main",
+      "updatedAt": "2026-10-09T14:15:48Z",
+      "pushedAt": "2026-10-09T14:15:43Z",
+      "archived": false,
+      "license": "UNKNOWN",
+      "topics": [
+        "react-components",
+        "shadcn-ui",
+        "tailwind-css",
+        "typescript"
+      ],
+      "inspection": "README_AND_SELECTED_FILES",
+      "matchedQueries": [
+        "campus marketplace"
+      ],
+      "evidence": [
+        {
+          "url": "https://api.github.com/repos/mwakidenis/University-Marketplace/readme",
+          "file": "evidence/mwakidenis__University-Marketplace.readme.txt",
+          "accessedAt": "2026-10-09T18:02:47.766Z"
+        }
+      ],
+      "reuse": "Reference only; no code reuse authorized",
+      "features": [
+        "identity",
+        "profile",
+        "search",
+        "chat",
+        "locations",
+        "marketplace"
+      ],
+      "stackSignals": [
+        "React"
+      ],
+      "testEvidence": "Not established from inspected files",
+      "targetUsers": "Inferred campus/student users from search; requires per-repository qualification",
+      "permissionMechanism": "Not verified by full source audit",
+      "databaseEntities": "Not verified by full source audit",
+      "apiDesign": "Not verified by full source audit"
+    },
+    {
+      "fullName": "Priyans00/PesXChange",
+      "url": "https://github.com/Priyans00/PesXChange",
+      "description": "PESXchange – College Marketplace for Students Buy, sell, and exchange used items within your campus. Built with Next.js 14, Supabase, Tailwind CSS, and TypeScript.",
+      "stars": 8,
+      "language": "TypeScript",
+      "defaultBranch": "main",
+      "updatedAt": "2026-05-16T03:31:53Z",
+      "pushedAt": "2026-01-23T04:01:44Z",
+      "archived": false,
+      "license": "UNKNOWN",
+      "topics": [],
+      "inspection": "README_AND_SELECTED_FILES",
+      "matchedQueries": [
+        "campus marketplace"
+      ],
+      "evidence": [
+        {
+          "url": "https://api.github.com/repos/Priyans00/PesXChange/readme",
+          "file": "evidence/Priyans00__PesXChange.readme.txt",
+          "accessedAt": "2026-10-09T18:02:48.186Z"
+        }
+      ],
+      "reuse": "Reference only; no code reuse authorized",
+      "features": [
+        "identity",
+        "profile",
+        "marketplace"
+      ],
+      "stackSignals": [
+        "Next.js"
+      ],
+      "testEvidence": "Not established from inspected files",
+      "targetUsers": "Inferred campus/student users from search; requires per-repository qualification",
+      "permissionMechanism": "Not verified by full source audit",
+      "databaseEntities": "Not verified by full source audit",
+      "apiDesign": "Not verified by full source audit"
+    },
+    {
+      "fullName": "gdufeZLYL/springboot-squirrel",
+      "url": "https://github.com/gdufeZLYL/springboot-squirrel",
+      "description": ":shipit: Campus Second-hand Trading Platform 基于SpringBoot+Mybatis+Thymeleaf的校园二手交易平台",
+      "stars": 89,
+      "language": "JavaScript",
+      "defaultBranch": "master",
+      "updatedAt": "2026-07-25T17:22:46Z",
+      "pushedAt": "2018-10-13T02:19:49Z",
+      "archived": false,
+      "license": "UNKNOWN",
+      "topics": [],
+      "inspection": "README_AND_SELECTED_FILES",
+      "matchedQueries": [
+        "campus second hand trading"
+      ],
+      "evidence": [
+        {
+          "url": "https://api.github.com/repos/gdufeZLYL/springboot-squirrel/readme",
+          "file": "evidence/gdufeZLYL__springboot-squirrel.readme.txt",
+          "accessedAt": "2026-10-09T18:02:48.665Z"
+        }
+      ],
+      "reuse": "Reference only; no code reuse authorized",
+      "features": [
+        "identity",
+        "content",
+        "media",
+        "marketplace"
+      ],
+      "stackSignals": [
+        "React",
+        "Spring",
+        "MySQL"
+      ],
+      "testEvidence": "Not established from inspected files",
+      "targetUsers": "Inferred campus/student users from search; requires per-repository qualification",
+      "permissionMechanism": "Not verified by full source audit",
+      "databaseEntities": "Not verified by full source audit",
+      "apiDesign": "Not verified by full source audit"
+    },
+    {
+      "fullName": "229394/CollegeIdleApp",
+      "url": "https://github.com/229394/CollegeIdleApp",
+      "description": "The goal of this app is  is mainly for the trading of second-hand goods on campus.",
+      "stars": 61,
+      "language": "Java",
+      "defaultBranch": "master",
+      "updatedAt": "2026-08-05T11:36:19Z",
+      "pushedAt": "2021-01-27T10:34:29Z",
+      "archived": false,
+      "license": "UNKNOWN",
+      "topics": [],
+      "inspection": "README_AND_SELECTED_FILES",
+      "matchedQueries": [
+        "campus second hand trading"
+      ],
+      "evidence": [
+        {
+          "url": "https://api.github.com/repos/229394/CollegeIdleApp/readme",
+          "file": "evidence/229394__CollegeIdleApp.readme.txt",
+          "accessedAt": "2026-10-09T18:02:49.237Z"
+        }
+      ],
+      "reuse": "Reference only; no code reuse authorized",
+      "features": [
+        "identity",
+        "profile",
+        "groups",
+        "marketplace"
+      ],
+      "stackSignals": [],
+      "testEvidence": "Not established from inspected files",
+      "targetUsers": "Inferred campus/student users from search; requires per-repository qualification",
+      "permissionMechanism": "Not verified by full source audit",
+      "databaseEntities": "Not verified by full source audit",
+      "apiDesign": "Not verified by full source audit"
+    },
+    {
+      "fullName": "YuLin-Coder/No19SecondHandGoodsTradingOnCampusManagementSystem",
+      "url": "https://github.com/YuLin-Coder/No19SecondHandGoodsTradingOnCampusManagementSystem",
+      "description": "基于ssh的校园二手物品交易管理系统：前端jsp、jquery、easyui，后端 struts、spring、hibernate，系统分为用户和管理员，用户可以在平台发布自己的二手物品，也可以购买别人发布的商品，支持在线付款和货到付款",
+      "stars": 26,
+      "language": "CSS",
+      "defaultBranch": "master",
+      "updatedAt": "2026-02-27T08:19:29Z",
+      "pushedAt": "2025-01-26T14:40:58Z",
+      "archived": false,
+      "license": "UNKNOWN",
+      "topics": [],
+      "inspection": "README_AND_SELECTED_FILES",
+      "matchedQueries": [
+        "campus second hand trading"
+      ],
+      "evidence": [
+        {
+          "url": "https://api.github.com/repos/YuLin-Coder/No19SecondHandGoodsTradingOnCampusManagementSystem/readme",
+          "file": "evidence/YuLin-Coder__No19SecondHandGoodsTradingOnCampusManagementSystem.readme.txt",
+          "accessedAt": "2026-10-09T18:02:49.715Z"
+        }
+      ],
+      "reuse": "Reference only; no code reuse authorized",
+      "features": [
+        "identity",
+        "profile",
+        "content",
+        "search",
+        "notifications",
+        "media",
+        "marketplace"
+      ],
+      "stackSignals": [
+        "Spring",
+        "MySQL"
+      ],
+      "testEvidence": "Not established from inspected files",
+      "targetUsers": "Inferred campus/student users from search; requires per-repository qualification",
+      "permissionMechanism": "Not verified by full source audit",
+      "databaseEntities": "Not verified by full source audit",
+      "apiDesign": "Not verified by full source audit"
+    },
+    {
+      "fullName": "nature924/No.405Campus-second-hand-book-trading-platform",
+      "url": "https://github.com/nature924/No.405Campus-second-hand-book-trading-platform",
+      "description": "基于Springboot的校园二手书交易平台，编程语言:Java ；数据库:MySQL；项目管理工具:Maven 前端技术:VUE、javascript、html、css、jQuery； 后端技术:Spring、SpringMvc、MyBatis",
+      "stars": 20,
+      "language": "JavaScript",
+      "defaultBranch": "master",
+      "updatedAt": "2026-07-09T03:42:36Z",
+      "pushedAt": "2025-09-04T15:03:53Z",
+      "archived": false,
+      "license": "UNKNOWN",
+      "topics": [],
+      "inspection": "README_AND_SELECTED_FILES",
+      "matchedQueries": [
+        "campus second hand trading"
+      ],
+      "evidence": [
+        {
+          "url": "https://api.github.com/repos/nature924/No.405Campus-second-hand-book-trading-platform/readme",
+          "file": "evidence/nature924__No.405Campus-second-hand-book-trading-platform.readme.txt",
+          "accessedAt": "2026-10-09T18:02:50.136Z"
+        }
+      ],
+      "reuse": "Reference only; no code reuse authorized",
+      "features": [
+        "identity",
+        "profile",
+        "content",
+        "media",
+        "marketplace"
+      ],
+      "stackSignals": [
+        "Vue",
+        "Spring",
+        "MySQL"
+      ],
+      "testEvidence": "Not established from inspected files",
+      "targetUsers": "Inferred campus/student users from search; requires per-repository qualification",
+      "permissionMechanism": "Not verified by full source audit",
+      "databaseEntities": "Not verified by full source audit",
+      "apiDesign": "Not verified by full source audit"
+    },
+    {
+      "fullName": "SimpleGraduationProjects/CampusSecond_handTradingPlatformManagementSystem",
+      "url": "https://github.com/SimpleGraduationProjects/CampusSecond_handTradingPlatformManagementSystem",
+      "description": "校园二手交易平台管理系统",
+      "stars": 19,
+      "language": "Java",
+      "defaultBranch": "main",
+      "updatedAt": "2026-04-20T11:21:02Z",
+      "pushedAt": "2022-07-16T12:01:03Z",
+      "archived": false,
+      "license": "UNKNOWN",
+      "topics": [],
+      "inspection": "README_AND_SELECTED_FILES",
+      "matchedQueries": [
+        "campus second hand trading"
+      ],
+      "evidence": [
+        {
+          "url": "https://api.github.com/repos/SimpleGraduationProjects/CampusSecond_handTradingPlatformManagementSystem/readme",
+          "file": "evidence/SimpleGraduationProjects__CampusSecond_handTradingPlatformManagementSystem.readme.txt",
+          "accessedAt": "2026-10-09T18:02:50.640Z"
+        }
+      ],
+      "reuse": "Reference only; no code reuse authorized",
+      "features": [
+        "profile",
+        "marketplace"
+      ],
+      "stackSignals": [
+        "Spring",
+        "MySQL"
+      ],
+      "testEvidence": "Not established from inspected files",
+      "targetUsers": "Inferred campus/student users from search; requires per-repository qualification",
+      "permissionMechanism": "Not verified by full source audit",
+      "databaseEntities": "Not verified by full source audit",
+      "apiDesign": "Not verified by full source audit"
+    },
+    {
+      "fullName": "roshankumar0036singh/Uni-Event",
+      "url": "https://github.com/roshankumar0036singh/Uni-Event",
+      "description": " UniEvent - Modern event management platform for universities. Built with React Native, Expo & Firebase. Features real-time attendance tracking, QR code check-ins, event analytics, push notifications, leaderboards, and role-based access control. Perfect for campus clubs and student organizations.",
+      "stars": 45,
+      "language": "JavaScript",
+      "defaultBranch": "main",
+      "updatedAt": "2026-09-22T17:36:52Z",
+      "pushedAt": "2026-10-05T03:36:18Z",
+      "archived": false,
+      "license": "MIT",
+      "topics": [
+        "app",
+        "firebase",
+        "gssoc2026",
+        "javascript",
+        "reactnative",
+        "typescript"
+      ],
+      "inspection": "README_AND_SELECTED_FILES",
+      "matchedQueries": [
+        "university event management",
+        "student club management"
+      ],
+      "evidence": [
+        {
+          "url": "https://api.github.com/repos/roshankumar0036singh/Uni-Event/readme",
+          "file": "evidence/roshankumar0036singh__Uni-Event.readme.txt",
+          "accessedAt": "2026-10-09T18:02:51.167Z"
+        }
+      ],
+      "reuse": "Requires license and dependency review; no code copied",
+      "features": [
+        "identity",
+        "profile",
+        "search",
+        "chat",
+        "notifications",
+        "locations",
+        "events",
+        "groups",
+        "media",
+        "bookings"
+      ],
+      "stackSignals": [
+        "React",
+        "Firebase"
+      ],
+      "testEvidence": "README mentions tests; not executed",
+      "targetUsers": "Inferred campus/student users from search; requires per-repository qualification",
+      "permissionMechanism": "Not verified by full source audit",
+      "databaseEntities": "Not verified by full source audit",
+      "apiDesign": "Not verified by full source audit"
+    },
+    {
+      "fullName": "Developer-Student-Clubs-VSSUT-Burla/CEM-frontend",
+      "url": "https://github.com/Developer-Student-Clubs-VSSUT-Burla/CEM-frontend",
+      "description": "CEM or College Event Management System basically provides a platform to the university where people can host their events and promote them for the students within the institute. ",
+      "stars": 30,
+      "language": "JavaScript",
+      "defaultBranch": "main",
+      "updatedAt": "2026-10-07T11:29:55Z",
+      "pushedAt": "2026-10-07T11:29:53Z",
+      "archived": false,
+      "license": "GPL-3.0",
+      "topics": [
+        "hacktoberfest",
+        "hacktoberfest-accepted",
+        "hacktoberfest2021",
+        "javascript",
+        "material-ui",
+        "mongodb",
+        "reactjs"
+      ],
+      "inspection": "README_AND_SELECTED_FILES",
+      "matchedQueries": [
+        "university event management"
+      ],
+      "evidence": [
+        {
+          "url": "https://api.github.com/repos/Developer-Student-Clubs-VSSUT-Burla/CEM-frontend/readme",
+          "file": "evidence/Developer-Student-Clubs-VSSUT-Burla__CEM-frontend.readme.txt",
+          "accessedAt": "2026-10-09T18:02:51.575Z"
+        }
+      ],
+      "reuse": "Requires license and dependency review; no code copied",
+      "features": [
+        "identity",
+        "profile",
+        "chat",
+        "events",
+        "groups"
+      ],
+      "stackSignals": [
+        "React",
+        "Express",
+        "MongoDB",
+        "Firebase"
+      ],
+      "testEvidence": "Not established from inspected files",
+      "targetUsers": "Inferred campus/student users from search; requires per-repository qualification",
+      "permissionMechanism": "Not verified by full source audit",
+      "databaseEntities": "Not verified by full source audit",
+      "apiDesign": "Not verified by full source audit"
+    },
+    {
+      "fullName": "amfoss/club-website-2018",
+      "url": "https://github.com/amfoss/club-website-2018",
+      "description": "This project has been deprecated and replaced by newer projects. It is no longer actively maintained but remains available for reference.  A club management system that handles student details, progress, events, achievements, attendance, status updates, teams and workshop registrations. This is the official FOSS@Amrita website.",
+      "stars": 524,
+      "language": "HTML",
+      "defaultBranch": "master",
+      "updatedAt": "2026-10-09T05:55:58Z",
+      "pushedAt": "2019-05-02T18:50:21Z",
+      "archived": true,
+      "license": "MIT",
+      "topics": [
+        "club",
+        "django",
+        "django-rest-framework",
+        "foss-website",
+        "google-api-client",
+        "python",
+        "students",
+        "telegram-bot-api",
+        "website",
+        "workshop"
+      ],
+      "inspection": "README_AND_SELECTED_FILES",
+      "matchedQueries": [
+        "student club management"
+      ],
+      "evidence": [
+        {
+          "url": "https://api.github.com/repos/amfoss/club-website-2018/readme",
+          "file": "evidence/amfoss__club-website-2018.readme.txt",
+          "accessedAt": "2026-10-09T18:02:51.997Z"
+        }
+      ],
+      "reuse": "Requires license and dependency review; no code copied",
+      "features": [
+        "identity",
+        "profile",
+        "content",
+        "events",
+        "groups",
+        "courses",
+        "bookings"
+      ],
+      "stackSignals": [
+        "Django"
+      ],
+      "testEvidence": "Not established from inspected files",
+      "targetUsers": "Inferred campus/student users from search; requires per-repository qualification",
+      "permissionMechanism": "Not verified by full source audit",
+      "databaseEntities": "Not verified by full source audit",
+      "apiDesign": "Not verified by full source audit"
+    },
+    {
+      "fullName": "bearlike/REMS-For-Organisations",
+      "url": "https://github.com/bearlike/REMS-For-Organisations",
+      "description": "🚀 Streamline club management with our all-in-one system: bulk mailer, certificate generator & more. Perfect for student organizations.",
+      "stars": 163,
+      "language": "HTML",
+      "defaultBranch": "master",
+      "updatedAt": "2026-09-28T07:22:02Z",
+      "pushedAt": "2026-08-09T08:00:07Z",
+      "archived": false,
+      "license": "MIT",
+      "topics": [
+        "acm",
+        "automation",
+        "certificate-generation",
+        "certificate-generator",
+        "clubs",
+        "college",
+        "dashboard",
+        "link-shortener",
+        "mail",
+        "management-system",
+        "organizations",
+        "python",
+        "school",
+        "shortcm",
+        "students",
+        "svce",
+        "svce-acm"
+      ],
+      "inspection": "README_AND_SELECTED_FILES",
+      "matchedQueries": [
+        "student club management"
+      ],
+      "evidence": [
+        {
+          "url": "https://api.github.com/repos/bearlike/REMS-For-Organisations/readme",
+          "file": "evidence/bearlike__REMS-For-Organisations.readme.txt",
+          "accessedAt": "2026-10-09T18:02:52.448Z"
+        }
+      ],
+      "reuse": "Requires license and dependency review; no code copied",
+      "features": [
+        "profile",
+        "content",
+        "events",
+        "groups",
+        "media"
+      ],
+      "stackSignals": [
+        "Flask",
+        "PostgreSQL",
+        "MySQL"
+      ],
+      "testEvidence": "Not established from inspected files",
+      "targetUsers": "Inferred campus/student users from search; requires per-repository qualification",
+      "permissionMechanism": "Not verified by full source audit",
+      "databaseEntities": "Not verified by full source audit",
+      "apiDesign": "Not verified by full source audit"
+    },
+    {
+      "fullName": "wangjianlin1985/Springboot_Vue_Student_club_management",
+      "url": "https://github.com/wangjianlin1985/Springboot_Vue_Student_club_management",
+      "description": "基于Springboot+Vue高校学生社团管理系统设计毕业源码案例设计",
+      "stars": 28,
+      "language": "Java",
+      "defaultBranch": "master",
+      "updatedAt": "2026-10-08T17:37:33Z",
+      "pushedAt": "2023-05-04T07:46:59Z",
+      "archived": false,
+      "license": "UNKNOWN",
+      "topics": [],
+      "inspection": "README_AND_SELECTED_FILES",
+      "matchedQueries": [
+        "student club management"
+      ],
+      "evidence": [
+        {
+          "url": "https://api.github.com/repos/wangjianlin1985/Springboot_Vue_Student_club_management/readme",
+          "file": "evidence/wangjianlin1985__Springboot_Vue_Student_club_management.readme.txt",
+          "accessedAt": "2026-10-09T18:02:52.916Z"
+        }
+      ],
+      "reuse": "Reference only; no code reuse authorized",
+      "features": [
+        "identity",
+        "profile",
+        "content",
+        "search",
+        "locations",
+        "events",
+        "groups",
+        "media"
+      ],
+      "stackSignals": [
+        "Vue",
+        "Spring",
+        "MySQL"
+      ],
+      "testEvidence": "Not established from inspected files",
+      "targetUsers": "Inferred campus/student users from search; requires per-repository qualification",
+      "permissionMechanism": "Not verified by full source audit",
+      "databaseEntities": "Not verified by full source audit",
+      "apiDesign": "Not verified by full source audit"
+    },
+    {
+      "fullName": "Oscheibe/ARIndoorNav",
+      "url": "https://github.com/Oscheibe/ARIndoorNav",
+      "description": "This is an augmented reality indoor navigation system for the technical university of Cologne, campus Gummersbach. It was created using Unity (C#) and ARCore",
+      "stars": 80,
+      "language": "C#",
+      "defaultBranch": "master",
+      "updatedAt": "2026-05-27T08:41:20Z",
+      "pushedAt": "2021-12-15T11:15:03Z",
+      "archived": false,
+      "license": "UNKNOWN",
+      "topics": [],
+      "inspection": "README_AND_SELECTED_FILES",
+      "matchedQueries": [
+        "campus navigation"
+      ],
+      "evidence": [
+        {
+          "url": "https://api.github.com/repos/Oscheibe/ARIndoorNav/readme",
+          "file": "evidence/Oscheibe__ARIndoorNav.readme.txt",
+          "accessedAt": "2026-10-09T18:02:53.487Z"
+        }
+      ],
+      "reuse": "Reference only; no code reuse authorized",
+      "features": [
+        "locations"
+      ],
+      "stackSignals": [],
+      "testEvidence": "Not established from inspected files",
+      "targetUsers": "Inferred campus/student users from search; requires per-repository qualification",
+      "permissionMechanism": "Not verified by full source audit",
+      "databaseEntities": "Not verified by full source audit",
+      "apiDesign": "Not verified by full source audit"
+    },
+    {
+      "fullName": "SuperChenSSS/TongDaCampusNavigation",
+      "url": "https://github.com/SuperChenSSS/TongDaCampusNavigation",
+      "description": "通达校园导航，为未报到的新生提供一个认识校园的机会",
+      "stars": 72,
+      "language": "Java",
+      "defaultBranch": "master",
+      "updatedAt": "2025-03-13T02:22:41Z",
+      "pushedAt": "2018-08-02T09:30:16Z",
+      "archived": false,
+      "license": "UNKNOWN",
+      "topics": [],
+      "inspection": "README_AND_SELECTED_FILES",
+      "matchedQueries": [
+        "campus navigation"
+      ],
+      "evidence": [
+        {
+          "url": "https://api.github.com/repos/SuperChenSSS/TongDaCampusNavigation/readme",
+          "file": "evidence/SuperChenSSS__TongDaCampusNavigation.readme.txt",
+          "accessedAt": "2026-10-09T18:02:54.005Z"
+        }
+      ],
+      "reuse": "Reference only; no code reuse authorized",
+      "features": [
+        "notifications",
+        "locations",
+        "events",
+        "courses"
+      ],
+      "stackSignals": [],
+      "testEvidence": "Not established from inspected files",
+      "targetUsers": "Inferred campus/student users from search; requires per-repository qualification",
+      "permissionMechanism": "Not verified by full source audit",
+      "databaseEntities": "Not verified by full source audit",
+      "apiDesign": "Not verified by full source audit"
+    },
+    {
+      "fullName": "tianbing111/CUG_Campus-navigation",
+      "url": "https://github.com/tianbing111/CUG_Campus-navigation",
+      "description": "中国地质大学（武汉）南望山、未来城校区微信小程序校园导航，纯属娱乐，不喜勿喷",
+      "stars": 50,
+      "language": "JavaScript",
+      "defaultBranch": "main",
+      "updatedAt": "2026-01-26T09:02:06Z",
+      "pushedAt": "2021-11-26T06:32:18Z",
+      "archived": false,
+      "license": "UNKNOWN",
+      "topics": [],
+      "inspection": "README_AND_SELECTED_FILES",
+      "matchedQueries": [
+        "campus navigation"
+      ],
+      "evidence": [
+        {
+          "url": "https://api.github.com/repos/tianbing111/CUG_Campus-navigation/readme",
+          "file": "evidence/tianbing111__CUG_Campus-navigation.readme.txt",
+          "accessedAt": "2026-10-09T18:02:54.475Z"
+        }
+      ],
+      "reuse": "Reference only; no code reuse authorized",
+      "features": [
+        "search",
+        "locations"
+      ],
+      "stackSignals": [],
+      "testEvidence": "Not established from inspected files",
+      "targetUsers": "Inferred campus/student users from search; requires per-repository qualification",
+      "permissionMechanism": "Not verified by full source audit",
+      "databaseEntities": "Not verified by full source audit",
+      "apiDesign": "Not verified by full source audit"
+    },
+    {
+      "fullName": "DaviDee/Indoor-Navigation",
+      "url": "https://github.com/DaviDee/Indoor-Navigation",
+      "description": "Undergraduate students and non-regular visitors (e.g. guest lecturers) often have problems finding certain rooms or people on campus. By the use of Smartphones with integrated GPS devices, navigation outside of buildings is possible. Inside the buildings, GPS is not available. For indoor navigation are numerous positioning methods available, e.g. WLAN-, Bluetooth- or UMTS-tracking. Each of the methods comes with advantages and disadvantages. In order to compensate disadvantages multiple positioning methods and tools can be used inside buildings. The application introduces a navigation service for Android, able to integrate different methods of positioning. Instead of multiple applications it is planned to provide a single Smartphone application for indoor navigation. Internally there are different modules managing the different positioning methods.",
+      "stars": 45,
+      "language": "Java",
+      "defaultBranch": "master",
+      "updatedAt": "2026-03-05T10:11:53Z",
+      "pushedAt": "2012-10-26T11:32:58Z",
+      "archived": false,
+      "license": "UNKNOWN",
+      "topics": [],
+      "inspection": "README_AND_SELECTED_FILES",
+      "matchedQueries": [
+        "campus navigation"
+      ],
+      "evidence": [
+        {
+          "url": "https://api.github.com/repos/DaviDee/Indoor-Navigation/readme",
+          "file": "evidence/DaviDee__Indoor-Navigation.readme.txt",
+          "accessedAt": "2026-10-09T18:02:54.965Z"
+        }
+      ],
+      "reuse": "Reference only; no code reuse authorized",
+      "features": [
+        "profile",
+        "locations"
+      ],
+      "stackSignals": [],
+      "testEvidence": "Not established from inspected files",
+      "targetUsers": "Inferred campus/student users from search; requires per-repository qualification",
+      "permissionMechanism": "Not verified by full source audit",
+      "databaseEntities": "Not verified by full source audit",
+      "apiDesign": "Not verified by full source audit"
+    },
+    {
+      "fullName": "Amanda2026-crypto/smart-campus-connect",
+      "url": "https://github.com/Amanda2026-crypto/smart-campus-connect",
+      "description": "Smart Campus Connect - A unified student lifecycle management platform for academic tracking, campus navigation, event discovery, and peer connections",
+      "stars": 31,
+      "language": "Python",
+      "defaultBranch": "main",
+      "updatedAt": "2026-06-07T20:51:28Z",
+      "pushedAt": "2026-06-07T20:51:24Z",
+      "archived": false,
+      "license": "MIT",
+      "topics": [],
+      "inspection": "README_AND_SELECTED_FILES",
+      "matchedQueries": [
+        "campus navigation"
+      ],
+      "evidence": [
+        {
+          "url": "https://api.github.com/repos/Amanda2026-crypto/smart-campus-connect/readme",
+          "file": "evidence/Amanda2026-crypto__smart-campus-connect.readme.txt",
+          "accessedAt": "2026-10-09T18:02:55.417Z"
+        }
+      ],
+      "reuse": "Requires license and dependency review; no code copied",
+      "features": [
+        "identity",
+        "profile",
+        "content",
+        "search",
+        "notifications",
+        "locations",
+        "events",
+        "groups",
+        "media",
+        "courses",
+        "bookings",
+        "lostFound"
+      ],
+      "stackSignals": [
+        "React",
+        "Express",
+        "PostgreSQL",
+        "MySQL"
+      ],
+      "testEvidence": "README mentions tests; not executed",
+      "targetUsers": "Inferred campus/student users from search; requires per-repository qualification",
+      "permissionMechanism": "Not verified by full source audit",
+      "databaseEntities": "Not verified by full source audit",
+      "apiDesign": "Not verified by full source audit"
+    },
+    {
+      "fullName": "uplbtools/room-tba",
+      "url": "https://github.com/uplbtools/room-tba",
+      "description": "Open-source campus map + class finder. Search a room or course, see schedules, route to it, works offline. Flagship: UPLB (~12k students, 50k+ monthly page views). Independent forks at UP Visayas, UP Baguio, and BulSU.",
+      "stars": 77,
+      "language": "TypeScript",
+      "defaultBranch": "main",
+      "updatedAt": "2026-10-08T12:04:43Z",
+      "pushedAt": "2026-10-09T09:44:06Z",
+      "archived": false,
+      "license": "MIT",
+      "topics": [
+        "astro",
+        "campus-map",
+        "hacktoberfest",
+        "offline-first",
+        "open-data",
+        "openstreetmap",
+        "philippines",
+        "pwa",
+        "students",
+        "svelte",
+        "typescript",
+        "university",
+        "uplb",
+        "vercel"
+      ],
+      "inspection": "README_AND_SELECTED_FILES",
+      "matchedQueries": [
+        "campus map"
+      ],
+      "evidence": [
+        {
+          "url": "https://api.github.com/repos/uplbtools/room-tba/readme",
+          "file": "evidence/uplbtools__room-tba.readme.txt",
+          "accessedAt": "2026-10-09T18:02:55.988Z"
+        }
+      ],
+      "reuse": "Requires license and dependency review; no code copied",
+      "features": [
+        "identity",
+        "profile",
+        "content",
+        "search",
+        "chat",
+        "locations",
+        "events",
+        "groups",
+        "media",
+        "courses",
+        "marketplace",
+        "bookings",
+        "lostFound"
+      ],
+      "stackSignals": [],
+      "testEvidence": "README mentions tests; not executed",
+      "targetUsers": "Inferred campus/student users from search; requires per-repository qualification",
+      "permissionMechanism": "Not verified by full source audit",
+      "databaseEntities": "Not verified by full source audit",
+      "apiDesign": "Not verified by full source audit"
+    },
+    {
+      "fullName": "Wscga1/miniprogram-CampusMap",
+      "url": "https://github.com/Wscga1/miniprogram-CampusMap",
+      "description": "校园导航导览微信小程序",
+      "stars": 34,
+      "language": "JavaScript",
+      "defaultBranch": "master",
+      "updatedAt": "2025-09-18T09:11:47Z",
+      "pushedAt": "2022-04-03T09:33:24Z",
+      "archived": false,
+      "license": "GPL-2.0",
+      "topics": [],
+      "inspection": "README_AND_SELECTED_FILES",
+      "matchedQueries": [
+        "campus map"
+      ],
+      "evidence": [
+        {
+          "url": "https://api.github.com/repos/Wscga1/miniprogram-CampusMap/readme",
+          "file": "evidence/Wscga1__miniprogram-CampusMap.readme.txt",
+          "accessedAt": "2026-10-09T18:02:56.481Z"
+        }
+      ],
+      "reuse": "Requires license and dependency review; no code copied",
+      "features": [
+        "identity",
+        "search",
+        "locations",
+        "media"
+      ],
+      "stackSignals": [],
+      "testEvidence": "README mentions tests; not executed",
+      "targetUsers": "Inferred campus/student users from search; requires per-repository qualification",
+      "permissionMechanism": "Not verified by full source audit",
+      "databaseEntities": "Not verified by full source audit",
+      "apiDesign": "Not verified by full source audit"
+    },
+    {
+      "fullName": "RalucaNicola/campus-map",
+      "url": "https://github.com/RalucaNicola/campus-map",
+      "description": "In this project I create a fictive campus map with different styles",
+      "stars": 33,
+      "language": "JavaScript",
+      "defaultBranch": "master",
+      "updatedAt": "2026-09-03T08:28:32Z",
+      "pushedAt": "2021-05-31T10:44:22Z",
+      "archived": false,
+      "license": "UNKNOWN",
+      "topics": [
+        "3d",
+        "arcgis-api",
+        "campus-map",
+        "cityengine"
+      ],
+      "inspection": "README_AND_SELECTED_FILES",
+      "matchedQueries": [
+        "campus map"
+      ],
+      "evidence": [
+        {
+          "url": "https://api.github.com/repos/RalucaNicola/campus-map/readme",
+          "file": "evidence/RalucaNicola__campus-map.readme.txt",
+          "accessedAt": "2026-10-09T18:02:56.977Z"
+        }
+      ],
+      "reuse": "Reference only; no code reuse authorized",
+      "features": [
+        "profile",
+        "locations",
+        "media"
+      ],
+      "stackSignals": [
+        "Express"
+      ],
+      "testEvidence": "Not established from inspected files",
+      "targetUsers": "Inferred campus/student users from search; requires per-repository qualification",
+      "permissionMechanism": "Not verified by full source audit",
+      "databaseEntities": "Not verified by full source audit",
+      "apiDesign": "Not verified by full source audit"
+    },
+    {
+      "fullName": "lucky-bai/WATisRain",
+      "url": "https://github.com/lucky-bai/WATisRain",
+      "description": "Mobile app to get around campus without going outside",
+      "stars": 33,
+      "language": "Java",
+      "defaultBranch": "master",
+      "updatedAt": "2026-08-02T01:28:48Z",
+      "pushedAt": "2024-04-13T18:37:03Z",
+      "archived": false,
+      "license": "MIT",
+      "topics": [
+        "android",
+        "campus",
+        "ios",
+        "map",
+        "waterloo"
+      ],
+      "inspection": "README_AND_SELECTED_FILES",
+      "matchedQueries": [
+        "campus map"
+      ],
+      "evidence": [
+        {
+          "url": "https://api.github.com/repos/lucky-bai/WATisRain/readme",
+          "file": "evidence/lucky-bai__WATisRain.readme.txt",
+          "accessedAt": "2026-10-09T18:02:57.484Z"
+        }
+      ],
+      "reuse": "Requires license and dependency review; no code copied",
+      "features": [
+        "locations"
+      ],
+      "stackSignals": [],
+      "testEvidence": "Not established from inspected files",
+      "targetUsers": "Inferred campus/student users from search; requires per-repository qualification",
+      "permissionMechanism": "Not verified by full source audit",
+      "databaseEntities": "Not verified by full source audit",
+      "apiDesign": "Not verified by full source audit"
+    },
+    {
+      "fullName": "gongsir0630/LostAndFoundOnCampus",
+      "url": "https://github.com/gongsir0630/LostAndFoundOnCampus",
+      "description": "👉基于微信小程序的校园失物招领平台，提供OCR识别证件、失物招领消息订阅、web后台可视化数据管理等",
+      "stars": 74,
+      "language": "Java",
+      "defaultBranch": "master",
+      "updatedAt": "2026-09-27T06:44:27Z",
+      "pushedAt": "2024-08-26T16:38:03Z",
+      "archived": false,
+      "license": "MIT",
+      "topics": [
+        "java",
+        "mysql",
+        "redis",
+        "spring-boot"
+      ],
+      "inspection": "README_AND_SELECTED_FILES",
+      "matchedQueries": [
+        "campus lost found"
+      ],
+      "evidence": [
+        {
+          "url": "https://api.github.com/repos/gongsir0630/LostAndFoundOnCampus/readme",
+          "file": "evidence/gongsir0630__LostAndFoundOnCampus.readme.txt",
+          "accessedAt": "2026-10-09T18:02:57.988Z"
+        }
+      ],
+      "reuse": "Requires license and dependency review; no code copied",
+      "features": [
+        "content",
+        "search",
+        "notifications",
+        "groups",
+        "media",
+        "bookings",
+        "lostFound"
+      ],
+      "stackSignals": [
+        "Vue",
+        "Spring",
+        "MySQL"
+      ],
+      "testEvidence": "Not established from inspected files",
+      "targetUsers": "Inferred campus/student users from search; requires per-repository qualification",
+      "permissionMechanism": "Not verified by full source audit",
+      "databaseEntities": "Not verified by full source audit",
+      "apiDesign": "Not verified by full source audit"
+    },
+    {
+      "fullName": "SahayaAngelS/campus-lost-found",
+      "url": "https://github.com/SahayaAngelS/campus-lost-found",
+      "description": null,
+      "stars": 69,
+      "language": "JavaScript",
+      "defaultBranch": "main",
+      "updatedAt": "2026-02-10T17:55:06Z",
+      "pushedAt": "2026-01-23T13:20:26Z",
+      "archived": false,
+      "license": "UNKNOWN",
+      "topics": [],
+      "inspection": "README_AND_SELECTED_FILES",
+      "matchedQueries": [
+        "campus lost found"
+      ],
+      "evidence": [
+        {
+          "url": "https://api.github.com/repos/SahayaAngelS/campus-lost-found/readme",
+          "file": "evidence/SahayaAngelS__campus-lost-found.readme.txt",
+          "accessedAt": "2026-10-09T18:02:58.515Z"
+        }
+      ],
+      "reuse": "Reference only; no code reuse authorized",
+      "features": [
+        "identity",
+        "profile",
+        "content",
+        "search",
+        "notifications",
+        "media",
+        "lostFound"
+      ],
+      "stackSignals": [
+        "React",
+        "Express",
+        "MongoDB"
+      ],
+      "testEvidence": "Not established from inspected files",
+      "targetUsers": "Inferred campus/student users from search; requires per-repository qualification",
+      "permissionMechanism": "Not verified by full source audit",
+      "databaseEntities": "Not verified by full source audit",
+      "apiDesign": "Not verified by full source audit"
+    },
+    {
+      "fullName": "nature924/No4Campus-lost-and-found-system",
+      "url": "https://github.com/nature924/No4Campus-lost-and-found-system",
+      "description": "基于Springboot框架实现的校园失物招领网站，编程语言:Java ；数据库:MySQL；项目管理工具:Maven 前端技术:VUE、javascript、html、css、jQuery； 后端技术:Spring、SpringMvc、MyBatis，系统包含两种角色：管理员、用户,系统分为前台和后台两大模块",
+      "stars": 21,
+      "language": "JavaScript",
+      "defaultBranch": "main",
+      "updatedAt": "2026-09-15T16:05:27Z",
+      "pushedAt": "2024-10-19T05:59:28Z",
+      "archived": false,
+      "license": "UNKNOWN",
+      "topics": [],
+      "inspection": "README_AND_SELECTED_FILES",
+      "matchedQueries": [
+        "campus lost found"
+      ],
+      "evidence": [
+        {
+          "url": "https://api.github.com/repos/nature924/No4Campus-lost-and-found-system/readme",
+          "file": "evidence/nature924__No4Campus-lost-and-found-system.readme.txt",
+          "accessedAt": "2026-10-09T18:02:58.986Z"
+        }
+      ],
+      "reuse": "Reference only; no code reuse authorized",
+      "features": [
+        "identity",
+        "profile",
+        "content",
+        "notifications",
+        "media",
+        "lostFound"
+      ],
+      "stackSignals": [
+        "Vue",
+        "Spring",
+        "MySQL"
+      ],
+      "testEvidence": "Not established from inspected files",
+      "targetUsers": "Inferred campus/student users from search; requires per-repository qualification",
+      "permissionMechanism": "Not verified by full source audit",
+      "databaseEntities": "Not verified by full source audit",
+      "apiDesign": "Not verified by full source audit"
+    },
+    {
+      "fullName": "Descartes007/no049_CampusLostAndFoundManagementSys",
+      "url": "https://github.com/Descartes007/no049_CampusLostAndFoundManagementSys",
+      "description": "基于JSP+Servlet实现的校园失物招领系统：前端 JSP、BootStrap、JQuery、Ajax，后端 Servlet，系统角色分为：管理员和学生。管理员在管理端对系统用户进行管理，可以查看失物发布情况、留言信息等；失主可以对发布挂失信息、留言等。",
+      "stars": 20,
+      "language": "Java",
+      "defaultBranch": "main",
+      "updatedAt": "2026-06-01T01:19:06Z",
+      "pushedAt": "2024-10-21T14:24:57Z",
+      "archived": false,
+      "license": "UNKNOWN",
+      "topics": [],
+      "inspection": "README_AND_SELECTED_FILES",
+      "matchedQueries": [
+        "campus lost found"
+      ],
+      "evidence": [
+        {
+          "url": "https://api.github.com/repos/Descartes007/no049_CampusLostAndFoundManagementSys/readme",
+          "file": "evidence/Descartes007__no049_CampusLostAndFoundManagementSys.readme.txt",
+          "accessedAt": "2026-10-09T18:02:59.496Z"
+        }
+      ],
+      "reuse": "Reference only; no code reuse authorized",
+      "features": [
+        "identity",
+        "profile",
+        "content",
+        "search",
+        "lostFound"
+      ],
+      "stackSignals": [
+        "MySQL"
+      ],
+      "testEvidence": "Not established from inspected files",
+      "targetUsers": "Inferred campus/student users from search; requires per-repository qualification",
+      "permissionMechanism": "Not verified by full source audit",
+      "databaseEntities": "Not verified by full source audit",
+      "apiDesign": "Not verified by full source audit"
+    },
+    {
+      "fullName": "Gaurav-205/KampusKart",
+      "url": "https://github.com/Gaurav-205/KampusKart",
+      "description": "Your campus, all in one place. Events, lost & found, complaints, clubs, and live chat.",
+      "stars": 17,
+      "language": "TypeScript",
+      "defaultBranch": "main",
+      "updatedAt": "2026-08-31T13:08:32Z",
+      "pushedAt": "2026-06-14T20:09:10Z",
+      "archived": false,
+      "license": "NOASSERTION",
+      "topics": [
+        "campus-portal",
+        "full-stack",
+        "mongodb",
+        "nodejs",
+        "react",
+        "socket-io",
+        "tailwindcss",
+        "typescript"
+      ],
+      "inspection": "README_AND_SELECTED_FILES",
+      "matchedQueries": [
+        "campus lost found"
+      ],
+      "evidence": [
+        {
+          "url": "https://api.github.com/repos/Gaurav-205/KampusKart/readme",
+          "file": "evidence/Gaurav-205__KampusKart.readme.txt",
+          "accessedAt": "2026-10-09T18:02:59.954Z"
+        }
+      ],
+      "reuse": "Reference only; no code reuse authorized",
+      "features": [
+        "identity",
+        "profile",
+        "content",
+        "search",
+        "chat",
+        "locations",
+        "events",
+        "groups",
+        "media",
+        "courses",
+        "lostFound"
+      ],
+      "stackSignals": [
+        "React",
+        "Express",
+        "MongoDB"
+      ],
+      "testEvidence": "README mentions tests; not executed",
+      "targetUsers": "Inferred campus/student users from search; requires per-repository qualification",
+      "permissionMechanism": "Not verified by full source audit",
+      "databaseEntities": "Not verified by full source audit",
+      "apiDesign": "Not verified by full source audit"
+    },
+    {
+      "fullName": "kilicbaran/boun-course-planner",
+      "url": "https://github.com/kilicbaran/boun-course-planner",
+      "description": "Course Planning Tool for Boğaziçi University",
+      "stars": 31,
+      "language": "Svelte",
+      "defaultBranch": "main",
+      "updatedAt": "2026-09-05T13:44:05Z",
+      "pushedAt": "2026-05-15T00:41:25Z",
+      "archived": false,
+      "license": "MIT",
+      "topics": [],
+      "inspection": "README_AND_SELECTED_FILES",
+      "matchedQueries": [
+        "university course planner"
+      ],
+      "evidence": [
+        {
+          "url": "https://api.github.com/repos/kilicbaran/boun-course-planner/readme",
+          "file": "evidence/kilicbaran__boun-course-planner.readme.txt",
+          "accessedAt": "2026-10-09T18:03:00.335Z"
+        }
+      ],
+      "reuse": "Requires license and dependency review; no code copied",
+      "features": [
+        "search",
+        "courses"
+      ],
+      "stackSignals": [],
+      "testEvidence": "Not established from inspected files",
+      "targetUsers": "Inferred campus/student users from search; requires per-repository qualification",
+      "permissionMechanism": "Not verified by full source audit",
+      "databaseEntities": "Not verified by full source audit",
+      "apiDesign": "Not verified by full source audit"
+    },
+    {
+      "fullName": "TigerAppsOrg/TigerPath",
+      "url": "https://github.com/TigerAppsOrg/TigerPath",
+      "description": "Four-year course planner for Princeton University students",
+      "stars": 18,
+      "language": "Python",
+      "defaultBranch": "master",
+      "updatedAt": "2026-05-07T02:30:59Z",
+      "pushedAt": "2026-07-27T21:16:30Z",
+      "archived": false,
+      "license": "MIT",
+      "topics": [],
+      "inspection": "README_AND_SELECTED_FILES",
+      "matchedQueries": [
+        "university course planner"
+      ],
+      "evidence": [
+        {
+          "url": "https://api.github.com/repos/TigerAppsOrg/TigerPath/readme",
+          "file": "evidence/TigerAppsOrg__TigerPath.readme.txt",
+          "accessedAt": "2026-10-09T18:03:00.824Z"
+        }
+      ],
+      "reuse": "Requires license and dependency review; no code copied",
+      "features": [
+        "profile",
+        "content",
+        "search",
+        "courses"
+      ],
+      "stackSignals": [
+        "Django",
+        "PostgreSQL"
+      ],
+      "testEvidence": "Not established from inspected files",
+      "targetUsers": "Inferred campus/student users from search; requires per-repository qualification",
+      "permissionMechanism": "Not verified by full source audit",
+      "databaseEntities": "Not verified by full source audit",
+      "apiDesign": "Not verified by full source audit"
+    },
+    {
+      "fullName": "AlexEidt/UW-Course-Planner",
+      "url": "https://github.com/AlexEidt/UW-Course-Planner",
+      "description": "Web App with geospatial schedule visualization, recursive prerequisite tree generation and keyword search for courses offered at the University of Washington (UW)",
+      "stars": 9,
+      "language": "Python",
+      "defaultBranch": "master",
+      "updatedAt": "2026-08-29T18:50:53Z",
+      "pushedAt": "2021-05-21T19:01:58Z",
+      "archived": false,
+      "license": "MIT",
+      "topics": [
+        "course-catalogs",
+        "flask-application",
+        "graphviz",
+        "leaflet",
+        "prerequisites",
+        "university-of-washington",
+        "uw",
+        "uw-campus"
+      ],
+      "inspection": "README_AND_SELECTED_FILES",
+      "matchedQueries": [
+        "university course planner"
+      ],
+      "evidence": [
+        {
+          "url": "https://api.github.com/repos/AlexEidt/UW-Course-Planner/readme",
+          "file": "evidence/AlexEidt__UW-Course-Planner.readme.txt",
+          "accessedAt": "2026-10-09T18:03:01.335Z"
+        }
+      ],
+      "reuse": "Requires license and dependency review; no code copied",
+      "features": [
+        "profile",
+        "search",
+        "locations",
+        "events",
+        "media",
+        "courses"
+      ],
+      "stackSignals": [
+        "Flask"
+      ],
+      "testEvidence": "Not established from inspected files",
+      "targetUsers": "Inferred campus/student users from search; requires per-repository qualification",
+      "permissionMechanism": "Not verified by full source audit",
+      "databaseEntities": "Not verified by full source audit",
+      "apiDesign": "Not verified by full source audit"
+    },
+    {
+      "fullName": "nayugu/nu-map",
+      "url": "https://github.com/nayugu/nu-map",
+      "description": "A student-built, browser-based degree planner for Northeastern University. Drag courses onto a semester timeline, validate graduation requirements, and export a PDF. No backend, no login.",
+      "stars": 6,
+      "language": "JavaScript",
+      "defaultBranch": "main",
+      "updatedAt": "2026-10-01T18:22:28Z",
+      "pushedAt": "2026-10-01T13:53:51Z",
+      "archived": false,
+      "license": "AGPL-3.0",
+      "topics": [
+        "course-planner",
+        "degree-planner",
+        "northeastern-university"
+      ],
+      "inspection": "README_AND_SELECTED_FILES",
+      "matchedQueries": [
+        "university course planner"
+      ],
+      "evidence": [
+        {
+          "url": "https://api.github.com/repos/nayugu/nu-map/readme",
+          "file": "evidence/nayugu__nu-map.readme.txt",
+          "accessedAt": "2026-10-09T18:03:02.279Z"
+        }
+      ],
+      "reuse": "Requires license and dependency review; no code copied",
+      "features": [
+        "identity",
+        "profile",
+        "content",
+        "locations",
+        "events",
+        "courses"
+      ],
+      "stackSignals": [
+        "Express"
+      ],
+      "testEvidence": "Not established from inspected files",
+      "targetUsers": "Inferred campus/student users from search; requires per-repository qualification",
+      "permissionMechanism": "Not verified by full source audit",
+      "databaseEntities": "Not verified by full source audit",
+      "apiDesign": "Not verified by full source audit"
+    },
+    {
+      "fullName": "shuhongfan/Student_management_system",
+      "url": "https://github.com/shuhongfan/Student_management_system",
+      "description": "学生信息管理系统 基于Java的教务管理系统、学生管理系统、课表查询系统 (Spring、SpringBoot、thymeleaf) 基于Spring的教务管理系统、学生管理系统、课表查询系统 ，包含数据库文件  本作品主要实现了一个课表查询系统，采用了SSM（Spring + SpringMVC + MyBatis）的基础架构。  后端使用Maven 进行包管理，使用spring-boot框架、模板引擎使用thymeleaf、web模块使用springMVC、数据库连接池使用Druid、数据库访问使用mybatis-plus、工具包使用hutool。前端使用H-ui模板，结合Timetables展示课程表。  系统能够实现用户的登录退出，教室、班级、院系、地点、教工、学生、用户、课程、课程",
+      "stars": 119,
+      "language": "JavaScript",
+      "defaultBranch": "main",
+      "updatedAt": "2026-09-30T12:14:27Z",
+      "pushedAt": "2022-05-12T04:45:11Z",
+      "archived": false,
+      "license": "UNKNOWN",
+      "topics": [
+        "java",
+        "mybatis",
+        "mybatis-plus",
+        "mysql",
+        "spring",
+        "spring-boot",
+        "springboot",
+        "springmvc",
+        "thymeleaf"
+      ],
+      "inspection": "README_AND_SELECTED_FILES",
+      "matchedQueries": [
+        "student timetable"
+      ],
+      "evidence": [
+        {
+          "url": "https://api.github.com/repos/shuhongfan/Student_management_system/readme",
+          "file": "evidence/shuhongfan__Student_management_system.readme.txt",
+          "accessedAt": "2026-10-09T18:03:02.735Z"
+        }
+      ],
+      "reuse": "Reference only; no code reuse authorized",
+      "features": [
+        "identity",
+        "profile",
+        "search",
+        "locations",
+        "media",
+        "courses"
+      ],
+      "stackSignals": [
+        "Spring",
+        "MySQL"
+      ],
+      "testEvidence": "Not established from inspected files",
+      "targetUsers": "Inferred campus/student users from search; requires per-repository qualification",
+      "permissionMechanism": "Not verified by full source audit",
+      "databaseEntities": "Not verified by full source audit",
+      "apiDesign": "Not verified by full source audit"
+    },
+    {
+      "fullName": "ayush96agrawal/Automatic-Time-Table-Generator",
+      "url": "https://github.com/ayush96agrawal/Automatic-Time-Table-Generator",
+      "description": "Given a set of faculty, rooms, courses and students it creates a timetable for the classes.",
+      "stars": 93,
+      "language": "PHP",
+      "defaultBranch": "master",
+      "updatedAt": "2026-08-20T08:51:52Z",
+      "pushedAt": "2020-09-30T19:23:13Z",
+      "archived": false,
+      "license": "UNKNOWN",
+      "topics": [],
+      "inspection": "README_AND_SELECTED_FILES",
+      "matchedQueries": [
+        "student timetable"
+      ],
+      "evidence": [
+        {
+          "url": "https://api.github.com/repos/ayush96agrawal/Automatic-Time-Table-Generator/readme",
+          "file": "evidence/ayush96agrawal__Automatic-Time-Table-Generator.readme.txt",
+          "accessedAt": "2026-10-09T18:03:03.246Z"
+        }
+      ],
+      "reuse": "Reference only; no code reuse authorized",
+      "features": [
+        "profile",
+        "courses"
+      ],
+      "stackSignals": [
+        "MySQL"
+      ],
+      "testEvidence": "Not established from inspected files",
+      "targetUsers": "Inferred campus/student users from search; requires per-repository qualification",
+      "permissionMechanism": "Not verified by full source audit",
+      "databaseEntities": "Not verified by full source audit",
+      "apiDesign": "Not verified by full source audit"
+    },
+    {
+      "fullName": "pinsdorf/MMM-WeeklySchedule",
+      "url": "https://github.com/pinsdorf/MMM-WeeklySchedule",
+      "description": "Module for MagicMirror which shows a weekly timetable. Might be helpful for students/teachers/parents to show class schedules, weekly gym courses, sports training sessions, and general weekly recurring events.",
+      "stars": 75,
+      "language": "JavaScript",
+      "defaultBranch": "master",
+      "updatedAt": "2026-07-23T00:20:49Z",
+      "pushedAt": "2024-06-24T17:00:42Z",
+      "archived": false,
+      "license": "MIT",
+      "topics": [
+        "magic-mirror-modules",
+        "magicmirror"
+      ],
+      "inspection": "README_AND_SELECTED_FILES",
+      "matchedQueries": [
+        "student timetable"
+      ],
+      "evidence": [
+        {
+          "url": "https://api.github.com/repos/pinsdorf/MMM-WeeklySchedule/readme",
+          "file": "evidence/pinsdorf__MMM-WeeklySchedule.readme.txt",
+          "accessedAt": "2026-10-09T18:03:03.666Z"
+        }
+      ],
+      "reuse": "Requires license and dependency review; no code copied",
+      "features": [
+        "profile",
+        "content",
+        "notifications",
+        "events",
+        "media",
+        "courses",
+        "marketplace"
+      ],
+      "stackSignals": [],
+      "testEvidence": "Not established from inspected files",
+      "targetUsers": "Inferred campus/student users from search; requires per-repository qualification",
+      "permissionMechanism": "Not verified by full source audit",
+      "databaseEntities": "Not verified by full source audit",
+      "apiDesign": "Not verified by full source audit"
+    },
+    {
+      "fullName": "ArmanJR/termustat",
+      "url": "https://github.com/ArmanJR/termustat",
+      "description": "Termustat is the online timetabling tool for university students in Iran.",
+      "stars": 58,
+      "language": "Go",
+      "defaultBranch": "main",
+      "updatedAt": "2026-09-04T01:03:40Z",
+      "pushedAt": "2026-09-04T01:06:19Z",
+      "archived": false,
+      "license": "GPL-3.0",
+      "topics": [],
+      "inspection": "README_AND_SELECTED_FILES",
+      "matchedQueries": [
+        "student timetable"
+      ],
+      "evidence": [
+        {
+          "url": "https://api.github.com/repos/ArmanJR/termustat/readme",
+          "file": "evidence/ArmanJR__termustat.readme.txt",
+          "accessedAt": "2026-10-09T18:03:04.116Z"
+        }
+      ],
+      "reuse": "Requires license and dependency review; no code copied",
+      "features": [
+        "identity",
+        "profile",
+        "content",
+        "search",
+        "media",
+        "courses"
+      ],
+      "stackSignals": [
+        "React",
+        "PostgreSQL"
+      ],
+      "testEvidence": "Not established from inspected files",
+      "targetUsers": "Inferred campus/student users from search; requires per-repository qualification",
+      "permissionMechanism": "Not verified by full source audit",
+      "databaseEntities": "Not verified by full source audit",
+      "apiDesign": "Not verified by full source audit"
+    },
+    {
+      "fullName": "sookcha/every2cal",
+      "url": "https://github.com/sookcha/every2cal",
+      "description": "🙌에브리타임 캘린더를 ics파일로 바꿔줍니다",
+      "stars": 56,
+      "language": "Python",
+      "defaultBranch": "master",
+      "updatedAt": "2026-07-19T08:11:49Z",
+      "pushedAt": "2024-03-13T02:58:09Z",
+      "archived": false,
+      "license": "UNKNOWN",
+      "topics": [
+        "calendar",
+        "everytime",
+        "ical",
+        "ics",
+        "python3",
+        "student",
+        "timetable"
+      ],
+      "inspection": "README_AND_SELECTED_FILES",
+      "matchedQueries": [
+        "student timetable"
+      ],
+      "evidence": [
+        {
+          "url": "https://api.github.com/repos/sookcha/every2cal/readme",
+          "file": "evidence/sookcha__every2cal.readme.txt",
+          "accessedAt": "2026-10-09T18:03:04.625Z"
+        }
+      ],
+      "reuse": "Reference only; no code reuse authorized",
+      "features": [
+        "identity",
+        "content",
+        "events",
+        "media"
+      ],
+      "stackSignals": [
+        "Express"
+      ],
+      "testEvidence": "Not established from inspected files",
+      "targetUsers": "Inferred campus/student users from search; requires per-repository qualification",
+      "permissionMechanism": "Not verified by full source audit",
+      "databaseEntities": "Not verified by full source audit",
+      "apiDesign": "Not verified by full source audit"
+    },
+    {
+      "fullName": "lsb22/CampusConnect",
+      "url": "https://github.com/lsb22/CampusConnect",
+      "description": "Anonymous chatting application for college students.",
+      "stars": 2,
+      "language": "TypeScript",
+      "defaultBranch": "main",
+      "updatedAt": "2025-11-18T12:03:50Z",
+      "pushedAt": "2025-11-18T12:03:47Z",
+      "archived": false,
+      "license": "UNKNOWN",
+      "topics": [],
+      "inspection": "README_AND_SELECTED_FILES",
+      "matchedQueries": [
+        "campus chat application"
+      ],
+      "evidence": [
+        {
+          "url": "https://api.github.com/repos/lsb22/CampusConnect/readme",
+          "file": "evidence/lsb22__CampusConnect.readme.txt",
+          "accessedAt": "2026-10-09T18:03:05.115Z"
+        }
+      ],
+      "reuse": "Reference only; no code reuse authorized",
+      "features": [
+        "profile",
+        "search",
+        "chat"
+      ],
+      "stackSignals": [
+        "React",
+        "Express"
+      ],
+      "testEvidence": "Not established from inspected files",
+      "targetUsers": "Inferred campus/student users from search; requires per-repository qualification",
+      "permissionMechanism": "Not verified by full source audit",
+      "databaseEntities": "Not verified by full source audit",
+      "apiDesign": "Not verified by full source audit"
+    },
+    {
+      "fullName": "pandeyroshan/CampusConnect",
+      "url": "https://github.com/pandeyroshan/CampusConnect",
+      "description": "Django Based web application for ADMIN to stay in touch with college students, to share Notices and for students to interact with eachother.",
+      "stars": 2,
+      "language": "Python",
+      "defaultBranch": "master",
+      "updatedAt": "2020-02-16T10:04:22Z",
+      "pushedAt": "2019-10-04T19:45:43Z",
+      "archived": false,
+      "license": "UNKNOWN",
+      "topics": [
+        "chat",
+        "chatapplication",
+        "django"
+      ],
+      "inspection": "METADATA_ONLY",
+      "matchedQueries": [
+        "campus chat application"
+      ],
+      "evidence": [],
+      "reuse": "Reference only; no code reuse authorized",
+      "inspectionError": "Error: HTTP 404 https://api.github.com/repos/pandeyroshan/CampusConnect/readme; reset=1791572504",
+      "features": [
+        "profile"
+      ],
+      "stackSignals": [
+        "Django"
+      ],
+      "testEvidence": "Not established from inspected files",
+      "targetUsers": "Inferred campus/student users from search; requires per-repository qualification",
+      "permissionMechanism": "Not verified by full source audit",
+      "databaseEntities": "Not verified by full source audit",
+      "apiDesign": "Not verified by full source audit"
+    },
+    {
+      "fullName": "bdice/CampusChatter",
+      "url": "https://github.com/bdice/CampusChatter",
+      "description": "Application designed for web, TV, and mobile devices that leverages university calendar/datastreams and students' social media to improve event marketing and catalyze campus interaction.",
+      "stars": 2,
+      "language": "CSS",
+      "defaultBranch": "master",
+      "updatedAt": "2024-12-16T14:59:35Z",
+      "pushedAt": "2014-07-20T18:03:14Z",
+      "archived": false,
+      "license": "MIT",
+      "topics": [],
+      "inspection": "README_AND_SELECTED_FILES",
+      "matchedQueries": [
+        "campus chat application"
+      ],
+      "evidence": [
+        {
+          "url": "https://api.github.com/repos/bdice/CampusChatter/readme",
+          "file": "evidence/bdice__CampusChatter.readme.txt",
+          "accessedAt": "2026-10-09T18:03:06.015Z"
+        }
+      ],
+      "reuse": "Requires license and dependency review; no code copied",
+      "features": [
+        "profile",
+        "chat",
+        "events",
+        "marketplace"
+      ],
+      "stackSignals": [],
+      "testEvidence": "Not established from inspected files",
+      "targetUsers": "Inferred campus/student users from search; requires per-repository qualification",
+      "permissionMechanism": "Not verified by full source audit",
+      "databaseEntities": "Not verified by full source audit",
+      "apiDesign": "Not verified by full source audit"
+    },
+    {
+      "fullName": "ZJU-CC98/Forum",
+      "url": "https://github.com/ZJU-CC98/Forum",
+      "description": "Zhejiang University CC98 Forum for desktop",
+      "stars": 222,
+      "language": "TypeScript",
+      "defaultBranch": "main",
+      "updatedAt": "2026-10-08T04:51:08Z",
+      "pushedAt": "2026-09-24T16:29:07Z",
+      "archived": false,
+      "license": "Apache-2.0",
+      "topics": [
+        "html5",
+        "react",
+        "redux",
+        "signalr",
+        "typescript"
+      ],
+      "inspection": "README_AND_SELECTED_FILES",
+      "matchedQueries": [
+        "university forum"
+      ],
+      "evidence": [
+        {
+          "url": "https://api.github.com/repos/ZJU-CC98/Forum/readme",
+          "file": "evidence/ZJU-CC98__Forum.readme.txt",
+          "accessedAt": "2026-10-09T18:03:06.687Z"
+        }
+      ],
+      "reuse": "Requires license and dependency review; no code copied",
+      "features": [
+        "identity",
+        "content",
+        "search",
+        "chat",
+        "notifications",
+        "locations",
+        "media"
+      ],
+      "stackSignals": [
+        "React"
+      ],
+      "testEvidence": "Not established from inspected files",
+      "targetUsers": "Inferred campus/student users from search; requires per-repository qualification",
+      "permissionMechanism": "Not verified by full source audit",
+      "databaseEntities": "Not verified by full source audit",
+      "apiDesign": "Not verified by full source audit"
+    },
+    {
+      "fullName": "weijiang1994/university-bbs",
+      "url": "https://github.com/weijiang1994/university-bbs",
+      "description": "A forum system base on Flask.",
+      "stars": 183,
+      "language": "Python",
+      "defaultBranch": "master",
+      "updatedAt": "2026-10-09T17:38:50Z",
+      "pushedAt": "2025-01-13T10:34:56Z",
+      "archived": false,
+      "license": "GPL-3.0",
+      "topics": [
+        "bbs-site",
+        "flask",
+        "forum-site",
+        "mysql",
+        "python"
+      ],
+      "inspection": "README_AND_SELECTED_FILES",
+      "matchedQueries": [
+        "university forum"
+      ],
+      "evidence": [
+        {
+          "url": "https://api.github.com/repos/weijiang1994/university-bbs/readme",
+          "file": "evidence/weijiang1994__university-bbs.readme.txt",
+          "accessedAt": "2026-10-09T18:03:07.244Z"
+        }
+      ],
+      "reuse": "Requires license and dependency review; no code copied",
+      "features": [
+        "identity",
+        "content",
+        "media"
+      ],
+      "stackSignals": [
+        "Vue",
+        "Flask",
+        "MySQL"
+      ],
+      "testEvidence": "Not established from inspected files",
+      "targetUsers": "Inferred campus/student users from search; requires per-repository qualification",
+      "permissionMechanism": "Not verified by full source audit",
+      "databaseEntities": "Not verified by full source audit",
+      "apiDesign": "Not verified by full source audit"
+    },
+    {
+      "fullName": "lll618xxx/University-Students-Forum",
+      "url": "https://github.com/lll618xxx/University-Students-Forum",
+      "description": "采用vue2和thinkphp搭建的前后端分离项目",
+      "stars": 13,
+      "language": "JavaScript",
+      "defaultBranch": "master",
+      "updatedAt": "2025-06-23T13:23:08Z",
+      "pushedAt": "2023-01-14T00:40:30Z",
+      "archived": false,
+      "license": "UNKNOWN",
+      "topics": [],
+      "inspection": "README_AND_SELECTED_FILES",
+      "matchedQueries": [
+        "university forum"
+      ],
+      "evidence": [
+        {
+          "url": "https://api.github.com/repos/lll618xxx/University-Students-Forum/readme",
+          "file": "evidence/lll618xxx__University-Students-Forum.readme.txt",
+          "accessedAt": "2026-10-09T18:03:07.746Z"
+        }
+      ],
+      "reuse": "Reference only; no code reuse authorized",
+      "features": [
+        "identity",
+        "profile",
+        "content",
+        "media"
+      ],
+      "stackSignals": [
+        "Vue",
+        "MySQL"
+      ],
+      "testEvidence": "Not established from inspected files",
+      "targetUsers": "Inferred campus/student users from search; requires per-repository qualification",
+      "permissionMechanism": "Not verified by full source audit",
+      "databaseEntities": "Not verified by full source audit",
+      "apiDesign": "Not verified by full source audit"
+    },
+    {
+      "fullName": "Bilal025/EventoEMS",
+      "url": "https://github.com/Bilal025/EventoEMS",
+      "description": "Event Management System, a solution developed as part of our final year group project, designed to streamline campus event planning, registration, and ticket booking.",
+      "stars": 96,
+      "language": "JavaScript",
+      "defaultBranch": "main",
+      "updatedAt": "2026-10-06T03:18:26Z",
+      "pushedAt": "2024-08-30T05:22:29Z",
+      "archived": false,
+      "license": "UNKNOWN",
+      "topics": [
+        "api-rest",
+        "eventmanagement",
+        "expressjs",
+        "jwt-authentication",
+        "mongodb",
+        "nodejs",
+        "qrcode-generator",
+        "react",
+        "reactjs"
+      ],
+      "inspection": "README_AND_SELECTED_FILES",
+      "matchedQueries": [
+        "campus booking"
+      ],
+      "evidence": [
+        {
+          "url": "https://api.github.com/repos/Bilal025/EventoEMS/readme",
+          "file": "evidence/Bilal025__EventoEMS.readme.txt",
+          "accessedAt": "2026-10-09T18:03:08.267Z"
+        }
+      ],
+      "reuse": "Reference only; no code reuse authorized",
+      "features": [
+        "events",
+        "groups",
+        "courses",
+        "bookings"
+      ],
+      "stackSignals": [
+        "React",
+        "Express",
+        "MongoDB"
+      ],
+      "testEvidence": "Not established from inspected files",
+      "targetUsers": "Inferred campus/student users from search; requires per-repository qualification",
+      "permissionMechanism": "Not verified by full source audit",
+      "databaseEntities": "Not verified by full source audit",
+      "apiDesign": "Not verified by full source audit"
+    },
+    {
+      "fullName": "Shifrahcarnelian/vibe-campus",
+      "url": "https://github.com/Shifrahcarnelian/vibe-campus",
+      "description": "“VibeCampus is an interactive virtual campus platform that enhances student collaboration through features like tutor booking, session exchanges, feedback systems, and a gamified notice board where users can post and explore messages in an engaging way.”",
+      "stars": 14,
+      "language": "HTML",
+      "defaultBranch": "main",
+      "updatedAt": "2026-04-13T14:07:48Z",
+      "pushedAt": "2026-04-09T08:56:33Z",
+      "archived": false,
+      "license": "UNKNOWN",
+      "topics": [],
+      "inspection": "README_AND_SELECTED_FILES",
+      "matchedQueries": [
+        "campus booking"
+      ],
+      "evidence": [
+        {
+          "url": "https://api.github.com/repos/Shifrahcarnelian/vibe-campus/readme",
+          "file": "evidence/Shifrahcarnelian__vibe-campus.readme.txt",
+          "accessedAt": "2026-10-09T18:03:08.797Z"
+        }
+      ],
+      "reuse": "Reference only; no code reuse authorized",
+      "features": [
+        "profile",
+        "content",
+        "chat",
+        "notifications",
+        "locations",
+        "bookings"
+      ],
+      "stackSignals": [],
+      "testEvidence": "Not established from inspected files",
+      "targetUsers": "Inferred campus/student users from search; requires per-repository qualification",
+      "permissionMechanism": "Not verified by full source audit",
+      "databaseEntities": "Not verified by full source audit",
+      "apiDesign": "Not verified by full source audit"
+    },
+    {
+      "fullName": "athirazizi/campus-crib",
+      "url": "https://github.com/athirazizi/campus-crib",
+      "description": "A hostel booking mobile app made using Xamarin.",
+      "stars": 5,
+      "language": "C#",
+      "defaultBranch": "master",
+      "updatedAt": "2023-06-25T20:13:50Z",
+      "pushedAt": "2023-07-20T17:26:51Z",
+      "archived": false,
+      "license": "MIT",
+      "topics": [],
+      "inspection": "README_AND_SELECTED_FILES",
+      "matchedQueries": [
+        "campus booking"
+      ],
+      "evidence": [
+        {
+          "url": "https://api.github.com/repos/athirazizi/campus-crib/readme",
+          "file": "evidence/athirazizi__campus-crib.readme.txt",
+          "accessedAt": "2026-10-09T18:03:09.285Z"
+        }
+      ],
+      "reuse": "Requires license and dependency review; no code copied",
+      "features": [
+        "identity",
+        "profile",
+        "search",
+        "events",
+        "bookings"
+      ],
+      "stackSignals": [],
+      "testEvidence": "Not established from inspected files",
+      "targetUsers": "Inferred campus/student users from search; requires per-repository qualification",
+      "permissionMechanism": "Not verified by full source audit",
+      "databaseEntities": "Not verified by full source audit",
+      "apiDesign": "Not verified by full source audit"
+    },
+    {
+      "fullName": "FuhadSanin/VenueNow-MiniProject",
+      "url": "https://github.com/FuhadSanin/VenueNow-MiniProject",
+      "description": "The College Event Hall Booking System is an online platform that simplifies the process of booking event halls on college campuses.  Users can easily browse available halls, make instant reservations, and receive automated confirmation emails.",
+      "stars": 5,
+      "language": "JavaScript",
+      "defaultBranch": "main",
+      "updatedAt": "2026-03-09T14:13:57Z",
+      "pushedAt": "2024-04-17T20:46:45Z",
+      "archived": false,
+      "license": "UNKNOWN",
+      "topics": [
+        "bootstarap5",
+        "expressjs",
+        "git",
+        "github",
+        "mongodb",
+        "nodejs",
+        "react",
+        "render",
+        "vercel",
+        "visual-studio-code"
+      ],
+      "inspection": "METADATA_ONLY",
+      "matchedQueries": [
+        "campus booking"
+      ],
+      "evidence": [],
+      "reuse": "Reference only; no code reuse authorized",
+      "inspectionError": "Error: HTTP 404 https://api.github.com/repos/FuhadSanin/VenueNow-MiniProject/readme; reset=1791572504",
+      "features": [
+        "events",
+        "bookings"
+      ],
+      "stackSignals": [],
+      "testEvidence": "Not established from inspected files",
+      "targetUsers": "Inferred campus/student users from search; requires per-repository qualification",
+      "permissionMechanism": "Not verified by full source audit",
+      "databaseEntities": "Not verified by full source audit",
+      "apiDesign": "Not verified by full source audit"
+    },
+    {
+      "fullName": "Victor-Kipruto-Rop/CAMPUSHUB",
+      "url": "https://github.com/Victor-Kipruto-Rop/CAMPUSHUB",
+      "description": "Built CAMPUSHUB, a centralized campus management platform that streamlines student collaboration, communication, and resource sharing through a modern full-stack web application with secure authentication and responsive design.",
+      "stars": 42,
+      "language": "Python",
+      "defaultBranch": "main",
+      "updatedAt": "2026-09-13T16:07:35Z",
+      "pushedAt": "2026-03-27T18:48:04Z",
+      "archived": false,
+      "license": "UNKNOWN",
+      "topics": [
+        "express",
+        "git",
+        "github",
+        "github-actions",
+        "javascript",
+        "jwt-authentication",
+        "nodejs",
+        "postgresql",
+        "reactjs",
+        "rest-api"
+      ],
+      "inspection": "README_AND_SELECTED_FILES",
+      "matchedQueries": [
+        "campus resource sharing"
+      ],
+      "evidence": [
+        {
+          "url": "https://api.github.com/repos/Victor-Kipruto-Rop/CAMPUSHUB/readme",
+          "file": "evidence/Victor-Kipruto-Rop__CAMPUSHUB.readme.txt",
+          "accessedAt": "2026-10-09T18:03:10.299Z"
+        }
+      ],
+      "reuse": "Reference only; no code reuse authorized",
+      "features": [
+        "identity",
+        "profile",
+        "content",
+        "search",
+        "chat",
+        "notifications",
+        "locations",
+        "events",
+        "media",
+        "courses",
+        "bookings"
+      ],
+      "stackSignals": [
+        "Django",
+        "PostgreSQL"
+      ],
+      "testEvidence": "README mentions tests; not executed",
+      "targetUsers": "Inferred campus/student users from search; requires per-repository qualification",
+      "permissionMechanism": "Not verified by full source audit",
+      "databaseEntities": "Not verified by full source audit",
+      "apiDesign": "Not verified by full source audit"
+    },
+    {
+      "fullName": "duongttr/FPTU-Learning-Resources",
+      "url": "https://github.com/duongttr/FPTU-Learning-Resources",
+      "description": "Learning Resources Sharing FPTU campus HCMC (Artificial Intelligence)",
+      "stars": 10,
+      "language": "Jupyter Notebook",
+      "defaultBranch": "main",
+      "updatedAt": "2026-07-17T16:20:18Z",
+      "pushedAt": "2022-11-02T20:16:51Z",
+      "archived": false,
+      "license": "MIT",
+      "topics": [
+        "artificial-intelligence",
+        "fpt-university",
+        "learning-resources"
+      ],
+      "inspection": "README_AND_SELECTED_FILES",
+      "matchedQueries": [
+        "campus resource sharing"
+      ],
+      "evidence": [
+        {
+          "url": "https://api.github.com/repos/duongttr/FPTU-Learning-Resources/readme",
+          "file": "evidence/duongttr__FPTU-Learning-Resources.readme.txt",
+          "accessedAt": "2026-10-09T18:03:10.815Z"
+        }
+      ],
+      "reuse": "Requires license and dependency review; no code copied",
+      "features": [
+        "profile",
+        "groups",
+        "courses",
+        "bookings"
+      ],
+      "stackSignals": [
+        "Spring"
+      ],
+      "testEvidence": "Not established from inspected files",
+      "targetUsers": "Inferred campus/student users from search; requires per-repository qualification",
+      "permissionMechanism": "Not verified by full source audit",
+      "databaseEntities": "Not verified by full source audit",
+      "apiDesign": "Not verified by full source audit"
+    },
+    {
+      "fullName": "HRgowda/Campus-Connect",
+      "url": "https://github.com/HRgowda/Campus-Connect",
+      "description": "Campus-Connect is a modern campus engagement platform designed to streamline communication and collaboration between students and faculty. It features real-time campus updates, private community channels, course and professor reviews, academic resource sharing, and an integrated resume analyzer.",
+      "stars": 10,
+      "language": "TypeScript",
+      "defaultBranch": "main",
+      "updatedAt": "2026-10-02T03:25:03Z",
+      "pushedAt": "2025-10-28T14:48:21Z",
+      "archived": false,
+      "license": "UNKNOWN",
+      "topics": [],
+      "inspection": "METADATA_ONLY",
+      "matchedQueries": [
+        "campus resource sharing"
+      ],
+      "evidence": [],
+      "reuse": "Reference only; no code reuse authorized",
+      "inspectionError": "Error: HTTP 404 https://api.github.com/repos/HRgowda/Campus-Connect/readme; reset=1791572504",
+      "features": [
+        "profile",
+        "courses"
+      ],
+      "stackSignals": [],
+      "testEvidence": "Not established from inspected files",
+      "targetUsers": "Inferred campus/student users from search; requires per-repository qualification",
+      "permissionMechanism": "Not verified by full source audit",
+      "databaseEntities": "Not verified by full source audit",
+      "apiDesign": "Not verified by full source audit"
+    },
+    {
+      "fullName": "xuhuai66/used-book-pro",
+      "url": "https://github.com/xuhuai66/used-book-pro",
+      "description": "微信小程序云开发校园二手书商城，可在线支付提现，源码全开源",
+      "stars": 1822,
+      "language": "JavaScript",
+      "defaultBranch": "master",
+      "updatedAt": "2026-10-09T16:33:42Z",
+      "pushedAt": "2022-12-10T04:02:04Z",
+      "archived": false,
+      "license": "UNKNOWN",
+      "topics": [],
+      "inspection": "README_AND_SELECTED_FILES",
+      "matchedQueries": [
+        "校园 二手"
+      ],
+      "evidence": [
+        {
+          "url": "https://api.github.com/repos/xuhuai66/used-book-pro/readme",
+          "file": "evidence/xuhuai66__used-book-pro.readme.txt",
+          "accessedAt": "2026-10-09T18:03:11.727Z"
+        }
+      ],
+      "reuse": "Reference only; no code reuse authorized",
+      "features": [
+        "content",
+        "locations",
+        "media",
+        "marketplace",
+        "bookings"
+      ],
+      "stackSignals": [],
+      "testEvidence": "Not established from inspected files",
+      "targetUsers": "Inferred campus/student users from search; requires per-repository qualification",
+      "permissionMechanism": "Not verified by full source audit",
+      "databaseEntities": "Not verified by full source audit",
+      "apiDesign": "Not verified by full source audit"
+    },
+    {
+      "fullName": "wsk1103/Used-Trading-Platform",
+      "url": "https://github.com/wsk1103/Used-Trading-Platform",
+      "description": "basice of SSM，基于Java的校园二手交易平台",
+      "stars": 1772,
+      "language": "Java",
+      "defaultBranch": "master",
+      "updatedAt": "2026-10-07T10:00:08Z",
+      "pushedAt": "2023-04-18T11:56:31Z",
+      "archived": false,
+      "license": "MIT",
+      "topics": [],
+      "inspection": "README_AND_SELECTED_FILES",
+      "matchedQueries": [
+        "校园 二手"
+      ],
+      "evidence": [
+        {
+          "url": "https://api.github.com/repos/wsk1103/Used-Trading-Platform/readme",
+          "file": "evidence/wsk1103__Used-Trading-Platform.readme.txt",
+          "accessedAt": "2026-10-09T18:03:12.191Z"
+        }
+      ],
+      "reuse": "Requires license and dependency review; no code copied",
+      "features": [
+        "identity",
+        "profile",
+        "content",
+        "search",
+        "notifications",
+        "locations",
+        "media",
+        "marketplace",
+        "bookings"
+      ],
+      "stackSignals": [
+        "Spring",
+        "MySQL"
+      ],
+      "testEvidence": "README mentions tests; not executed",
+      "targetUsers": "Inferred campus/student users from search; requires per-repository qualification",
+      "permissionMechanism": "Not verified by full source audit",
+      "databaseEntities": "Not verified by full source audit",
+      "apiDesign": "Not verified by full source audit"
+    },
+    {
+      "fullName": "Xin-Felix/Mango",
+      "url": "https://github.com/Xin-Felix/Mango",
+      "description": "微信小程序|校园|表白墙|失物招领|二手交易|论坛|兼职|拼车|活动等",
+      "stars": 847,
+      "language": "Java",
+      "defaultBranch": "master",
+      "updatedAt": "2026-10-09T17:22:16Z",
+      "pushedAt": "2024-07-02T08:49:46Z",
+      "archived": false,
+      "license": "GPL-2.0",
+      "topics": [],
+      "inspection": "README_AND_SELECTED_FILES",
+      "matchedQueries": [
+        "校园 二手",
+        "校园 活动"
+      ],
+      "evidence": [
+        {
+          "url": "https://api.github.com/repos/Xin-Felix/Mango/readme",
+          "file": "evidence/Xin-Felix__Mango.readme.txt",
+          "accessedAt": "2026-10-09T18:03:12.615Z"
+        }
+      ],
+      "reuse": "Requires license and dependency review; no code copied",
+      "features": [
+        "identity",
+        "profile",
+        "content",
+        "search",
+        "chat",
+        "notifications",
+        "events",
+        "media",
+        "marketplace",
+        "lostFound"
+      ],
+      "stackSignals": [
+        "Vue",
+        "Spring",
+        "MySQL"
+      ],
+      "testEvidence": "README mentions tests; not executed",
+      "targetUsers": "Inferred campus/student users from search; requires per-repository qualification",
+      "permissionMechanism": "Not verified by full source audit",
+      "databaseEntities": "Not verified by full source audit",
+      "apiDesign": "Not verified by full source audit"
+    },
+    {
+      "fullName": "zhuyuzhu/Secondhand-goods-on-campus",
+      "url": "https://github.com/zhuyuzhu/Secondhand-goods-on-campus",
+      "description": "校园二手交易微信小程序，二手交易平台，校园二手书，校园二手物品交易",
+      "stars": 544,
+      "language": "JavaScript",
+      "defaultBranch": "master",
+      "updatedAt": "2026-10-08T09:33:12Z",
+      "pushedAt": "2018-10-02T00:48:59Z",
+      "archived": false,
+      "license": "UNKNOWN",
+      "topics": [],
+      "inspection": "README_AND_SELECTED_FILES",
+      "matchedQueries": [
+        "校园 二手"
+      ],
+      "evidence": [
+        {
+          "url": "https://api.github.com/repos/zhuyuzhu/Secondhand-goods-on-campus/readme",
+          "file": "evidence/zhuyuzhu__Secondhand-goods-on-campus.readme.txt",
+          "accessedAt": "2026-10-09T18:03:13.094Z"
+        }
+      ],
+      "reuse": "Reference only; no code reuse authorized",
+      "features": [
+        "profile",
+        "content",
+        "search",
+        "locations",
+        "media",
+        "marketplace",
+        "bookings"
+      ],
+      "stackSignals": [],
+      "testEvidence": "README mentions tests; not executed",
+      "targetUsers": "Inferred campus/student users from search; requires per-repository qualification",
+      "permissionMechanism": "Not verified by full source audit",
+      "databaseEntities": "Not verified by full source audit",
+      "apiDesign": "Not verified by full source audit"
+    },
+    {
+      "fullName": "mohuishou/scuplus-wechat",
+      "url": "https://github.com/mohuishou/scuplus-wechat",
+      "description": "We川大小程序[scuplus] 使用wepy开发的完善的校园综合小程序, 40+页面，前后端开源，包括成绩、课表、失物招领、图书馆、新闻资讯等等常见校园场景功能",
+      "stars": 691,
+      "language": "Vue",
+      "defaultBranch": "master",
+      "updatedAt": "2026-09-12T03:00:57Z",
+      "pushedAt": "2020-06-02T16:17:16Z",
+      "archived": true,
+      "license": "UNKNOWN",
+      "topics": [
+        "scu",
+        "scuplus",
+        "wechat",
+        "wechat-app",
+        "wechat-mini-program"
+      ],
+      "inspection": "README_AND_SELECTED_FILES",
+      "matchedQueries": [
+        "校园 课表"
+      ],
+      "evidence": [
+        {
+          "url": "https://api.github.com/repos/mohuishou/scuplus-wechat/readme",
+          "file": "evidence/mohuishou__scuplus-wechat.readme.txt",
+          "accessedAt": "2026-10-09T18:03:13.619Z"
+        }
+      ],
+      "reuse": "Reference only; no code reuse authorized",
+      "features": [
+        "content",
+        "search",
+        "chat",
+        "notifications",
+        "courses",
+        "lostFound"
+      ],
+      "stackSignals": [],
+      "testEvidence": "Not established from inspected files",
+      "targetUsers": "Inferred campus/student users from search; requires per-repository qualification",
+      "permissionMechanism": "Not verified by full source audit",
+      "databaseEntities": "Not verified by full source audit",
+      "apiDesign": "Not verified by full source audit"
+    },
+    {
+      "fullName": "danbaixi/yunxiaozhi",
+      "url": "https://github.com/danbaixi/yunxiaozhi",
+      "description": "云小智 - 一款全面的校园教务查询微信小程序。包括课表查询、成绩查询、校历、一键评教、考试安排、成绩排名、空教室查询等",
+      "stars": 440,
+      "language": "JavaScript",
+      "defaultBranch": "main",
+      "updatedAt": "2026-09-28T12:17:54Z",
+      "pushedAt": "2023-07-01T04:25:31Z",
+      "archived": false,
+      "license": "GPL-3.0",
+      "topics": [],
+      "inspection": "README_AND_SELECTED_FILES",
+      "matchedQueries": [
+        "校园 课表"
+      ],
+      "evidence": [
+        {
+          "url": "https://api.github.com/repos/danbaixi/yunxiaozhi/readme",
+          "file": "evidence/danbaixi__yunxiaozhi.readme.txt",
+          "accessedAt": "2026-10-09T18:03:14.126Z"
+        }
+      ],
+      "reuse": "Requires license and dependency review; no code copied",
+      "features": [
+        "profile",
+        "courses"
+      ],
+      "stackSignals": [],
+      "testEvidence": "README mentions tests; not executed",
+      "targetUsers": "Inferred campus/student users from search; requires per-repository qualification",
+      "permissionMechanism": "Not verified by full source audit",
+      "databaseEntities": "Not verified by full source audit",
+      "apiDesign": "Not verified by full source audit"
+    },
+    {
+      "fullName": "214140846/TOGO_School_Miniprograme",
+      "url": "https://github.com/214140846/TOGO_School_Miniprograme",
+      "description": "校园小程序 高校教务 教务查询 校园二手交易 校园论坛 本地生活 跑腿代取 校园评选 兼职招聘 校园生态 云开发小程序 高校 校园新媒体大学生创业 校园教务系统 智慧校园 课表 成绩 空教室 论坛 上课提醒 成绩推送",
+      "stars": 424,
+      "language": "JavaScript",
+      "defaultBranch": "master",
+      "updatedAt": "2026-10-07T19:18:35Z",
+      "pushedAt": "2026-01-06T13:56:12Z",
+      "archived": false,
+      "license": "UNKNOWN",
+      "topics": [
+        "css",
+        "html",
+        "java",
+        "java8",
+        "javascript",
+        "mongodb",
+        "mysql",
+        "nodejs",
+        "vue"
+      ],
+      "inspection": "README_AND_SELECTED_FILES",
+      "matchedQueries": [
+        "校园 课表"
+      ],
+      "evidence": [
+        {
+          "url": "https://api.github.com/repos/214140846/TOGO_School_Miniprograme/readme",
+          "file": "evidence/214140846__TOGO_School_Miniprograme.readme.txt",
+          "accessedAt": "2026-10-09T18:03:14.594Z"
+        }
+      ],
+      "reuse": "Reference only; no code reuse authorized",
+      "features": [
+        "profile",
+        "content",
+        "notifications",
+        "media",
+        "courses",
+        "marketplace"
+      ],
+      "stackSignals": [
+        "React",
+        "Spring"
+      ],
+      "testEvidence": "Not established from inspected files",
+      "targetUsers": "Inferred campus/student users from search; requires per-repository qualification",
+      "permissionMechanism": "Not verified by full source audit",
+      "databaseEntities": "Not verified by full source audit",
+      "apiDesign": "Not verified by full source audit"
+    },
+    {
+      "fullName": "samiahraf/study-dost-ai",
+      "url": "https://github.com/samiahraf/study-dost-ai",
+      "description": "🧠 Study Dost AI - Your AI study buddy that explains STEM concepts 3 ways, helps you practice, and rewards your curiosity",
+      "stars": 340,
+      "language": null,
+      "defaultBranch": "main",
+      "updatedAt": "2026-10-09T07:20:50Z",
+      "pushedAt": "2026-05-27T11:43:08Z",
+      "archived": false,
+      "license": "UNKNOWN",
+      "topics": [],
+      "inspection": "METADATA_ONLY",
+      "matchedQueries": [
+        "\"study buddy\" in:name,description"
+      ],
+      "evidence": [],
+      "reuse": "Reference only; no code reuse authorized",
+      "inspectionError": "Error: HTTP 403 https://api.github.com/repos/samiahraf/study-dost-ai/readme; reset=1791572504",
+      "features": [],
+      "stackSignals": [],
+      "testEvidence": "Not established from inspected files",
+      "targetUsers": "Inferred campus/student users from search; requires per-repository qualification",
+      "permissionMechanism": "Not verified by full source audit",
+      "databaseEntities": "Not verified by full source audit",
+      "apiDesign": "Not verified by full source audit"
+    },
+    {
+      "fullName": "aws-samples/sample-kiro-study-buddy",
+      "url": "https://github.com/aws-samples/sample-kiro-study-buddy",
+      "description": "A Kiro power that turns Kiro into a personal study companion for any AWS certification exam",
+      "stars": 59,
+      "language": null,
+      "defaultBranch": "main",
+      "updatedAt": "2026-10-06T20:18:52Z",
+      "pushedAt": "2026-06-15T13:25:47Z",
+      "archived": false,
+      "license": "MIT",
+      "topics": [
+        "agentic-ai",
+        "certification",
+        "genai",
+        "kiro"
+      ],
+      "inspection": "METADATA_ONLY",
+      "matchedQueries": [
+        "\"study buddy\" in:name,description"
+      ],
+      "evidence": [],
+      "reuse": "Requires license and dependency review; no code copied",
+      "inspectionError": "Error: HTTP 403 https://api.github.com/repos/aws-samples/sample-kiro-study-buddy/readme; reset=1791572504",
+      "features": [],
+      "stackSignals": [],
+      "testEvidence": "Not established from inspected files",
+      "targetUsers": "Inferred campus/student users from search; requires per-repository qualification",
+      "permissionMechanism": "Not verified by full source audit",
+      "databaseEntities": "Not verified by full source audit",
+      "apiDesign": "Not verified by full source audit"
+    },
+    {
+      "fullName": "pdichone/vincibits-study-buddy-knwoledge-retrieval",
+      "url": "https://github.com/pdichone/vincibits-study-buddy-knwoledge-retrieval",
+      "description": null,
+      "stars": 44,
+      "language": "Python",
+      "defaultBranch": "main",
+      "updatedAt": "2026-04-06T13:28:45Z",
+      "pushedAt": "2024-11-09T18:55:39Z",
+      "archived": false,
+      "license": "UNKNOWN",
+      "topics": [],
+      "inspection": "METADATA_ONLY",
+      "matchedQueries": [
+        "\"study buddy\" in:name,description"
+      ],
+      "evidence": [],
+      "reuse": "Reference only; no code reuse authorized",
+      "inspectionError": "Error: HTTP 403 https://api.github.com/repos/pdichone/vincibits-study-buddy-knwoledge-retrieval/readme; reset=1791572504",
+      "features": [],
+      "stackSignals": [],
+      "testEvidence": "Not established from inspected files",
+      "targetUsers": "Inferred campus/student users from search; requires per-repository qualification",
+      "permissionMechanism": "Not verified by full source audit",
+      "databaseEntities": "Not verified by full source audit",
+      "apiDesign": "Not verified by full source audit"
+    },
+    {
+      "fullName": "Capstone-Projects-2023-Spring/project-virtual-pet",
+      "url": "https://github.com/Capstone-Projects-2023-Spring/project-virtual-pet",
+      "description": "With Study Buddy, you adopt a virtual pet study buddy who becomes your study companion and motivator. Set daily or weekly goals and reminders, track progress, and connect with your Canvas account. Watch your pet react to your accomplishments and earn candies to feed them to watch them grow!",
+      "stars": 32,
+      "language": "Python",
+      "defaultBranch": "main",
+      "updatedAt": "2026-08-24T00:44:14Z",
+      "pushedAt": "2023-05-29T16:17:38Z",
+      "archived": false,
+      "license": "UNKNOWN",
+      "topics": [
+        "canvas-api",
+        "css",
+        "django",
+        "education",
+        "html",
+        "javascript",
+        "python",
+        "react",
+        "studying",
+        "virtual-pet",
+        "web-application"
+      ],
+      "inspection": "METADATA_ONLY",
+      "matchedQueries": [
+        "\"study buddy\" in:name,description"
+      ],
+      "evidence": [],
+      "reuse": "Reference only; no code reuse authorized",
+      "inspectionError": "Error: HTTP 403 https://api.github.com/repos/Capstone-Projects-2023-Spring/project-virtual-pet/readme; reset=1791572504",
+      "features": [
+        "notifications"
+      ],
+      "stackSignals": [
+        "React"
+      ],
+      "testEvidence": "Not established from inspected files",
+      "targetUsers": "Inferred campus/student users from search; requires per-repository qualification",
+      "permissionMechanism": "Not verified by full source audit",
+      "databaseEntities": "Not verified by full source audit",
+      "apiDesign": "Not verified by full source audit"
+    },
+    {
+      "fullName": "hoangsonww/StudySync-Study-Buddy-App",
+      "url": "https://github.com/hoangsonww/StudySync-Study-Buddy-App",
+      "description": "🎓 StudySync is a productivity app with tools like AI-powered study tips, music recommendations, a Pomodoro timer, and more to help enhance your study routine and stay organized. Welcome to a suite of tools designed to boost your study & productivity!",
+      "stars": 28,
+      "language": "Vue",
+      "defaultBranch": "master",
+      "updatedAt": "2026-09-23T17:32:50Z",
+      "pushedAt": "2026-09-27T19:39:11Z",
+      "archived": false,
+      "license": "MIT",
+      "topics": [
+        "artificial-intelligence",
+        "chatbot",
+        "express",
+        "expressjs",
+        "flashcards",
+        "full-stack",
+        "fullstack-development",
+        "machine-learning",
+        "node",
+        "nodejs",
+        "nodemon",
+        "pomodoro",
+        "study",
+        "vercel",
+        "vue",
+        "vue3",
+        "vuejs",
+        "webpack"
+      ],
+      "inspection": "METADATA_ONLY",
+      "matchedQueries": [
+        "\"study buddy\" in:name,description"
+      ],
+      "evidence": [],
+      "reuse": "Requires license and dependency review; no code copied",
+      "inspectionError": "Error: HTTP 403 https://api.github.com/repos/hoangsonww/StudySync-Study-Buddy-App/readme; reset=1791572504",
+      "features": [],
+      "stackSignals": [],
+      "testEvidence": "Not established from inspected files",
+      "targetUsers": "Inferred campus/student users from search; requires per-repository qualification",
+      "permissionMechanism": "Not verified by full source audit",
+      "databaseEntities": "Not verified by full source audit",
+      "apiDesign": "Not verified by full source audit"
+    },
+    {
+      "fullName": "luisarojas/student-matching",
+      "url": "https://github.com/luisarojas/student-matching",
+      "description": "A web application designed to match mentors and students based on a series of survey, personality-related, questions.",
+      "stars": 10,
+      "language": "CSS",
+      "defaultBranch": "master",
+      "updatedAt": "2025-04-15T08:19:17Z",
+      "pushedAt": "2020-09-11T18:58:37Z",
+      "archived": false,
+      "license": "MIT",
+      "topics": [
+        "flask",
+        "matching",
+        "matching-algorithm",
+        "mentees",
+        "mentors",
+        "neo4j",
+        "personality",
+        "postgres",
+        "questionnaire",
+        "students",
+        "survey",
+        "webapp"
+      ],
+      "inspection": "METADATA_ONLY",
+      "matchedQueries": [
+        "\"student matching\" in:name,description"
+      ],
+      "evidence": [],
+      "reuse": "Requires license and dependency review; no code copied",
+      "inspectionError": "Error: HTTP 403 https://api.github.com/repos/luisarojas/student-matching/readme; reset=1791572504",
+      "features": [
+        "profile"
+      ],
+      "stackSignals": [],
+      "testEvidence": "Not established from inspected files",
+      "targetUsers": "Inferred campus/student users from search; requires per-repository qualification",
+      "permissionMechanism": "Not verified by full source audit",
+      "databaseEntities": "Not verified by full source audit",
+      "apiDesign": "Not verified by full source audit"
+    },
+    {
+      "fullName": "Nathen-Smith/HippoCampus",
+      "url": "https://github.com/Nathen-Smith/HippoCampus",
+      "description": "A student matching system that allows users to customize their profile and set preferences on a desired study buddy or project partner. The stack is React.js, Flask, MySQL. Features OAuth login, auto suggest, SQL Triggers and Stored Procedures, and a smooth and intuitive UI/UX.",
+      "stars": 6,
+      "language": "JavaScript",
+      "defaultBranch": "demo",
+      "updatedAt": "2025-07-02T16:12:44Z",
+      "pushedAt": "2021-05-31T06:59:36Z",
+      "archived": false,
+      "license": "UNKNOWN",
+      "topics": [],
+      "inspection": "METADATA_ONLY",
+      "matchedQueries": [
+        "\"student matching\" in:name,description"
+      ],
+      "evidence": [],
+      "reuse": "Reference only; no code reuse authorized",
+      "inspectionError": "Error: HTTP 403 https://api.github.com/repos/Nathen-Smith/HippoCampus/readme; reset=1791572504",
+      "features": [
+        "identity",
+        "profile"
+      ],
+      "stackSignals": [
+        "React",
+        "Flask",
+        "MySQL"
+      ],
+      "testEvidence": "Not established from inspected files",
+      "targetUsers": "Inferred campus/student users from search; requires per-repository qualification",
+      "permissionMechanism": "Not verified by full source audit",
+      "databaseEntities": "Not verified by full source audit",
+      "apiDesign": "Not verified by full source audit"
+    },
+    {
+      "fullName": "Prathamesh02092004/Placewise-Smart-Campus-Placement-Management-System",
+      "url": "https://github.com/Prathamesh02092004/Placewise-Smart-Campus-Placement-Management-System",
+      "description": "Full-stack campus placement platform that replaces Excel-based TPO workflows with AI skill gap analysis, recruiter-student matching, real-time interview scheduling, and live placement analytics across 4 user roles.",
+      "stars": 3,
+      "language": "JavaScript",
+      "defaultBranch": "main",
+      "updatedAt": "2026-08-14T06:24:20Z",
+      "pushedAt": "2026-05-01T11:12:29Z",
+      "archived": false,
+      "license": "UNKNOWN",
+      "topics": [],
+      "inspection": "METADATA_ONLY",
+      "matchedQueries": [
+        "\"student matching\" in:name,description"
+      ],
+      "evidence": [],
+      "reuse": "Reference only; no code reuse authorized",
+      "inspectionError": "Error: HTTP 403 https://api.github.com/repos/Prathamesh02092004/Placewise-Smart-Campus-Placement-Management-System/readme; reset=1791572504",
+      "features": [
+        "profile"
+      ],
+      "stackSignals": [],
+      "testEvidence": "Not established from inspected files",
+      "targetUsers": "Inferred campus/student users from search; requires per-repository qualification",
+      "permissionMechanism": "Not verified by full source audit",
+      "databaseEntities": "Not verified by full source audit",
+      "apiDesign": "Not verified by full source audit"
+    },
+    {
+      "fullName": "ayushscodes/mentorly",
+      "url": "https://github.com/ayushscodes/mentorly",
+      "description": "Mentor and student matching - Full stack application ",
+      "stars": 2,
+      "language": "JavaScript",
+      "defaultBranch": "master",
+      "updatedAt": "2019-11-12T09:37:34Z",
+      "pushedAt": "2018-11-20T06:13:51Z",
+      "archived": false,
+      "license": "UNKNOWN",
+      "topics": [],
+      "inspection": "METADATA_ONLY",
+      "matchedQueries": [
+        "\"student matching\" in:name,description"
+      ],
+      "evidence": [],
+      "reuse": "Reference only; no code reuse authorized",
+      "inspectionError": "Error: HTTP 403 https://api.github.com/repos/ayushscodes/mentorly/readme; reset=1791572504",
+      "features": [
+        "profile"
+      ],
+      "stackSignals": [],
+      "testEvidence": "Not established from inspected files",
+      "targetUsers": "Inferred campus/student users from search; requires per-repository qualification",
+      "permissionMechanism": "Not verified by full source audit",
+      "databaseEntities": "Not verified by full source audit",
+      "apiDesign": "Not verified by full source audit"
+    },
+    {
+      "fullName": "XinHeCS/shanghaiTechTSmatching",
+      "url": "https://github.com/XinHeCS/shanghaiTechTSmatching",
+      "description": "A web app for teacher and student matching",
+      "stars": 2,
+      "language": "HTML",
+      "defaultBranch": "master",
+      "updatedAt": "2017-07-17T15:25:59Z",
+      "pushedAt": "2017-09-14T09:02:59Z",
+      "archived": false,
+      "license": "MIT",
+      "topics": [],
+      "inspection": "METADATA_ONLY",
+      "matchedQueries": [
+        "\"student matching\" in:name,description"
+      ],
+      "evidence": [],
+      "reuse": "Requires license and dependency review; no code copied",
+      "inspectionError": "Error: HTTP 403 https://api.github.com/repos/XinHeCS/shanghaiTechTSmatching/readme; reset=1791572504",
+      "features": [
+        "profile"
+      ],
+      "stackSignals": [],
+      "testEvidence": "Not established from inspected files",
+      "targetUsers": "Inferred campus/student users from search; requires per-repository qualification",
+      "permissionMechanism": "Not verified by full source audit",
+      "databaseEntities": "Not verified by full source audit",
+      "apiDesign": "Not verified by full source audit"
+    }
+  ]
+}
