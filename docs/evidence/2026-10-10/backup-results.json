@@ -1,0 +1,16 @@
+{
+  "status": "TESTED",
+  "at": "2026-10-09T19:13:09.439Z",
+  "checks": [
+    "running storage refused",
+    "control and application snapshots",
+    "integrity and traversal rejection",
+    "existing destination protected",
+    "control and runtime sessions",
+    "business records and media",
+    "vault secrets and file revisions",
+    "relocated artifact HTTP restart"
+  ],
+  "files": 2093,
+  "bytes": 81110342
+}

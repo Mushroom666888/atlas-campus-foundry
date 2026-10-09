@@ -1,0 +1,19 @@
+{
+  "status": "TESTED",
+  "at": "2026-10-09T19:14:25.003Z",
+  "version": "PostgreSQL 18.4 on x86_64-windows, compiled by msvc-19.44.35226, 64-bit",
+  "checks": [
+    "native server startup",
+    "SCRAM authentication",
+    "control migration",
+    "runtime migration",
+    "idempotent migrations",
+    "platform registration",
+    "project creation",
+    "runtime registration",
+    "event creation and enrollment",
+    "server restart persistence",
+    "persistent sessions"
+  ],
+  "clusterDirectory": "C:\\Users\\14237\\Desktop\\Campus AI App Foundry\\.data\\postgres-acceptance-d0970efa-50b7-4846-bcea-65613fac34b8\\cluster"
+}

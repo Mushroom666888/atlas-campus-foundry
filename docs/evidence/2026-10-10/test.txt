@@ -1,0 +1,21 @@
+
+> campus-ai-app-foundry@0.1.0 test
+> tsx --test tests/*.test.ts
+
+✔ Agent contract-only provider: real tools, durable trace, stale preview rejected, repair budget enforced (14352.8612ms)
+✔ offline backup: live-storage refusal, checksums, fresh-root restore, accounts, media, secrets and HTTP redeploy (32549.6058ms)
+✔ kernel storage ownership survives an unresponsive owner and releases after process death (11177.867ms)
+✔ control: owner boundaries, real project files, module publication/reuse and blocked model job (13644.1667ms)
+✔ actual local deployment: HTTP, persistence across restart, immutable rollback, failed deployment and secrets (18999.0198ms)
+✔ SSE authorization is revoked after logout and open streams do not prevent shutdown (7437.1041ms)
+✔ manifest contracts and dependency resolution reject cycles, conflicts and missing modules (6.9117ms)
+✔ real runtime: identity, events, FIFO waitlist, notifications, search, chat, authorization and persistence (10615.5787ms)
+ℹ tests 8
+ℹ suites 0
+ℹ pass 8
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 44823.8854
+

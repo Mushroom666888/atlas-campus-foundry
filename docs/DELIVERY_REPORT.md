@@ -48,4 +48,6 @@
 
 证据：TEST_REPORT.md、artifacts/acceptance/results.json、artifacts/acceptance/*.log、artifacts/screenshots/、artifacts/reuse-report.json、artifacts/postgres-results.json、artifacts/recovery-results.json。早期上传测试失败的 trace 和截图保留在 artifacts/failures/browser-upload/。
 
+最终命令结果：7 项本地命令 TESTED，3 项外部接入命令 BLOCKED，无本地 FAILED。可追踪证据副本在 `docs/evidence/2026-10-10/`；实现 Git 检查点为 `ecb8e00`。本次只完成本地可信进程部署，没有容器隔离实测、远程部署或公网发布。
+
 接入后按 NEXT_ACTIONS.md 继续实际测试与尚未实现的工程，不能把配置完成或契约测试当成完整产品验收。

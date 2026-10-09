@@ -1,0 +1,11 @@
+{
+  "status": "TESTED",
+  "at": "2026-10-09T19:14:14.452Z",
+  "checks": [
+    "abrupt control exit",
+    "runtime IPC-disconnect shutdown",
+    "control database crash recovery",
+    "session persistence",
+    "deployment state reconciled as interrupted"
+  ]
+}

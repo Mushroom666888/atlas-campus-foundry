@@ -22,6 +22,8 @@ Date: 2026-10-10 (Asia/Shanghai). Platform: Windows, Node 24.17.0, npm 11.13.0. 
 
 Exact latest exit codes and individual command logs are in artifacts/acceptance/results.json and artifacts/acceptance/*.log. The combined connected workflow returns exit 2 when integrations are blocked; that is not full-platform success.
 
+Tracked evidence snapshot: docs/evidence/2026-10-10/. The actual local data backup was verified (4,274 files, 162,217,029 bytes), then all three applications returned HTTP 200 after restart. Duplicate Studio startup was refused without overwriting the running-address metadata.
+
 ## Covered behavior
 
 Actual SQL read/write, transaction rollback, enrollment capacity/FIFO promotion, notifications, profile/course/place/school records, topic search, parameterized SQL-injection probes, ownership denial, private-conversation authorization, cross-app session denial, CSRF Origin rejection, invalid image rejection, valid image re-encoding, encrypted variables and reserved-key/newline rejection, path traversal and secret-file denial, module owner/admin checks, pending-module rejection, dependency order/cycle/version checks, extension install/update/rollback, immutable deployment recipe rollback and restart persistence.

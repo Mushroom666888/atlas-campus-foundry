@@ -1,0 +1,65 @@
+{
+  "at": "2026-10-09T19:14:27.031Z",
+  "results": [
+    {
+      "command": "npm run lint",
+      "status": "TESTED",
+      "exitCode": 0,
+      "timedOut": false
+    },
+    {
+      "command": "npm run build",
+      "status": "TESTED",
+      "exitCode": 0,
+      "timedOut": false
+    },
+    {
+      "command": "npm run test",
+      "status": "TESTED",
+      "exitCode": 0,
+      "timedOut": false
+    },
+    {
+      "command": "npm run e2e",
+      "status": "TESTED",
+      "exitCode": 0,
+      "timedOut": false
+    },
+    {
+      "command": "npm run verify-postgres",
+      "status": "TESTED",
+      "exitCode": 0,
+      "timedOut": false
+    },
+    {
+      "command": "npm run verify-recovery",
+      "status": "TESTED",
+      "exitCode": 0,
+      "timedOut": false
+    },
+    {
+      "command": "npm run reuse-report",
+      "status": "TESTED",
+      "exitCode": 0,
+      "timedOut": false
+    },
+    {
+      "command": "npm run verify-integrations",
+      "status": "BLOCKED",
+      "exitCode": 2,
+      "timedOut": false
+    },
+    {
+      "command": "npm run verify-docker",
+      "status": "BLOCKED",
+      "exitCode": 2,
+      "timedOut": false
+    },
+    {
+      "command": "npm run verify-live-agent",
+      "status": "BLOCKED",
+      "exitCode": 2,
+      "timedOut": false
+    }
+  ]
+}
