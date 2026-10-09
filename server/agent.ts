@@ -6,6 +6,7 @@ import {
   moduleManifestSchema,
 } from "../packages/contracts/src/index.js";
 import { resolveModules } from "../packages/modules/src/catalog.js";
+import { moduleReferences } from "../packages/modules/src/composition.js";
 import { Projects } from "./projects.js";
 import { Deployments } from "./deployment.js";
 import { IsolatedExecutor } from "./executor.js";
@@ -243,6 +244,16 @@ export class Agent {
     );
   }
   async create(actor: string, input: string, projectId?: string) {
+    const references = moduleReferences(
+      input,
+      await this.projects.available(actor),
+    );
+    if (references.unknown.length)
+      throw new AppError(
+        422,
+        "UNKNOWN_MODULE_REFERENCE",
+        `无法识别模块：${references.unknown.join("、")}`,
+      );
     if (projectId) await this.projects.get(projectId, actor);
     if (input.length < 5 || input.length > 12000)
       throw new AppError(400, "INVALID_IDEA", "需求需为 5-12000 个字符");
@@ -271,6 +282,8 @@ export class Agent {
       ],
     );
     await this.event(id, "requested", { input, mode: "llm", configured });
+    if (references.moduleIds.length)
+      await this.event(id, "module_references", references);
     if (configured) void this.run(id);
     return { id, status: configured ? "queued" : "blocked", mode: "llm" };
   }
@@ -299,6 +312,10 @@ export class Agent {
     if (!schema) throw new AppError(400, "UNKNOWN_TOOL", "工具不存在");
     const input = schema.parse(args) as Record<string, unknown>;
     const actor = job.owner_id;
+    const referenced = moduleReferences(
+      job.input,
+      await this.projects.available(actor),
+    ).moduleIds;
     const project = () => {
       if (!job.project_id)
         throw new AppError(409, "PROJECT_REQUIRED", "先创建应用");
@@ -322,17 +339,16 @@ export class Agent {
         );
       case "resolveDependencies":
         return resolveModules(
-          input.moduleIds as string[],
+          [...new Set([...(input.moduleIds as string[]), ...referenced])],
           await this.projects.available(actor),
         );
       case "selectModules":
-        return this.projects.install(
-          project(),
-          actor,
-          input.moduleIds as string[],
-        );
+        return this.projects.install(project(), actor, [
+          ...new Set([...(input.moduleIds as string[]), ...referenced]),
+        ]);
       case "createApplication": {
         const spec = productSpecSchema.parse(input.spec);
+        spec.modules = [...new Set([...spec.modules, ...referenced])];
         await this.projects.db.query("UPDATE jobs SET plan=$2 WHERE id=$1", [
           job.id,
           JSON.stringify(spec),
@@ -432,6 +448,15 @@ export class Agent {
         },
         { role: "user", content: job.input },
       ];
+      const references = moduleReferences(
+        job.input,
+        await this.projects.available(job.owner_id),
+      );
+      if (references.moduleIds.length)
+        messages.splice(1, 0, {
+          role: "system",
+          content: `Explicit module references resolved by registry: ${references.moduleIds.join(", ")}. Include them in the product. Inspect each contract before use. Business collection endpoints are /api/modules/{moduleId}/records; declarative composition is allowed without generating executable code.`,
+        });
       const budget = Math.min(
         Math.max(Number(process.env.LLM_MAX_STEPS) || 18, 1),
         40,

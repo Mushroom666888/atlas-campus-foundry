@@ -15,6 +15,7 @@ import {
 import type { Database, SQL } from "../../../server/db.js";
 import { requireUser, hashToken } from "../../../server/auth.js";
 import { emailProvider, OpenStreetMap } from "../../../server/providers.js";
+import { registerRecords } from "./records.js";
 
 export type RuntimeConfig = {
   appId: string;
@@ -39,6 +40,7 @@ export async function registerRuntime(
   db: Database,
   config: RuntimeConfig,
 ) {
+  await registerRecords(app, db, config.spec);
   const subscribers = new Map<string, Set<(event: unknown) => void>>();
   const closeStreams = new Set<() => void>();
   app.addHook("preClose", async () => {

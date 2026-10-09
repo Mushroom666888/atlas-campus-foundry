@@ -1,9 +1,9 @@
 import { readFile, readdir, mkdir, writeFile } from "node:fs/promises";
 import path from "node:path";
-import { createHash } from "node:crypto";
+import { sharedSourceFingerprint } from "../server/source-fingerprint.js";
 const root = path.resolve(process.env.DATA_DIR || ".data");
-const source = await readFile("packages/modules/src/runtime.ts", "utf8");
-const hash = createHash("sha256").update(source).digest("hex");
+const fingerprint = await sharedSourceFingerprint();
+const hash = fingerprint.hash;
 let artifacts: string[] = [];
 try {
   artifacts = await readdir(path.join(root, "artifacts"));
@@ -40,7 +40,8 @@ const unique = [
 ];
 const report = {
   at: new Date().toISOString(),
-  sharedRuntimeLines: source.split("\n").length,
+  sharedRuntimeLines: fingerprint.lines,
+  sourceFiles: fingerprint.files,
   uniqueApplications: unique.length,
   applications: unique,
   sharedCodeImplementations: 1,

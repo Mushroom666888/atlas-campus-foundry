@@ -11,6 +11,14 @@
 - `server/executor.ts`: Docker-only custom code compilation/test. Fixed argv, no shell interpolation.
 - `server/deployment.ts`: artifact snapshots, health probes, local lifecycle and Docker adapter.
 
+## Atlas module composition
+
+The 80 built-in manifests comprise 10 base capabilities, 50 typed campus collections, 12 bounded connectors and 8 display modules. `business-catalog.ts` supplies per-domain fields/status/privacy; `records.ts` supplies shared SQL, authorization, search and CRUD. `002_module_records.sql` is additive and preserves existing app data. These are reusable contracts on a common engine, not 80 duplicated backends.
+
+`composition.ts` validates typed graph ports, installed targets, cycles, private-data flow and at most three embedded levels. Runtime actions use one transaction, a 160-step budget and no recursive event emission. Node/depth memoization bounds validation of dense graphs. `web/visual-builder.tsx` uses React Flow; saving updates the real project specification, and deployment snapshots the graph. Removing a module prunes dependent graph nodes; stale runtime configurations cannot write to an uninstalled target.
+
+The public Atlas homepage is `/`; authenticated tools are `/studio`, `/modules`, `/builder` and `/compose`. Runtime app routing remains independent. The homepage receives a build-time projection of catalog names/IDs/categories, avoiding loading the contract validator just for navigation. Studio/runtime/canvas bundles are lazy loaded; static responses support HTTP compression. Only matched GET `/assets/` routes bypass the API limiter. Module detail previews are explicitly local examples; deployed application views use authenticated APIs.
+
 ## Data boundaries
 
 Platform accounts, teams, projects, applications, module installations, jobs, module releases and deployments live in the control database. Runtime accounts, schools, school membership, profiles, entities, messages, media and notifications live in a different database directory per app. The same email may register separately in several apps; there is no implicit cross-app identity or data access. School membership is self-declared, email verification is not university identity proof. Teams and cross-app grants currently have schema only; their collaborative/sharing workflows remain PLANNED. Project APIs enforce owner authorization.

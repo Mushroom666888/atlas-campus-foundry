@@ -1,5 +1,7 @@
 # 本地交付报告
 
+本文件保留原始交付批次。80 模块、可视化搭建及 Atlas/Taste 界面的最新交付与资源清单见 [ATLAS_DELIVERY.md](ATLAS_DELIVERY.md)；最新测试见 [../TEST_REPORT.md](../TEST_REPORT.md)。
+
 2026-10-10，Windows 实机验证。工程位于 `C:\Users\14237\Desktop\Campus AI App Foundry`。
 
 ## A. 已自主完成

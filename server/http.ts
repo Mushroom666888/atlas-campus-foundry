@@ -2,6 +2,7 @@ import type { FastifyInstance } from "fastify";
 import { ZodError } from "zod";
 import { AppError } from "../packages/contracts/src/index.js";
 import fastifyStatic from "@fastify/static";
+import fastifyCompress from "@fastify/compress";
 import path from "node:path";
 import { existsSync } from "node:fs";
 
@@ -37,6 +38,7 @@ export function errors(app: FastifyInstance) {
 export async function serveFrontend(app: FastifyInstance) {
   const root = path.resolve("dist");
   if (existsSync(path.join(root, "index.html"))) {
+    await app.register(fastifyCompress, { threshold: 1024 });
     await app.register(fastifyStatic, { root, prefix: "/", wildcard: false });
     app.setNotFoundHandler((request, reply) =>
       request.url.startsWith("/api/")

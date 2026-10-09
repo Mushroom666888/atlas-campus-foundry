@@ -15,7 +15,7 @@ test("Studio and three deployed products: persisted workflows, module reuse, upl
 }) => {
   const errors: string[] = [];
   page.on("pageerror", (error) => errors.push(error.message));
-  await page.goto("/");
+  await page.goto("/studio");
   await register(page, `studio-${suffix}@test.example`, "校园开发者");
   await expect(page.getByRole("heading", { name: "项目总览" })).toBeVisible();
   const products = [
@@ -63,7 +63,7 @@ test("Studio and three deployed products: persisted workflows, module reuse, upl
       projectId,
     });
   }
-  await page.goto("/");
+  await page.goto("/studio");
   await mkdir("artifacts/screenshots", { recursive: true });
   await page.screenshot({
     path: "artifacts/screenshots/studio-desktop.png",
@@ -214,16 +214,10 @@ test("Studio and three deployed products: persisted workflows, module reuse, upl
     await context.close();
   }
   await page.goto("/modules");
-  await page
-    .getByRole("button")
-    .filter({
-      has: page.getByRole("heading", { name: "图片与媒体", exact: true }),
-    })
-    .click();
-  await page.getByLabel("安装到项目").selectOption(apps[0].projectId);
-  await page.getByRole("button", { name: "安装模块", exact: true }).click();
-  await expect(page.getByText("模块与依赖已安装")).toBeVisible();
-  await page.getByRole("button", { name: "关闭", exact: true }).click();
+  await page.getByRole("link", { name: "查看图片与媒体", exact: true }).click();
+  await page.getByLabel("目标项目").selectOption(apps[0].projectId);
+  await page.getByRole("button", { name: "安装到项目", exact: true }).click();
+  await expect(page.getByText("模块及依赖已安装")).toBeVisible();
   await page.goto("/builder");
   await page.getByLabel("新的需求").fill("为学习小组生成新的候补功能");
   await page.getByRole("button", { name: "提交需求" }).click();

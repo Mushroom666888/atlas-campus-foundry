@@ -45,7 +45,14 @@ export async function setupAuth(
 ) {
   const cookieName = `${process.env.COOKIE_SECURE === "true" ? "__Host-" : ""}foundry_${scope.replaceAll("-", "_")}`;
   await app.register(cookie);
-  await app.register(rateLimit, { max: 300, timeWindow: "1 minute" });
+  await app.register(rateLimit, {
+    max: 300,
+    timeWindow: "1 minute",
+    // Static bundles/fonts must not consume the shared API budget during navigation.
+    allowList: (request) =>
+      request.method === "GET" &&
+      Boolean(request.routeOptions.url?.startsWith("/assets/")),
+  });
   app.decorateRequest("user", null);
   app.decorateRequest("sessionHash", null);
   app.addHook("onRequest", async (request, reply) => {
@@ -55,7 +62,7 @@ export async function setupAuth(
       .header("X-Frame-Options", "SAMEORIGIN");
     reply.header(
       "Content-Security-Policy",
-      "default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data: https://tile.openstreetmap.org; connect-src 'self'; frame-ancestors 'self'; object-src 'none'; base-uri 'self'",
+      "default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob: https://tile.openstreetmap.org; connect-src 'self'; frame-ancestors 'self'; object-src 'none'; base-uri 'self'",
     );
     const origin = request.headers.origin;
     if (!["GET", "HEAD", "OPTIONS"].includes(request.method) && origin) {

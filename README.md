@@ -1,8 +1,10 @@
-# Campus AI App Foundry
+# Atlas / Campus AI App Foundry
 
 可运行的校园应用开发工作台：真实账号、项目、模块注册、应用数据库、业务模块、开发任务、预览、部署记录和受控模块发布。
 
-**当前不是完整核心平台验收通过状态。** 三个校园产品已通过确定性模块组装运行和测试；真实 LLM 自主生成、Docker 隔离执行与公开多租户托管尚未验证。详见 [PROJECT_STATUS.md](PROJECT_STATUS.md)、[交付报告](docs/DELIVERY_REPORT.md) 和 [人工接入清单](docs/USER_ACTION_REQUIRED.md)。
+内置 **80 个模块**：10 个基础能力、50 个校园功能、12 个连接器、8 个展示组件。支持分类搜索筛选、模块详情/界面示例/接口图、`+模块名` 引用以及无需提示词的拖拽、连接、嵌入和真实应用部署。参见 [可视化模块体系](docs/VISUAL_MODULES.md) 和 [Atlas 设计与来源](docs/ATLAS_DESIGN.md)。
+
+**当前不是完整核心平台验收通过状态。** 三个校园产品和独立画布应用已通过确定性模块组装运行和测试；真实 LLM 自主生成、Docker 隔离执行与公开多租户托管尚未验证。详见 [PROJECT_STATUS.md](PROJECT_STATUS.md)、[最新交付报告](docs/ATLAS_DELIVERY.md) 和 [人工接入清单](docs/USER_ACTION_REQUIRED.md)。
 
 ## 本机使用
 
@@ -20,6 +22,7 @@ npm run dev
 ```powershell
 # 工作台运行后，创建/恢复三个确定性组装的本地产品
 npm run deploy-local
+npm run deploy-visual
 ```
 
 应用地址保存在 `.data/showcase.json`，也可在「应用部署」中打开。示例内容明确标注为样例，通过真实 API 写入持久化数据库，不是 Mock 响应。
@@ -52,7 +55,7 @@ npm run deploy-local
 web/                   中文 Studio + 共享应用前端
 server/                控制面、Agent、权限、部署、Provider
 packages/contracts/    模块清单、产品规格、数据契约
-packages/modules/      10 个基础/校园/场景模块的统一实现
+packages/modules/      80 个基础/校园/连接/展示模块的共享实现
 packages/sdk/          隔离应用扩展类型契约
 migrations/            control 与 runtime 的独立 SQL 迁移
 tests/                 模块、API、数据库、Agent、部署及浏览器测试

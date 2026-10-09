@@ -1,4 +1,4 @@
-import { useEffect, useState, type FormEvent } from "react";
+import { lazy, Suspense, useEffect, useState, type FormEvent } from "react";
 import {
   Link,
   NavLink,
@@ -28,7 +28,6 @@ import {
   RefreshCw,
   Rocket,
   Save,
-  Search,
   Send,
   Settings2,
   ShieldCheck,
@@ -37,10 +36,19 @@ import {
   Trash2,
   Upload,
   WandSparkles,
+  MoveUpRight,
   X,
 } from "lucide-react";
 import { api, post, useLoad } from "./api";
 import { Badge, Empty, Loading, Modal, Notice, useAction } from "./components";
+import {
+  ModuleExplorer,
+  ModuleDetail,
+  ModuleMentionInput,
+} from "./module-studio";
+const VisualBuilder = lazy(() =>
+  import("./visual-builder").then((m) => ({ default: m.VisualBuilder })),
+);
 import type {
   ModuleManifest,
   ProductSpec,
@@ -109,10 +117,10 @@ export function Studio({
       <aside className={`sidebar ${open ? "open" : ""}`}>
         <Link className="brand" to="/">
           <span className="brand-symbol">
-            <Boxes size={23} />
+            <MoveUpRight size={25} strokeWidth={3} />
           </span>
           <span>
-            Campus Foundry<small>开发者工作台</small>
+            atlas<small>开发者工作台</small>
           </span>
         </Link>
         <button
@@ -131,7 +139,7 @@ export function Studio({
           创建产品
         </Link>
         <nav onClick={() => setOpen(false)}>
-          <NavLink end to="/">
+          <NavLink end to="/studio">
             <LayoutDashboard size={18} />
             项目总览
           </NavLink>
@@ -142,6 +150,10 @@ export function Studio({
           <NavLink to="/modules">
             <Boxes size={18} />
             模块仓库
+          </NavLink>
+          <NavLink to="/compose">
+            <GitBranch size={18} />
+            可视化编排
           </NavLink>
           <NavLink to="/deployments">
             <Rocket size={18} />
@@ -195,10 +207,19 @@ export function Studio({
         </header>
         <main className="workspace">
           <Routes>
-            <Route path="/" element={<Dashboard />} />
+            <Route path="/studio" element={<Dashboard />} />
             <Route path="/create" element={<CreateProduct />} />
             <Route path="/builder" element={<Builder />} />
             <Route path="/modules" element={<Modules />} />
+            <Route path="/modules/:moduleId" element={<ModuleDetail />} />
+            <Route
+              path="/compose"
+              element={
+                <Suspense fallback={<Loading />}>
+                  <VisualBuilder user={user} />
+                </Suspense>
+              }
+            />
             <Route path="/projects/:id" element={<ProjectWorkspace />} />
             <Route path="/deployments" element={<DeploymentView />} />
             <Route path="/publisher" element={<Publisher user={user} />} />
@@ -245,7 +266,7 @@ function Dashboard() {
   return (
     <>
       <Heading
-        eyebrow="CAMPUS AI APP FOUNDRY"
+        eyebrow="ATLAS STUDIO"
         title="项目总览"
         subtitle="你的校园产品、共享能力与运行状态。"
       >
@@ -436,14 +457,7 @@ function CreateProduct() {
             )}
             <label>
               产品需求
-              <textarea
-                name="idea"
-                required
-                minLength={5}
-                maxLength={12000}
-                rows={7}
-                placeholder="我想做一个校园学习搭子平台，可以选择课程、寻找同课程伙伴、聊天，并约在图书馆学习。"
-              />
+              <ModuleMentionInput name="idea" rows={7} />
             </label>
             {mode === "assembly" && (
               <>
@@ -636,13 +650,15 @@ function Builder() {
             </label>
             <label>
               新的需求
-              <textarea
+              <ModuleMentionInput
+                key={query.get("modules") || "input"}
                 name="input"
-                minLength={5}
-                maxLength={12000}
-                required
                 rows={3}
-                placeholder="描述产品想法，或者对已有项目提出修改…"
+                seed={
+                  query.get("modules")
+                    ? `我想使用 +${query.get("modules")} `
+                    : ""
+                }
               />
             </label>
             <button className="primary" disabled={action.busy}>
@@ -742,132 +758,7 @@ function JobDetail({ id }: { id: string }) {
   );
 }
 function Modules() {
-  const [search, setSearch] = useState(""),
-    [selected, setSelected] = useState<ModuleManifest | null>(null),
-    [project, setProject] = useState("");
-  const modules = useLoad<{ items: ModuleManifest[] }>(
-      `/api/modules?q=${encodeURIComponent(search)}`,
-    ),
-    projects = useLoad<{ items: Project[] }>("/api/projects");
-  const action = useAction();
-  return (
-    <>
-      <Heading
-        eyebrow="SHARED CAPABILITIES"
-        title="模块仓库"
-        subtitle="经过契约约束的校园能力。每个安装实例都有独立的版本记录。"
-      />
-      <div className="toolbar">
-        <div className="search-input">
-          <Search size={17} />
-          <input
-            value={search}
-            onChange={(e) => setSearch(e.target.value)}
-            placeholder="搜索模块、能力或接口"
-            aria-label="搜索模块"
-          />
-        </div>
-        <span className="muted">{modules.data?.items.length ?? 0} 个版本</span>
-      </div>
-      {modules.error && <Notice>{modules.error}</Notice>}
-      <div className="module-grid">
-        {modules.data?.items.map((m) => (
-          <button
-            className="module-card"
-            key={`${m.moduleId}-${m.version}`}
-            onClick={() => {
-              setSelected(m);
-              action.setError("");
-            }}
-          >
-            <div className="module-card-top">
-              <span className={`module-symbol ${m.category}`}>
-                <Boxes size={22} />
-              </span>
-              <Badge status={m.securityMetadata.review} />
-            </div>
-            <h3>{m.name}</h3>
-            <p>{m.description}</p>
-            <footer>
-              <code>{m.moduleId}</code>
-              <span>v{m.version}</span>
-            </footer>
-          </button>
-        ))}
-      </div>
-      {selected && (
-        <Modal title={selected.name} onClose={() => setSelected(null)}>
-          <p>{selected.description}</p>
-          <dl className="definition-list">
-            <div>
-              <dt>版本</dt>
-              <dd>{selected.version}</dd>
-            </div>
-            <div>
-              <dt>许可证</dt>
-              <dd>{selected.license}</dd>
-            </div>
-            <div>
-              <dt>依赖</dt>
-              <dd>
-                {Object.entries(selected.dependencies)
-                  .map(([name, v]) => `${name}@${v}`)
-                  .join(", ") || "无"}
-              </dd>
-            </div>
-            <div>
-              <dt>提供接口</dt>
-              <dd>{selected.providedInterfaces.join(", ")}</dd>
-            </div>
-          </dl>
-          <details>
-            <summary>完整模块契约</summary>
-            <pre>{JSON.stringify(selected, null, 2)}</pre>
-          </details>
-          <label>
-            安装到项目
-            <select
-              value={project}
-              onChange={(e) => setProject(e.target.value)}
-            >
-              <option value="">选择项目</option>
-              {projects.data?.items.map((p) => (
-                <option key={p.id} value={p.id}>
-                  {p.name}
-                </option>
-              ))}
-            </select>
-          </label>
-          {action.error && <Notice>{action.error}</Notice>}
-          {action.message && <Notice kind="success">{action.message}</Notice>}
-          <button
-            className="primary"
-            disabled={
-              !project ||
-              action.busy ||
-              selected.securityMetadata.review === "pending"
-            }
-            onClick={() =>
-              void action.run(async () => {
-                const current = projects.data!.items.find(
-                  (p) => p.id === project,
-                )!;
-                await post(`/api/projects/${project}/modules`, {
-                  modules: [
-                    ...new Set([...current.spec.modules, selected.moduleId]),
-                  ],
-                });
-                await projects.refresh();
-              }, "模块与依赖已安装")
-            }
-          >
-            <Plus size={16} />
-            安装模块
-          </button>
-        </Modal>
-      )}
-    </>
-  );
+  return <ModuleExplorer />;
 }
 function ProjectWorkspace() {
   const { id } = useParams();
@@ -897,6 +788,10 @@ function ProjectWorkspace() {
         title={data.project.name}
         subtitle={data.project.spec.description}
       >
+        <Link className="button" to={`/compose?project=${id}`}>
+          <GitBranch size={16} />
+          可视化编排
+        </Link>
         <Link to="/builder" className="button">
           <WandSparkles size={16} />
           继续开发

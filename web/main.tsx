@@ -1,16 +1,23 @@
-import React, { useEffect, useState } from "react";
+import React, { lazy, Suspense, useEffect, useState } from "react";
 import { createRoot } from "react-dom/client";
-import { BrowserRouter } from "react-router-dom";
+import { BrowserRouter, Navigate, useLocation } from "react-router-dom";
 import { api } from "./api";
 import { Auth, Loading, Notice } from "./components";
-import { Studio } from "./studio";
-import { CampusApplication } from "./runtime";
+import { AtlasHome } from "./atlas-home";
+const Studio = lazy(() =>
+  import("./studio").then((m) => ({ default: m.Studio })),
+);
+const CampusApplication = lazy(() =>
+  import("./runtime").then((m) => ({ default: m.CampusApplication })),
+);
 import type {
   PublicUser,
   ProductSpec,
   FeatureRecipe,
 } from "../packages/contracts/src/index";
 import "./styles.css";
+import "./module-studio.css";
+import "./atlas.css";
 
 export type RuntimeInfo = {
   appId: string;
@@ -20,8 +27,10 @@ export type RuntimeInfo = {
   emailProvider: string;
 };
 function Root() {
+  const location = useLocation();
   const [user, setUser] = useState<PublicUser | null>(null),
     [runtime, setRuntime] = useState<RuntimeInfo | null>(null),
+    [control, setControl] = useState(false),
     [ready, setReady] = useState(false),
     [error, setError] = useState("");
   useEffect(() => {
@@ -30,6 +39,7 @@ function Root() {
         const health = await api<{ service?: string }>("/api/health");
         if (!health.service)
           setRuntime(await api<RuntimeInfo>("/api/application"));
+        else setControl(true);
         setUser((await api<{ user: PublicUser | null }>("/api/auth/me")).user);
         setReady(true);
       } catch (e) {
@@ -37,8 +47,12 @@ function Root() {
       }
     })();
   }, []);
+  if (control && location.pathname === "/") return <AtlasHome user={user} />;
   if (error) return <Notice>{error}</Notice>;
   if (!ready) return <Loading />;
+  if (!runtime && location.pathname === "/") return <AtlasHome user={user} />;
+  if (!runtime && user && location.pathname === "/login")
+    return <Navigate to="/studio" replace />;
   if (!user)
     return (
       <Auth
@@ -54,13 +68,15 @@ function Root() {
       onLogout={() => setUser(null)}
     />
   ) : (
-    <BrowserRouter>
-      <Studio user={user} onLogout={() => setUser(null)} />
-    </BrowserRouter>
+    <Studio user={user} onLogout={() => setUser(null)} />
   );
 }
 createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
-    <Root />
+    <BrowserRouter>
+      <Suspense fallback={<Loading />}>
+        <Root />
+      </Suspense>
+    </BrowserRouter>
   </React.StrictMode>,
 );

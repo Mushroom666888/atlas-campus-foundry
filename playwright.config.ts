@@ -1,7 +1,11 @@
 import { defineConfig } from "@playwright/test";
 export default defineConfig({
   testDir: "./tests",
-  testMatch: "**/browser.spec.ts",
+  testMatch: [
+    "**/browser.spec.ts",
+    "**/modules.browser.spec.ts",
+    "**/atlas.browser.spec.ts",
+  ],
   timeout: 90000,
   expect: { timeout: 10000 },
   workers: 1,

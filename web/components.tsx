@@ -104,7 +104,7 @@ export function Modal({
 }
 export function Auth({
   onUser,
-  title = "Campus AI App Foundry",
+  title = "Atlas",
   runtime = false,
 }: {
   onUser: (user: PublicUser) => void;
@@ -135,7 +135,7 @@ export function Auth({
     <main className="auth-page">
       <div className="auth-brand">
         <Boxes size={32} />
-        <span>{title}</span>
+        {runtime ? <span>{title}</span> : <a href="/">{title}</a>}
       </div>
       <section className="auth-form">
         <span className="eyebrow">
@@ -197,7 +197,7 @@ export function Auth({
         </form>
       </section>
       <p className="auth-footer">
-        Campus AI App Foundry · {runtime ? "应用空间" : "校园产品开发工作台"}
+        Atlas · {runtime ? "应用空间" : "校园产品开发工作台"}
       </p>
     </main>
   );

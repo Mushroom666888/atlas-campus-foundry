@@ -17,6 +17,10 @@
 
 ## Not a production security boundary
 
+The 80-module expansion adds typed JSON field validation, per-record ownership, private collection reads and installed-module checks. Graph saves reject private-to-shared embedding/copying, cycles, invalid targets and oversize project specifications before mutation. Connector execution is transactional and capped at 160 steps; nested embedding is limited to three levels. Uninstall removes graph nodes, and stale runtime graphs cannot write to uninstalled targets. Independent review findings were repaired and covered by regression tests. Each user is limited to 1,000 lifetime records per collection; list responses cap at 200, with pagination UI still absent.
+
+The static-resource limiter exception checks the matched GET route under `/assets/`, not user-controlled raw path text. A regression issues 320 asset requests and then verifies the API's 300/minute allowance plus a rejected 301st request. CSP permits `blob:` for image preview only; no arbitrary executable code or external connector HTTP is enabled by visual composition.
+
 Local-trusted processes share the operating-system account and are not hostile-code sandboxes. Their resource quotas are application-level controls, not OS-enforced isolation. Never expose this mode as an open multi-tenant hosting service.
 
 Docker execution and deployment definitions include non-root users, read-only root, network restrictions, capability removal, no-new-privileges, CPU/memory/PID limits and explicit mounts. These remain UNTESTED because Docker is absent. Enabling a boolean flag does not constitute a security review. Dynamic HTTPS ingress and dedicated privileged runner separation are unfinished.

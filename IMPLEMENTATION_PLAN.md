@@ -21,6 +21,12 @@ Task states: TODO / IN_PROGRESS / TESTING / DONE / BLOCKED. Evidence: IMPLEMENTE
 | Q02 | DB and crash recovery / D01 | scripts | Native PostgreSQL and abrupt process restart | DONE: PostgreSQL 18.4 and IPC shutdown/recovery |
 | Q03 | Local backup and storage ownership / Q02 | server/backup, storage-lock, scripts, tests | Offline complete snapshot, fresh-root restore, real HTTP/data/secrets/media, stalled-process exclusion | DONE: two backup/lock tests included in the 8-test suite |
 | H01 | Delivery/recovery / all above | scripts/docs/Git | Startup, evidence, resources and resumable state | DONE locally |
+| M02 | 80 module catalog / M01 | contracts, business catalog, records SQL/UI | 10+50+12+8 manifests; all 50 collections real CRUD/search/privacy/restart | DONE: contract and integration tests |
+| U02 | Module explorer / M02 | module-studio, foundation-preview | Search/filter, detail, local preview, API graph, install, +references | DONE: browser and Agent tool tests |
+| U03 | Zero-prompt builder / M02,D01 | composition, visual-builder, deployment | Drag/connect/configure/save/reload/deploy; notifications and embedded records | DONE: real browser workflow and fourth local app |
+| Q04 | Graph security / U03 | composition, projects, records, tests | Private-data boundary, uninstall consistency, atomic save, bounded graph validation | DONE: independent review fixes and regression tests |
+| U04 | Atlas design / U02,U03 | homepage, global brand styling, assets | Finesse/Taste audit, local type, real imagery, responsive navigation and motion | DONE: 9 viewports; Lighthouse 85 performance, 100 accessibility, 100 best practices |
+| Q05 | Frontend delivery / U04 | HTTP compression, auth, homepage projection | Static assets do not exhaust API budget, API remains limited, lighter mobile images | DONE: rate-limit regression, build, browser and Lighthouse |
 | P201 | Production / D02 | runner, TLS, offsite backup schedules | Public hosting and hostile-tenant acceptance | TODO / PLANNED |
 
-Team collaboration and cross-app sharing have schema only. They are not enabled. External blockers are separate from independently completed local work.
+Team collaboration and cross-app sharing have schema only. They are not enabled. External blockers are separate from independently completed local work. Current suite: 15 Node tests and 4 browser journeys; Q03's historical 8-test count refers to its original acceptance.

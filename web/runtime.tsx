@@ -21,6 +21,9 @@ import { api, post, useLoad } from "./api";
 import { Badge, Empty, Loading, Modal, Notice, useAction } from "./components";
 import type { Entity, PublicUser } from "../packages/contracts/src/index";
 import type { RuntimeInfo } from "./main";
+import { businessCatalog } from "../packages/modules/src/business-catalog";
+import { RecordModule } from "./record-module";
+import { connectedModules } from "../packages/modules/src/composition";
 const labels: Record<string, string> = {
   event: "校园活动",
   listing: "二手好物",
@@ -93,8 +96,27 @@ export function CampusApplication({
     location: "campus",
     school: "campus",
   };
-  const kinds = order.filter((k) => info.modules.includes(access[k]));
-  const [view, setView] = useState(kinds[0] ?? "post"),
+  const embeddedIds = new Set(businessCatalog.flatMap((m) => connectedModules(info.spec.composition, m.moduleId, "embed").map((n) => n.moduleId)));
+  const business = businessCatalog
+    .filter(
+      (m) => info.modules.includes(m.moduleId) && !embeddedIds.has(m.moduleId),
+    )
+    .sort((a, b) => {
+      const nodes = info.spec.composition?.nodes || [];
+      return (
+        nodes.findIndex((n) => n.moduleId === a.moduleId) -
+        nodes.findIndex((n) => n.moduleId === b.moduleId)
+      );
+    });
+  const kinds = order.filter(
+    (k) =>
+      info.modules.includes(access[k]) &&
+      (!info.spec.composition ||
+        info.spec.composition.nodes.some((n) => n.moduleId === access[k])),
+  );
+  const [view, setView] = useState(
+      business[0]?.moduleId ?? kinds[0] ?? "notifications",
+    ),
     [account, setAccount] = useState(false);
   return (
     <div className={`campus-app theme-${info.spec.primaryColor}`}>
@@ -161,6 +183,18 @@ export function CampusApplication({
         <p>{info.spec.description}</p>
       </div>
       <nav className="app-tabs">
+        {business.map((module) => (
+          <button
+            key={module.moduleId}
+            className={view === module.moduleId ? "selected" : ""}
+            onClick={() => setView(module.moduleId)}
+          >
+            <BookOpen size={17} />
+            {info.spec.composition?.nodes.find(
+              (n) => n.moduleId === module.moduleId,
+            )?.title || module.name}
+          </button>
+        ))}
         {kinds.map((kind) => {
           const Icon = icons[kind];
           return (
@@ -176,7 +210,27 @@ export function CampusApplication({
         })}
       </nav>
       <main className="app-content">
-        {view === "chat" ? (
+        {businessCatalog.some((m) => m.moduleId === view) ? (
+          <RecordModule
+            key={view}
+            module={businessCatalog.find((m) => m.moduleId === view)!}
+            spec={info.spec}
+            user={user}
+            onNavigate={(id) =>
+              setView(
+                (
+                  {
+                    events: "event",
+                    content: "post",
+                    groups: "group",
+                    profiles: "profile",
+                    campus: "location",
+                  } as Record<string, string>
+                )[id] || id,
+              )
+            }
+          />
+        ) : view === "chat" ? (
           <Chat user={user} />
         ) : view === "notifications" ? (
           <Notifications />
@@ -186,7 +240,7 @@ export function CampusApplication({
       </main>
       <footer className="app-footer">
         {info.spec.name}
-        <span>Powered by Campus Foundry</span>
+        <span>Powered by Atlas</span>
       </footer>
       {account && (
         <Modal title="我的账户" onClose={() => setAccount(false)}>

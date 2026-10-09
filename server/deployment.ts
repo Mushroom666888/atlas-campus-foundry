@@ -1,5 +1,6 @@
 import { spawn, type ChildProcess } from "node:child_process";
-import { randomUUID, createHash } from "node:crypto";
+import { randomUUID } from "node:crypto";
+import { sharedSourceFingerprint } from "./source-fingerprint.js";
 import { createServer } from "node:net";
 import { mkdir, writeFile, appendFile, readFile, cp } from "node:fs/promises";
 import path from "node:path";
@@ -179,9 +180,7 @@ export class Deployments {
         (await this.projects.installs(app.project_id, actor));
       const recipes =
         restored?.recipes ?? (await this.projects.recipes(app.id));
-      const sourceHash = createHash("sha256")
-        .update(await readFile("packages/modules/src/runtime.ts"))
-        .digest("hex");
+      const sourceHash = (await sharedSourceFingerprint()).hash;
       if (restored && restored.sourceHash !== sourceHash)
         throw new AppError(
           409,

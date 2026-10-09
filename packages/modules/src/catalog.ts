@@ -1,4 +1,6 @@
 import semver from "semver";
+import { businessCatalog } from "./business-catalog.js";
+import { connectionCatalog } from "./connection-catalog.js";
 import {
   AppError,
   moduleManifestSchema,
@@ -65,12 +67,12 @@ const definitions = [
     ["identity"],
   ],
 ] as const;
-export const catalog: ModuleManifest[] = definitions.map(
-  ([moduleId, name, category, description, dependencies]) =>
+export const catalog: ModuleManifest[] = [
+  ...definitions.map(([moduleId, name, category, description, dependencies]) =>
     moduleManifestSchema.parse({
       moduleId,
       name,
-      category,
+      category: "foundation",
       description,
       version: "1.0.0",
       capabilities: [moduleId],
@@ -115,8 +117,26 @@ export const catalog: ModuleManifest[] = definitions.map(
         network: [],
       },
       license: "MIT",
+      tags: [category === "foundation" ? "基础能力" : "校园协作"],
+      aliases: (
+        {
+          identity: ["登录", "认证"],
+          profiles: ["档案"],
+          campus: ["地图", "地点"],
+          content: ["内容", "商品"],
+          search: ["搜索"],
+          chat: ["聊天"],
+          notifications: ["通知"],
+          events: ["活动", "报名"],
+          groups: ["小组", "社团"],
+          media: ["图片", "上传"],
+        } as Record<string, string[]>
+      )[moduleId],
     }),
-);
+  ),
+  ...businessCatalog,
+  ...connectionCatalog,
+];
 export function resolveModules(
   requested: string[],
   available: ModuleManifest[] = catalog,

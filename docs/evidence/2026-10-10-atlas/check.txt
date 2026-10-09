@@ -1,0 +1,54 @@
+
+> campus-ai-app-foundry@0.1.0 check
+> npm run lint && npm run build && npm test
+
+
+> campus-ai-app-foundry@0.1.0 lint
+> eslint .
+
+
+> campus-ai-app-foundry@0.1.0 build
+> tsc --noEmit && vite build
+
+vite v8.3.4 building client environment for production...
+transforming...
+✓ 2219 modules transformed.
+rendering chunks...
+computing gzip size...
+dist/index.html                            0.80 kB │ gzip:  0.48 kB
+dist/assets/visual-builder-DLioOiRN.css   15.41 kB │ gzip:  2.56 kB
+dist/assets/index-CLrNHEvV.css            56.78 kB │ gzip: 12.26 kB
+dist/assets/runtime-D87bkH_Z.js           19.58 kB │ gzip:  6.06 kB
+dist/assets/studio-BbDhNpsW.js            52.50 kB │ gzip: 14.99 kB
+dist/assets/record-module-eYS8tkOd.js    125.26 kB │ gzip: 38.23 kB
+dist/assets/visual-builder-CQ1V1OFV.js   222.87 kB │ gzip: 72.36 kB
+dist/assets/index-WlYnbM6U.js            284.93 kB │ gzip: 91.70 kB
+
+✓ built in 939ms
+
+> campus-ai-app-foundry@0.1.0 test
+> tsx --test tests/*.test.ts
+
+✔ Agent contract-only provider: real tools, durable trace, stale preview rejected, repair budget enforced (20101.6636ms)
+✔ offline backup: live-storage refusal, checksums, fresh-root restore, accounts, media, secrets and HTTP redeploy (41349.2337ms)
+✔ kernel storage ownership survives an unresponsive owner and releases after process death (11236.111ms)
+✔ 80 catalog modules, typed graph contracts and exact multilingual module references (18.823ms)
+✔ dense invalid graphs are rejected within a bounded validation budget (3.4032ms)
+✔ all 50 business modules execute real validated CRUD, private reads, ownership, search and database restart (14796.444ms)
+✔ 12 connectors execute events, conditions, field mapping, notification, linked records, audit and transactional rollback (5868.2585ms)
+✔ embedded records enforce declared parent contracts; Agent +references persist and constrain module tools (9648.2135ms)
+✔ private records cannot be embedded or copied into shared modules, including stale runtime graphs (3687.9015ms)
+✔ control: owner boundaries, real project files, module publication/reuse and blocked model job (17776.2528ms)
+✔ actual local deployment: HTTP, persistence across restart, immutable rollback, failed deployment and secrets (25346.1507ms)
+✔ static assets preserve API rate budget while real API requests remain limited (4969.0525ms)
+✔ SSE authorization is revoked after logout and open streams do not prevent shutdown (10762.1955ms)
+✔ manifest contracts and dependency resolution reject cycles, conflicts and missing modules (15.5493ms)
+✔ real runtime: identity, events, FIFO waitlist, notifications, search, chat, authorization and persistence (13423.5801ms)
+ℹ tests 15
+ℹ suites 0
+ℹ pass 15
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 54191.5071

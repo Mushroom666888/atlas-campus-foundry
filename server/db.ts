@@ -1,6 +1,6 @@
 import { PGlite } from "@electric-sql/pglite";
 import pg from "pg";
-import { mkdir, readFile } from "node:fs/promises";
+import { mkdir, readFile, readdir } from "node:fs/promises";
 import path from "node:path";
 import { lockStorage } from "./storage-lock.js";
 
@@ -84,23 +84,28 @@ export class Database implements SQL {
     await this.exec(
       "CREATE TABLE IF NOT EXISTS schema_migrations (version text PRIMARY KEY, applied_at timestamptz NOT NULL DEFAULT now())",
     );
-    const version = `${scope}/001_initial.sql`;
-    if (
-      (
-        await this.query(
-          "SELECT version FROM schema_migrations WHERE version=$1",
-          [version],
-        )
-      ).rows.length
-    )
-      return;
-    const sql = await readFile(path.resolve("migrations", version), "utf8");
-    await this.transaction(async (tx) => {
-      await tx.exec(sql);
-      await tx.query("INSERT INTO schema_migrations(version) VALUES($1)", [
-        version,
-      ]);
-    });
+    const migrations = (await readdir(path.resolve("migrations", scope)))
+      .filter((name) => /^\d{3}_[a-z_]+\.sql$/.test(name))
+      .sort();
+    for (const migration of migrations) {
+      const version = `${scope}/${migration}`;
+      if (
+        (
+          await this.query(
+            "SELECT version FROM schema_migrations WHERE version=$1",
+            [version],
+          )
+        ).rows.length
+      )
+        continue;
+      const sql = await readFile(path.resolve("migrations", version), "utf8");
+      await this.transaction(async (tx) => {
+        await tx.exec(sql);
+        await tx.query("INSERT INTO schema_migrations(version) VALUES($1)", [
+          version,
+        ]);
+      });
+    }
   }
   async close() {
     await this.chain;

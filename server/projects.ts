@@ -21,6 +21,7 @@ import {
   type PublicUser,
 } from "../packages/contracts/src/index.js";
 import { catalog, resolveModules } from "../packages/modules/src/catalog.js";
+import { validateComposition } from "../packages/modules/src/composition.js";
 
 export type Project = {
   id: string;
@@ -92,6 +93,8 @@ export class Projects {
     const spec = productSpecSchema.parse(input);
     const resolved = resolveModules(spec.modules, await this.available(actor));
     spec.modules = resolved.map((m) => m.moduleId);
+    validateComposition(spec, resolved);
+    this.checkSpecSize(spec);
     const quota = (
       await this.db.query<{ count: number }>(
         "SELECT count(*)::integer AS count FROM projects WHERE owner_id=$1",
@@ -187,6 +190,18 @@ export class Projects {
   async update(id: string, actor: string, input: unknown) {
     await this.get(id, actor);
     const spec = productSpecSchema.parse(input);
+    const available = await this.available(actor);
+    spec.modules = resolveModules(spec.modules, available).map(
+      (m) => m.moduleId,
+    );
+    this.checkSpecSize(spec);
+    validateComposition(spec, available);
+    await this.preflightWrite(
+      id,
+      actor,
+      "product.json",
+      JSON.stringify(spec, null, 2),
+    );
     await this.install(id, actor, spec.modules);
     const app = await this.application(id, actor);
     spec.modules = app.spec.modules;
@@ -227,6 +242,33 @@ export class Projects {
     );
     const previous = await this.installs(id, actor);
     const spec = { ...app.spec, modules: manifests.map((m) => m.moduleId) };
+    if (spec.composition) {
+      const nodes = spec.composition.nodes.filter(
+        (n) =>
+          spec.modules.includes(n.moduleId) &&
+          (n.moduleId !== "create-linked-record" ||
+            spec.modules.includes(String(n.configuration.targetModule))) &&
+          (n.moduleId !== "embedded-list" ||
+            spec.modules.includes(String(n.configuration.childModule))),
+      );
+      const ids = new Set(nodes.map((n) => n.id));
+      spec.composition = nodes.length
+        ? {
+            ...spec.composition,
+            nodes,
+            edges: spec.composition.edges.filter(
+              (e) => ids.has(e.source) && ids.has(e.target),
+            ),
+          }
+        : undefined;
+    }
+    validateComposition(spec, manifests);
+    await this.preflightWrite(
+      id,
+      actor,
+      "product.json",
+      JSON.stringify(spec, null, 2),
+    );
     await this.db.transaction(async (tx) => {
       await tx.query("DELETE FROM module_installs WHERE app_id=$1", [app.id]);
       for (const m of manifests)
@@ -369,14 +411,24 @@ export class Projects {
       throw error;
     }
   }
-  async write(id: string, actor: string, file: string, content: string) {
+  private checkSpecSize(spec: ProductSpec) {
+    if (Buffer.byteLength(JSON.stringify(spec, null, 2)) > 200000)
+      throw new AppError(413, "FILE_TOO_LARGE", "产品配置最多 200 KB");
+  }
+  private async preflightWrite(
+    id: string,
+    actor: string,
+    file: string,
+    content: string,
+  ) {
     await this.get(id, actor);
     if (Buffer.byteLength(content) > 200000)
       throw new AppError(413, "FILE_TOO_LARGE", "文件最多 200 KB");
     const files = await this.files(id, actor);
     if (
-      files.length > 100 ||
-      files.reduce((n, f) => n + f.size, 0) + Buffer.byteLength(content) >
+      files.filter((f) => f.path !== file).length >= 100 ||
+      files.filter((f) => f.path !== file).reduce((n, f) => n + f.size, 0) +
+        Buffer.byteLength(content) >
         2_000_000
     )
       throw new AppError(
@@ -385,6 +437,10 @@ export class Projects {
         "项目文件限额为 2 MB / 100 个文件",
       );
     const target = await this.safePath(id, file);
+    return target;
+  }
+  async write(id: string, actor: string, file: string, content: string) {
+    const target = await this.preflightWrite(id, actor, file, content);
     let previous: string | null = null;
     try {
       previous = await readFile(target, "utf8");
