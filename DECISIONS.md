@@ -13,3 +13,9 @@
 - Reject private-to-shared graph paths, stale uninstalled targets, cyclic graphs and oversize specifications before mutation. Validate embedding with node/depth memoization.
 - Follow the user's Atlas art direction on the homepage; use compact, quiet product surfaces for repeated work. Git-cloned taste-skill at 18dfc928b135629e0eddfdd445a06400d04ed439 after functional acceptance. Apply compatible advice without global installers or overriding accessibility and repository rules.
 - Keep API request limits intact while excluding matched static GET asset routes. Ship homepage catalog summaries at build time, local font subsets, mobile image variants and HTTP compression.
+- Expand commercial products with 10 transactional commerce modules and 4 reusable community modules while preserving the 80 earlier contracts. Do not relabel simple record collections as payment or marketplace engines.
+- Mount the same forum/profile/showcase backend and frontend in Atlas and generated apps. Keep account stores, databases and sessions separate; directory visibility requires deliberately saving a public profile.
+- Use offline settlement until a real payment provider, webhook verification, reconciliation and refund flows exist. Orders and coupons operate on integer cents and atomic stock reservations; no funds movement is claimed.
+- Require product intent alongside Canvas version 2. Resolve and draw dependencies, separate visual lanes and reject unsupported ports/disconnected automation before saving. Keep generic record automation away from private order/inventory mutations.
+- Apply graph replacements and module installations in one database transaction. Never validate a partially pruned old graph while saving an already validated replacement.
+- Keep homepage bitmap movement subtle and pause it offscreen or in hidden tabs; honor reduced-motion preferences. Avoid overlay controls that intercept Canvas handles.

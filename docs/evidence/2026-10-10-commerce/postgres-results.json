@@ -1,0 +1,22 @@
+{
+  "status": "TESTED",
+  "at": "2026-10-10T08:20:19.829Z",
+  "version": "PostgreSQL 18.4 on x86_64-windows, compiled by msvc-19.44.35226, 64-bit",
+  "checks": [
+    "native server startup",
+    "SCRAM authentication",
+    "control migration",
+    "runtime migration",
+    "idempotent migrations",
+    "platform registration",
+    "project creation",
+    "runtime registration",
+    "event creation and enrollment",
+    "server restart persistence",
+    "persistent sessions",
+    "exact control/runtime migration ledger and repeat-run idempotence",
+    "concurrent orders cannot oversell on PostgreSQL server",
+    "orders, stock and community posts survive database server restart"
+  ],
+  "clusterDirectory": "C:\\Users\\14237\\Desktop\\Campus AI App Foundry\\.data\\postgres-acceptance-a4c198e7-6ade-4f54-b859-7c3b5bdd639a\\cluster"
+}

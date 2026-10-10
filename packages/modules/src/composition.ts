@@ -5,12 +5,159 @@ import {
   type ProductSpec,
 } from "../../contracts/src/index.js";
 
+export function connectionError(
+  graph: Composition,
+  edge: Composition["edges"][number],
+  available: ModuleManifest[],
+): string | null {
+  const a = graph.nodes.find((n) => n.id === edge.source),
+    b = graph.nodes.find((n) => n.id === edge.target);
+  const from = available.find((m) => m.moduleId === a?.moduleId),
+    to = available.find((m) => m.moduleId === b?.moduleId);
+  if (!from || !to || a?.id === b?.id) return "连线端点无效，模块不能连接自己";
+  if (edge.mode === "dependency")
+    return to.dependencies[from.moduleId] &&
+      to.requiredInterfaces.some((i) => from.providedInterfaces.includes(i))
+      ? null
+      : `${to.name}不依赖${from.name}的接口`;
+  if (
+    edge.mode === "flow" &&
+    (!(from.recordDefinition || from.category === "connector") ||
+      to.category !== "connector")
+  )
+    return "自动化输入必须是业务记录或连接器，输出必须是连接器";
+  if (
+    edge.mode === "display" &&
+    (!from.recordDefinition || to.category !== "presentation")
+  )
+    return "展示组件只接受业务记录数据；订单和库存需要专用交易界面";
+  if (edge.mode === "embed" && (!from.recordDefinition || !to.recordDefinition))
+    return "内嵌只支持两个业务记录模块";
+  if (
+    edge.mode === "notify" &&
+    (!from.recordDefinition || to.moduleId !== "notifications")
+  )
+    return "通知连线必须从业务记录连接站内通知";
+  if (
+    edge.mode === "navigate" &&
+    (["connector", "presentation"].includes(from.category) ||
+      ["connector", "presentation"].includes(to.category))
+  )
+    return "页面跳转只能连接有业务界面的模块";
+  if (
+    edge.mode === "navigate" &&
+    [from, to].some((m) => ["identity", "search", "media"].includes(m.moduleId))
+  )
+    return "身份、搜索和存储由业务界面调用，请使用依赖接口连接";
+  return null;
+}
+
+export type CompositionIssue = {
+  code: string;
+  message: string;
+  nodeId?: string;
+  edgeId?: string;
+};
+export function compositionIssues(
+  spec: ProductSpec,
+  available: ModuleManifest[],
+): CompositionIssue[] {
+  const graph = spec.composition;
+  if (!graph) return [];
+  const issues: CompositionIssue[] = [];
+  for (const edge of graph.edges) {
+    const message = connectionError(graph, edge, available);
+    if (message) issues.push({ code: "CONNECTION", message, edgeId: edge.id });
+  }
+  if (graph.version === 2) {
+    if (spec.description.trim().length < 12)
+      issues.push({
+        code: "INTENT",
+        message: "请描述目标用户、主要业务流程与完成条件（至少 12 字）",
+      });
+    for (const node of graph.nodes) {
+      const module = available.find((m) => m.moduleId === node.moduleId);
+      if (!module) continue;
+      for (const dependency of Object.keys(module.dependencies)) {
+        const provider = graph.nodes.find((n) => n.moduleId === dependency);
+        if (!provider)
+          issues.push({
+            code: "DEPENDENCY",
+            nodeId: node.id,
+            message: `${module.name}缺少依赖：${available.find((m) => m.moduleId === dependency)?.name || dependency}`,
+          });
+        else if (
+          !graph.edges.some(
+            (e) =>
+              e.mode === "dependency" &&
+              e.source === provider.id &&
+              e.target === node.id,
+          )
+        )
+          issues.push({
+            code: "DEPENDENCY_LINK",
+            nodeId: node.id,
+            message: `${module.name}尚未连接依赖：${available.find((m) => m.moduleId === dependency)?.name || dependency}`,
+          });
+      }
+      if (
+        ["connector", "presentation"].includes(module.category) &&
+        !graph.edges.some(
+          (e) => e.target === node.id && ["flow", "display"].includes(e.mode),
+        )
+      )
+        issues.push({
+          code: "INPUT",
+          nodeId: node.id,
+          message: `${module.name}没有业务输入`,
+        });
+    }
+    if (
+      !graph.nodes.some((n) => {
+        const m = available.find((m) => m.moduleId === n.moduleId);
+        return (
+          m?.recordDefinition ||
+          m?.category === "commerce" ||
+          m?.category === "community" ||
+          ["events", "groups", "content", "profiles", "campus"].includes(
+            n.moduleId,
+          )
+        );
+      })
+    )
+      issues.push({
+        code: "NO_BUSINESS",
+        message: "至少添加一个有业务界面的模块",
+      });
+  }
+  try {
+    validateComposition(
+      { ...spec, composition: { ...graph, version: 1 } },
+      available,
+    );
+  } catch (e) {
+    const message = (e as Error).message;
+    if (!issues.some((i) => i.message === message))
+      issues.push({ code: "GRAPH", message });
+  }
+  return issues;
+}
+
 export function validateComposition(
   spec: ProductSpec,
   available: ModuleManifest[],
 ) {
   const graph = spec.composition;
   if (!graph) return;
+  if (graph.version === 2) {
+    const issues = compositionIssues(spec, available);
+    if (issues.length)
+      throw new AppError(
+        422,
+        "INVALID_COMPOSITION",
+        issues.map((i) => i.message).join("；"),
+      );
+  }
   const fail = (message: string): never => {
     throw new AppError(422, "INVALID_COMPOSITION", message);
   };
@@ -62,6 +209,8 @@ export function validateComposition(
   }
   const seen = new Set<string>();
   for (const edge of graph.edges) {
+    const error = connectionError(graph, edge, available);
+    if (error) fail(error);
     const source = nodes.get(edge.source),
       target = nodes.get(edge.target);
     if (!source || !target || source.id === target.id) fail("连线端点无效");

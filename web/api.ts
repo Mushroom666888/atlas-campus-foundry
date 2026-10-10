@@ -21,11 +21,16 @@ export const post = <T = Record<string, unknown>>(
   url: string,
   body: unknown = {},
 ) => api<T>(url, { method: "POST", body: JSON.stringify(body) });
-export function useLoad<T>(url: string, interval = 0) {
+export function useLoad<T>(url: string | null, interval = 0) {
   const [data, setData] = useState<T | null>(null),
     [error, setError] = useState(""),
     [loading, setLoading] = useState(true);
   const refresh = useCallback(async () => {
+    if (!url) {
+      setData(null);
+      setLoading(false);
+      return;
+    }
     try {
       const result = await api<T>(url);
       setData(result);

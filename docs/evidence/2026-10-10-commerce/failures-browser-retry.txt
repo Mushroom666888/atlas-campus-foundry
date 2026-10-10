@@ -1,0 +1,136 @@
+﻿node.exe : [WebServer] (node:23248) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+所在位置 行:1 字符: 1
++ & "C:\Program Files\nodejs/node.exe" "C:\Program Files\nodejs/node_mo ...
++ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: ([WebServer] (no... env being set.:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+Running 5 tests using 1 worker
+
+(node:36136) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  x  1 tests\commerce.browser.spec.ts:7:1 › commercial modules deploy a real multiuser shop, orders, appointments and reusable forum (13.9s)
+(node:27224) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ok 2 tests\community.browser.spec.ts:4:1 › creator forum, public profile and product showcase persist across users and mobile routes (5.2s)
+  ok 3 tests\community.browser.spec.ts:18:1 › canvas marks incompatible links red, requires intent and preserves validated dependencies (3.0s)
+  ok 4 tests\modules.browser.spec.ts:15:1 › 94-module explorer, interactive details and persisted +references (8.4s)
+  x  5 tests\modules.browser.spec.ts:123:1 › described drag and connect builds a validated application with notifications, embedded records and display widgets (3.3m)
+
+
+  1) tests\commerce.browser.spec.ts:7:1 › commercial modules deploy a real multiuser shop, orders, appointments and reusable forum
+
+    Error: apiRequestContext.get: socket hang up (ECONNRESET)
+    Call log:
+      - → GET http://app-38ce9be1-3134-4d17-9c20-c4b304b7cb1f.localhost:56217/api/community/posts
+        - user-agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/156.0.8078.4 Safari/537.36
+        - accept: */*
+        - accept-encoding: gzip,deflate,br
+[authentication header redacted]
+
+
+      21 |     await seller.getByRole("button",{name:"经营看板",exact:true}).click();await expect(seller.locator(".commerce-metrics")).toContainText("¥39.00");
+      22 |     await buyer.getByRole("link",{name:"交流论坛",exact:true}).click();await buyer.getByRole("button",{name:"发起讨论"}).click();await buyer.getByLabel("标题",{exact:true}).fill("这家校园店的设计很棒");await buyer.getByLabel("内容",{exact:true}).fill("这是一条真实部署应用里的论坛帖子。");await buyer.getByRole("button",{name:"保存并公开"}).click();await expect(buyer.getByRole("heading",{name:"这家校园店的设计很棒"})).toBeVisible();
+    > 23 |     const runtimeForum=await buyer.request.get(`${url}/api/community/posts`);expect((await runtimeForum.json()).items).toHaveLength(1);
+         |                                            ^
+      24 |     const platformForum=await page.request.get("/api/community/posts?q=这家校园店的设计很棒");expect((await platformForum.json()).items).toHaveLength(0);
+      25 |     await mkdir("artifacts/screenshots",{recursive:true});for(const width of [1440,390,320]){await seller.setViewportSize({width,height:900});await seller.screenshot({path:`artifacts/screenshots/commerce-analytics-${width}.png`,fullPage:true});expect(await seller.evaluate(()=>document.documentElement.scrollWidth<=innerWidth+1)).toBeTruthy();await buyer.setViewportSize({width,height:900});await buyer.screenshot({path:`artifacts/screenshots/runtime-forum-${width}.png`,fullPage:true});expect(await buyer.evaluate(()=>document.documentElement.scrollWidth<=innerWidth+1)).toBeTruthy();}
+      26 |     for(const m of [...commerceCatalog,...communityCatalog]){await page.goto(`/modules/${m.moduleId}`);await expect(page.getByRole("heading",{name:m.name,exact:true}).first()).toBeVisible();await expect(page.locator(".module-preview-body")).not.toBeEmpty();}
+        at C:\Users\14237\Desktop\Campus AI App Foundry\tests\commerce.browser.spec.ts:23:44
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    test-results\commerce.browser-commercia-d4efa-intments-and-reusable-forum\test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #2: screenshot (image/png) ──────────────────────────────────────────────────────────
+    test-results\commerce.browser-commercia-d4efa-intments-and-reusable-forum\test-failed-3.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #3: screenshot (image/png) ──────────────────────────────────────────────────────────
+    test-results\commerce.browser-commercia-d4efa-intments-and-reusable-forum\test-failed-2.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: test-results\commerce.browser-commercia-d4efa-intments-and-reusable-forum\error-context.md
+
+    attachment #5: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results\commerce.browser-commercia-d4efa-intments-and-reusable-forum\trace.zip
+    Usage:
+
+        npx playwright show-trace test-results\commerce.browser-commercia-d4efa-intments-and-reusable-forum\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  2) tests\modules.browser.spec.ts:123:1 › described drag and connect builds a validated application with notifications, embedded records and display widgets
+
+    Test timeout of 180000ms exceeded.
+
+    Error: locator.dragTo: Test timeout of 180000ms exceeded.
+    Call log:
+      - waiting for getByLabel('失物招领输出', { exact: true })
+        - locator resolved to <div aria-label="失物招领输出" data-handlepos="right" data-nodeid="2257e38e-714a-4daa-870f-408b1c2328bc" data-id="1-2257e38e-714a-4daa-870f-408b1c2328bc-null-source" class="react-flow__handle react-flow__handle-right nodrag nopan source connectable connectablestart connectableend connectionindicator"></div>
+      - attempting move and down action
+        - waiting for element to be visible and stable
+        - element is visible and stable
+        - scrolling into view if needed
+        - done scrolling
+        - performing move and down action
+        - move and down action done
+        - waiting for scheduled navigations to finish
+        - navigations have finished
+      - waiting for getByLabel('内嵌记录区输入', { exact: true })
+        - locator resolved to <div aria-label="内嵌记录区输入" data-handlepos="left" data-nodeid="7d9dcc4c-75cf-4290-98a1-9563aa69c2ba" data-id="1-7d9dcc4c-75cf-4290-98a1-9563aa69c2ba-null-target" class="react-flow__handle react-flow__handle-left nodrag nopan target connectable connectablestart connectableend connectionindicator"></div>
+      - attempting move and up action
+        2 × waiting for element to be visible and stable
+          - element is visible and stable
+          - scrolling into view if needed
+          - done scrolling
+          - <svg role="img" width="200" height="150" class="react-flow__minimap-svg" aria-labelledby="react-flow__minimap-desc-1" viewBox="-193.77414330218068 30.57684319833845 1947.5482866043615 1483.846313603323">…</svg> from <div data-testid="rf__minimap" class="react-flow__panel react-flow__minimap bottom right">…</div> subtree intercepts pointer events
+        - retrying move and up action
+        - waiting 20ms
+        2 × waiting for element to be visible and stable
+          - element is visible and stable
+          - scrolling into view if needed
+          - done scrolling
+          - <svg role="img" width="200" height="150" class="react-flow__minimap-svg" aria-labelledby="react-flow__minimap-desc-1" viewBox="-193.77414330218068 30.57684319833845 1947.5482866043615 1483.846313603323">…</svg> from <div data-testid="rf__minimap" class="react-flow__panel react-flow__minimap bottom right">…</div> subtree intercepts pointer events
+        - retrying move and up action
+          - waiting 100ms
+        366 × waiting for element to be visible and stable
+            - element is visible and stable
+            - scrolling into view if needed
+            - done scrolling
+            - <svg role="img" width="200" height="150" class="react-flow__minimap-svg" aria-labelledby="react-flow__minimap-desc-1" viewBox="-193.77414330218068 30.57684319833845 1947.5482866043615 1483.846313603323">…</svg> from <div data-testid="rf__minimap" class="react-flow__panel react-flow__minimap bottom right">…</div> subtree intercepts pointer events
+          - retrying move and up action
+            - waiting 500ms
+        - waiting for element to be visible and stable
+
+
+      163 |     const from = page.getByLabel(`${source}输出`, { exact: true });
+      164 |     const to = page.getByLabel(`${target}输入`, { exact: true });
+    > 165 |     await from.dragTo(to);
+          |                ^
+      166 |   }
+      167 |   await connect("失物招领", "记录创建触发");
+      168 |   await connect("记录创建触发", "通知操作者");
+        at connect (C:\Users\14237\Desktop\Campus AI App Foundry\tests\modules.browser.spec.ts:165:16)
+        at C:\Users\14237\Desktop\Campus AI App Foundry\tests\modules.browser.spec.ts:177:5
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    test-results\modules.browser-described--2fb82-records-and-display-widgets\test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: test-results\modules.browser-described--2fb82-records-and-display-widgets\error-context.md
+
+    attachment #3: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results\modules.browser-described--2fb82-records-and-display-widgets\trace.zip
+    Usage:
+
+        npx playwright show-trace test-results\modules.browser-described--2fb82-records-and-display-widgets\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  2 failed
+    tests\commerce.browser.spec.ts:7:1 › commercial modules deploy a real multiuser shop, orders, appointments and reusable forum
+    tests\modules.browser.spec.ts:123:1 › described drag and connect builds a validated application with notifications, embedded records and display widgets
+  3 passed (4.3m)

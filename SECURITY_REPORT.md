@@ -1,5 +1,14 @@
 # Security report
 
+## Commerce, community and guided Canvas
+
+- Commercial modules enforce shop ownership, buyer/seller order roles, expected-price consent, integer cents and row-locked inventory/coupon/booking capacity. Order retry keys are idempotent; cancellation restores reserved capacity once. Future appointments cannot be marked complete. Native PostgreSQL and local PGlite transaction tests pass.
+- Forum/profile/showcase code is reused across platform and app databases. Public APIs omit login email, password and sessions. Only deliberately saved profiles appear in directories; school claims are self-declared. App install gates, author ownership, Origin checks, React text escaping and HTTP(S)-only showcase links are tested.
+- Creator/merchant content creation has per-owner quotas serialized with advisory transaction locks. These do not replace OS disk quotas or production abuse controls.
+- Canvas v2 checks product intent presence, dependency nodes/edges, typed ports and required business inputs. Invalid structures cannot be saved by bypassing the UI. Replacement graphs commit with installs atomically; rejected changes preserve prior data. Structural validation does not prove arbitrary business correctness.
+- Independent reviewer identified price-consent, early service completion, persistent quota and replacement-graph bugs; fixes and regression evidence are in `docs/INDEPENDENT_REVIEW.md`.
+- No online payments, funds custody, refund engine, fraud handling or complete community abuse/moderation workflow is implemented. This local release is not ready for public commercial hosting.
+
 ## Implemented and tested locally
 
 - Salted scrypt passwords, hashed random sessions, HttpOnly/SameSite cookies, rate limits, explicit owner checks, no global platform user table exposed to apps.

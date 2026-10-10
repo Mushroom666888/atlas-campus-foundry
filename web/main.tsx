@@ -8,6 +8,9 @@ import { PageBoundary } from "./page-boundary";
 const Studio = lazy(() =>
   import("./studio").then((m) => ({ default: m.Studio })),
 );
+const Community = lazy(() =>
+  import("./community").then((m) => ({ default: m.Community })),
+);
 const CampusApplication = lazy(() =>
   import("./runtime").then((m) => ({ default: m.CampusApplication })),
 );
@@ -61,6 +64,18 @@ function Root() {
       </main>
     );
   if (!ready) return <Loading />;
+  if (
+    (control || runtime?.modules.includes("creator-profiles")) &&
+    (location.pathname.startsWith("/community") ||
+      location.pathname.startsWith("/creators/"))
+  )
+    return (
+      <Community
+        user={user}
+        modules={runtime?.modules}
+        brand={runtime?.spec.name}
+      />
+    );
   if (!runtime && location.pathname === "/") return <AtlasHome user={user} />;
   if (!runtime && user && location.pathname === "/login")
     return <Navigate to="/studio" replace />;

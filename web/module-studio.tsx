@@ -19,6 +19,7 @@ import {
   ShieldCheck,
   Users,
   Workflow,
+  Store,
 } from "lucide-react";
 import type { ModuleManifest } from "../packages/contracts/src/index";
 import { moduleReferences } from "../packages/modules/src/composition";
@@ -26,9 +27,13 @@ import { post, useLoad } from "./api";
 import { Empty, Loading, Notice, useAction } from "./components";
 import { FieldInput, RecordModule } from "./record-module";
 import { FoundationPreview } from "./foundation-preview";
+import { CommercePreview } from "./commerce";
+import { CommunityPreview } from "./community";
 
 export const categoryLabels: Record<string, string> = {
   foundation: "基础能力",
+  commerce: "商业经营",
+  community: "用户社区",
   campus: "校园功能",
   scenario: "校园功能",
   connector: "连接自动化",
@@ -43,21 +48,23 @@ export function ModuleIcon({
   size?: number;
 }) {
   const Icon =
-    module.category === "connector"
-      ? Workflow
-      : module.category === "presentation"
-        ? LayoutGrid
-        : module.moduleId === "chat"
-          ? MessageCircle
-          : module.moduleId === "notifications"
-            ? Bell
-            : module.moduleId === "identity"
-              ? ShieldCheck
-              : module.tags.includes("课程学习")
-                ? BookOpen
-                : module.moduleId === "groups"
-                  ? Users
-                  : Boxes;
+    module.category === "commerce"
+      ? Store
+      : module.category === "connector"
+        ? Workflow
+        : module.category === "presentation"
+          ? LayoutGrid
+          : module.moduleId === "chat"
+            ? MessageCircle
+            : module.moduleId === "notifications"
+              ? Bell
+              : module.moduleId === "identity"
+                ? ShieldCheck
+                : module.tags.includes("课程学习")
+                  ? BookOpen
+                  : module.moduleId === "groups"
+                    ? Users
+                    : Boxes;
   return (
     <span className={`module-glyph ${module.category}`}>
       <Icon size={size} />
@@ -119,6 +126,8 @@ export function ModuleExplorer() {
       >
         {[
           "all",
+          "commerce",
+          "community",
           "foundation",
           "campus",
           "connector",
@@ -305,7 +314,14 @@ export function ModuleDetail() {
                 <code>{module.name}</code>
               </div>
               <div className="module-preview-body">
-                {module.recordDefinition ? (
+                {module.category === "community" ? (
+                  <CommunityPreview
+                    key={module.moduleId}
+                    moduleId={module.moduleId}
+                  />
+                ) : module.category === "commerce" ? (
+                  <CommercePreview key={module.moduleId} module={module} />
+                ) : module.recordDefinition ? (
                   <RecordModule key={module.moduleId} module={module} preview />
                 ) : (
                   <CapabilityPreview module={module} />
@@ -340,11 +356,30 @@ export function ModuleDetail() {
                       ? "交互界面"
                       : module.category === "connector"
                         ? "条件结果 / 受控动作"
-                        : "记录 + 状态 + 事件"}
+                        : module.category === "commerce"
+                          ? "业务记录 / 交易状态"
+                          : module.category === "community"
+                            ? "公开资料 / 社区内容"
+                            : "记录 + 状态 + 事件"}
                   </strong>
                 </div>
               </div>
-              {module.recordDefinition ? (
+              {["commerce", "community"].includes(module.category) ? (
+                <div className="commerce-interfaces">
+                  <h3>业务 API</h3>
+                  {module.backendExports.map((endpoint) => (
+                    <code key={endpoint}>{endpoint}</code>
+                  ))}
+                  <p>
+                    {module.category === "commerce"
+                      ? "身份由当前应用会话提供。金额以整数分存储，订单关联商品与买卖双方；库存扣减、优惠核销和取消恢复在数据库事务中执行。"
+                      : "公开主页只展示用户填写的资料，不暴露登录邮箱。发帖和产品发布需要登录，编辑仅限作者本人，删除允许作者或应用管理员。"}
+                  </p>
+                  <p>
+                    画布中使用「依赖接口」连接已有契约。业务接口只允许在当前应用的数据空间内访问。
+                  </p>
+                </div>
+              ) : module.recordDefinition ? (
                 <>
                   <h3>数据字段</h3>
                   <table>

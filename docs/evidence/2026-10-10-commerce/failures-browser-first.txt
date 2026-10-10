@@ -1,0 +1,212 @@
+﻿
+> campus-ai-app-foundry@0.1.0 e2e
+> playwright test
+
+node.exe : [WebServer] (node:22848) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+所在位置 行:1 字符: 1
++ & "C:\Program Files\nodejs/node.exe" "C:\Program Files\nodejs/node_mo ...
++ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: ([WebServer] (no... env being set.:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+Running 7 tests using 1 worker
+
+(node:7848) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ok 1 tests\atlas.browser.spec.ts:4:1 › Atlas brand home: real imagery, working navigation, responsive composition and reduced motion (3.8s)
+  ok 2 tests\browser.spec.ts:12:1 › Studio and three deployed products: persisted workflows, module reuse, upload, chat, mobile (28.9s)
+  x  3 tests\commerce.browser.spec.ts:7:1 › commercial modules deploy a real multiuser shop, orders, appointments and reusable forum (14.9s)
+(node:17840) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  x  4 tests\community.browser.spec.ts:4:1 › creator forum, public profile and product showcase persist across users and mobile routes (1.5m)
+(node:22732) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ok 5 tests\community.browser.spec.ts:18:1 › canvas marks incompatible links red, requires intent and preserves validated dependencies (3.0s)
+  ok 6 tests\modules.browser.spec.ts:15:1 › 94-module explorer, interactive details and persisted +references (8.6s)
+  x  7 tests\modules.browser.spec.ts:123:1 › described drag and connect builds a validated application with notifications, embedded records and display widgets (3.0m)
+
+
+  1) tests\commerce.browser.spec.ts:7:1 › commercial modules deploy a real multiuser shop, orders, appointments and reusable forum
+
+    Error: expect(locator).toBeHidden() failed
+
+    Locator:  getByRole('button', { name: '注册并进入' })
+    Expected: hidden
+    Received: visible
+    Timeout:  10000ms
+
+    Call log:
+      - Expect "toBeHidden" getByRole('button', { name: '注册并进入' }) with timeout 10000ms
+      - waiting for getByRole('button', { name: '注册并进入' })
+        24 × locator resolved to <button class="primary full">…</button>
+           - unexpected value "visible"
+
+
+      4 | import { communityCatalog } from "../packages/modules/src/community-catalog.js";
+      5 |
+    > 6 | async function register(page:Page,name:string){await page.getByRole("button",{name:"注册",exact:true}).click();await page.getByLabel("称呼").fill(name);await page.getByLabel("邮箱",{exact:true}).fill(`${name}-${Date.now()}@commerce.browser`);await page.getByLabel("密码",{exact:true}).fill("CommerceBrowser123");await page.getByRole("button",{name:"注册并进入"}).click();await expect(page.getByRole("button",{name:"注册并进入"})).toBeHidden();}
+        |                                                                                                                                                                                                                                                                                                                                                                                                                             ^
+      7 | test("commercial modules deploy a real multiuser shop, orders, appointments and reusable forum",async({page,browser})=>{
+      8 |   test.setTimeout(180000);const errors:string[]=[];page.on("pageerror",e=>errors.push(e.message));
+      9 |   await page.request.post("/api/auth/register",{data:{email:`merchant-dev-${Date.now()}@test.example`,name:"商业开发者",password:"CommerceBrowser123"}});
+        at register (C:\Users\14237\Desktop\Campus AI App Foundry\tests\commerce.browser.spec.ts:6:413)
+        at C:\Users\14237\Desktop\Campus AI App Foundry\tests\commerce.browser.spec.ts:14:28
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    test-results\commerce.browser-commercia-d4efa-intments-and-reusable-forum\test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #2: screenshot (image/png) ──────────────────────────────────────────────────────────
+    test-results\commerce.browser-commercia-d4efa-intments-and-reusable-forum\test-failed-3.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #3: screenshot (image/png) ──────────────────────────────────────────────────────────
+    test-results\commerce.browser-commercia-d4efa-intments-and-reusable-forum\test-failed-2.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: test-results\commerce.browser-commercia-d4efa-intments-and-reusable-forum\error-context.md
+
+    attachment #5: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results\commerce.browser-commercia-d4efa-intments-and-reusable-forum\trace.zip
+    Usage:
+
+        npx playwright show-trace test-results\commerce.browser-commercia-d4efa-intments-and-reusable-forum\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  2) tests\community.browser.spec.ts:4:1 › creator forum, public profile and product showcase persist across users and mobile routes
+
+    Test timeout of 90000ms exceeded.
+
+    Error: locator.selectOption: Test timeout of 90000ms exceeded.
+    Call log:
+      - waiting for getByLabel('领域', { exact: true })
+
+
+       7 |   await page.goto("/studio");await page.getByRole("button",{name:"注册",exact:true}).click();await page.getByLabel("称呼").fill("校园创作者");await page.getByLabel("邮箱",{exact:true}).fill(email);await page.getByLabel("密码",{exact:true}).fill("CreatorPassword123");await page.getByRole("button",{name:"注册并进入"}).click();await expect(page.getByRole("heading",{name:"项目总览"})).toBeVisible();
+       8 |   await page.getByRole("link",{name:"我的主页",exact:true}).click();await page.getByRole("button",{name:"编辑主页"}).click();await page.getByLabel("公开名称").fill("做生意的林同学");await page.getByLabel("学校（选填）").fill("自填大学");await page.getByLabel("个人简介").fill("做校园交易和毕业摄影预约产品。");await page.getByLabel("标签（最多 8 个，用逗号分隔）").fill("校园创业,摄影");await page.getByRole("button",{name:"保存并公开"}).click();await expect(page.getByRole("heading",{name:"做生意的林同学"})).toBeVisible();const profileUrl=page.url();
+    >  9 |   await page.getByRole("button",{name:"发布产品",exact:true}).click();await page.getByLabel("产品名称").fill("毕业季摄影预约");await page.getByLabel("一句话介绍").fill("让学生摄影师找到校内客户");await page.getByLabel("领域",{exact:true}).selectOption("校园服务");await page.getByLabel("当前阶段").selectOption("内测中");await page.getByLabel("产品简介").fill("按时段预约摄影服务，面向校内毕业生。");await page.getByLabel("访问地址（选填）").fill("https://example.org/photography");await page.getByRole("button",{name:"保存并公开"}).click();await expect(page.getByRole("heading",{name:"毕业季摄影预约"})).toBeVisible();await page.reload();await expect(page.getByRole("heading",{name:"毕业季摄影预约"})).toBeVisible();
+         |                                                                                                                                                                                                              ^
+      10 |   await page.getByRole("link",{name:"创作者论坛",exact:true}).click();await page.getByRole("button",{name:"发起讨论"}).click();await page.getByLabel("标题",{exact:true}).fill("寻找校园商业产品合伙人");await page.getByLabel("话题").selectOption("寻找合作");await page.getByLabel("内容",{exact:true}).fill("希望一起经营摄影产品 <img src=x onerror=alert(1)>");await page.getByRole("button",{name:"保存并公开"}).click();await page.getByRole("link",{name:"寻找校园商业产品合伙人",exact:true}).click();await expect(page.locator(".community-prose")).toContainText("<img src=x onerror=alert(1)>");await expect(page.locator(".community-prose img")).toHaveCount(0);const postUrl=page.url();
+      11 |   await page.getByLabel("你的回复").fill("先把第一个可用版本做出来。");await page.getByRole("button",{name:"发布回复",exact:true}).click();await expect(page.locator(".community-reply")).toContainText("第一个可用版本");
+      12 |   const visitor=await browser.newContext();const publicPage=await visitor.newPage();try{await publicPage.goto(postUrl);await expect(publicPage.getByRole("heading",{name:"寻找校园商业产品合伙人"})).toBeVisible();await expect(publicPage.getByRole("button",{name:"编辑讨论"})).toHaveCount(0);await expect(publicPage.getByRole("link",{name:"登录后参与讨论"})).toBeVisible();await publicPage.goto(profileUrl);await expect(publicPage.getByText("自填大学",{exact:false})).toBeVisible();await expect(publicPage.getByText(email,{exact:true})).toHaveCount(0);await publicPage.getByRole("link",{name:"毕业季摄影预约",exact:true}).click();await expect(publicPage.getByRole("link",{name:"访问产品"})).toHaveAttribute("href","https://example.org/photography");}finally{await visitor.close();}
+        at C:\Users\14237\Desktop\Campus AI App Foundry\tests\community.browser.spec.ts:9:206
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    test-results\community.browser-creator--7c997-oss-users-and-mobile-routes\test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: test-results\community.browser-creator--7c997-oss-users-and-mobile-routes\error-context.md
+
+    attachment #3: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results\community.browser-creator--7c997-oss-users-and-mobile-routes\trace.zip
+    Usage:
+
+        npx playwright show-trace test-results\community.browser-creator--7c997-oss-users-and-mobile-routes\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  3) tests\modules.browser.spec.ts:123:1 › described drag and connect builds a validated application with notifications, embedded records and display widgets
+
+    Test timeout of 180000ms exceeded.
+
+    Error: locator.dragTo: Test timeout of 180000ms exceeded.
+    Browser logs:
+
+    <launching> C:\Users\14237\AppData\Local\ms-playwright\chromium_headless_shell-1248\chrome-headless-shell-win64\chrome-headless-shell.exe --disable-field-trial-config --disable-background-networking --disable-background-timer-throttling --disable-backgrounding-occluded-windows --disable-back-forward-cache --disable-breakpad --disable-client-side-phishing-detection --disable-component-extensions-with-background-pages --disable-component-update --no-default-browser-check --disable-default-apps --disable-dev-shm-usage --disable-edgeupdater --disable-extensions --disable-features=AvoidUnnecessaryBeforeUnloadCheckSync,DestroyProfileOnBrowserClose,DialMediaRouteProvider,GlobalMediaControls,HttpsUpgrades,LensOverlay,MediaRouter,PaintHolding,ThirdPartyStoragePartitioning,BlockOriginHeaderModificationOnRedirect,Translate,AutoDeElevate,OptimizationHints,NetworkTimeServiceQuerying,AimEnabled,msForceBrowserSignIn,msEdgeUpdateLaunchServicesPreferredVersion --enable-features=CDPScreenshotNewSurface --allow-pre-commit-input --disable-hang-monitor --disable-ipc-flooding-protection --disable-popup-blocking --disable-prompt-on-repost --disable-renderer-backgrounding --disable-updater-scheduler --force-color-profile=srgb --metrics-recording-only --no-first-run --password-store=basic --use-mock-keychain --no-service-autorun --export-tagged-pdf --disable-search-engine-choice-screen --unsafely-disable-devtools-self-xss-warnings --edge-skip-compat-layer-relaunch --disable-infobars --disable-search-engine-choice-screen --disable-sync --enable-unsafe-swiftshader --headless --hide-scrollbars --mute-audio --blink-settings=primaryHoverType=2,availableHoverTypes=2,primaryPointerType=4,availablePointerTypes=4 --no-sandbox --user-data-dir=C:\Users\14237\AppData\Local\Temp\playwright_chromiumdev_profile-P7YdnL --remote-debugging-pipe --no-startup-window
+    <launched> pid=23748
+    [pid=23748] <gracefully close start>
+    Call log:
+      - waiting for getByLabel('失物招领输出', { exact: true })
+        - locator resolved to <div aria-label="失物招领输出" data-handlepos="right" data-nodeid="addefc25-d26c-4d91-9c74-a411d057391b" data-id="1-addefc25-d26c-4d91-9c74-a411d057391b-null-source" class="react-flow__handle react-flow__handle-right nodrag nopan source connectable connectablestart connectableend connectionindicator"></div>
+      - attempting move and down action
+        2 × waiting for element to be visible and stable
+          - element is visible and stable
+          - scrolling into view if needed
+          - done scrolling
+          - <div class="canvas-mode">…</div> intercepts pointer events
+        - retrying move and down action
+        - waiting 20ms
+        - waiting for element to be visible and stable
+        - element is visible and stable
+        - scrolling into view if needed
+        - done scrolling
+        - <div class="canvas-mode">…</div> intercepts pointer events
+      - retrying move and down action
+        - waiting 100ms
+        - waiting for element to be visible and stable
+        - element is visible and stable
+        - scrolling into view if needed
+        - done scrolling
+        - <button>补齐依赖</button> from <div class="canvas-mode">…</div> subtree intercepts pointer events
+      - retrying move and down action
+        - waiting 100ms
+        84 × waiting for element to be visible and stable
+           - element is visible and stable
+           - scrolling into view if needed
+           - done scrolling
+           - <div class="canvas-mode">…</div> intercepts pointer events
+         - retrying move and down action
+           - waiting 500ms
+           - waiting for element to be visible and stable
+           - element is visible and stable
+           - scrolling into view if needed
+           - done scrolling
+           - <div class="canvas-mode">…</div> intercepts pointer events
+         - retrying move and down action
+           - waiting 500ms
+           - waiting for element to be visible and stable
+           - element is visible and stable
+           - scrolling into view if needed
+           - done scrolling
+           - <div class="canvas-mode">…</div> intercepts pointer events
+         - retrying move and down action
+           - waiting 500ms
+           - waiting for element to be visible and stable
+           - element is visible and stable
+           - scrolling into view if needed
+           - done scrolling
+           - <button>补齐依赖</button> from <div class="canvas-mode">…</div> subtree intercepts pointer events
+         - retrying move and down action
+           - waiting 500ms
+        2 × waiting for element to be visible and stable
+          - element is visible and stable
+          - scrolling into view if needed
+          - done scrolling
+          - <div class="canvas-mode">…</div> intercepts pointer events
+        - retrying move and down action
+          - waiting 500ms
+        - waiting for element to be visible and stable
+
+
+      163 |     const from = page.getByLabel(`${source}输出`, { exact: true });
+      164 |     const to = page.getByLabel(`${target}输入`, { exact: true });
+    > 165 |     await from.dragTo(to);
+          |                ^
+      166 |   }
+      167 |   await connect("失物招领", "记录创建触发");
+      168 |   await connect("记录创建触发", "通知操作者");
+        at connect (C:\Users\14237\Desktop\Campus AI App Foundry\tests\modules.browser.spec.ts:165:16)
+        at C:\Users\14237\Desktop\Campus AI App Foundry\tests\modules.browser.spec.ts:167:3
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    test-results\modules.browser-described--2fb82-records-and-display-widgets\test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: test-results\modules.browser-described--2fb82-records-and-display-widgets\error-context.md
+
+    attachment #3: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results\modules.browser-described--2fb82-records-and-display-widgets\trace.zip
+    Usage:
+
+        npx playwright show-trace test-results\modules.browser-described--2fb82-records-and-display-widgets\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  3 failed
+    tests\commerce.browser.spec.ts:7:1 › commercial modules deploy a real multiuser shop, orders, appointments and reusable forum
+    tests\community.browser.spec.ts:4:1 › creator forum, public profile and product showcase persist across users and mobile routes
+    tests\modules.browser.spec.ts:123:1 › described drag and connect builds a validated application with notifications, embedded records and display widgets
+  4 passed (5.6m)

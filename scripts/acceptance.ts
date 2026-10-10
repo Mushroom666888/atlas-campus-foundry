@@ -18,8 +18,10 @@ const commands = [
 const results = [];
 await mkdir("artifacts/acceptance", { recursive: true });
 for (const name of commands) {
-  console.log(`RUNNING: npm run ${name}`);
-  const result = await command(process.execPath, [npm, "run", name], {
+  const extra = name === "reuse-report" ? ["--", "--showcase"] : [];
+  const commandLabel = ["npm", "run", name, ...extra].join(" ");
+  console.log(`RUNNING: ${commandLabel}`);
+  const result = await command(process.execPath, [npm, "run", name, ...extra], {
     timeout: name === "verify-live-agent" ? 1000000 : 240000,
   });
   const status = result.ok
@@ -28,7 +30,7 @@ for (const name of commands) {
       ? "BLOCKED"
       : "FAILED";
   results.push({
-    command: `npm run ${name}`,
+    command: commandLabel,
     status,
     exitCode: result.exitCode,
     timedOut: result.timedOut,
@@ -41,7 +43,7 @@ for (const name of commands) {
     "artifacts/acceptance/results.json",
     JSON.stringify({ at: new Date().toISOString(), results }, null, 2),
   );
-  console.log(`${status}: npm run ${name}`);
+  console.log(`${status}: ${commandLabel}`);
 }
 process.exitCode = results.some((r) => r.status === "FAILED")
   ? 1

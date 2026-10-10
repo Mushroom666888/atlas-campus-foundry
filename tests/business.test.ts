@@ -59,14 +59,19 @@ const edge = (
   mode: Composition["edges"][number]["mode"] = "flow",
 ) => ({ id: `${source}-${target}`, source, target, mode });
 
-test("80 catalog modules, typed graph contracts and exact multilingual module references", () => {
-  assert.equal(catalog.length, 80);
-  assert.equal(new Set(catalog.map((m) => m.moduleId)).size, 80);
+test("94 catalog modules, typed graph contracts and exact multilingual module references", () => {
+  assert.equal(catalog.length, 94);
+  assert.equal(new Set(catalog.map((m) => m.moduleId)).size, 94);
   assert.deepEqual(
-    ["foundation", "campus", "connector", "presentation"].map(
-      (c) => catalog.filter((m) => m.category === c).length,
-    ),
-    [10, 50, 12, 8],
+    [
+      "foundation",
+      "campus",
+      "connector",
+      "presentation",
+      "commerce",
+      "community",
+    ].map((c) => catalog.filter((m) => m.category === c).length),
+    [10, 50, 12, 8, 10, 4],
   );
   assert.deepEqual(
     moduleReferences(

@@ -34,6 +34,8 @@ export const moduleManifestSchema = z.object({
   description: z.string().max(2000),
   category: z.enum([
     "foundation",
+    "commerce",
+    "community",
     "campus",
     "scenario",
     "extension",
@@ -69,7 +71,7 @@ export const moduleManifestSchema = z.object({
 export type ModuleManifest = z.infer<typeof moduleManifestSchema>;
 const nodeId = z.string().regex(/^[a-zA-Z0-9_-]{1,80}$/);
 export const compositionSchema = z.object({
-  version: z.literal(1),
+  version: z.union([z.literal(1), z.literal(2)]),
   nodes: z
     .array(
       z.object({
@@ -97,7 +99,14 @@ export const compositionSchema = z.object({
         id: nodeId,
         source: nodeId,
         target: nodeId,
-        mode: z.enum(["navigate", "embed", "notify", "flow", "display"]),
+        mode: z.enum([
+          "navigate",
+          "embed",
+          "notify",
+          "flow",
+          "display",
+          "dependency",
+        ]),
       }),
     )
     .max(160),

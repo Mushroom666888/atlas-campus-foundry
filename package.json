@@ -29,6 +29,7 @@
     "final-e2e": "npm run check && npm run e2e",
     "deploy-local": "tsx scripts/showcase.ts",
     "deploy-visual": "tsx scripts/visual-showcase.ts",
+    "deploy-commerce": "tsx scripts/commercial-showcase.ts",
     "reuse-report": "tsx scripts/reuse-report.ts",
     "image:build": "docker build -t campus-foundry:local .",
     "deploy": "docker compose up --build -d"

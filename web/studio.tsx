@@ -22,6 +22,8 @@ import {
   LayoutDashboard,
   LogOut,
   Menu,
+  MessageCircle,
+  UserRound,
   Package,
   Play,
   Plus,
@@ -162,6 +164,14 @@ export function Studio({
           <NavLink to="/publisher">
             <Upload size={18} />
             模块发布
+          </NavLink>
+          <NavLink to="/community">
+            <MessageCircle size={18} />
+            创作者社区
+          </NavLink>
+          <NavLink to={`/creators/${user.id}`}>
+            <UserRound size={18} />
+            我的主页
           </NavLink>
         </nav>
         <div className="sidebar-bottom">

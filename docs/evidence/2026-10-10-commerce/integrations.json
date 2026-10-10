@@ -1,0 +1,25 @@
+{
+  "at": "2026-10-10T08:20:20.141Z",
+  "results": [
+    {
+      "name": "LLM live tool call",
+      "status": "BLOCKED",
+      "detail": "Set LLM_API_KEY and LLM_MODEL in .env; optionally set LLM_BASE_URL."
+    },
+    {
+      "name": "Docker Engine",
+      "status": "BLOCKED",
+      "detail": "Docker CLI/Engine unavailable. Install Docker Desktop and enable Linux containers."
+    },
+    {
+      "name": "Native PostgreSQL local alternative",
+      "status": "TESTED",
+      "detail": "Native server migrations and restart persistence passed; no external database credentials required."
+    },
+    {
+      "name": "SMTP transport",
+      "status": "BLOCKED",
+      "detail": "Local outbox is available. Set EMAIL_PROVIDER=smtp, SMTP_URL and EMAIL_FROM for real delivery."
+    }
+  ]
+}

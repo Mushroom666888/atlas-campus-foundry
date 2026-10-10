@@ -1,0 +1,29 @@
+﻿
+> campus-ai-app-foundry@0.1.0 verify-postgres
+> tsx scripts/verify-postgres.ts
+
+node.exe : node:internal/modules/run_main:107
+所在位置 行:1 字符: 1
++ & "C:\Program Files\nodejs/node.exe" "C:\Program Files\nodejs/node_mo ...
++ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (node:internal/modules/run_main:107:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+
+    triggerUncaughtException(
+    ^
+
+AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+
+2 !== 1
+
+    at <anonymous> (C:\Users\14237\Desktop\Campus AI App Foundry\scripts\verify-postgres.ts:114:12)
+    at process.processTicksAndRejections (node:internal/process/task_queues:104:5) {
+  generatedMessage: true,
+  code: 'ERR_ASSERTION',
+  actual: 2,
+  expected: 1,
+  operator: 'strictEqual',
+  diff: 'simple'
+}
+
+Node.js v24.17.0

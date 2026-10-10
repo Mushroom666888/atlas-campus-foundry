@@ -179,7 +179,9 @@ export const connectionCatalog = [
     providedInterfaces: [
       d.category === "connector" ? "campus.flow@1" : "campus.view@1",
     ],
-    requiredInterfaces: [],
+    requiredInterfaces: Object.keys(d.dependencies).map(
+      (id) => `campus.${id}@1`,
+    ),
     dependencies: d.dependencies,
     databaseMigrations: [],
     requiredPermissions:

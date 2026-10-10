@@ -12,7 +12,7 @@ async function register(page: Page, name: string) {
   await expect(page.getByRole("button", { name: "注册并进入" })).toBeHidden();
 }
 
-test("80-module explorer, interactive details and persisted +references", async ({
+test("94-module explorer, interactive details and persisted +references", async ({
   page,
 }) => {
   const errors: string[] = [];
@@ -20,9 +20,11 @@ test("80-module explorer, interactive details and persisted +references", async 
   await page.goto("/studio");
   await register(page, "模块开发者");
   await page.goto("/modules");
-  await expect(page.getByText(/80 个内置模块/)).toBeVisible();
+  await expect(page.getByText(/94 个内置模块/)).toBeVisible();
   for (const [label, count] of [
     ["基础能力", 10],
+    ["商业经营", 10],
+    ["用户社区", 4],
     ["校园功能", 50],
     ["连接自动化", 12],
     ["展示组件", 8],
@@ -99,7 +101,7 @@ test("80-module explorer, interactive details and persisted +references", async 
   ).toBeTruthy();
   expect(job.job.status).toBe("blocked");
   await page.goto("/modules");
-  await expect(page.locator(".catalog-card")).toHaveCount(80);
+  await expect(page.locator(".catalog-card")).toHaveCount(94);
   await page.evaluate(() => document.fonts.ready);
   await page.screenshot({
     path: "artifacts/screenshots/modules-desktop.png",
@@ -118,7 +120,7 @@ test("80-module explorer, interactive details and persisted +references", async 
   expect(errors).toEqual([]);
 });
 
-test("zero-prompt drag and connect builds a persisted application with notifications, embedded records and display widgets", async ({
+test("described drag and connect builds a validated application with notifications, embedded records and display widgets", async ({
   page,
   browser,
 }) => {
@@ -129,13 +131,19 @@ test("zero-prompt drag and connect builds a persisted application with notificat
   await register(page, "画布开发者");
   await page.goto("/compose");
   await page.getByLabel("应用名称").fill("校园失物协作台");
+  await page
+    .getByLabel("产品描述")
+    .fill(
+      "学生发布失物招领信息，记录跟进事项，创建记录后发送通知并支持按状态搜索。",
+    );
   await page.getByLabel("搜索画布模块").fill("失物招领");
   await page
     .getByRole("button", { name: "添加失物招领" })
     .dragTo(page.getByLabel("模块编排画布"), {
       targetPosition: { x: 65, y: 130 },
     });
-  await expect(page.locator(".react-flow__node")).toHaveCount(1);
+  await expect(page.locator(".react-flow__node")).toHaveCount(2);
+  await expect(page.locator(".react-flow__edge")).toHaveCount(1);
   const modules = [
     "记录创建触发",
     "通知操作者",
@@ -154,7 +162,6 @@ test("zero-prompt drag and connect builds a persisted application with notificat
       .click();
   }
   await page.locator(".react-flow__controls-fitview").click();
-  await page.getByLabel("关闭属性").click();
   async function connect(source: string, target: string, mode = "auto") {
     await page.getByLabel("连接类型").selectOption(mode);
     const from = page.getByLabel(`${source}输出`, { exact: true });
@@ -181,12 +188,21 @@ test("zero-prompt drag and connect builds a persisted application with notificat
   await expect(page).toHaveURL(/project=/);
   const id = new URL(page.url()).searchParams.get("project")!;
   await page.reload();
-  await expect(page.locator(".react-flow__node")).toHaveCount(10);
+  await expect(page.locator(".react-flow__node")).toHaveCount(12);
   expect(
     (await page.locator(".canvas-library .search-input").boundingBox())!.height,
   ).toBeLessThan(50);
   const saved = await (await page.request.get(`/api/projects/${id}`)).json();
-  expect(saved.project.spec.composition.edges).toHaveLength(8);
+  expect(
+    saved.project.spec.composition.edges.filter(
+      (e: { mode: string }) => e.mode !== "dependency",
+    ),
+  ).toHaveLength(8);
+  expect(
+    saved.project.spec.composition.edges.filter(
+      (e: { mode: string }) => e.mode === "dependency",
+    ),
+  ).toHaveLength(4);
   await page.screenshot({
     path: "artifacts/screenshots/canvas-desktop.png",
     fullPage: true,

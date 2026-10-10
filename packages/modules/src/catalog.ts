@@ -1,6 +1,8 @@
 import semver from "semver";
 import { businessCatalog } from "./business-catalog.js";
 import { connectionCatalog } from "./connection-catalog.js";
+import { commerceCatalog } from "./commerce-catalog.js";
+import { communityCatalog } from "./community-catalog.js";
 import {
   AppError,
   moduleManifestSchema,
@@ -68,6 +70,8 @@ const definitions = [
   ],
 ] as const;
 export const catalog: ModuleManifest[] = [
+  ...commerceCatalog,
+  ...communityCatalog,
   ...definitions.map(([moduleId, name, category, description, dependencies]) =>
     moduleManifestSchema.parse({
       moduleId,
@@ -120,12 +124,12 @@ export const catalog: ModuleManifest[] = [
       tags: [category === "foundation" ? "基础能力" : "校园协作"],
       aliases: (
         {
-          identity: ["登录", "认证"],
+          identity: ["登录", "认证", "登录接口", "用户账户", "用户数据库"],
           profiles: ["档案"],
           campus: ["地图", "地点"],
           content: ["内容", "商品"],
           search: ["搜索"],
-          chat: ["聊天"],
+          chat: ["聊天", "私聊", "消息"],
           notifications: ["通知"],
           events: ["活动", "报名"],
           groups: ["小组", "社团"],

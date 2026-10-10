@@ -4,7 +4,8 @@ import {
   Background,
   Controls,
   Handle,
-  MiniMap,
+  MarkerType,
+  ViewportPortal,
   Position,
   ReactFlow,
   ReactFlowProvider,
@@ -28,6 +29,9 @@ import {
   Play,
   Trash2,
   X,
+  CheckCircle2,
+  AlertTriangle,
+  LayoutGrid,
 } from "lucide-react";
 import type {
   Composition,
@@ -35,12 +39,16 @@ import type {
   ProductSpec,
   PublicUser,
 } from "../packages/contracts/src/index";
-import { validateComposition } from "../packages/modules/src/composition";
+import {
+  validateComposition,
+  compositionIssues,
+} from "../packages/modules/src/composition";
 import { resolveModules } from "../packages/modules/src/catalog";
 import { api, post, useLoad } from "./api";
 import { Notice, useAction } from "./components";
 import { categoryLabels, ModuleIcon } from "./module-studio";
 import { FieldInput } from "./record-module";
+import "./canvas-guided.css";
 
 type ModuleNode = Node<
   {
@@ -48,13 +56,14 @@ type ModuleNode = Node<
     title: string;
     configuration: Record<string, string | number | boolean>;
     view?: "cards" | "table" | "board";
+    issues?: string[];
   },
   "module"
 >;
 function CanvasNode({ data, selected }: NodeProps<ModuleNode>) {
   return (
     <div
-      className={`canvas-module ${selected ? "selected" : ""} ${data.module.category}`}
+      className={`canvas-module ${selected ? "selected" : ""} ${data.module.category} ${data.issues?.length ? "invalid" : ""}`}
     >
       <Handle
         type="target"
@@ -84,6 +93,16 @@ function CanvasNode({ data, selected }: NodeProps<ModuleNode>) {
               : "记录 / 事件"}
         </span>
       </div>
+      <div className="canvas-port-labels">
+        <span>输入</span>
+        <span>输出</span>
+      </div>
+      {!!data.issues?.length && (
+        <div className="canvas-node-error">
+          <AlertTriangle size={14} />
+          {data.issues[0]}
+        </div>
+      )}
       <Handle
         type="source"
         position={Position.Right}
@@ -94,12 +113,55 @@ function CanvasNode({ data, selected }: NodeProps<ModuleNode>) {
 }
 const nodeTypes = { module: CanvasNode };
 const edgeLabels = {
+  dependency: "依赖接口",
   navigate: "页面跳转",
   embed: "内嵌记录",
   notify: "创建后通知",
   flow: "自动化",
   display: "展示数据",
 };
+const lanes = [
+  { name: "技术底座", subtitle: "身份 / 存储 / 通信", color: "#edf1f8" },
+  { name: "产品业务", subtitle: "交易 / 社区 / 校园场景", color: "#eaf3ef" },
+  { name: "连接自动化", subtitle: "触发 / 条件 / 动作", color: "#faf0e5" },
+  { name: "界面展示", subtitle: "列表 / 看板 / 统计", color: "#f3eef7" },
+];
+const laneOf = (m: ModuleManifest) =>
+  m.category === "foundation"
+    ? 0
+    : m.category === "connector"
+      ? 2
+      : m.category === "presentation"
+        ? 3
+        : 1;
+const lanePosition = (m: ModuleManifest, all: ModuleNode[]) => ({
+  x: 40 + laneOf(m) * 400,
+  y: 140 + all.filter((n) => laneOf(n.data.module) === laneOf(m)).length * 215,
+});
+function dependencyEdges(all: ModuleNode[], existing: Edge[]) {
+  const result = [...existing];
+  for (const target of all)
+    for (const dependency of Object.keys(target.data.module.dependencies)) {
+      const source = all.find((n) => n.data.module.moduleId === dependency);
+      if (
+        source &&
+        !result.some(
+          (e) =>
+            e.source === source.id &&
+            e.target === target.id &&
+            e.data?.mode === "dependency",
+        )
+      )
+        result.push({
+          id: crypto.randomUUID(),
+          source: source.id,
+          target: target.id,
+          label: edgeLabels.dependency,
+          data: { mode: "dependency" },
+        });
+    }
+  return result;
+}
 function defaults(
   module: ModuleManifest,
 ): Record<string, string | number | boolean> {
@@ -133,6 +195,9 @@ function CanvasEditor({ user }: { user: PublicUser }) {
     [query, setQuery] = useState(""),
     [category, setCategory] = useState("all"),
     [name, setName] = useState("我的校园应用"),
+    [description, setDescription] = useState(""),
+    [linkSource, setLinkSource] = useState(""),
+    [linkTarget, setLinkTarget] = useState(""),
     [mode, setMode] = useState("auto"),
     [preview, setPreview] = useState("");
   const [currentProject, setCurrentProject] = useState(
@@ -153,10 +218,7 @@ function CanvasEditor({ user }: { user: PublicUser }) {
   const makeNode = useCallback(
     (
       module: ModuleManifest,
-      position = {
-        x: 80 + (nodes.length % 3) * 280,
-        y: 80 + Math.floor(nodes.length / 3) * 180,
-      },
+      position = lanePosition(module, nodes),
     ): ModuleNode => ({
       id: crypto.randomUUID(),
       type: "module",
@@ -168,7 +230,7 @@ function CanvasEditor({ user }: { user: PublicUser }) {
         view: module.recordDefinition?.view,
       },
     }),
-    [nodes.length],
+    [nodes],
   );
   useEffect(() => {
     if (!registry.data || initialized.current) return;
@@ -181,6 +243,7 @@ function CanvasEditor({ user }: { user: PublicUser }) {
             `/api/projects/${params.get("project")}`,
           );
           setName(data.project.spec.name);
+          setDescription(data.project.spec.description);
           graph = data.project.spec.composition;
           if (!graph)
             graph = {
@@ -202,6 +265,7 @@ function CanvasEditor({ user }: { user: PublicUser }) {
             const parsed = JSON.parse(draft);
             graph = parsed.graph;
             setName(parsed.name);
+            setDescription(parsed.description || "");
           }
         }
         if (graph) {
@@ -242,9 +306,14 @@ function CanvasEditor({ user }: { user: PublicUser }) {
             (m) => m.moduleId === params.get("add"),
           );
           if (module) {
-            const node = makeNode(module);
-            setNodes([node]);
-            setSelectedId(node.id);
+            const all: ModuleNode[] = [];
+            for (const m of resolveModules(
+              [module.moduleId],
+              registry.data!.items,
+            ))
+              all.push(makeNode(m, lanePosition(m, all)));
+            setNodes(all);
+            setEdges(dependencyEdges(all, []));
           }
         }
       } catch (e) {
@@ -254,7 +323,7 @@ function CanvasEditor({ user }: { user: PublicUser }) {
   }, [registry.data, params, user.id, makeNode, setEdges, setNodes]);
   function graph(): Composition {
     return {
-      version: 1,
+      version: 2,
       nodes: nodes.map((n) => ({
         id: n.id,
         moduleId: n.data.module.moduleId,
@@ -277,8 +346,9 @@ function CanvasEditor({ user }: { user: PublicUser }) {
         `foundry-canvas-${user.id}`,
         JSON.stringify({
           name,
+          description,
           graph: {
-            version: 1,
+            version: 2,
             nodes: nodes.map((n) => ({
               id: n.id,
               moduleId: n.data.module.moduleId,
@@ -296,7 +366,7 @@ function CanvasEditor({ user }: { user: PublicUser }) {
           },
         }),
       );
-  }, [nodes, edges, name, currentProject, user.id]);
+  }, [nodes, edges, name, description, currentProject, user.id]);
   function add(module: ModuleManifest, position?: { x: number; y: number }) {
     const existing = nodes.find(
       (n) => n.data.module.moduleId === module.moduleId,
@@ -313,25 +383,53 @@ function CanvasEditor({ user }: { user: PublicUser }) {
       setError("画布最多 80 个节点");
       return;
     }
-    const node = makeNode(module, position);
-    setNodes((all) => [...all, node]);
-    setSelectedId(node.id);
-    setSaved(false);
+    try {
+      const all = [...nodes];
+      for (const m of resolveModules([module.moduleId], available)) {
+        if (
+          all.some((n) => n.data.module.moduleId === m.moduleId) &&
+          !(
+            ["connector", "presentation"].includes(m.category) &&
+            m.moduleId === module.moduleId
+          )
+        )
+          continue;
+        const placement = lanePosition(m, all);
+        if (position && m.moduleId === module.moduleId)
+          placement.y = Math.max(140, position.y);
+        all.push(makeNode(m, placement));
+      }
+      if (all.length > 80) throw new Error("含依赖后超过 80 个节点");
+      setNodes(all);
+      setEdges(dependencyEdges(all, edges));
+      setSelectedId("");
+      setEdgeId("");
+      setSaved(false);
+      setError("");
+      requestAnimationFrame(
+        () =>
+          void flow.fitView({ duration: 250, padding: 0.18, maxZoom: 0.85 }),
+      );
+    } catch (e) {
+      setError((e as Error).message);
+    }
   }
   function connect(connection: Connection) {
     const source = nodes.find((n) => n.id === connection.source),
       target = nodes.find((n) => n.id === connection.target);
-    if (!source || !target || source.id === target.id) return;
+    if (!source || !target) return;
     const kind =
       mode !== "auto"
         ? mode
-        : target.data.module.category === "connector"
-          ? "flow"
-          : target.data.module.category === "presentation"
-            ? "display"
-            : target.data.module.moduleId === "notifications"
-              ? "notify"
-              : "navigate";
+        : target.data.module.dependencies[source.data.module.moduleId]
+          ? "dependency"
+          : target.data.module.category === "connector"
+            ? "flow"
+            : target.data.module.category === "presentation"
+              ? "display"
+              : target.data.module.moduleId === "notifications"
+                ? "notify"
+                : "navigate";
     setEdges((all) =>
       addEdge(
         {
@@ -348,6 +446,79 @@ function CanvasEditor({ user }: { user: PublicUser }) {
   }
   const selected = nodes.find((n) => n.id === selectedId),
     selectedEdge = edges.find((e) => e.id === edgeId);
+  const workingSpec: ProductSpec = {
+    name,
+    description,
+    kind: "custom",
+    modules: [...new Set(nodes.map((n) => n.data.module.moduleId))],
+    features: [],
+    primaryColor: "green",
+    composition: graph(),
+  };
+  const issues = compositionIssues(workingSpec, available);
+  const edgeIssue = (edge: Edge) =>
+    issues.find((i) => i.edgeId === edge.id) ||
+    issues.find(
+      (i) => i.code === "GRAPH" && /循环|私有|最多|超过/.test(i.message),
+    );
+  const drawnEdges = edges.map((e) => ({
+    ...e,
+    markerEnd: {
+      type: MarkerType.ArrowClosed,
+      color: edgeIssue(e)
+        ? "#c83131"
+        : e.data?.mode === "dependency"
+          ? "#6785aa"
+          : "#218474",
+    },
+    style: {
+      stroke: edgeIssue(e)
+        ? "#c83131"
+        : e.data?.mode === "dependency"
+          ? "#6785aa"
+          : "#218474",
+      strokeWidth: edgeIssue(e) ? 3 : 2,
+      strokeDasharray: e.data?.mode === "dependency" ? "5 4" : undefined,
+    },
+    className: edgeIssue(e) ? "invalid-edge" : "",
+    label: edgeIssue(e)
+      ? `无效 · ${edgeLabels[e.data?.mode as keyof typeof edgeLabels]}`
+      : edgeLabels[e.data?.mode as keyof typeof edgeLabels],
+  }));
+  const drawnNodes = nodes.map((n) => ({
+    ...n,
+    data: {
+      ...n.data,
+      issues: issues.filter((i) => i.nodeId === n.id).map((i) => i.message),
+    },
+  }));
+  function arrange() {
+    const arranged: ModuleNode[] = [];
+    for (const n of nodes)
+      arranged.push({ ...n, position: lanePosition(n.data.module, arranged) });
+    setNodes(arranged);
+    setSaved(false);
+    requestAnimationFrame(
+      () => void flow.fitView({ duration: 250, padding: 0.15, maxZoom: 0.9 }),
+    );
+  }
+  function repairDependencies() {
+    try {
+      const all = [...nodes];
+      for (const m of resolveModules(
+        nodes.map((n) => n.data.module.moduleId),
+        available,
+      ))
+        if (!all.some((n) => n.data.module.moduleId === m.moduleId))
+          all.push(makeNode(m, lanePosition(m, all)));
+      if (all.length > 80) throw new Error("含依赖后超过 80 个节点");
+      setNodes(all);
+      setEdges(dependencyEdges(all, edges));
+      setSaved(false);
+    } catch (e) {
+      setError((e as Error).message);
+    }
+  }
   function updateNode(patch: Partial<ModuleNode["data"]>) {
     setNodes((all) =>
       all.map((n) =>
@@ -360,14 +531,15 @@ function CanvasEditor({ user }: { user: PublicUser }) {
     await action.run(
       async () => {
         if (!nodes.length) throw new Error("请先添加模块");
+        if (issues.length)
+          throw new Error(issues.map((i) => i.message).join("；"));
         const modules = resolveModules(
           nodes.map((n) => n.data.module.moduleId),
           available,
         ).map((m) => m.moduleId);
         const spec: ProductSpec = {
           name: name.trim() || "我的校园应用",
-          description:
-            nodes.map((n) => n.data.title).join("、") + "组成的校园应用",
+          description: description.trim(),
           kind: "custom",
           modules,
           features: [],
@@ -384,7 +556,7 @@ function CanvasEditor({ user }: { user: PublicUser }) {
         else {
           const created = await post<{ project: { id: string } }>(
             "/api/projects",
-            { idea: "Visual composition", spec },
+            { idea: description.trim(), spec },
           );
           id = created.project.id;
           setCurrentProject(id);
@@ -428,7 +600,7 @@ function CanvasEditor({ user }: { user: PublicUser }) {
         />
         <span className="save-state">{saved ? "已保存" : "草稿"}</span>
         <button
-          disabled={action.busy || !nodes.length}
+          disabled={action.busy || !nodes.length || !!issues.length}
           onClick={() => void save(false)}
         >
           <Save size={16} />
@@ -436,13 +608,76 @@ function CanvasEditor({ user }: { user: PublicUser }) {
         </button>
         <button
           className="primary"
-          disabled={action.busy || !nodes.length}
+          disabled={action.busy || !nodes.length || !!issues.length}
           onClick={() => void save(true)}
         >
           <Play size={16} />
           {action.busy ? "正在生成…" : "生成应用"}
         </button>
       </header>
+      <div className="canvas-brief">
+        <label>
+          产品描述
+          <textarea
+            aria-label="产品描述"
+            value={description}
+            onChange={(e) => {
+              setDescription(e.target.value);
+              setSaved(false);
+            }}
+            maxLength={4000}
+            rows={2}
+            placeholder="例如：学生买卖二手教材，商家发布商品与库存，买家下单，卖家约定取货地点，收货后评价。"
+          />
+        </label>
+        <div
+          className={`canvas-validation ${issues.length ? "has-errors" : ""}`}
+          role="status"
+        >
+          {issues.length ? (
+            <AlertTriangle size={21} />
+          ) : (
+            <CheckCircle2 size={21} />
+          )}
+          <strong>
+            {!nodes.length
+              ? "等待添加模块"
+              : issues.length
+                ? `${issues.length} 项待处理`
+                : "结构校验通过"}
+          </strong>
+          <span>
+            {issues.length
+              ? issues[0].message
+              : "接口与依赖已匹配，生成后仍需构建和业务测试。"}
+          </span>
+        </div>
+      </div>
+      {!!nodes.length && !!issues.length && (
+        <details className="canvas-validation-details">
+          <summary>查看校验问题</summary>
+          <ul>
+            {issues.map((issue, i) => (
+              <li key={i}>
+                <button
+                  onClick={() => {
+                    if (issue.nodeId) {
+                      setSelectedId(issue.nodeId);
+                      setEdgeId("");
+                    }
+                    if (issue.edgeId) {
+                      setEdgeId(issue.edgeId);
+                      setSelectedId("");
+                    }
+                  }}
+                >
+                  {issue.message}
+                </button>
+              </li>
+            ))}
+          </ul>
+        </details>
+      )}
       {(error || action.error) && <Notice>{error || action.error}</Notice>}
       {action.message && (
         <Notice kind="success">
@@ -474,7 +709,15 @@ function CanvasEditor({ user }: { user: PublicUser }) {
             onChange={(e) => setCategory(e.target.value)}
           >
             <option value="all">全部类型</option>
-            {["foundation", "campus", "connector", "presentation"].map((id) => (
+            {[
+              "commerce",
+              "community",
+              "foundation",
+              "campus",
+              "connector",
+              "presentation",
+              "extension",
+            ].map((id) => (
               <option value={id} key={id}>
                 {categoryLabels[id]}
               </option>
@@ -555,10 +798,20 @@ function CanvasEditor({ user }: { user: PublicUser }) {
             <span>
               {nodes.length} 个节点 · {edges.length} 条连接
             </span>
+            <button
+              title="按模块层次排列"
+              aria-label="按层次排列"
+              onClick={arrange}
+            >
+              <LayoutGrid size={17} />
+            </button>
+            <button onClick={repairDependencies} disabled={!nodes.length}>
+              补齐依赖
+            </button>
           </div>
           <ReactFlow
-            nodes={nodes}
-            edges={edges}
+            nodes={drawnNodes}
+            edges={drawnEdges}
             nodeTypes={nodeTypes}
             onNodesChange={(changes) => {
               onNodesChange(changes);
@@ -569,6 +822,21 @@ function CanvasEditor({ user }: { user: PublicUser }) {
               setSaved(false);
             }}
             onConnect={connect}
+            onNodeDragStop={(_, node) =>
+              setNodes((all) =>
+                all.map((n) =>
+                  n.id === node.id
+                    ? {
+                        ...n,
+                        position: {
+                          x: 40 + laneOf(n.data.module) * 400,
+                          y: Math.max(140, node.position.y),
+                        },
+                      }
+                    : n,
+                ),
+              )
+            }
             onNodeClick={(_, n) => {
               setSelectedId(n.id);
               setEdgeId("");
@@ -582,22 +850,32 @@ function CanvasEditor({ user }: { user: PublicUser }) {
               setEdgeId("");
             }}
             fitView
-            fitViewOptions={{ minZoom: 0.9, maxZoom: 1, padding: 0.12 }}
-            minZoom={0.3}
+            fitViewOptions={{ maxZoom: 1, padding: 0.18 }}
+            minZoom={0.15}
             maxZoom={1.6}
             deleteKeyCode={["Backspace", "Delete"]}
           >
             <Background gap={20} color="#ccd5dc" />
+            <ViewportPortal>
+              {lanes.map((lane, i) => (
+                <div
+                  key={lane.name}
+                  className="canvas-lane"
+                  style={{
+                    left: i * 400 + 20,
+                    background: lane.color,
+                    height: Math.max(
+                      850,
+                      ...nodes.map((n) => n.position.y + 230),
+                    ),
+                  }}
+                >
+                  <strong>{lane.name}</strong>
+                  <span>{lane.subtitle}</span>
+                </div>
+              ))}
+            </ViewportPortal>
             <Controls />
-            <MiniMap
-              pannable
-              zoomable
-              nodeColor={(n) =>
-                (n as ModuleNode).data.module.category === "connector"
-                  ? "#bd7b33"
-                  : "#168676"
-              }
-            />
           </ReactFlow>
           {!nodes.length && (
             <div className="canvas-empty">
@@ -623,6 +901,18 @@ function CanvasEditor({ user }: { user: PublicUser }) {
               <ModuleIcon module={selected.data.module} />
               <h3>{selected.data.module.name}</h3>
               <p className="muted">{selected.data.module.description}</p>
+              <div className="canvas-interface-list">
+                <strong>提供的接口</strong>
+                {selected.data.module.providedInterfaces.map((i) => (
+                  <code key={i}>{i}</code>
+                ))}
+                <strong>依赖</strong>
+                {Object.keys(selected.data.module.dependencies).map((id) => (
+                  <span key={id}>
+                    {available.find((m) => m.moduleId === id)?.name || id}
+                  </span>
+                ))}
+              </div>
               <label>
                 显示名称
                 <input
@@ -742,6 +1032,9 @@ function CanvasEditor({ user }: { user: PublicUser }) {
           ) : selectedEdge ? (
             <>
               <h3>连接属性</h3>
+              {edgeIssue(selectedEdge) && (
+                <Notice>{edgeIssue(selectedEdge)!.message}</Notice>
+              )}
               <label>
                 行为
                 <select
@@ -797,6 +1090,57 @@ function CanvasEditor({ user }: { user: PublicUser }) {
             </>
           )}
         </aside>
+      </div>
+      <div className="canvas-layer-legend">
+        {lanes.map((lane, i) => (
+          <span key={lane.name}>
+            <i style={{ background: lane.color }} />
+            {lane.name} ·{" "}
+            {nodes.filter((n) => laneOf(n.data.module) === i).length}
+          </span>
+        ))}
+      </div>
+      <div className="canvas-link-editor">
+        <strong>连接模块</strong>
+        <select
+          aria-label="连线起点"
+          value={linkSource}
+          onChange={(e) => setLinkSource(e.target.value)}
+        >
+          <option value="">选择输出模块</option>
+          {nodes.map((n) => (
+            <option key={n.id} value={n.id}>
+              {n.data.title}
+            </option>
+          ))}
+        </select>
+        <span>→</span>
+        <select
+          aria-label="连线终点"
+          value={linkTarget}
+          onChange={(e) => setLinkTarget(e.target.value)}
+        >
+          <option value="">选择输入模块</option>
+          {nodes.map((n) => (
+            <option key={n.id} value={n.id}>
+              {n.data.title}
+            </option>
+          ))}
+        </select>
+        <button
+          disabled={!linkSource || !linkTarget}
+          onClick={() =>
+            connect({
+              source: linkSource,
+              target: linkTarget,
+              sourceHandle: null,
+              targetHandle: null,
+            })
+          }
+        >
+          <Plus size={17} />
+          添加连线
+        </button>
       </div>
     </div>
   );

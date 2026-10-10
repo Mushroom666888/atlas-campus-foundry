@@ -5,6 +5,8 @@ export default defineConfig({
     "**/browser.spec.ts",
     "**/modules.browser.spec.ts",
     "**/atlas.browser.spec.ts",
+    "**/community.browser.spec.ts",
+    "**/commerce.browser.spec.ts",
   ],
   timeout: 90000,
   expect: { timeout: 10000 },
@@ -16,6 +18,7 @@ export default defineConfig({
     ["json", { outputFile: "artifacts/browser-results.json" }],
   ],
   use: {
+    actionTimeout: 15000,
     baseURL: "http://127.0.0.1:3100",
     trace: "retain-on-failure",
     screenshot: "only-on-failure",

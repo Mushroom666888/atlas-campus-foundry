@@ -1,0 +1,63 @@
+﻿
+> campus-ai-app-foundry@0.1.0 test
+> tsx --test tests/*.test.ts
+
+✔ Agent contract-only provider: real tools, durable trace, stale preview rejected, repair budget enforced (12585.2533ms)
+✔ offline backup: live-storage refusal, checksums, fresh-root restore, accounts, media, secrets and HTTP redeploy (31011.6396ms)
+✔ kernel storage ownership survives an unresponsive owner and releases after process death (11177.8495ms)
+✖ 94 catalog modules, typed graph contracts and exact multilingual module references (11.2335ms)
+✔ dense invalid graphs are rejected within a bounded validation budget (2.5678ms)
+✔ all 50 business modules execute real validated CRUD, private reads, ownership, search and database restart (9459.0258ms)
+✔ 12 connectors execute events, conditions, field mapping, notification, linked records, audit and transactional rollback (4766.9331ms)
+✔ embedded records enforce declared parent contracts; Agent +references persist and constrain module tools (8163.0372ms)
+✔ private records cannot be embedded or copied into shared modules, including stale runtime graphs (3965.8601ms)
+✔ commerce: multimerchant authorization, atomic stock, coupons, idempotency, fulfillment, reviews, bookings and persistence (6956.117ms)
+✔ creator community: real persistence, public privacy, author permissions, search, replies, moderation and quota (7434.3176ms)
+✔ community modules reuse the platform implementation in isolated application databases and enforce installation (5166.384ms)
+✔ guided canvas validates intent, complete dependency wiring, port types and missing inputs (11.897ms)
+✔ control: owner boundaries, real project files, module publication/reuse and blocked model job (12444.6125ms)
+✔ actual local deployment: HTTP, persistence across restart, immutable rollback, failed deployment and secrets (16903.543ms)
+✔ frontend serves fresh build assets, uncached deep links and real asset 404s (239.3079ms)
+✔ static assets preserve API rate budget while real API requests remain limited (3366.1165ms)
+✔ SSE authorization is revoked after logout and open streams do not prevent shutdown (6682.9937ms)
+✔ manifest contracts and dependency resolution reject cycles, conflicts and missing modules (9.9427ms)
+✔ real runtime: identity, events, FIFO waitlist, notifications, search, chat, authorization and persistence (9973.6237ms)
+ℹ tests 20
+ℹ suites 0
+ℹ pass 19
+ℹ fail 1
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 43251.9878
+
+✖ failing tests:
+
+test at tests\business.test.ts:62:1
+✖ 94 catalog modules, typed graph contracts and exact multilingual module references (11.2335ms)
+  AssertionError [ERR_ASSERTION]: The input did not match the regular expression /循环/. Input:
+
+  'Error: 私有数据不能通过内嵌暴露到公共记录'
+
+      at TestContext.<anonymous> (C:\Users\14237\Desktop\Campus AI App Foundry\tests\business.test.ts:88:10)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1306:25)
+      at Test.start (node:internal/test_runner/test:1177:17)
+      at startSubtestAfterBootstrap (node:internal/test_runner/harness:385:17) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: Error: 私有数据不能通过内嵌暴露到公共记录
+        at fail (C:\Users\14237\Desktop\Campus AI App Foundry\packages\modules\src\composition.ts:164:11)
+        at validateComposition (C:\Users\14237\Desktop\Campus AI App Foundry\packages\modules\src\composition.ts:215:16)
+        at <anonymous> (C:\Users\14237\Desktop\Campus AI App Foundry\tests\business.test.ts:90:7)
+        at getActual (node:assert:611:5)
+        at strict.throws (node:assert:759:24)
+        at TestContext.<anonymous> (C:\Users\14237\Desktop\Campus AI App Foundry\tests\business.test.ts:88:10)
+        at Test.runInAsyncScope (node:async_hooks:227:14)
+        at Test.run (node:internal/test_runner/test:1306:25)
+        at Test.start (node:internal/test_runner/test:1177:17)
+        at startSubtestAfterBootstrap (node:internal/test_runner/harness:385:17),
+    expected: /循环/,
+    operator: 'throws',
+    diff: 'simple'
+  }

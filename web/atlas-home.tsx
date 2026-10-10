@@ -11,6 +11,8 @@ import {
   MoveUpRight,
   Orbit,
   X,
+  Store,
+  Users,
 } from "lucide-react";
 import type { PublicUser } from "../packages/contracts/src/index";
 
@@ -23,6 +25,20 @@ declare const __ATLAS_CATALOG__: {
 const catalog = __ATLAS_CATALOG__;
 
 const layers = [
+  {
+    id: "commerce",
+    name: "商业经营",
+    english: "BUILD A BUSINESS",
+    description: "店铺、交易、预约与口碑。把校园需求变成生意。",
+    icon: Store,
+  },
+  {
+    id: "community",
+    name: "用户社区",
+    english: "CONNECT PEOPLE",
+    description: "论坛、主页与产品展示，让用户成为社区的一部分。",
+    icon: Users,
+  },
   {
     id: "foundation",
     name: "基础能力",
@@ -54,8 +70,28 @@ const layers = [
 ];
 export function AtlasHome({ user }: { user: PublicUser | null }) {
   const [open, setOpen] = useState(false),
-    [active, setActive] = useState("foundation");
+    [active, setActive] = useState("commerce");
   const scene = useRef<HTMLDivElement>(null);
+  useEffect(() => {
+    const element = scene.current;
+    if (!element) return;
+    let visible = true;
+    const update = () =>
+      element.style.setProperty(
+        "--scene-play",
+        visible && !document.hidden ? "running" : "paused",
+      );
+    const observer = new IntersectionObserver(([entry]) => {
+      visible = entry.isIntersecting;
+      update();
+    });
+    observer.observe(element);
+    document.addEventListener("visibilitychange", update);
+    return () => {
+      observer.disconnect();
+      document.removeEventListener("visibilitychange", update);
+    };
+  }, []);
   useEffect(() => {
     const reduced = matchMedia("(prefers-reduced-motion: reduce)"),
       fine = matchMedia("(hover: hover) and (pointer: fine)");
@@ -97,6 +133,7 @@ export function AtlasHome({ user }: { user: PublicUser | null }) {
               探索模块
             </a>
             <Link to="/compose">可视化创作</Link>
+            <Link to="/community">创作者社区</Link>
             <Link to="/builder">
               AI Builder <ArrowUpRight size={13} />
             </Link>

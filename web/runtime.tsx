@@ -23,6 +23,10 @@ import type { Entity, PublicUser } from "../packages/contracts/src/index";
 import type { RuntimeInfo } from "./main";
 import { businessCatalog } from "../packages/modules/src/business-catalog";
 import { RecordModule } from "./record-module";
+import { CommerceModule } from "./commerce";
+import { commerceCatalog } from "../packages/modules/src/commerce-catalog";
+import { communityCatalog } from "../packages/modules/src/community-catalog";
+import { Link, useNavigate } from "react-router-dom";
 import { connectedModules } from "../packages/modules/src/composition";
 const labels: Record<string, string> = {
   event: "校园活动",
@@ -53,6 +57,15 @@ export function CampusApplication({
   user: PublicUser;
   onLogout: () => void;
 }) {
+  const routeNavigate = useNavigate();
+  const communityPath = (id: string) =>
+    id === "creator-profiles"
+      ? `/creators/${user.id}`
+      : id === "product-showcase"
+        ? "/community/products"
+        : id === "member-directory"
+          ? "/community/creators"
+          : "/community";
   const order =
     info.spec.kind === "marketplace"
       ? [
@@ -96,7 +109,13 @@ export function CampusApplication({
     location: "campus",
     school: "campus",
   };
-  const embeddedIds = new Set(businessCatalog.flatMap((m) => connectedModules(info.spec.composition, m.moduleId, "embed").map((n) => n.moduleId)));
+  const embeddedIds = new Set(
+    businessCatalog.flatMap((m) =>
+      connectedModules(info.spec.composition, m.moduleId, "embed").map(
+        (n) => n.moduleId,
+      ),
+    ),
+  );
   const business = businessCatalog
     .filter(
       (m) => info.modules.includes(m.moduleId) && !embeddedIds.has(m.moduleId),
@@ -114,10 +133,37 @@ export function CampusApplication({
       (!info.spec.composition ||
         info.spec.composition.nodes.some((n) => n.moduleId === access[k])),
   );
+  const commerce = commerceCatalog.filter((m) =>
+    info.modules.includes(m.moduleId),
+  );
   const [view, setView] = useState(
-      business[0]?.moduleId ?? kinds[0] ?? "notifications",
+      (commerce.some((m) => m.moduleId === "product-catalog")
+        ? "product-catalog"
+        : commerce[0]?.moduleId) ??
+        business[0]?.moduleId ??
+        kinds[0] ??
+        (info.modules.includes("creator-profiles")
+          ? "community-home"
+          : "notifications"),
     ),
     [account, setAccount] = useState(false);
+  const navigateModule = (id: string) => {
+    if (communityCatalog.some((m) => m.moduleId === id)) {
+      routeNavigate(communityPath(id));
+      return;
+    }
+    setView(
+      (
+        {
+          events: "event",
+          content: "post",
+          groups: "group",
+          profiles: "profile",
+          campus: "location",
+        } as Record<string, string>
+      )[id] || id,
+    );
+  };
   return (
     <div className={`campus-app theme-${info.spec.primaryColor}`}>
       <header className="app-header">
@@ -183,6 +229,36 @@ export function CampusApplication({
         <p>{info.spec.description}</p>
       </div>
       <nav className="app-tabs">
+        {communityCatalog
+          .filter((m) => info.modules.includes(m.moduleId))
+          .map((m) => (
+            <Link
+              className="button"
+              key={m.moduleId}
+              to={
+                m.moduleId === "creator-profiles"
+                  ? `/creators/${user.id}`
+                  : m.moduleId === "product-showcase"
+                    ? "/community/products"
+                    : m.moduleId === "member-directory"
+                      ? "/community/creators"
+                      : "/community"
+              }
+            >
+              <Users size={17} />
+              {m.name}
+            </Link>
+          ))}
+        {commerce.map((module) => (
+          <button
+            key={module.moduleId}
+            className={view === module.moduleId ? "selected" : ""}
+            onClick={() => setView(module.moduleId)}
+          >
+            <ShoppingBag size={17} />
+            {module.name}
+          </button>
+        ))}
         {business.map((module) => (
           <button
             key={module.moduleId}
@@ -210,25 +286,39 @@ export function CampusApplication({
         })}
       </nav>
       <main className="app-content">
-        {businessCatalog.some((m) => m.moduleId === view) ? (
+        {view === "community-home" ? (
+          <div className="community-heading">
+            <div>
+              <h2>欢迎，{user.name}</h2>
+              <p>今天有什么新的进展？</p>
+            </div>
+            <Link
+              className="button primary"
+              to={
+                info.modules.includes("discussion-forum")
+                  ? "/community"
+                  : info.modules.includes("product-showcase")
+                    ? "/community/products"
+                    : `/creators/${user.id}`
+              }
+            >
+              进入社区 <ChevronRight size={17} />
+            </Link>
+          </div>
+        ) : commerce.some((m) => m.moduleId === view) ? (
+          <CommerceModule
+            key={view}
+            moduleId={view}
+            user={user}
+            modules={info.modules}
+          />
+        ) : businessCatalog.some((m) => m.moduleId === view) ? (
           <RecordModule
             key={view}
             module={businessCatalog.find((m) => m.moduleId === view)!}
             spec={info.spec}
             user={user}
-            onNavigate={(id) =>
-              setView(
-                (
-                  {
-                    events: "event",
-                    content: "post",
-                    groups: "group",
-                    profiles: "profile",
-                    campus: "location",
-                  } as Record<string, string>
-                )[id] || id,
-              )
-            }
+            onNavigate={navigateModule}
           />
         ) : view === "chat" ? (
           <Chat user={user} />
@@ -236,6 +326,20 @@ export function CampusApplication({
           <Notifications />
         ) : (
           <EntityView key={view} kind={view} info={info} user={user} />
+        )}
+        {!businessCatalog.some((m) => m.moduleId === view) && (
+          <div className="inline-actions">
+            {connectedModules(
+              info.spec.composition,
+              access[view] || view,
+              "navigate",
+            ).map((n) => (
+              <button key={n.id} onClick={() => navigateModule(n.moduleId)}>
+                {n.title || n.moduleId}
+                <ChevronRight size={17} />
+              </button>
+            ))}
+          </div>
         )}
       </main>
       <footer className="app-footer">

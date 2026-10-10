@@ -38,11 +38,51 @@ const unique = [
       .map((row) => [row.applicationId, row]),
   ).values(),
 ];
+const showcaseOnly = process.argv.includes("--showcase");
+let selected = unique;
+if (showcaseOnly) {
+  const showcase = JSON.parse(
+    await readFile(path.join(root, "showcase.json"), "utf8"),
+  );
+  const expected = new Set<string>(
+    showcase.applications.map(
+      (app: { applicationId: string }) => app.applicationId,
+    ),
+  );
+  for (const filename of ["visual-showcase.json", "commercial-showcase.json"]) {
+    try {
+      const app = JSON.parse(await readFile(path.join(root, filename), "utf8"));
+      const match = /^app-([a-f0-9-]+)\.localhost$/.exec(
+        new URL(app.url).hostname,
+      );
+      if (!match) throw new Error(`Invalid showcase address in ${filename}`);
+      expected.add(match[1]);
+    } catch (error) {
+      if ((error as NodeJS.ErrnoException).code !== "ENOENT") throw error;
+    }
+  }
+  selected = unique.filter((app) => expected.has(app.applicationId));
+  if (selected.length !== expected.size)
+    throw new Error(
+      "A declared showcase application has no deployment artifact",
+    );
+}
 const report = {
   at: new Date().toISOString(),
+  scope: showcaseOnly
+    ? "declared showcase applications"
+    : "all retained application artifacts",
   sharedRuntimeLines: fingerprint.lines,
   sourceFiles: fingerprint.files,
   uniqueApplications: unique.length,
+  validatedApplications: selected.length,
+  outsideScope: unique
+    .filter((app) => !selected.includes(app))
+    .map((app) => ({
+      applicationId: app.applicationId,
+      name: app.name,
+      sameCurrentSource: app.sameCurrentSource,
+    })),
   applications: unique,
   sharedCodeImplementations: 1,
   applicationSpecificExecutableLines: unique.every(
@@ -68,7 +108,12 @@ const report = {
     "All module invocations use @campus/modules. Deterministic composition is not LLM-generated bespoke code. Runtime source hash equality proves shared artifact provenance, not behavior by itself.",
 };
 await mkdir("artifacts", { recursive: true });
-await writeFile("artifacts/reuse-report.json", JSON.stringify(report, null, 2));
+await writeFile(
+  showcaseOnly
+    ? "artifacts/showcase-reuse-report.json"
+    : "artifacts/reuse-report.json",
+  JSON.stringify(report, null, 2),
+);
 console.log(JSON.stringify(report, null, 2));
-if (unique.length < 3 || unique.some((a) => !a.sameCurrentSource))
+if (selected.length < 3 || selected.some((a) => !a.sameCurrentSource))
   process.exitCode = 1;

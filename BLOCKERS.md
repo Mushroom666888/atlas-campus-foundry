@@ -16,5 +16,7 @@ Native PostgreSQL was installed as test tooling and verified autonomously. No ex
 - Independent business API/browser acceptance of actual LLM-generated code after live resources are available.
 - Simultaneous incompatible built-in module code versions; built-ins are currently bound to platform releases. Declarative version upgrade/rollback is tested.
 - Collaborative team UI/authorization, cross-app grant execution, configurable third-party module schemas, offsite backup scheduling and multi-worker leases. Local offline backup/restore is implemented and tested.
+- Online payments, escrow, refunds, commissions and reconciliation are not implemented; commerce currently records offline settlement agreements. No payment credentials are required for the current local workflows.
+- Full pagination for large commerce/record histories (current bounded response sizes), operational moderation/reporting/account bans and long-term archival remain engineering work. The forum already supports owner editing and owner/admin deletion, but that is not a complete abuse-response system.
 
-The recorded local acceptance suite has no remaining failing check. Unexecuted provider/container tests are BLOCKED, not passed.
+The current scoped local feature acceptance has no remaining failing test. The unscoped historical `reuse-report` still flags another account's older application source; its data and ownership were preserved. Five declared samples pass `reuse-report -- --showcase`. Unexecuted provider/container tests are BLOCKED, not passed.

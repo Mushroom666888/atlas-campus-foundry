@@ -14,6 +14,7 @@ import {
 } from "../packages/contracts/src/index.js";
 import { IsolatedExecutor, dockerAvailable } from "./executor.js";
 import { encryptSecret } from "./vault.js";
+import { registerCommunity } from "../packages/modules/src/community.js";
 
 export async function createControl(
   options: {
@@ -51,6 +52,7 @@ export async function createControl(
   });
   errors(app);
   await setupAuth(app, db, "control", true);
+  registerCommunity(app, db);
   const id = (request: { params: unknown }) =>
     (request.params as { id: string }).id;
   app.get("/api/health", async () => {

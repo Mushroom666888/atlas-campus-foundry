@@ -2,6 +2,26 @@
 
 Date: 2026-10-10 (Asia/Shanghai). Platform: Windows, Node 24.17.0, npm 11.13.0. Other operating systems are not claimed as validated.
 
+## Current commercial/community release
+
+| Command | Actual result | Scope |
+|---|---|---|
+| `npm run check` | PASS: lint, production build, 21 Node tests, no skips | 94 contracts, commerce/community SQL, authorization, quotas, graph replacement regression and earlier workflows |
+| `npm run e2e` | PASS: 7 journeys | Homepage motion/9 viewports, original 3 products, deployed commercial app, community, guided canvas and module previews/references |
+| `npx tsx scripts/audit-studio.ts` | PASS: 69 route/viewport checks | 23 existing-account routes at 1440/390/320px, no page errors or horizontal overflow; API budget pacing retained |
+| `npx playwright test tests/community.browser.spec.ts` | PASS: 2 journeys after stricter screenshot readiness | Wait for actual community content/fonts; 1440/390/320px forum/products/profile/directory; Canvas 1440/390px |
+| `npm run verify-postgres` | PASS on native PostgreSQL 18.4 | Exact migration file ledger, repeat-run idempotence, concurrent last-item orders, community writes, database server restart and sessions |
+| `npm run deploy-local -- --redeploy`, `deploy-visual -- --redeploy`, `deploy-commerce -- --redeploy` | PASS, HTTP healthy | Three original products, visual record app and new 18-install commerce/community app; separate persistent databases |
+| `npm run reuse-report -- --showcase` | PASS: 5 declared apps | Equal current shared source provenance, single implementation; no custom generated executable code |
+| `npm run reuse-report` (all retained artifacts) | FAIL: one historical app has older source | A different account's retained application was not changed through the current account; all artifacts remain visible in report |
+| `npm run lint`, `npm run typecheck` | PASS after acceptance-script edits | Updated native migration/reuse/audit scripts |
+| `npm audit --audit-level=moderate` | PASS: 0 advisories | Does not certify security |
+| `npm run verify-integrations` | BLOCKED for LLM, Docker and SMTP; PostgreSQL TESTED | No live model generation, Docker containment or external email delivery claimed |
+
+Current evidence is in `docs/evidence/2026-10-10-commerce/`; detailed screenshots under `artifacts/screenshots/` and live-account captures under `artifacts/atlas-commercial-audit/`. The sections below retain historical evidence and counts.
+
+Failures retained and repaired: Chinese email fixture rejected correctly; ambiguous category label; Canvas toolbar then MiniMap intercepting real handles; Node HTTP request could not resolve the local application domain (changed the check to a browser-origin fetch); overlapping cycle/privacy diagnostic; valid replacement graph blocked by old connector nodes; screenshots captured loading state; native PostgreSQL script hard-coded the old single migration count. No functionality assertion was removed. The expanded 69-page live audit initially exhausted the existing API rate budget; audit requests now pace themselves, while application rate limits remain unchanged.
+
 ## Latest user-reported regression
 
 The existing account exposed a gap in the previous fresh-account browser tests: a published legacy `study-waitlist` manifest lacked `aliases`, causing `.join()` crashes in `/modules`, `/compose`, `/builder` and `/create`. Reproduced with the actual stored account, then fixed by parsing stored manifests through the version-compatible schema at the registry boundary. The control test now removes four new metadata fields from a persisted published module and verifies normalized retrieval and subsequent installation. No existing module or user data was deleted.

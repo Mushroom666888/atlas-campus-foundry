@@ -26,6 +26,16 @@ test("Atlas brand home: real imagery, working navigation, responsive composition
     )
     .toBe(true);
   await mkdir("artifacts/screenshots", { recursive: true });
+  const initialTransform = await page
+    .locator(".atlas-nebula")
+    .evaluate((img) => getComputedStyle(img).transform);
+  await expect
+    .poll(() =>
+      page
+        .locator(".atlas-nebula")
+        .evaluate((img) => getComputedStyle(img).transform),
+    )
+    .not.toBe(initialTransform);
   for (const [width, height] of [
     [1920, 1080],
     [1440, 960],
@@ -94,6 +104,11 @@ test("Atlas brand home: real imagery, working navigation, responsive composition
   });
   await page.emulateMedia({ reducedMotion: "reduce" });
   await page.goto("/");
+  expect(
+    await page
+      .locator(".atlas-nebula")
+      .evaluate((img) => getComputedStyle(img).animationName),
+  ).toBe("none");
   expect(
     await page
       .locator(".atlas-wordmark")

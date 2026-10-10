@@ -4,6 +4,8 @@
 
 - `npm run dev`：构建并启动控制面，自动选取本地空闲端口。
 - `npm run deploy-local`：在已运行的控制面中创建/恢复 Events、Marketplace、Study Buddy。
+- `npm run deploy-visual` 和 `npm run deploy-commerce`：创建/恢复可视化记录应用和商业社区应用。源码升级时给相应命令加 `-- --redeploy`，保留应用数据。地址分别写入 `.data/visual-showcase.json` 和 `.data/commercial-showcase.json`。
+- `npm run reuse-report -- --showcase` 验证声明的验收应用共享源码；无参数会包含其他账号的历史版本，报告陈旧构件不代表应跨账号修改数据。
 - 默认 `.data/control/` 为控制数据库，`.data/apps/<appId>/db/` 为应用数据库；应用文件和图片也在各自目录。
 - `.data/projects/<projectId>/` 为可编辑工作区；`.data/revisions/<projectId>/` 保存文件修改前后内容。
 - `.data/artifacts/<deploymentId>/` 包含构件清单、工作区快照、运行配置和日志。

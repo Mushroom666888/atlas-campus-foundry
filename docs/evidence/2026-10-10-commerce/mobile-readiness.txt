@@ -1,0 +1,17 @@
+﻿node.exe : [WebServer] (node:29276) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+所在位置 行:1 字符: 1
++ & "C:\Program Files\nodejs/node.exe" "C:\Program Files\nodejs/node_mo ...
++ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: ([WebServer] (no... env being set.:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+Running 2 tests using 1 worker
+
+(node:31004) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ok 1 tests\community.browser.spec.ts:4:1 › creator forum, public profile and product showcase persist across users and mobile routes (10.7s)
+  ok 2 tests\community.browser.spec.ts:123:1 › canvas marks incompatible links red, requires intent and preserves validated dependencies (3.0s)
+
+  2 passed (17.4s)

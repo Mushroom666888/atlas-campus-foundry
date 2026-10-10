@@ -204,6 +204,17 @@ a:focus-visible {
   height: 100%;
   object-fit: cover;
   object-position: center 60%;
+  animation: atlas-cosmic-drift 28s ease-in-out infinite alternate;
+  animation-play-state: var(--scene-play, running);
+  transform-origin: 55% 65%;
+}
+@keyframes atlas-cosmic-drift {
+  from {
+    transform: scale(1.035) translate(-0.6%, 0.25%);
+  }
+  to {
+    transform: scale(1.075) translate(0.6%, -0.5%);
+  }
 }
 .atlas-wordmark {
   position: absolute;
@@ -320,7 +331,7 @@ a:focus-visible {
 }
 .atlas-layer-tabs {
   display: grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
+  grid-template-columns: repeat(3, minmax(0, 1fr));
   border-block: 1px solid var(--atlas-line);
 }
 .atlas-layer-tabs button {

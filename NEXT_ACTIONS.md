@@ -1,5 +1,9 @@
 # Resume here
 
+Latest work is the 94-module commercial/community release: read `docs/COMMERCIAL_COMMUNITY.md` and `docs/evidence/2026-10-10-commerce/` first. Current check is 21 Node tests / 7 browser journeys; native PostgreSQL verifies new migrations, concurrent orders and community persistence. Community is shared between Atlas and installed runtime apps. Canvas v2 requires product description, wired dependencies and valid inputs; it is not a live AI understanding test. Preserve version 1 compatibility and replacement-graph save regression. New showcase metadata: `.data/commercial-showcase.json`; `npm run deploy-commerce -- --redeploy` refreshes its source.
+
+`npm run reuse-report -- --showcase` validates the 5 declared sample apps. The unscoped historical report also contains another account's old application and currently returns failure for its older source. Do not bypass ownership or rewrite its project to make a report green. `scripts/audit-studio.ts` now includes 23 existing-account routes at three widths and deliberately paces requests to respect the live API limit. It requires commercial showcase setup.
+
 Latest user feedback and repair: `docs/ATLAS_REDESIGN.md`. Do not restore the foreground image mask or tiny UI type. Registry reads must apply schema defaults to old published manifests; new-account-only tests missed this once. The live-account audit script verifies the actual older dataset. Current frontend asset handler serves new builds dynamically and sets no-store on the app shell; stale removed chunks receive a real 404 and a recoverable UI.
 
 1. Read PROJECT_STATUS.md, TEST_REPORT.md, SECURITY_REPORT.md and docs/USER_ACTION_REQUIRED.md. Inspect git status and artifacts/acceptance/results.json.
@@ -13,4 +17,4 @@ Latest user feedback and repair: `docs/ATLAS_REDESIGN.md`. Do not restore the fo
 
 No work is claimed to execute automatically after this session ends.
 
-The 80-module catalog, details, +references, declarative canvas and Atlas/Taste pass are implemented and tested. Do not rebuild them from scratch. Homepage performance lab result is 85/100 (LCP 3.8s under mobile throttling); accessibility/best practices are 100. Further performance opportunities: home-only asset preload or server rendering, narrower initial CSS/JS. User has not approved the final visual design. Collection pagination beyond the 200-row response cap is an independent follow-up.
+The original 80 contracts are preserved, with 10 commercial and 4 community additions. Details, +references, declarative canvas and earlier Atlas/Taste pass are implemented and tested. Do not rebuild them from scratch. Historical homepage performance lab result is 85/100 (LCP 3.8s); it was not remeasured for this release. User has not approved the final visual design. Remaining work includes full commerce/collection pagination, community abuse reporting/moderation and genuine online payment integration; none should be represented by empty catalog entries.

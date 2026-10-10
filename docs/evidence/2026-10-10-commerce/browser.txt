@@ -1,0 +1,26 @@
+﻿
+> campus-ai-app-foundry@0.1.0 e2e
+> playwright test
+
+node.exe : [WebServer] (node:25304) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+所在位置 行:1 字符: 1
++ & "C:\Program Files\nodejs/node.exe" "C:\Program Files\nodejs/node_mo ...
++ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: ([WebServer] (no... env being set.:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+Running 7 tests using 1 worker
+
+(node:31108) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ok 1 tests\atlas.browser.spec.ts:4:1 › Atlas brand home: real imagery, working navigation, responsive composition and reduced motion (3.8s)
+  ok 2 tests\browser.spec.ts:12:1 › Studio and three deployed products: persisted workflows, module reuse, upload, chat, mobile (28.4s)
+  ok 3 tests\commerce.browser.spec.ts:16:1 › commercial modules deploy a real multiuser shop, orders, appointments and reusable forum (18.9s)
+  ok 4 tests\community.browser.spec.ts:4:1 › creator forum, public profile and product showcase persist across users and mobile routes (6.1s)
+  ok 5 tests\community.browser.spec.ts:120:1 › canvas marks incompatible links red, requires intent and preserves validated dependencies (2.9s)
+  ok 6 tests\modules.browser.spec.ts:15:1 › 94-module explorer, interactive details and persisted +references (8.4s)
+  ok 7 tests\modules.browser.spec.ts:123:1 › described drag and connect builds a validated application with notifications, embedded records and display widgets (11.9s)
+
+  7 passed (1.4m)

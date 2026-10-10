@@ -209,26 +209,7 @@ export class Projects {
     );
     this.checkSpecSize(spec);
     validateComposition(spec, available);
-    await this.preflightWrite(
-      id,
-      actor,
-      "product.json",
-      JSON.stringify(spec, null, 2),
-    );
-    await this.install(id, actor, spec.modules);
-    const app = await this.application(id, actor);
-    spec.modules = app.spec.modules;
-    await this.db.transaction(async (tx) => {
-      await tx.query(
-        "UPDATE projects SET name=$2,spec=$3,updated_at=now() WHERE id=$1",
-        [id, spec.name, JSON.stringify(spec)],
-      );
-      await tx.query("UPDATE applications SET spec=$2 WHERE project_id=$1", [
-        id,
-        JSON.stringify(spec),
-      ]);
-    });
-    await this.write(id, actor, "product.json", JSON.stringify(spec, null, 2));
+    await this.install(id, actor, spec.modules, {}, spec);
     return this.get(id, actor);
   }
   async installs(id: string, actor: string) {
@@ -246,6 +227,7 @@ export class Projects {
     actor: string,
     requested: string[],
     pins: Record<string, string> = {},
+    replacement?: ProductSpec,
   ) {
     const app = await this.application(id, actor);
     const manifests = resolveModules(
@@ -254,8 +236,12 @@ export class Projects {
       pins,
     );
     const previous = await this.installs(id, actor);
-    const spec = { ...app.spec, modules: manifests.map((m) => m.moduleId) };
-    if (spec.composition) {
+    const spec = {
+      ...(replacement ?? app.spec),
+      modules: manifests.map((m) => m.moduleId),
+    };
+    // A specification update replaces the entire graph; only plain installs prune it.
+    if (spec.composition && !replacement) {
       const nodes = spec.composition.nodes.filter(
         (n) =>
           spec.modules.includes(n.moduleId) &&
@@ -275,6 +261,7 @@ export class Projects {
           }
         : undefined;
     }
+    this.checkSpecSize(spec);
     validateComposition(spec, manifests);
     await this.preflightWrite(
       id,
@@ -294,8 +281,8 @@ export class Projects {
         JSON.stringify(spec),
       ]);
       await tx.query(
-        "UPDATE projects SET spec=$2,updated_at=now() WHERE id=$1",
-        [id, JSON.stringify(spec)],
+        "UPDATE projects SET spec=$2,name=$3,updated_at=now() WHERE id=$1",
+        [id, JSON.stringify(spec), spec.name],
       );
       await tx.query(
         "INSERT INTO install_history(id,app_id,before_state,after_state) VALUES($1,$2,$3,$4)",

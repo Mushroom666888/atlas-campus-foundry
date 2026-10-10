@@ -1,5 +1,5 @@
 import { randomBytes, randomUUID } from "node:crypto";
-import { mkdir, writeFile, rm } from "node:fs/promises";
+import { mkdir, writeFile, rm, readdir } from "node:fs/promises";
 import { createServer } from "node:net";
 import path from "node:path";
 import assert from "node:assert/strict";
@@ -8,6 +8,7 @@ import { command } from "../server/executor.js";
 import { createControl } from "../server/control.js";
 import { createRuntime } from "../server/runtime-server.js";
 import { catalog } from "../packages/modules/src/catalog.js";
+import type { Database } from "../server/db.js";
 
 if (process.platform !== "win32")
   throw new Error(
@@ -58,6 +59,24 @@ const stop = async () => {
     started = false;
   }
 };
+async function verifyMigrations(db: Database, scope: "control" | "runtime") {
+  const before = (
+    await db.query("SELECT * FROM schema_migrations ORDER BY version")
+  ).rows;
+  const expected = (await readdir(path.join("migrations", scope)))
+    .filter((name) => /^\d{3}_[a-z_]+\.sql$/.test(name))
+    .sort()
+    .map((name) => `${scope}/${name}`);
+  assert.deepEqual(
+    before.map((row) => row.version),
+    expected,
+  );
+  await db.migrate(scope);
+  assert.deepEqual(
+    (await db.query("SELECT * FROM schema_migrations ORDER BY version")).rows,
+    before,
+  );
+}
 try {
   await run("initdb", [
     "-D",
@@ -110,15 +129,7 @@ try {
       "Migration and project test",
     );
     projectId = project.project.id;
-    await control.db.migrate("control");
-    assert.equal(
-      (
-        await control.db.query<{ count: number }>(
-          "SELECT count(*)::integer AS count FROM schema_migrations",
-        )
-      ).rows[0].count,
-      1,
-    );
+    await verifyMigrations(control.db, "control");
   } finally {
     await control.app.close();
   }
@@ -140,7 +151,11 @@ try {
     databaseUrl: url("foundry_runtime_test"),
   });
   let session = "",
-    entityId = "";
+    entityId = "",
+    buyerSession = "",
+    productId = "",
+    orderId = "",
+    postId = "";
   try {
     const account = await runtime.app.inject({
       method: "POST",
@@ -168,7 +183,67 @@ try {
       payload: {},
     });
     assert.equal(joined.json().status, "joined");
-    await runtime.db.migrate("runtime");
+    const shop = await runtime.app.inject({
+      method: "POST",
+      url: "/api/commerce/shops",
+      headers: { cookie: session },
+      payload: {
+        name: "Native SQL shop",
+        description: "Server adapter acceptance",
+        location: "Campus",
+      },
+    });
+    assert.equal(shop.statusCode, 201, shop.body);
+    const product = await runtime.app.inject({
+      method: "POST",
+      url: "/api/commerce/products",
+      headers: { cookie: session },
+      payload: {
+        title: "Campus book",
+        description: "Persistent product",
+        category: "Books",
+        priceCents: 2000,
+        stock: 1,
+      },
+    });
+    assert.equal(product.statusCode, 201, product.body);
+    productId = product.json().id;
+    const buyer = await runtime.app.inject({
+      method: "POST",
+      url: "/api/auth/register",
+      payload: { email: "buyer@test.example", password: "NativeBuyer123" },
+    });
+    assert.equal(buyer.statusCode, 201, buyer.body);
+    buyerSession = buyer.headers["set-cookie"]!.toString().split(";")[0];
+    const reserve = () =>
+      runtime.app.inject({
+        method: "POST",
+        url: "/api/commerce/orders",
+        headers: { cookie: buyerSession },
+        payload: {
+          productId,
+          expectedPriceCents: 2000,
+          quantity: 1,
+          requestKey: randomUUID(),
+        },
+      });
+    const reservations = await Promise.all([reserve(), reserve()]);
+    assert.deepEqual(reservations.map((r) => r.statusCode).sort(), [201, 409]);
+    orderId = reservations.find((r) => r.statusCode === 201)!.json().id;
+    const post = await runtime.app.inject({
+      method: "POST",
+      url: "/api/community/posts",
+      headers: { cookie: buyerSession },
+      payload: {
+        title: "Native SQL discussion",
+        body: "Stored in the actual PostgreSQL server",
+        category: "经验交流",
+        tags: [],
+      },
+    });
+    assert.equal(post.statusCode, 201, post.body);
+    postId = post.json().id;
+    await verifyMigrations(runtime.db, "runtime");
   } finally {
     await runtime.app.close();
   }
@@ -196,6 +271,26 @@ try {
     });
     assert.equal(entity.statusCode, 200);
     assert.equal(entity.json().title, "Persistent SQL event");
+    const orders = await runtime.app.inject({
+      url: "/api/commerce/orders",
+      headers: { cookie: buyerSession },
+    });
+    assert.equal(orders.statusCode, 200, orders.body);
+    assert.equal(orders.json().items[0].id, orderId);
+    const products = await runtime.app.inject({
+      url: "/api/commerce/products",
+      headers: { cookie: session },
+    });
+    assert.equal(
+      products.json().items.find((p: { id: string }) => p.id === productId)
+        .stock,
+      0,
+    );
+    const post = await runtime.app.inject({
+      url: `/api/community/posts/${postId}`,
+    });
+    assert.equal(post.statusCode, 200, post.body);
+    assert.equal(post.json().post.title, "Native SQL discussion");
   } finally {
     await runtime.app.close();
   }
@@ -219,6 +314,9 @@ try {
           "event creation and enrollment",
           "server restart persistence",
           "persistent sessions",
+          "exact control/runtime migration ledger and repeat-run idempotence",
+          "concurrent orders cannot oversell on PostgreSQL server",
+          "orders, stock and community posts survive database server restart",
         ],
         clusterDirectory: cluster,
       },
