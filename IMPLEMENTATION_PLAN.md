@@ -27,6 +27,7 @@ Task states: TODO / IN_PROGRESS / TESTING / DONE / BLOCKED. Evidence: IMPLEMENTE
 | Q04 | Graph security / U03 | composition, projects, records, tests | Private-data boundary, uninstall consistency, atomic save, bounded graph validation | DONE: independent review fixes and regression tests |
 | U04 | Atlas design / U02,U03 | homepage, global brand styling, assets | Finesse/Taste audit, local type, real imagery, responsive navigation and motion | DONE: 9 viewports; Lighthouse 85 performance, 100 accessibility, 100 best practices |
 | Q05 | Frontend delivery / U04 | HTTP compression, auth, homepage projection | Static assets do not exhaust API budget, API remains limited, lighter mobile images | DONE: rate-limit regression, build, browser and Lighthouse |
+| U05 | Readability and existing-data repair / U04,Q05 | registry, HTTP, typography, homepage, canvas | Old published modules open normally; unobscured wordmark; readable type; fresh assets after build; recovery UI | DONE: 16 Node tests, 4 browser journeys, 42 existing-account viewport checks |
 | P201 | Production / D02 | runner, TLS, offsite backup schedules | Public hosting and hostile-tenant acceptance | TODO / PLANNED |
 
 Team collaboration and cross-app sharing have schema only. They are not enabled. External blockers are separate from independently completed local work. Current suite: 15 Node tests and 4 browser journeys; Q03's historical 8-test count refers to its original acceptance.

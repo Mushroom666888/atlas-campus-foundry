@@ -35,15 +35,28 @@ export function errors(app: FastifyInstance) {
       .send({ code: "INTERNAL", message: "服务内部错误，请查看任务日志" });
   });
 }
-export async function serveFrontend(app: FastifyInstance) {
-  const root = path.resolve("dist");
+export async function serveFrontend(
+  app: FastifyInstance,
+  root = path.resolve("dist"),
+) {
   if (existsSync(path.join(root, "index.html"))) {
     await app.register(fastifyCompress, { threshold: 1024 });
-    await app.register(fastifyStatic, { root, prefix: "/", wildcard: false });
+    // Resolve assets at request time so rebuilding does not freeze an old file list.
+    await app.register(fastifyStatic, {
+      root: path.join(root, "assets"),
+      prefix: "/assets/",
+    });
+    const shell = (_request: unknown, reply: import("fastify").FastifyReply) =>
+      reply
+        .header("Cache-Control", "no-store")
+        .type("text/html")
+        .sendFile("index.html", root, { cacheControl: false });
+    app.get("/", shell);
+    app.get("/index.html", shell);
     app.setNotFoundHandler((request, reply) =>
-      request.url.startsWith("/api/")
-        ? reply.code(404).send({ message: "API not found" })
-        : reply.type("text/html").sendFile("index.html"),
+      request.url.startsWith("/api/") || request.url.startsWith("/assets/")
+        ? reply.code(404).send({ message: "Resource not found" })
+        : shell(request, reply),
     );
   } else
     app.get("/", async () => ({

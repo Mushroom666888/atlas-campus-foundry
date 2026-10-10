@@ -2,6 +2,14 @@
 
 Date: 2026-10-10 (Asia/Shanghai). Platform: Windows, Node 24.17.0, npm 11.13.0. Other operating systems are not claimed as validated.
 
+## Latest user-reported regression
+
+The existing account exposed a gap in the previous fresh-account browser tests: a published legacy `study-waitlist` manifest lacked `aliases`, causing `.join()` crashes in `/modules`, `/compose`, `/builder` and `/create`. Reproduced with the actual stored account, then fixed by parsing stored manifests through the version-compatible schema at the registry boundary. The control test now removes four new metadata fields from a persisted published module and verifies normalized retrieval and subsequent installation. No existing module or user data was deleted.
+
+The current run passes **16 Node tests** and **4 browser journeys**, including a new real HTTP static-serving regression (assets created after startup, SPA deep links, no-store HTML, missing asset/API 404). Homepage assertions also check wordmark separation from intro and CTA at nine viewport sizes. `npx tsx scripts/audit-studio.ts` additionally checks **14 existing-account routes at 1440, 390 and 320px**, including the historical community module and persisted canvas: 42 passes, no page errors or horizontal document overflow. Evidence: `artifacts/redesign-check.log`, `artifacts/redesign-browser.log`, `artifacts/atlas-redesign/`; tracked snapshot under `docs/evidence/2026-10-10-redesign/`.
+
+The previous Lighthouse numbers below are historical and have not been rerun for the redesign. The first static-server edit had an incorrect TypeScript overload for `sendFile`; this was corrected to the installed API signature before the successful full build/test run.
+
 ## Executed checks
 
 | Command | Result | Evidence / scope |
@@ -9,7 +17,7 @@ Date: 2026-10-10 (Asia/Shanghai). Platform: Windows, Node 24.17.0, npm 11.13.0. 
 | npm run lint | PASS | ESLint, no remaining errors |
 | npm run typecheck | PASS | TypeScript strict checking |
 | npm run build | PASS | Production Vite bundle and type check |
-| npm test | PASS: 15 tests, 0 failed, 0 skipped | All 80 manifests; 50 real collection CRUD/search/privacy/restart flows; 12 connectors; graph safety; existing runtime/control/Agent/deployment/SSE/backup and static-resource rate limit |
+| npm test | PASS: 16 tests, 0 failed, 0 skipped | All 80 manifests; 50 real collection flows; 12 connectors; graph safety; legacy published manifests; frontend resource serving; runtime/control/Agent/deployment/SSE/backup and API rate limits |
 | npm run e2e | PASS: 4 browser journeys | Atlas 9-viewports/navigation/motion; original 3 products; 80-module search/details/previews/+references; real zero-prompt drag/connect/save/reload/deploy/notification/embedding |
 | npm run verify-postgres | PASS | Native PostgreSQL 18.4, SCRAM, both migrations, idempotence, registration, event enrollment and full database-server restart |
 | npm run verify-recovery | PASS | Abrupt control-process exit, app IPC disconnect shutdown, persistent control session/project and interrupted deployment reconciliation |

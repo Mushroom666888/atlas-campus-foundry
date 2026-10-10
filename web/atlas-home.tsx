@@ -94,7 +94,7 @@ export function AtlasHome({ user }: { user: PublicUser | null }) {
           </Link>
           <nav className={open ? "is-open" : ""} aria-label="首页导航">
             <a href="#atlas-modules" onClick={() => setOpen(false)}>
-              模块宇宙
+              探索模块
             </a>
             <Link to="/compose">可视化创作</Link>
             <Link to="/builder">
@@ -115,7 +115,7 @@ export function AtlasHome({ user }: { user: PublicUser | null }) {
           </button>
         </header>
         <div className="atlas-intro" id="atlas-main">
-          <span className="atlas-overline">CAMPUS IDEAS. REAL PRODUCTS.</span>
+          <span className="atlas-overline">校园应用创作平台</span>
           <p>
             让校园里的每个想法，
             <br />
@@ -139,21 +139,6 @@ export function AtlasHome({ user }: { user: PublicUser | null }) {
           </picture>
         </div>
         <h1 className="atlas-wordmark">ATLAS</h1>
-        <div className="atlas-art atlas-art-front" aria-hidden="true">
-          <picture>
-            <source
-              media="(max-width: 767px)"
-              srcSet="/assets/atlas-cosmic-foreground-mobile.webp"
-            />
-            <img
-              className="atlas-nebula"
-              src="/assets/atlas-cosmic-foreground.webp"
-              alt=""
-              width="1920"
-              height="1111"
-            />
-          </picture>
-        </div>
         <div className="atlas-hero-bottom">
           <p>
             从一个灵感，
@@ -161,9 +146,7 @@ export function AtlasHome({ user }: { user: PublicUser | null }) {
             到一个真正运行的应用。
           </p>
           <Link className="atlas-launch" to="/create">
-            <span>
-              创造你的世界<small>START BUILDING</small>
-            </span>
+            <span>创造你的世界</span>
             <ArrowUpRight size={30} strokeWidth={1.5} />
           </Link>
           <a
@@ -180,21 +163,14 @@ export function AtlasHome({ user }: { user: PublicUser | null }) {
           <div className="atlas-section-heading">
             <span>从想法开始，由能力连接。</span>
             <span className="atlas-index">
-              EXPLORE THE SYSTEM <ArrowDown size={15} />
+              模块生态 <ArrowDown size={18} />
             </span>
           </div>
           <div className="atlas-library-heading">
-            <h2>
-              小小模块。
-              <br />
-              <span>无限可能。</span>
-            </h2>
+            <h2>从模块，到你的应用。</h2>
             <div>
-              <strong>
-                {catalog.length}
-                <span>+</span>
-              </strong>
-              <p>个内置模块，等待你的组合。</p>
+              <strong>{catalog.length}</strong>
+              <p>个内置模块</p>
               <Link to="/modules">
                 探索全部模块 <ArrowUpRight size={19} />
               </Link>
@@ -229,7 +205,7 @@ export function AtlasHome({ user }: { user: PublicUser | null }) {
             aria-label={layers.find((l) => l.id === active)!.name}
           >
             <div className="atlas-layer-copy">
-              <span>{layers.find((l) => l.id === active)!.english}</span>
+              <span>{layers.find((l) => l.id === active)!.name}</span>
               <p>{layers.find((l) => l.id === active)!.description}</p>
               <Link to="/compose">
                 自由组合 <ArrowRight size={18} />
@@ -253,29 +229,6 @@ export function AtlasHome({ user }: { user: PublicUser | null }) {
                 ))}
             </div>
           </div>
-        </section>
-        <section className="atlas-create-band">
-          <div>
-            <GitBranch size={37} strokeWidth={1} />
-            <h2>
-              连接。组合。
-              <br />
-              <span>让想法发生。</span>
-            </h2>
-          </div>
-          <div>
-            <p>
-              为校园里的下一件小事，
-              <br />
-              创造一种新的可能。
-            </p>
-            <Link to="/compose" className="atlas-outline-cta">
-              打开创作画布 <ArrowUpRight size={23} />
-            </Link>
-          </div>
-          <span className="atlas-band-word" aria-hidden="true">
-            CREATE
-          </span>
         </section>
       </main>
       <footer className="atlas-footer">

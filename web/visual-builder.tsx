@@ -455,7 +455,9 @@ function CanvasEditor({ user }: { user: PublicUser }) {
           )}
         </Notice>
       )}
-      <div className="canvas-layout">
+      <div
+        className={`canvas-layout ${selected || selectedEdge ? "has-selection" : "canvas-overview"}`}
+      >
         <aside className="canvas-library">
           <div className="search-input">
             <Search size={15} />
@@ -580,6 +582,7 @@ function CanvasEditor({ user }: { user: PublicUser }) {
               setEdgeId("");
             }}
             fitView
+            fitViewOptions={{ minZoom: 0.9, maxZoom: 1, padding: 0.12 }}
             minZoom={0.3}
             maxZoom={1.6}
             deleteKeyCode={["Backspace", "Delete"]}

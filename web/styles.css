@@ -2,7 +2,7 @@
   font-family: "Segoe UI", "Microsoft YaHei", sans-serif;
   color: #242a31;
   background: #f7f8fa;
-  font-size: 14px;
+  font-size: 16px;
   font-synthesis: none;
   --accent: #147d64;
   --accent-light: #e8f3ee;
@@ -115,7 +115,7 @@ h2 {
   margin-bottom: 16px;
 }
 h3 {
-  font-size: 15px;
+  font-size: 16px;
   line-height: 1.5;
   margin-bottom: 8px;
   font-weight: 650;
@@ -125,17 +125,17 @@ p {
   overflow-wrap: anywhere;
 }
 small {
-  font-size: 12px;
+  font-size: 14px;
   color: var(--muted);
 }
 code {
   font-family: Consolas, monospace;
-  font-size: 12px;
+  font-size: 14px;
   overflow-wrap: anywhere;
 }
 pre {
   font-family: Consolas, "Microsoft YaHei", monospace;
-  font-size: 12px;
+  font-size: 14px;
   line-height: 1.65;
   background: #f3f5f7;
   border: 1px solid var(--border);
@@ -150,7 +150,7 @@ label {
   display: flex;
   flex-direction: column;
   gap: 8px;
-  font-size: 13px;
+  font-size: 14px;
   font-weight: 500;
   margin-bottom: 18px;
 }
@@ -187,15 +187,15 @@ fieldset {
 }
 legend {
   font-weight: 600;
-  font-size: 13px;
+  font-size: 14px;
   margin-bottom: 12px;
 }
 .muted {
   color: var(--muted);
-  font-size: 13px;
+  font-size: 14px;
 }
 .eyebrow {
-  font-size: 11px;
+  font-size: 14px;
   line-height: 1.5;
   font-weight: 650;
   color: var(--muted);
@@ -234,7 +234,7 @@ legend {
   background: #fff2f1;
   color: #a33939;
   margin: 12px 0;
-  font-size: 13px;
+  font-size: 14px;
   line-height: 1.6;
   overflow-wrap: anywhere;
 }
@@ -283,7 +283,7 @@ legend {
   color: var(--muted);
 }
 .badge {
-  font-size: 11px;
+  font-size: 14px;
   line-height: 1.3;
   border-radius: 4px;
   padding: 5px 7px;
@@ -346,7 +346,7 @@ legend {
   align-items: center;
   gap: 10px;
   color: #202b32;
-  font-size: 15px;
+  font-size: 16px;
   font-weight: 650;
   text-decoration: none !important;
   margin-bottom: 30px;
@@ -355,7 +355,7 @@ legend {
 .brand small {
   display: block;
   font-weight: 400;
-  font-size: 11px;
+  font-size: 14px;
   margin-top: 4px;
 }
 .brand-symbol {
@@ -404,7 +404,7 @@ legend {
   align-items: center;
   gap: 8px;
   padding: 14px 8px;
-  font-size: 12px;
+  font-size: 14px;
   color: #6b7580;
   border-bottom: 1px solid var(--border);
 }
@@ -413,7 +413,7 @@ legend {
   align-items: center;
   gap: 10px;
   padding-top: 19px;
-  font-size: 13px;
+  font-size: 14px;
 }
 .user-row > span:nth-child(2) {
   flex: 1;
@@ -422,7 +422,7 @@ legend {
 }
 .user-row small {
   display: block;
-  font-size: 10px;
+  font-size: 14px;
   margin-top: 3px;
 }
 .avatar,
@@ -451,7 +451,7 @@ legend {
   padding: 0 35px;
   background: white;
   color: #697480;
-  font-size: 12px;
+  font-size: 14px;
 }
 .topbar-right {
   display: flex;
@@ -481,7 +481,7 @@ legend {
 }
 .page-heading p {
   color: var(--muted);
-  font-size: 13px;
+  font-size: 14px;
   margin: 0;
   max-width: 700px;
 }
@@ -512,7 +512,7 @@ legend {
   margin-top: 4px;
 }
 .metrics span {
-  font-size: 12px;
+  font-size: 14px;
   color: var(--muted);
 }
 .metrics strong {
@@ -534,7 +534,7 @@ legend {
   margin: 0;
 }
 .section-head > a {
-  font-size: 12px;
+  font-size: 14px;
   display: inline-flex;
   align-items: center;
   gap: 6px;
@@ -582,7 +582,7 @@ legend {
   margin: 0 0 5px;
 }
 .project-summary p {
-  font-size: 12px;
+  font-size: 14px;
   color: var(--muted);
   margin: 0;
   display: -webkit-box;
@@ -594,7 +594,7 @@ legend {
   display: flex;
   gap: 15px;
   color: #8a929c;
-  font-size: 11px;
+  font-size: 14px;
   margin-top: 9px;
 }
 .project-right {
@@ -602,7 +602,7 @@ legend {
   align-items: center;
   gap: 25px;
   color: #89919a;
-  font-size: 11px;
+  font-size: 14px;
   flex-shrink: 0;
 }
 .recent-section {
@@ -614,11 +614,11 @@ legend {
 table {
   border-collapse: collapse;
   width: 100%;
-  font-size: 13px;
+  font-size: 14px;
   text-align: left;
 }
 th {
-  font-size: 11px;
+  font-size: 14px;
   font-weight: 500;
   color: var(--muted);
   background: #f0f3f5;
@@ -646,7 +646,7 @@ td a {
   min-height: 46px;
   white-space: nowrap;
   color: #7b8490;
-  font-size: 13px;
+  font-size: 14px;
   padding: 10px 14px;
 }
 .tabs button.selected {
@@ -668,14 +668,14 @@ td a {
   color: #6b7580;
 }
 .context-panel p {
-  font-size: 12px;
+  font-size: 14px;
 }
 .context-panel h3 {
   color: #33414b;
 }
 .definition-list {
   margin: 16px 0 22px;
-  font-size: 13px;
+  font-size: 14px;
 }
 .definition-list > div {
   display: flex;
@@ -718,7 +718,7 @@ dd {
 .check-row small {
   display: block;
   font-weight: 400;
-  font-size: 11px;
+  font-size: 14px;
   line-height: 1.6;
   margin-top: 4px;
 }
@@ -733,7 +733,7 @@ dd {
   border-right: 1px solid var(--border);
 }
 .job-list h2 {
-  font-size: 13px;
+  font-size: 14px;
   color: var(--muted);
 }
 .job-item {
@@ -754,13 +754,13 @@ dd {
 }
 .job-item > span:first-child {
   grid-column: 1/-1;
-  font-size: 12px;
+  font-size: 14px;
   line-height: 1.6;
   overflow-wrap: anywhere;
 }
 .job-item small {
   text-align: right;
-  font-size: 10px;
+  font-size: 14px;
   align-self: center;
 }
 .builder-main {
@@ -772,7 +772,7 @@ dd {
   background: white;
   border: 1px solid var(--border);
   border-radius: 5px;
-  font-size: 13px;
+  font-size: 14px;
   white-space: pre-wrap;
 }
 .composer {
@@ -781,7 +781,7 @@ dd {
   padding-top: 22px;
 }
 .composer label {
-  font-size: 12px;
+  font-size: 14px;
 }
 .composer select {
   max-width: 320px;
@@ -816,10 +816,10 @@ dd {
   align-items: center;
   justify-content: space-between;
   gap: 12px;
-  font-size: 12px;
+  font-size: 14px;
 }
 .event-heading time {
-  font-size: 10px;
+  font-size: 14px;
   color: var(--muted);
 }
 .timeline pre {
@@ -902,10 +902,10 @@ dd {
   background: #f7edf2;
 }
 .module-card h3 {
-  font-size: 14px;
+  font-size: 16px;
 }
 .module-card p {
-  font-size: 12px;
+  font-size: 14px;
   color: var(--muted);
   min-height: 42px;
   margin-bottom: 20px;
@@ -917,7 +917,7 @@ dd {
   align-items: center;
   justify-content: space-between;
   color: #8a949e;
-  font-size: 11px;
+  font-size: 14px;
 }
 .modal-backdrop {
   position: fixed;
@@ -944,12 +944,12 @@ dd {
   margin-bottom: 18px;
 }
 .modal > p {
-  font-size: 13px;
+  font-size: 14px;
   color: var(--muted);
 }
 details {
   margin: 18px 0;
-  font-size: 12px;
+  font-size: 14px;
 }
 summary {
   cursor: pointer;
@@ -962,7 +962,7 @@ details pre {
   display: inline-flex;
   align-items: center;
   gap: 7px;
-  font-size: 12px;
+  font-size: 14px;
   color: #7d8791;
   margin-bottom: 20px;
 }
@@ -981,7 +981,7 @@ details pre {
   align-items: center;
   border-bottom: 1px solid var(--border);
   padding: 10px 0;
-  font-size: 12px;
+  font-size: 14px;
 }
 .installed-list strong {
   flex: 1;
@@ -1004,7 +1004,7 @@ details pre {
   padding: 15px 10px;
 }
 .file-tree button {
-  font-size: 12px;
+  font-size: 14px;
   width: 100%;
   justify-content: flex-start;
   border: 0;
@@ -1033,15 +1033,15 @@ details pre {
   flex: 1;
   min-width: 120px;
   font-family: Consolas, monospace;
-  font-size: 12px;
+  font-size: 14px;
 }
 .code-pane button {
-  font-size: 11px;
+  font-size: 14px;
   padding: 7px;
 }
 .code-input {
   font-family: Consolas, monospace;
-  font-size: 13px;
+  font-size: 14px;
   line-height: 1.7;
   flex: 1;
   min-height: 390px;
@@ -1087,7 +1087,7 @@ details pre {
   margin: 0 0 4px;
 }
 .deployment-info small {
-  font-size: 11px;
+  font-size: 14px;
   overflow-wrap: anywhere;
 }
 .deployment-row .inline-actions {
@@ -1095,14 +1095,14 @@ details pre {
 }
 .deployment-row button,
 .deployment-row a {
-  font-size: 12px;
+  font-size: 14px;
 }
 .log-view {
   background: #20262d;
   color: #d5e2db;
   min-height: 220px;
   max-height: 65vh;
-  font-size: 11px;
+  font-size: 14px;
 }
 .publisher-layout {
   display: grid;
@@ -1156,7 +1156,7 @@ details pre {
   margin-top: 25px;
 }
 .auth-footer {
-  font-size: 11px;
+  font-size: 14px;
   color: #939e98;
   margin-top: 45px;
   margin-bottom: 0;
@@ -1187,7 +1187,7 @@ details pre {
   overflow-wrap: anywhere;
 }
 .app-brand > div > span {
-  font-size: 10px;
+  font-size: 14px;
   color: var(--muted);
   display: block;
   margin-top: 3px;
@@ -1218,7 +1218,7 @@ details pre {
 .app-intro p {
   max-width: 760px;
   margin-bottom: 0;
-  font-size: 13px;
+  font-size: 14px;
   color: var(--muted);
 }
 .app-tabs {
@@ -1235,7 +1235,7 @@ details pre {
   border-radius: 0;
   background: transparent;
   white-space: nowrap;
-  font-size: 13px;
+  font-size: 14px;
   padding: 14px;
   color: #7e8893;
 }
@@ -1256,7 +1256,7 @@ details pre {
   padding: 22px 0;
   display: flex;
   justify-content: space-between;
-  font-size: 11px;
+  font-size: 14px;
   color: #89929b;
 }
 .entity-grid {
@@ -1304,7 +1304,7 @@ details pre {
   color: #8a9f6c;
 }
 .entity-visual span {
-  font-size: 15px;
+  font-size: 16px;
   font-weight: 600;
 }
 .entity-image {
@@ -1321,7 +1321,7 @@ details pre {
   margin-bottom: 9px;
 }
 .entity-copy .eyebrow {
-  font-size: 10px;
+  font-size: 14px;
   margin: 0;
 }
 .entity-copy h3 {
@@ -1329,7 +1329,7 @@ details pre {
   margin-bottom: 8px;
 }
 .entity-copy p {
-  font-size: 12px;
+  font-size: 14px;
   color: var(--muted);
   min-height: 39px;
   display: -webkit-box;
@@ -1341,7 +1341,7 @@ details pre {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  font-size: 11px;
+  font-size: 14px;
   color: #8b949e;
   margin-top: 18px;
 }
@@ -1371,7 +1371,7 @@ details pre {
   background: #f8fbf9;
 }
 .upload-field input {
-  font-size: 12px;
+  font-size: 14px;
   background: white;
 }
 .upload-preview {
@@ -1390,7 +1390,7 @@ details pre {
 .entity-body {
   white-space: pre-wrap;
   margin: 18px 0;
-  font-size: 14px;
+  font-size: 16px;
 }
 .membership {
   margin-top: 25px;
@@ -1398,7 +1398,7 @@ details pre {
   padding-top: 20px;
 }
 .membership .section-head > span {
-  font-size: 12px;
+  font-size: 14px;
   color: var(--muted);
 }
 .member-list {
@@ -1411,13 +1411,13 @@ details pre {
   justify-content: space-between;
   padding: 10px 0;
   border-bottom: 1px solid var(--border);
-  font-size: 12px;
+  font-size: 14px;
 }
 .location-line {
   display: flex;
   align-items: center;
   gap: 8px;
-  font-size: 13px;
+  font-size: 14px;
   color: var(--muted);
 }
 .chat-layout {
@@ -1438,7 +1438,7 @@ details pre {
   justify-content: flex-start;
   text-align: left;
   border: 0;
-  font-size: 13px;
+  font-size: 14px;
   padding: 14px;
   background: transparent;
   overflow-wrap: anywhere;
@@ -1463,13 +1463,13 @@ details pre {
   margin-bottom: 17px;
 }
 .message small {
-  font-size: 10px;
+  font-size: 14px;
 }
 .message p {
   border-radius: 6px;
   background: #f0f2f5;
   padding: 11px 14px;
-  font-size: 13px;
+  font-size: 14px;
   white-space: pre-wrap;
   margin-top: 5px;
   margin-bottom: 0;
@@ -1504,7 +1504,7 @@ details pre {
 .notification-row p {
   margin: 0;
   flex: 1;
-  font-size: 13px;
+  font-size: 14px;
 }
 .notification-row.read {
   opacity: 0.6;
@@ -1542,7 +1542,7 @@ details pre {
     padding: 28px 25px 60px;
   }
   .brand {
-    font-size: 13px;
+    font-size: 14px;
   }
   .module-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -1626,7 +1626,7 @@ details pre {
     justify-content: flex-start;
   }
   .page-heading p {
-    font-size: 12px;
+    font-size: 14px;
   }
   .metrics {
     margin-bottom: 26px;
@@ -1642,7 +1642,7 @@ details pre {
     font-size: 25px;
   }
   .metrics span {
-    font-size: 11px;
+    font-size: 14px;
   }
   .project-row {
     padding: 18px 0;
@@ -1659,7 +1659,7 @@ details pre {
     gap: 0;
   }
   .project-summary h3 {
-    font-size: 14px;
+    font-size: 16px;
   }
   .create-layout,
   .project-overview,
@@ -1682,18 +1682,18 @@ details pre {
     padding: 15px;
   }
   .module-card h3 {
-    font-size: 13px;
+    font-size: 14px;
   }
   .module-card p {
-    font-size: 11px;
+    font-size: 14px;
     min-height: 54px;
   }
   .module-card footer {
-    font-size: 10px;
+    font-size: 14px;
     gap: 7px;
   }
   .module-card footer code {
-    font-size: 10px;
+    font-size: 14px;
   }
   .module-card-top {
     margin-bottom: 18px;
@@ -1703,7 +1703,7 @@ details pre {
     height: 32px;
   }
   .badge {
-    font-size: 10px;
+    font-size: 14px;
     padding: 4px 6px;
   }
   .builder-layout {
@@ -1775,7 +1775,7 @@ details pre {
     min-height: 72px;
   }
   .app-brand strong {
-    font-size: 14px;
+    font-size: 16px;
   }
   .app-header .inline-actions {
     gap: 3px;
@@ -1799,7 +1799,7 @@ details pre {
   }
   .app-tabs button {
     padding: 12px 9px;
-    font-size: 12px;
+    font-size: 14px;
   }
   .app-content {
     padding-top: 22px;
@@ -1812,16 +1812,16 @@ details pre {
     padding: 13px;
   }
   .entity-copy h3 {
-    font-size: 14px;
+    font-size: 16px;
   }
   .entity-copy p {
-    font-size: 11px;
+    font-size: 14px;
   }
   .entity-visual {
     height: 85px;
   }
   .entity-visual span {
-    font-size: 11px;
+    font-size: 14px;
   }
   .entity-visual svg {
     width: 27px;
@@ -1833,10 +1833,10 @@ details pre {
     align-items: flex-start;
   }
   .entity-copy .eyebrow {
-    font-size: 9px;
+    font-size: 14px;
   }
   .entity-copy footer {
-    font-size: 10px;
+    font-size: 14px;
   }
   .price {
     font-size: 16px;
@@ -1850,7 +1850,7 @@ details pre {
   }
   .conversation-list > button {
     padding: 12px 6px;
-    font-size: 11px;
+    font-size: 14px;
     gap: 6px;
   }
   .conversation-list > button svg {
@@ -1867,23 +1867,23 @@ details pre {
     gap: 6px;
   }
   .message-form input {
-    font-size: 12px;
+    font-size: 14px;
   }
   .app-footer {
-    font-size: 10px;
+    font-size: 14px;
     gap: 15px;
   }
   .membership .section-head {
     align-items: flex-start;
   }
   .membership .section-head > span {
-    font-size: 11px;
+    font-size: 14px;
   }
   .form-row {
     gap: 10px;
   }
   .topbar-right {
-    font-size: 10px;
+    font-size: 14px;
     gap: 6px;
   }
 }

@@ -2,6 +2,8 @@
 
 Date: 2026-10-10 (Asia/Shanghai).
 
+Latest repair: existing-account module library, canvas, Builder and creation pages crashed on old published manifests missing `aliases` and newer metadata. Registry reads now validate/default historical manifests without deleting data. Current frontend redesign keeps ATLAS unobscured, uses 16px base type / 14px secondary type, stable module ordering and readable initial canvas zoom. Verified 16 Node tests, four browser journeys and 42 existing-account route/viewport checks. Details: `docs/ATLAS_REDESIGN.md`. Earlier Lighthouse scores below describe the previous design, not a new measurement.
+
 **总体状态：可运行、可测试的本地模块化平台已交付；核心平台最终验收未全部完成。** 不宣称已完成真实模型自主生成、Docker 隔离执行或公网发布。
 
 | Area | Evidence | Actual result |
@@ -26,6 +28,6 @@ Date: 2026-10-10 (Asia/Shanghai).
 
 实际地址见 `.data/local-running.json`、`.data/showcase.json` 和 `.data/visual-showcase.json`，随机本地凭据见 `.data/local-access.json`。数据与密钥不提交 Git。首页 `/`，项目工作台 `/studio`，模块 `/modules`，画布 `/compose`。
 
-本轮最新验收：15 项 Node 测试、4 条 Playwright 流程全部通过；构建、类型检查、lint、共享源码验证通过。证据见 `docs/evidence/2026-10-10-atlas/`。旧 `artifacts/acceptance/results.json` 是此前整体验收快照，不代表本轮命令运行时间。
+本轮最新验收：16 项 Node 测试、4 条 Playwright 流程、42 次现有账号页面检查通过；构建、类型检查、lint、共享源码验证通过。最新证据见 `docs/evidence/2026-10-10-redesign/`，上一批保留在 `docs/evidence/2026-10-10-atlas/`。旧 `artifacts/acceptance/results.json` 是此前整体验收快照，不代表本轮命令运行时间。
 
 恢复入口：NEXT_ACTIONS.md、BLOCKERS.md、docs/USER_ACTION_REQUIRED.md 和 artifacts/acceptance/results.json。不要重建或删除 `.data`。

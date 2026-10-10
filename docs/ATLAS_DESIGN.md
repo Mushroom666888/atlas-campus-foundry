@@ -1,5 +1,7 @@
 # Atlas design direction
 
+**Superseded visually on 2026-10-10:** the user reported obscured ATLAS text, tiny fonts, clutter and broken pages. The current design removes the foreground mask entirely, simplifies the homepage to hero/module explorer/footer, raises UI typography and reduces density. The older layered-image description and Lighthouse results below are provenance of the previous revision. See [ATLAS_REDESIGN.md](ATLAS_REDESIGN.md) for the actual current acceptance.
+
 Brand name: Atlas. Repository and existing data directories remain Campus AI App Foundry for continuity.
 
 The user explicitly selected a high-contrast agency-style homepage: orange/red gradient, oversized ATLAS lettering passing through a main image, grid, light and visual depth. The home route is `/`; the existing authenticated dashboard moves to `/studio`. Application runtime `/` routes remain unchanged.

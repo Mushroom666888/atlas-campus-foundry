@@ -9,6 +9,7 @@ import {
 } from "node:fs/promises";
 import path from "node:path";
 import { z } from "zod";
+import { rcompare } from "semver";
 import type { Database } from "./db.js";
 import {
   AppError,
@@ -83,7 +84,19 @@ export class Projects {
         "SELECT manifest FROM module_versions WHERE status=$1 OR owner_id=$2",
         ["approved", actor ?? null],
       )
-    ).rows.map((r) => r.manifest);
+    ).rows
+      .map((r) => moduleManifestSchema.parse(r.manifest))
+      .sort((a, b) => {
+        const rank = (id: string) => {
+          const index = catalog.findIndex((m) => m.moduleId === id);
+          return index < 0 ? catalog.length : index;
+        };
+        return (
+          rank(a.moduleId) - rank(b.moduleId) ||
+          a.moduleId.localeCompare(b.moduleId) ||
+          rcompare(a.version, b.version)
+        );
+      });
   }
   async create(
     actor: string,

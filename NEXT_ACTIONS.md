@@ -1,5 +1,7 @@
 # Resume here
 
+Latest user feedback and repair: `docs/ATLAS_REDESIGN.md`. Do not restore the foreground image mask or tiny UI type. Registry reads must apply schema defaults to old published manifests; new-account-only tests missed this once. The live-account audit script verifies the actual older dataset. Current frontend asset handler serves new builds dynamically and sets no-store on the app shell; stale removed chunks receive a real 404 and a recoverable UI.
+
 1. Read PROJECT_STATUS.md, TEST_REPORT.md, SECURITY_REPORT.md and docs/USER_ACTION_REQUIRED.md. Inspect git status and artifacts/acceptance/results.json.
 2. Read .data/local-running.json, .data/showcase.json and .data/visual-showcase.json for live addresses. Credentials are only in .data/local-access.json. Preserve all databases, artifacts and revisions. Latest Atlas evidence: docs/evidence/2026-10-10-atlas/. The older acceptance/results.json is historical.
 3. For restart: npm run dev, wait for the ready URL, then npm run deploy-local and npm run deploy-visual. The startup script picks a free local port. App links use distinct app-<uuid>.localhost hosts. After source updates, use -- --redeploy on both deployment commands. Keep source stable during fingerprint/backup tests. Restart the server after rebuilding hashed frontend bundles.

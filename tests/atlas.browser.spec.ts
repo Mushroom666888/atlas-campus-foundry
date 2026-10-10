@@ -11,6 +11,7 @@ test("Atlas brand home: real imagery, working navigation, responsive composition
     page.getByRole("heading", { name: "ATLAS", exact: true }),
   ).toBeVisible();
   await page.evaluate(() => document.fonts.ready);
+  await expect(page.locator(".atlas-art-front")).toHaveCount(0);
   await expect
     .poll(() =>
       page
@@ -52,6 +53,16 @@ test("Atlas brand home: real imagery, working navigation, responsive composition
       .getByRole("link", { name: /创造你的世界/ })
       .boundingBox();
     expect(action!.y + action!.height).toBeLessThan(height);
+    const wordmark = await page.locator(".atlas-wordmark").boundingBox();
+    const intro = await page.locator(".atlas-intro").boundingBox();
+    const bottom = await page.locator(".atlas-hero-bottom").boundingBox();
+    expect(wordmark!.y).toBeGreaterThan(intro!.y + intro!.height);
+    expect(wordmark!.y + wordmark!.height).toBeLessThan(bottom!.y);
+    expect(
+      await page
+        .locator(".atlas-hero-bottom p")
+        .evaluate((p) => parseFloat(getComputedStyle(p).fontSize)),
+    ).toBeGreaterThanOrEqual(16);
     expect(
       await page
         .locator(".atlas-wordmark")

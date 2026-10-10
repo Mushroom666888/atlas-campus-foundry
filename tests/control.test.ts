@@ -103,6 +103,23 @@ test("control: owner boundaries, real project files, module publication/reuse an
       /管理员/,
     );
     await c.projects.review(owner.user, "study-waitlist", "1.0.0");
+    // Published manifests from the previous release predate the new UI metadata.
+    await c.db.query(
+      "UPDATE module_versions SET manifest=manifest-'aliases'-'tags'-'icon'-'configurationFields' WHERE module_id=$1",
+      ["study-waitlist"],
+    );
+    const legacy = (
+      await c.app.inject({
+        url: "/api/modules",
+        headers: { cookie: owner.cookie },
+      })
+    )
+      .json()
+      .items.find((m: { moduleId: string }) => m.moduleId === "study-waitlist");
+    assert.deepEqual(legacy.aliases, []);
+    assert.deepEqual(legacy.tags, []);
+    assert.deepEqual(legacy.configurationFields, []);
+    assert.equal(legacy.icon, "Boxes");
     const installed = await c.projects.install(b.project.id, owner.user.id, [
       "study-waitlist",
     ]);

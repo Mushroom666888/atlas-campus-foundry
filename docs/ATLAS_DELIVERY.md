@@ -1,5 +1,7 @@
 # Atlas delivery update
 
+Latest follow-up: [ATLAS_REDESIGN.md](ATLAS_REDESIGN.md) documents the user's readability feedback and the repaired existing-account blank-page regression. The measurements below belong to this earlier delivery batch.
+
 Date: 2026-10-10, Windows / Node 24.17.0. This supplements the original delivery report.
 
 ## A. Completed locally

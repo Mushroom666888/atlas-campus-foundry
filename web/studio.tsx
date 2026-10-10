@@ -227,7 +227,7 @@ export function Studio({
               path="*"
               element={
                 <Empty>
-                  页面不存在。<Link to="/">返回项目总览</Link>
+                  页面不存在。<Link to="/studio">返回项目总览</Link>
                 </Empty>
               }
             />

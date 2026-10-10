@@ -4,6 +4,7 @@ import { BrowserRouter, Navigate, useLocation } from "react-router-dom";
 import { api } from "./api";
 import { Auth, Loading, Notice } from "./components";
 import { AtlasHome } from "./atlas-home";
+import { PageBoundary } from "./page-boundary";
 const Studio = lazy(() =>
   import("./studio").then((m) => ({ default: m.Studio })),
 );
@@ -48,7 +49,17 @@ function Root() {
     })();
   }, []);
   if (control && location.pathname === "/") return <AtlasHome user={user} />;
-  if (error) return <Notice>{error}</Notice>;
+  if (error)
+    return (
+      <main className="page-recovery">
+        <h1>暂时无法连接工作台</h1>
+        <Notice>{error}</Notice>
+        <button onClick={() => window.location.reload()}>重新连接</button>
+        <a className="button" href="/">
+          返回首页
+        </a>
+      </main>
+    );
   if (!ready) return <Loading />;
   if (!runtime && location.pathname === "/") return <AtlasHome user={user} />;
   if (!runtime && user && location.pathname === "/login")
@@ -74,9 +85,11 @@ function Root() {
 createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
     <BrowserRouter>
-      <Suspense fallback={<Loading />}>
-        <Root />
-      </Suspense>
+      <PageBoundary>
+        <Suspense fallback={<Loading />}>
+          <Root />
+        </Suspense>
+      </PageBoundary>
     </BrowserRouter>
   </React.StrictMode>,
 );

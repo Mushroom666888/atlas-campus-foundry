@@ -1,0 +1,216 @@
+{
+  "at": "2026-10-10T06:29:05.297Z",
+  "results": [
+    {
+      "route": "/studio",
+      "width": 1440,
+      "heading": "项目总览"
+    },
+    {
+      "route": "/modules",
+      "width": 1440,
+      "heading": "模块仓库"
+    },
+    {
+      "route": "/modules/study-waitlist",
+      "width": 1440,
+      "heading": "学习小组候补队列"
+    },
+    {
+      "route": "/modules/lost-found",
+      "width": 1440,
+      "heading": "失物招领"
+    },
+    {
+      "route": "/modules/events",
+      "width": 1440,
+      "heading": "活动与报名"
+    },
+    {
+      "route": "/modules/when-created",
+      "width": 1440,
+      "heading": "记录创建触发"
+    },
+    {
+      "route": "/modules/table-view",
+      "width": 1440,
+      "heading": "表格视图"
+    },
+    {
+      "route": "/compose",
+      "width": 1440,
+      "heading": "Canvas"
+    },
+    {
+      "route": "/compose?project=5333fa85-dbf0-414d-8c57-7cf0054106ce",
+      "width": 1440,
+      "heading": "Canvas"
+    },
+    {
+      "route": "/builder",
+      "width": 1440,
+      "heading": "AI Builder"
+    },
+    {
+      "route": "/create",
+      "width": 1440,
+      "heading": "创建校园产品"
+    },
+    {
+      "route": "/deployments",
+      "width": 1440,
+      "heading": "应用部署"
+    },
+    {
+      "route": "/publisher",
+      "width": 1440,
+      "heading": "模块发布"
+    },
+    {
+      "route": "/projects/ba48aa7a-6182-4df7-9b54-570d1e6ef1b8",
+      "width": 1440,
+      "heading": "Campus Events"
+    },
+    {
+      "route": "/studio",
+      "width": 390,
+      "heading": "项目总览"
+    },
+    {
+      "route": "/modules",
+      "width": 390,
+      "heading": "模块仓库"
+    },
+    {
+      "route": "/modules/study-waitlist",
+      "width": 390,
+      "heading": "学习小组候补队列"
+    },
+    {
+      "route": "/modules/lost-found",
+      "width": 390,
+      "heading": "失物招领"
+    },
+    {
+      "route": "/modules/events",
+      "width": 390,
+      "heading": "活动与报名"
+    },
+    {
+      "route": "/modules/when-created",
+      "width": 390,
+      "heading": "记录创建触发"
+    },
+    {
+      "route": "/modules/table-view",
+      "width": 390,
+      "heading": "表格视图"
+    },
+    {
+      "route": "/compose",
+      "width": 390,
+      "heading": "Canvas"
+    },
+    {
+      "route": "/compose?project=5333fa85-dbf0-414d-8c57-7cf0054106ce",
+      "width": 390,
+      "heading": "Canvas"
+    },
+    {
+      "route": "/builder",
+      "width": 390,
+      "heading": "AI Builder"
+    },
+    {
+      "route": "/create",
+      "width": 390,
+      "heading": "创建校园产品"
+    },
+    {
+      "route": "/deployments",
+      "width": 390,
+      "heading": "应用部署"
+    },
+    {
+      "route": "/publisher",
+      "width": 390,
+      "heading": "模块发布"
+    },
+    {
+      "route": "/projects/ba48aa7a-6182-4df7-9b54-570d1e6ef1b8",
+      "width": 390,
+      "heading": "Campus Events"
+    },
+    {
+      "route": "/studio",
+      "width": 320,
+      "heading": "项目总览"
+    },
+    {
+      "route": "/modules",
+      "width": 320,
+      "heading": "模块仓库"
+    },
+    {
+      "route": "/modules/study-waitlist",
+      "width": 320,
+      "heading": "学习小组候补队列"
+    },
+    {
+      "route": "/modules/lost-found",
+      "width": 320,
+      "heading": "失物招领"
+    },
+    {
+      "route": "/modules/events",
+      "width": 320,
+      "heading": "活动与报名"
+    },
+    {
+      "route": "/modules/when-created",
+      "width": 320,
+      "heading": "记录创建触发"
+    },
+    {
+      "route": "/modules/table-view",
+      "width": 320,
+      "heading": "表格视图"
+    },
+    {
+      "route": "/compose",
+      "width": 320,
+      "heading": "Canvas"
+    },
+    {
+      "route": "/compose?project=5333fa85-dbf0-414d-8c57-7cf0054106ce",
+      "width": 320,
+      "heading": "Canvas"
+    },
+    {
+      "route": "/builder",
+      "width": 320,
+      "heading": "AI Builder"
+    },
+    {
+      "route": "/create",
+      "width": 320,
+      "heading": "创建校园产品"
+    },
+    {
+      "route": "/deployments",
+      "width": 320,
+      "heading": "应用部署"
+    },
+    {
+      "route": "/publisher",
+      "width": 320,
+      "heading": "模块发布"
+    },
+    {
+      "route": "/projects/ba48aa7a-6182-4df7-9b54-570d1e6ef1b8",
+      "width": 320,
+      "heading": "Campus Events"
+    }
+  ],
+  "errors": []
+}
