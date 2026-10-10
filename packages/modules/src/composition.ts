@@ -5,50 +5,64 @@ import {
   type ProductSpec,
 } from "../../contracts/src/index.js";
 
+type Translate = (
+  key: string,
+  values?: Record<string, string | number>,
+) => string;
+const sourceMessage: Translate = (key, values = {}) =>
+  key.replace(/\{\{(\w+)\}\}/g, (_, name: string) =>
+    String(values[name] ?? ""),
+  );
+
 export function connectionError(
   graph: Composition,
   edge: Composition["edges"][number],
   available: ModuleManifest[],
+  translate: Translate = sourceMessage,
 ): string | null {
   const a = graph.nodes.find((n) => n.id === edge.source),
     b = graph.nodes.find((n) => n.id === edge.target);
   const from = available.find((m) => m.moduleId === a?.moduleId),
     to = available.find((m) => m.moduleId === b?.moduleId);
-  if (!from || !to || a?.id === b?.id) return "连线端点无效，模块不能连接自己";
+  if (!from || !to || a?.id === b?.id)
+    return translate("连线端点无效，模块不能连接自己");
   if (edge.mode === "dependency")
     return to.dependencies[from.moduleId] &&
       to.requiredInterfaces.some((i) => from.providedInterfaces.includes(i))
       ? null
-      : `${to.name}不依赖${from.name}的接口`;
+      : translate("{{target}}不依赖{{source}}的接口", {
+          target: translate(to.name),
+          source: translate(from.name),
+        });
   if (
     edge.mode === "flow" &&
     (!(from.recordDefinition || from.category === "connector") ||
       to.category !== "connector")
   )
-    return "自动化输入必须是业务记录或连接器，输出必须是连接器";
+    return translate("自动化输入必须是业务记录或连接器，输出必须是连接器");
   if (
     edge.mode === "display" &&
     (!from.recordDefinition || to.category !== "presentation")
   )
-    return "展示组件只接受业务记录数据；订单和库存需要专用交易界面";
+    return translate("展示组件只接受业务记录数据；订单和库存需要专用交易界面");
   if (edge.mode === "embed" && (!from.recordDefinition || !to.recordDefinition))
-    return "内嵌只支持两个业务记录模块";
+    return translate("内嵌只支持两个业务记录模块");
   if (
     edge.mode === "notify" &&
     (!from.recordDefinition || to.moduleId !== "notifications")
   )
-    return "通知连线必须从业务记录连接站内通知";
+    return translate("通知连线必须从业务记录连接站内通知");
   if (
     edge.mode === "navigate" &&
     (["connector", "presentation"].includes(from.category) ||
       ["connector", "presentation"].includes(to.category))
   )
-    return "页面跳转只能连接有业务界面的模块";
+    return translate("页面跳转只能连接有业务界面的模块");
   if (
     edge.mode === "navigate" &&
     [from, to].some((m) => ["identity", "search", "media"].includes(m.moduleId))
   )
-    return "身份、搜索和存储由业务界面调用，请使用依赖接口连接";
+    return translate("身份、搜索和存储由业务界面调用，请使用依赖接口连接");
   return null;
 }
 
@@ -61,19 +75,22 @@ export type CompositionIssue = {
 export function compositionIssues(
   spec: ProductSpec,
   available: ModuleManifest[],
+  translate: Translate = sourceMessage,
 ): CompositionIssue[] {
   const graph = spec.composition;
   if (!graph) return [];
   const issues: CompositionIssue[] = [];
   for (const edge of graph.edges) {
-    const message = connectionError(graph, edge, available);
+    const message = connectionError(graph, edge, available, translate);
     if (message) issues.push({ code: "CONNECTION", message, edgeId: edge.id });
   }
   if (graph.version === 2) {
     if (spec.description.trim().length < 12)
       issues.push({
         code: "INTENT",
-        message: "请描述目标用户、主要业务流程与完成条件（至少 12 字）",
+        message: translate(
+          "请描述目标用户、主要业务流程与完成条件（至少 12 字）",
+        ),
       });
     for (const node of graph.nodes) {
       const module = available.find((m) => m.moduleId === node.moduleId);
@@ -84,7 +101,13 @@ export function compositionIssues(
           issues.push({
             code: "DEPENDENCY",
             nodeId: node.id,
-            message: `${module.name}缺少依赖：${available.find((m) => m.moduleId === dependency)?.name || dependency}`,
+            message: translate("{{module}}缺少依赖：{{dependency}}", {
+              module: translate(module.name),
+              dependency: translate(
+                available.find((m) => m.moduleId === dependency)?.name ||
+                  dependency,
+              ),
+            }),
           });
         else if (
           !graph.edges.some(
@@ -97,7 +120,13 @@ export function compositionIssues(
           issues.push({
             code: "DEPENDENCY_LINK",
             nodeId: node.id,
-            message: `${module.name}尚未连接依赖：${available.find((m) => m.moduleId === dependency)?.name || dependency}`,
+            message: translate("{{module}}尚未连接依赖：{{dependency}}", {
+              module: translate(module.name),
+              dependency: translate(
+                available.find((m) => m.moduleId === dependency)?.name ||
+                  dependency,
+              ),
+            }),
           });
       }
       if (
@@ -109,7 +138,9 @@ export function compositionIssues(
         issues.push({
           code: "INPUT",
           nodeId: node.id,
-          message: `${module.name}没有业务输入`,
+          message: translate("{{module}}没有业务输入", {
+            module: translate(module.name),
+          }),
         });
     }
     if (
@@ -127,13 +158,14 @@ export function compositionIssues(
     )
       issues.push({
         code: "NO_BUSINESS",
-        message: "至少添加一个有业务界面的模块",
+        message: translate("至少添加一个有业务界面的模块"),
       });
   }
   try {
     validateComposition(
       { ...spec, composition: { ...graph, version: 1 } },
       available,
+      translate,
     );
   } catch (e) {
     const message = (e as Error).message;
@@ -146,11 +178,12 @@ export function compositionIssues(
 export function validateComposition(
   spec: ProductSpec,
   available: ModuleManifest[],
+  translate: Translate = sourceMessage,
 ) {
   const graph = spec.composition;
   if (!graph) return;
   if (graph.version === 2) {
-    const issues = compositionIssues(spec, available);
+    const issues = compositionIssues(spec, available, translate);
     if (issues.length)
       throw new AppError(
         422,
@@ -158,8 +191,11 @@ export function validateComposition(
         issues.map((i) => i.message).join("；"),
       );
   }
-  const fail = (message: string): never => {
-    throw new AppError(422, "INVALID_COMPOSITION", message);
+  const fail = (
+    message: string,
+    values?: Record<string, string | number>,
+  ): never => {
+    throw new AppError(422, "INVALID_COMPOSITION", translate(message, values));
   };
   const registry = new Map(available.map((m) => [m.moduleId, m]));
   const nodes = new Map(graph.nodes.map((n) => [n.id, n]));
@@ -181,7 +217,10 @@ export function validateComposition(
     for (const field of module!.configurationFields) {
       const value = node.configuration[field.key];
       if (field.required && (value === undefined || value === ""))
-        fail(`${module!.name}缺少配置：${field.label}`);
+        fail("{{module}}缺少配置：{{field}}", {
+          module: translate(module!.name),
+          field: translate(field.label),
+        });
       if (
         value !== undefined &&
         (field.type === "number"
@@ -209,7 +248,7 @@ export function validateComposition(
   }
   const seen = new Set<string>();
   for (const edge of graph.edges) {
-    const error = connectionError(graph, edge, available);
+    const error = connectionError(graph, edge, available, translate);
     if (error) fail(error);
     const source = nodes.get(edge.source),
       target = nodes.get(edge.target);

@@ -129,6 +129,73 @@ try {
       "Migration and project test",
     );
     projectId = project.project.id;
+    await control.deployments.archiveProject(
+      projectId,
+      ownerId,
+      async () => {},
+    );
+    await assert.rejects(control.projects.get(projectId, ownerId));
+    const second = await control.projects.create(
+      ownerId,
+      project.project.spec,
+      "Quota race target",
+    );
+    await control.deployments.archiveProject(
+      second.project.id,
+      ownerId,
+      async () => {},
+    );
+    for (let index = 0; index < 19; index++) {
+      await control.projects.create(
+        ownerId,
+        project.project.spec,
+        "Active quota fixture",
+      );
+    }
+    const concurrent = await Promise.allSettled([
+      control.deployments.restoreProject(projectId, ownerId),
+      control.deployments.restoreProject(second.project.id, ownerId),
+      control.projects.create(
+        ownerId,
+        project.project.spec,
+        "Concurrent create",
+      ),
+    ]);
+    assert.equal(
+      concurrent.filter((result) => result.status === "fulfilled").length,
+      1,
+    );
+    assert.equal(
+      (
+        await control.db.query<{ count: number }>(
+          "SELECT count(*)::integer AS count FROM projects WHERE owner_id=$1 AND deleted_at IS NULL",
+          [ownerId],
+        )
+      ).rows[0].count,
+      20,
+    );
+    const active = (
+      await control.db.query<{ id: string }>(
+        "SELECT id FROM projects WHERE owner_id=$1 AND deleted_at IS NULL ORDER BY created_at",
+        [ownerId],
+      )
+    ).rows;
+    projectId = active[0].id;
+    const archivedId = active[1].id;
+    await control.deployments.archiveProject(
+      archivedId,
+      ownerId,
+      async () => {},
+    );
+    assert.equal(
+      (
+        await control.db.query(
+          "SELECT id FROM projects WHERE id=$1 AND deleted_at IS NOT NULL",
+          [archivedId],
+        )
+      ).rows.length,
+      1,
+    );
     await verifyMigrations(control.db, "control");
   } finally {
     await control.app.close();
@@ -310,6 +377,8 @@ try {
           "idempotent migrations",
           "platform registration",
           "project creation",
+          "trash hides active projects without deleting data",
+          "concurrent create and restore enforce 20-project quota with PostgreSQL row locks",
           "runtime registration",
           "event creation and enrollment",
           "server restart persistence",

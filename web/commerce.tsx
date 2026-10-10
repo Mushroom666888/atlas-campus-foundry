@@ -1,3 +1,4 @@
+import { t, localeTag } from "./i18n";
 import { useState, type ReactNode } from "react";
 import {
   ArrowRight,
@@ -65,7 +66,7 @@ function FormModal({
         <Feedback action={action} />
         <button className="primary" disabled={action.busy}>
           <Check size={17} />
-          {action.busy ? "正在保存" : "确认保存"}
+          {action.busy ? t("正在保存") : t("确认保存")}
         </button>
       </form>
     </Modal>
@@ -87,7 +88,7 @@ function Amount({
 }) {
   return (
     <label>
-      {label}
+      {t(label)}
       <input
         type="number"
         name={name}
@@ -109,7 +110,7 @@ export function CommerceModule(props: Props) {
           <span className="eyebrow">CAMPUS COMMERCE</span>
           <h2>{commerceDefinitions.find((m) => m.id === id)?.name}</h2>
         </div>
-        <span className="commerce-settlement">线下结算</span>
+        <span className="commerce-settlement">{t("线下结算")}</span>
       </div>
       {id === "merchant-storefront" ? (
         <Shops {...props} />
@@ -141,13 +142,13 @@ function Shops({ user }: Props) {
       <div className="commerce-toolbar">
         <button className="primary" onClick={() => setEdit(true)}>
           <Plus size={17} />
-          {own ? "编辑店铺" : "开设店铺"}
+          {own ? t("编辑店铺") : t("开设店铺")}
         </button>
       </div>
       {load.loading ? (
         <Loading />
       ) : !load.data?.items.length ? (
-        <Empty>还没有商家入驻</Empty>
+        <Empty>{t("还没有商家入驻")}</Empty>
       ) : (
         <div className="commerce-grid">
           {load.data.items.map((s) => (
@@ -157,7 +158,7 @@ function Shops({ user }: Props) {
               <p>{s.description}</p>
               <span className="muted">{s.location || "未填写营业地点"}</span>
               {s.owner_id === user.id && (
-                <span className="badge">我的店铺</span>
+                <span className="badge">{t("我的店铺")}</span>
               )}
             </article>
           ))}
@@ -165,7 +166,7 @@ function Shops({ user }: Props) {
       )}
       {edit && (
         <FormModal
-          title={own ? "编辑店铺" : "开设店铺"}
+          title={own ? t("编辑店铺") : t("开设店铺")}
           onClose={() => setEdit(false)}
           onSave={async (f) => {
             await api(`/api/commerce/shops${own ? "/mine" : ""}`, {
@@ -177,7 +178,7 @@ function Shops({ user }: Props) {
           }}
         >
           <label>
-            店铺名称
+            {t("店铺名称")}
             <input
               name="name"
               defaultValue={own?.name}
@@ -187,7 +188,7 @@ function Shops({ user }: Props) {
             />
           </label>
           <label>
-            店铺介绍
+            {t("店铺介绍")}
             <textarea
               name="description"
               defaultValue={own?.description}
@@ -196,7 +197,7 @@ function Shops({ user }: Props) {
             />
           </label>
           <label>
-            营业地点
+            {t("营业地点")}
             <input
               name="location"
               defaultValue={own?.location}
@@ -239,11 +240,11 @@ function Products({ moduleId, user, modules }: Props) {
             <Search size={18} />
             <input
               name="q"
-              placeholder="搜索商品"
-              aria-label="搜索商品"
+              placeholder={t("搜索商品")}
+              aria-label={t("搜索商品")}
               maxLength={100}
             />
-            <button>搜索</button>
+            <button>{t("搜索")}</button>
           </form>
         )}
         {!inventory && !favorites && (
@@ -253,20 +254,20 @@ function Products({ moduleId, user, modules }: Props) {
               checked={mine}
               onChange={(e) => setMine(e.target.checked)}
             />
-            只看我的商品
+            {t("只看我的商品")}
           </label>
         )}
         {!inventory && !favorites && (
           <button className="primary" onClick={() => setAdd(true)}>
             <Plus size={17} />
-            发布商品
+            {t("发布商品")}
           </button>
         )}
       </div>
       {load.loading ? (
         <Loading />
       ) : !load.data?.items.length ? (
-        <Empty>{favorites ? "还没有收藏商品" : "暂无商品"}</Empty>
+        <Empty>{favorites ? t("还没有收藏商品") : t("暂无商品")}</Empty>
       ) : (
         <div className="commerce-grid">
           {load.data.items.map((p) => (
@@ -287,7 +288,10 @@ function Products({ moduleId, user, modules }: Props) {
               <h3>{p.title}</h3>
               <div className="commerce-price">
                 <strong>{money(p.price_cents)}</strong>
-                <span>库存 {p.stock}</span>
+                <span>
+                  {t("库存")}
+                  {p.stock}
+                </span>
               </div>
               <div className="inline-actions">
                 <button
@@ -296,7 +300,7 @@ function Products({ moduleId, user, modules }: Props) {
                     setRequestKey(crypto.randomUUID());
                   }}
                 >
-                  查看商品
+                  {t("查看商品")}
                 </button>
                 {p.owner_id === user.id && (
                   <>
@@ -315,17 +319,19 @@ function Products({ moduleId, user, modules }: Props) {
                         })
                       }
                     >
-                      {p.status === "active" ? "下架" : "上架"}
+                      {p.status === "active" ? t("下架") : t("上架")}
                     </button>
                     {modules.includes("stock-inventory") && (
-                      <button onClick={() => setStock(p)}>调整库存</button>
+                      <button onClick={() => setStock(p)}>
+                        {t("调整库存")}
+                      </button>
                     )}
                   </>
                 )}
                 {modules.includes("product-favorites") && (
                   <button
-                    aria-label={favorites ? "取消收藏" : "收藏商品"}
-                    title={favorites ? "取消收藏" : "收藏商品"}
+                    aria-label={favorites ? t("取消收藏") : t("收藏商品")}
+                    title={favorites ? t("取消收藏") : t("收藏商品")}
                     onClick={() =>
                       void action.run(
                         async () => {
@@ -348,7 +354,7 @@ function Products({ moduleId, user, modules }: Props) {
       )}
       {add && (
         <FormModal
-          title="发布商品"
+          title={t("发布商品")}
           onClose={() => setAdd(false)}
           onSave={async (f) => {
             const file = f.get("image") as File;
@@ -376,25 +382,25 @@ function Products({ moduleId, user, modules }: Props) {
           }}
         >
           <label>
-            商品名称
+            {t("商品名称")}
             <input name="title" required maxLength={120} />
           </label>
           <label>
-            商品说明
+            {t("商品说明")}
             <textarea name="description" maxLength={4000} rows={4} />
           </label>
           <label>
-            分类
+            {t("分类")}
             <input
               name="category"
               required
               maxLength={40}
-              placeholder="数码 / 书籍 / 手作"
+              placeholder={t("数码 / 书籍 / 手作")}
             />
           </label>
           <Amount name="price" label="单价（元）" min={0.01} />
           <label>
-            可售库存
+            {t("可售库存")}
             <input
               type="number"
               name="stock"
@@ -405,7 +411,7 @@ function Products({ moduleId, user, modules }: Props) {
             />
           </label>
           <label>
-            商品图片
+            {t("商品图片")}
             <input
               name="image"
               type="file"
@@ -416,7 +422,7 @@ function Products({ moduleId, user, modules }: Props) {
       )}
       {stock && (
         <FormModal
-          title="调整可售库存"
+          title={t("调整可售库存")}
           onClose={() => setStock(null)}
           onSave={async (f) => {
             await api(`/api/commerce/products/${stock.id}/stock`, {
@@ -432,7 +438,7 @@ function Products({ moduleId, user, modules }: Props) {
         >
           <p>{stock.title}</p>
           <label>
-            当前可售数量
+            {t("当前可售数量")}
             <input
               type="number"
               name="stock"
@@ -458,7 +464,8 @@ function Products({ moduleId, user, modules }: Props) {
             {detail.shop_name} · {detail.category}
           </p>
           <p className="commerce-price">
-            <strong>{money(detail.price_cents)}</strong> / 件
+            <strong>{money(detail.price_cents)}</strong>
+            {t("/ 件")}
           </p>
           <Feedback action={action} />
           {modules.includes("sales-orders") && detail.owner_id !== user.id && (
@@ -481,7 +488,7 @@ function Products({ moduleId, user, modules }: Props) {
               }}
             >
               <label>
-                购买数量
+                {t("购买数量")}
                 <input
                   name="quantity"
                   type="number"
@@ -493,7 +500,7 @@ function Products({ moduleId, user, modules }: Props) {
               </label>
               {modules.includes("discount-coupons") && (
                 <label>
-                  店铺优惠码（选填）
+                  {t("店铺优惠码（选填）")}
                   <input name="coupon" maxLength={32} />
                 </label>
               )}
@@ -506,7 +513,7 @@ function Products({ moduleId, user, modules }: Props) {
                 }
               >
                 <ShoppingBag size={17} />
-                提交订单
+                {t("提交订单")}
               </button>
             </form>
           )}
@@ -537,13 +544,13 @@ function Orders({ user, moduleId, modules }: Props) {
           className={role === "buyer" ? "selected" : ""}
           onClick={() => setRole("buyer")}
         >
-          我买到的
+          {t("我买到的")}
         </button>
         <button
           className={role === "seller" ? "selected" : ""}
           onClick={() => setRole("seller")}
         >
-          我卖出的
+          {t("我卖出的")}
         </button>
       </div>
       <Feedback action={action} />
@@ -551,7 +558,7 @@ function Orders({ user, moduleId, modules }: Props) {
       {load.loading ? (
         <Loading />
       ) : !load.data?.items.length ? (
-        <Empty>暂无订单</Empty>
+        <Empty>{t("暂无订单")}</Empty>
       ) : (
         <div className="commerce-orders">
           {load.data.items.map((o) => (
@@ -559,31 +566,38 @@ function Orders({ user, moduleId, modules }: Props) {
               <div className="section-head">
                 <h3>{o.title}</h3>
                 <span className={`badge ${o.status}`}>
-                  {orderStatus[o.status]}
+                  {t(orderStatus[o.status])}
                 </span>
               </div>
               <p>
-                {o.quantity} 件 × {money(o.unit_price_cents)}
+                {o.quantity}
+                {t("件 ×")}
+                {money(o.unit_price_cents)}
                 {o.discount_cents > 0 && ` · 优惠 ${money(o.discount_cents)}`}
               </p>
               <div className="commerce-price">
                 <strong>{money(o.total_cents)}</strong>
-                <span>线下结算金额</span>
+                <span>{t("线下结算金额")}</span>
               </div>
-              {o.fulfillment_note && <p>交付说明：{o.fulfillment_note}</p>}
+              {o.fulfillment_note && (
+                <p>
+                  {t("交付说明：")}
+                  {o.fulfillment_note}
+                </p>
+              )}
               <div className="inline-actions">
                 {o.seller_id === user.id && o.status === "placed" && (
                   <button
                     disabled={action.busy}
                     onClick={() => transition(o, "accept")}
                   >
-                    确认接单
+                    {t("确认接单")}
                   </button>
                 )}
                 {o.seller_id === user.id &&
                   o.status === "accepted" &&
                   modules.includes("order-fulfillment") && (
-                    <button onClick={() => setReady(o)}>安排交付</button>
+                    <button onClick={() => setReady(o)}>{t("安排交付")}</button>
                   )}
                 {o.buyer_id === user.id &&
                   o.status === "ready" &&
@@ -592,7 +606,7 @@ function Orders({ user, moduleId, modules }: Props) {
                       disabled={action.busy}
                       onClick={() => transition(o, "complete")}
                     >
-                      确认收货
+                      {t("确认收货")}
                     </button>
                   )}
                 {["placed", "accepted"].includes(o.status) && (
@@ -600,7 +614,7 @@ function Orders({ user, moduleId, modules }: Props) {
                     disabled={action.busy}
                     onClick={() => transition(o, "cancel")}
                   >
-                    取消订单
+                    {t("取消订单")}
                   </button>
                 )}
                 {o.buyer_id === user.id &&
@@ -608,12 +622,12 @@ function Orders({ user, moduleId, modules }: Props) {
                   modules.includes("transaction-reviews") && (
                     <button onClick={() => setReview(o)}>
                       <Star size={17} />
-                      评价订单
+                      {t("评价订单")}
                     </button>
                   )}
               </div>
               <small className="muted">
-                {new Date(o.created_at).toLocaleString("zh-CN")}
+                {new Date(o.created_at).toLocaleString(localeTag())}
               </small>
             </article>
           ))}
@@ -621,7 +635,7 @@ function Orders({ user, moduleId, modules }: Props) {
       )}
       {ready && (
         <FormModal
-          title="安排交付"
+          title={t("安排交付")}
           onClose={() => setReady(null)}
           onSave={async (f) => {
             await post(`/api/commerce/orders/${ready.id}/transition`, {
@@ -633,14 +647,14 @@ function Orders({ user, moduleId, modules }: Props) {
           }}
         >
           <label>
-            交付地点与取货说明
+            {t("交付地点与取货说明")}
             <textarea name="note" required maxLength={500} rows={3} />
           </label>
         </FormModal>
       )}
       {review && (
         <FormModal
-          title="评价订单"
+          title={t("评价订单")}
           onClose={() => setReview(null)}
           onSave={async (f) => {
             await post("/api/commerce/reviews", {
@@ -652,17 +666,18 @@ function Orders({ user, moduleId, modules }: Props) {
           }}
         >
           <label>
-            评分
+            {t("评分")}
             <select name="rating">
               {[5, 4, 3, 2, 1].map((v) => (
                 <option key={v} value={v}>
-                  {v} 星
+                  {v}
+                  {t("星")}
                 </option>
               ))}
             </select>
           </label>
           <label>
-            交易体验
+            {t("交易体验")}
             <textarea name="body" required maxLength={2000} rows={4} />
           </label>
         </FormModal>
@@ -680,7 +695,7 @@ function Services({ user }: Props) {
       <div className="commerce-toolbar">
         <button className="primary" onClick={() => setAdd(true)}>
           <Plus size={17} />
-          发布服务时段
+          {t("发布服务时段")}
         </button>
       </div>
       <Feedback action={action} />
@@ -693,10 +708,14 @@ function Services({ user }: Props) {
             <span className="muted">{s.shop_name}</span>
             <h3>{s.title}</h3>
             <p>{s.description}</p>
-            <p>{new Date(s.starts_at).toLocaleString("zh-CN")}</p>
+            <p>{new Date(s.starts_at).toLocaleString(localeTag())}</p>
             <div className="commerce-price">
               <strong>{money(s.price_cents)}</strong>
-              <span>剩余 {s.capacity - s.reserved} 个名额</span>
+              <span>
+                {t("剩余")}
+                {s.capacity - s.reserved}
+                {t("个名额")}
+              </span>
             </div>
             {s.owner_id !== user.id && (
               <button
@@ -709,16 +728,16 @@ function Services({ user }: Props) {
                   }, "预约已确认")
                 }
               >
-                预约此时段
+                {t("预约此时段")}
               </button>
             )}
           </article>
         ))}
       </div>
       {!load.loading && !load.data?.items.length && (
-        <Empty>暂无可预约时段</Empty>
+        <Empty>{t("暂无可预约时段")}</Empty>
       )}
-      <h3>我的预约与服务</h3>
+      <h3>{t("我的预约与服务")}</h3>
       {bookings.data?.items.map((b) => (
         <article key={b.id} className="commerce-order">
           <div className="section-head">
@@ -732,7 +751,7 @@ function Services({ user }: Props) {
             </span>
           </div>
           <p>
-            {new Date(b.starts_at).toLocaleString("zh-CN")} ·{" "}
+            {new Date(b.starts_at).toLocaleString(localeTag())} ·{" "}
             {money(b.price_cents)}
           </p>
           {b.status === "booked" && (
@@ -749,7 +768,7 @@ function Services({ user }: Props) {
                   })
                 }
               >
-                取消预约
+                {t("取消预约")}
               </button>
               {b.owner_id === user.id && (
                 <button
@@ -763,7 +782,7 @@ function Services({ user }: Props) {
                     })
                   }
                 >
-                  完成服务
+                  {t("完成服务")}
                 </button>
               )}
             </div>
@@ -772,7 +791,7 @@ function Services({ user }: Props) {
       ))}
       {add && (
         <FormModal
-          title="发布服务时段"
+          title={t("发布服务时段")}
           onClose={() => setAdd(false)}
           onSave={async (f) => {
             await post("/api/commerce/services", {
@@ -787,20 +806,20 @@ function Services({ user }: Props) {
           }}
         >
           <label>
-            服务名称
+            {t("服务名称")}
             <input name="title" required maxLength={120} />
           </label>
           <label>
-            服务介绍
+            {t("服务介绍")}
             <textarea name="description" maxLength={2000} rows={3} />
           </label>
           <Amount name="price" label="每人价格（元）" />
           <label>
-            服务时间
+            {t("服务时间")}
             <input name="starts" type="datetime-local" required />
           </label>
           <label>
-            预约名额
+            {t("预约名额")}
             <input
               name="capacity"
               type="number"
@@ -823,7 +842,7 @@ function Coupons() {
     <>
       <button className="primary" onClick={() => setAdd(true)}>
         <Plus size={17} />
-        创建优惠码
+        {t("创建优惠码")}
       </button>
       <Feedback action={action} />
       {load.error && <Notice>{load.error}</Notice>}
@@ -832,12 +851,20 @@ function Coupons() {
           <article className="commerce-item" key={c.id}>
             <code>{c.code}</code>
             <h3>
-              满 {money(c.minimum_cents)} 减 {money(c.discount_cents)}
+              {t("满")}
+              {money(c.minimum_cents)}
+              {t("减")}
+              {money(c.discount_cents)}
             </h3>
             <p>
-              已使用 {c.uses} / {c.max_uses} 次
+              {t("已使用")}
+              {c.uses} / {c.max_uses}
+              {t("次")}
             </p>
-            <p>{new Date(c.expires_at).toLocaleString("zh-CN")} 到期</p>
+            <p>
+              {new Date(c.expires_at).toLocaleString(localeTag())}
+              {t("到期")}
+            </p>
             <button
               disabled={action.busy}
               onClick={() =>
@@ -850,14 +877,14 @@ function Coupons() {
                 })
               }
             >
-              {c.active ? "停用" : "启用"}
+              {c.active ? t("停用") : t("启用")}
             </button>
           </article>
         ))}
       </div>
       {add && (
         <FormModal
-          title="创建店铺优惠码"
+          title={t("创建店铺优惠码")}
           onClose={() => setAdd(false)}
           onSave={async (f) => {
             await post("/api/commerce/coupons", {
@@ -872,7 +899,7 @@ function Coupons() {
           }}
         >
           <label>
-            优惠码
+            {t("优惠码")}
             <input
               name="code"
               pattern="[A-Za-z0-9-]{3,32}"
@@ -883,7 +910,7 @@ function Coupons() {
           <Amount name="minimum" label="最低订单金额（元）" />
           <Amount name="discount" label="减免金额（元）" min={0.01} />
           <label>
-            可用次数
+            {t("可用次数")}
             <input
               name="limit"
               type="number"
@@ -894,7 +921,7 @@ function Coupons() {
             />
           </label>
           <label>
-            到期时间
+            {t("到期时间")}
             <input name="expires" type="datetime-local" required />
           </label>
         </FormModal>
@@ -910,7 +937,7 @@ function Reviews() {
       {load.loading ? (
         <Loading />
       ) : !load.data?.items.length ? (
-        <Empty>还没有已完成交易的评价</Empty>
+        <Empty>{t("还没有已完成交易的评价")}</Empty>
       ) : (
         load.data.items.map((r) => (
           <article className="commerce-order" key={r.id}>
@@ -923,7 +950,10 @@ function Reviews() {
               </span>
             </div>
             <p className="preserve-lines">{r.body}</p>
-            <small>{r.author_name} · 已完成交易</small>
+            <small>
+              {r.author_name}
+              {t("· 已完成交易")}
+            </small>
           </article>
         ))
       )}
@@ -952,13 +982,13 @@ function Analytics() {
                 ["已完成预约", load.data.completed_bookings],
               ].map(([label, value]) => (
                 <div key={label}>
-                  <span>{label}</span>
+                  <span>{t(String(label))}</span>
                   <strong>{value}</strong>
                 </div>
               ))}
             </div>
             <p className="muted">
-              订单金额按已完成订单统计；不代表支付服务确认的收入。
+              {t("订单金额按已完成订单统计；不代表支付服务确认的收入。")}
             </p>
           </>
         )
@@ -976,7 +1006,7 @@ export function CommercePreview({ module }: { module: ModuleManifest }) {
   return (
     <div className="commerce-preview">
       <Notice kind="info">
-        交互示例，不创建订单。安装后使用应用内的真实业务数据。
+        {t("交互示例，不创建订单。安装后使用应用内的真实业务数据。")}
       </Notice>
       <div className="commerce-journey">
         {d.steps.map((s, i) => (
@@ -986,7 +1016,7 @@ export function CommercePreview({ module }: { module: ModuleManifest }) {
             onClick={() => setStep(i)}
           >
             <span>{i + 1}</span>
-            {s}
+            {t(s)}
             {i < d.steps.length - 1 && <ArrowRight size={17} />}
           </button>
         ))}
@@ -995,26 +1025,26 @@ export function CommercePreview({ module }: { module: ModuleManifest }) {
         <div className="section-head">
           <span className="commerce-demo-brand">
             <Store size={23} />
-            校园创作者商店
+            {t("校园创作者商店")}
           </span>
-          <span className="badge">{d.steps[step]}</span>
+          <span className="badge">{t(d.steps[step])}</span>
         </div>
         {module.moduleId === "merchant-storefront" ? (
           <>
-            <h3>独立手作与校园好物</h3>
-            <p>设计、制作、交付，都发生在校园里。</p>
+            <h3>{t("独立手作与校园好物")}</h3>
+            <p>{t("设计、制作、交付，都发生在校园里。")}</p>
             <div className="demo-shop-products">
               <ShoppingBag size={34} />
               <div>
-                <strong>校园纪念帆布袋</strong>
-                <p>原创手作 · ¥39.00</p>
+                <strong>{t("校园纪念帆布袋")}</strong>
+                <p>{t("原创手作 · ¥39.00")}</p>
               </div>
             </div>
           </>
         ) : module.moduleId === "service-booking" ? (
           <>
-            <h3>毕业季摄影 · 30 分钟</h3>
-            <p>西门广场 · ¥99.00 / 人</p>
+            <h3>{t("毕业季摄影 · 30 分钟")}</h3>
+            <p>{t("西门广场 · ¥99.00 / 人")}</p>
             <div className="inline-actions">
               {["09:00", "10:00", "11:00"].map((t, i) => (
                 <button
@@ -1028,13 +1058,13 @@ export function CommercePreview({ module }: { module: ModuleManifest }) {
             </div>
             <p>
               {step === 2
-                ? "预约完成，商家收到通知。"
-                : "选择时段后锁定一个名额。"}
+                ? t("预约完成，商家收到通知。")
+                : t("选择时段后锁定一个名额。")}
             </p>
           </>
         ) : module.moduleId === "transaction-reviews" ? (
           <>
-            <h3>订单已完成</h3>
+            <h3>{t("订单已完成")}</h3>
             <div className="review-stars">
               {[1, 2, 3, 4, 5].map((n) => (
                 <button
@@ -1049,7 +1079,11 @@ export function CommercePreview({ module }: { module: ModuleManifest }) {
                 </button>
               ))}
             </div>
-            <p>评分 {rating} / 5 · 仅订单买家可提交</p>
+            <p>
+              {t("评分")}
+              {rating}
+              {t("/ 5 · 仅订单买家可提交")}
+            </p>
           </>
         ) : module.moduleId === "merchant-analytics" ? (
           <div className="commerce-metrics">
@@ -1059,7 +1093,7 @@ export function CommercePreview({ module }: { module: ModuleManifest }) {
               ["待履约", "3"],
             ].map(([k, v]) => (
               <div key={k}>
-                <span>{k}</span>
+                <span>{t(String(k))}</span>
                 <strong>{v}</strong>
               </div>
             ))}
@@ -1067,9 +1101,9 @@ export function CommercePreview({ module }: { module: ModuleManifest }) {
         ) : module.moduleId === "discount-coupons" ? (
           <>
             <h3>WELCOME10</h3>
-            <p>满 ¥50.00 减 ¥10.00</p>
+            <p>{t("满 ¥50.00 减 ¥10.00")}</p>
             <label>
-              商品件数
+              {t("商品件数")}
               <input
                 type="number"
                 min={1}
@@ -1084,7 +1118,9 @@ export function CommercePreview({ module }: { module: ModuleManifest }) {
               <strong>
                 {money(3900 * quantity - (quantity >= 2 ? 1000 : 0))}
               </strong>
-              <span>{quantity >= 2 ? "已满足满减门槛" : "未达到门槛"}</span>
+              <span>
+                {quantity >= 2 ? t("已满足满减门槛") : t("未达到门槛")}
+              </span>
             </div>
           </>
         ) : (
@@ -1092,14 +1128,14 @@ export function CommercePreview({ module }: { module: ModuleManifest }) {
             <div className="demo-shop-products">
               <Package size={38} />
               <div>
-                <h3>校园纪念帆布袋</h3>
-                <span>¥39.00 / 件</span>
+                <h3>{t("校园纪念帆布袋")}</h3>
+                <span>{t("¥39.00 / 件")}</span>
               </div>
             </div>
             {module.moduleId === "stock-inventory" ? (
               <>
                 <label>
-                  示例可售库存
+                  {t("示例可售库存")}
                   <input
                     type="number"
                     min={0}
@@ -1121,7 +1157,7 @@ export function CommercePreview({ module }: { module: ModuleManifest }) {
             ) : module.moduleId === "product-favorites" ? (
               <button onClick={() => setLiked(!liked)}>
                 <Heart size={18} fill={liked ? "currentColor" : "none"} />
-                {liked ? "已收藏" : "加入收藏"}
+                {liked ? t("已收藏") : t("加入收藏")}
               </button>
             ) : (
               <>
@@ -1129,10 +1165,10 @@ export function CommercePreview({ module }: { module: ModuleManifest }) {
                   <strong>¥39.00</strong>
                   <span>
                     {step === 0
-                      ? "待下单"
+                      ? t("待下单")
                       : step === 1
-                        ? "商家已接单"
-                        : "等待买家确认收货"}
+                        ? t("商家已接单")
+                        : t("等待买家确认收货")}
                   </span>
                 </div>
                 <button
@@ -1140,10 +1176,10 @@ export function CommercePreview({ module }: { module: ModuleManifest }) {
                   onClick={() => setStep((step + 1) % 3)}
                 >
                   {step === 0
-                    ? "体验下单"
+                    ? t("体验下单")
                     : step === 1
-                      ? "安排交付"
-                      : "重新体验"}
+                      ? t("安排交付")
+                      : t("重新体验")}
                 </button>
               </>
             )}

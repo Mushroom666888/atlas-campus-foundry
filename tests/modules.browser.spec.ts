@@ -130,6 +130,8 @@ test("described drag and connect builds a validated application with notificatio
   await page.goto("/studio");
   await register(page, "画布开发者");
   await page.goto("/compose");
+  await page.getByRole("link", { name: "手动选择模块" }).click();
+  await page.getByRole("button", { name: "技术连线", exact: true }).click();
   await page.getByLabel("应用名称").fill("校园失物协作台");
   await page
     .getByLabel("产品描述")
@@ -188,6 +190,7 @@ test("described drag and connect builds a validated application with notificatio
   await expect(page).toHaveURL(/project=/);
   const id = new URL(page.url()).searchParams.get("project")!;
   await page.reload();
+  await page.getByRole("button", { name: "技术连线", exact: true }).click();
   await expect(page.locator(".react-flow__node")).toHaveCount(12);
   expect(
     (await page.locator(".canvas-library .search-input").boundingBox())!.height,

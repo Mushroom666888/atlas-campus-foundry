@@ -65,6 +65,9 @@ try {
       await expect(content.locator(".loading")).toHaveCount(0);
       await page.evaluate(() => document.fonts.ready);
       if (route.includes("/compose?project=")) {
+        await page
+          .getByRole("button", { name: "技术连线", exact: true })
+          .click();
         await expect(
           page.locator(".react-flow__edge-text").first(),
         ).toBeVisible();

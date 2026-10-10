@@ -10,7 +10,7 @@ import {
 import path from "node:path";
 import { z } from "zod";
 import { rcompare } from "semver";
-import type { Database } from "./db.js";
+import type { Database, SQL } from "./db.js";
 import {
   AppError,
   productSpecSchema,
@@ -60,12 +60,51 @@ export class Projects {
   async get(id: string, actor: string): Promise<Project> {
     const row = (
       await this.db.query<Project>(
-        "SELECT * FROM projects WHERE id=$1 AND owner_id=$2",
+        "SELECT * FROM projects WHERE id=$1 AND owner_id=$2 AND deleted_at IS NULL",
         [id, actor],
       )
     ).rows[0];
     if (!row) throw new AppError(404, "PROJECT_NOT_FOUND", "项目不存在");
     return row;
+  }
+  async restore(id: string, actor: string) {
+    const row = await this.db.transaction(async (tx) => {
+      await tx.query("SELECT id FROM accounts WHERE id=$1 FOR UPDATE", [actor]);
+      if (
+        !(
+          await tx.query(
+            "SELECT id FROM projects WHERE id=$1 AND owner_id=$2 AND deleted_at IS NOT NULL",
+            [id, actor],
+          )
+        ).rows.length
+      )
+        throw new AppError(404, "PROJECT_NOT_FOUND", "回收站中没有这个项目");
+      await this.checkQuota(tx, actor, false);
+      return (
+        await tx.query<Project>(
+          "UPDATE projects SET deleted_at=NULL,updated_at=now() WHERE id=$1 AND owner_id=$2 RETURNING *",
+          [id, actor],
+        )
+      ).rows[0];
+    });
+    await this.audit(actor, "project.restored", id);
+    return row;
+  }
+  private async checkQuota(tx: SQL, actor: string, creating: boolean) {
+    const counts = (
+      await tx.query<{ active: number; retained: number }>(
+        "SELECT count(*) FILTER (WHERE deleted_at IS NULL)::integer AS active,count(*)::integer AS retained FROM projects WHERE owner_id=$1",
+        [actor],
+      )
+    ).rows[0];
+    if (counts.active >= 20)
+      throw new AppError(429, "PROJECT_QUOTA", "最多同时保留 20 个活动项目");
+    if (creating && counts.retained >= 100)
+      throw new AppError(
+        429,
+        "RETENTION_QUOTA",
+        "包含回收站在内最多保留 100 个项目，请联系管理员归档",
+      );
   }
   async application(projectId: string, actor: string) {
     await this.get(projectId, actor);
@@ -108,17 +147,11 @@ export class Projects {
     spec.modules = resolved.map((m) => m.moduleId);
     validateComposition(spec, resolved);
     this.checkSpecSize(spec);
-    const quota = (
-      await this.db.query<{ count: number }>(
-        "SELECT count(*)::integer AS count FROM projects WHERE owner_id=$1",
-        [actor],
-      )
-    ).rows[0].count;
-    if (quota >= 20)
-      throw new AppError(429, "PROJECT_QUOTA", "每个账户最多 20 个项目");
     const projectId = randomUUID(),
       appId = randomUUID();
     await this.db.transaction(async (tx) => {
+      await tx.query("SELECT id FROM accounts WHERE id=$1 FOR UPDATE", [actor]);
+      await this.checkQuota(tx, actor, true);
       await tx.query(
         "INSERT INTO projects(id,owner_id,name,idea,spec) VALUES($1,$2,$3,$4,$5)",
         [projectId, actor, spec.name, idea, JSON.stringify(spec)],

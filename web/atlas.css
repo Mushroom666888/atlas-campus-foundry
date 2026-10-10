@@ -18,7 +18,9 @@
   --accent-light: #f8e7e1;
   --border: var(--atlas-line);
   --muted: var(--atlas-quiet);
-  font-family: "Atlas Sans SC", "Segoe UI", "Microsoft YaHei", sans-serif;
+  font-family:
+    "Microsoft YaHei UI", "Microsoft YaHei", "PingFang SC", "Noto Sans CJK SC",
+    system-ui, sans-serif;
   font-size: 16px;
   font-variant-numeric: tabular-nums;
   color: var(--atlas-ink);
@@ -124,7 +126,7 @@ a:focus-visible {
   gap: 8px;
   color: inherit;
   font-size: 30px;
-  font-weight: 750;
+  font-weight: 700;
   line-height: 1;
   white-space: nowrap;
 }
@@ -145,7 +147,7 @@ a:focus-visible {
   gap: 6px;
   min-height: 44px;
   font-size: 16px;
-  font-weight: 500;
+  font-weight: 400;
   white-space: nowrap;
 }
 .atlas-nav-cta {
@@ -178,7 +180,7 @@ a:focus-visible {
 }
 .atlas-overline {
   font-size: 16px;
-  font-weight: 500;
+  font-weight: 400;
   line-height: 1.7;
 }
 .atlas-intro p {
@@ -261,7 +263,7 @@ a:focus-visible {
   background: var(--atlas-white);
   color: var(--atlas-ink);
   font-size: 18px;
-  font-weight: 600;
+  font-weight: 700;
   min-width: 286px;
   transition: transform 0.2s;
 }
@@ -300,7 +302,7 @@ a:focus-visible {
 }
 .atlas-library-heading h2 {
   font-size: 42px;
-  font-weight: 500;
+  font-weight: 400;
   line-height: 1.4;
   margin: 0;
   max-width: 660px;
@@ -451,7 +453,10 @@ a:focus-visible {
 }
 .studio .brand small {
   font:
-    14px/1.5 "Atlas Sans SC",
+    14px/1.5 "Microsoft YaHei UI",
+    "Microsoft YaHei",
+    "PingFang SC",
+    system-ui,
     sans-serif;
   margin-top: 8px;
   color: #b4babb;

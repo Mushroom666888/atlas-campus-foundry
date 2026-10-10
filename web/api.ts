@@ -7,7 +7,7 @@ export async function api<T = Record<string, unknown>>(
     credentials: "same-origin",
     ...options,
     headers: {
-      ...(options.body instanceof FormData
+      ...(!options.body || options.body instanceof FormData
         ? {}
         : { "Content-Type": "application/json" }),
       ...options.headers,

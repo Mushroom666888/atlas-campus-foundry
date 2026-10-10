@@ -7,6 +7,7 @@ export default defineConfig({
     "**/atlas.browser.spec.ts",
     "**/community.browser.spec.ts",
     "**/commerce.browser.spec.ts",
+    "**/lifecycle.browser.spec.ts",
   ],
   timeout: 90000,
   expect: { timeout: 10000 },

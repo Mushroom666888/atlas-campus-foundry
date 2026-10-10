@@ -1,0 +1,246 @@
+.language-select,
+.studio .language-select {
+  display: inline-flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 7px;
+  margin: 0;
+  flex: 0 0 auto;
+  color: inherit;
+  font-size: 14px;
+  font-weight: 400;
+}
+.language-select select {
+  min-width: 105px;
+  width: auto;
+  max-width: 128px;
+  padding: 8px 22px 8px 6px;
+  color: inherit;
+  background: transparent;
+  border: 0;
+  font: inherit;
+}
+.language-select select option {
+  color: #192322;
+  background: white;
+}
+.auth-brand .language-select {
+  margin-left: auto;
+}
+.project-list-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding-right: 16px;
+  border-bottom: 1px solid var(--line, #dde3e0);
+}
+.project-list-item .project-row {
+  flex: 1;
+  min-width: 0;
+  border-bottom: 0;
+}
+.project-list-item > button {
+  flex-shrink: 0;
+}
+.danger-text {
+  color: #b83232;
+}
+button.danger {
+  color: white;
+  background: #ae3030;
+  border-color: #ae3030;
+}
+.form-actions {
+  display: flex;
+  gap: 12px;
+  justify-content: flex-end;
+  margin-top: 20px;
+  flex-wrap: wrap;
+}
+.design-start {
+  max-width: 1000px;
+  margin: 20px auto;
+}
+.design-start h1 {
+  font-size: 34px;
+  line-height: 1.4;
+  margin: 16px 0 30px;
+}
+.design-steps {
+  display: flex;
+  list-style: none;
+  padding: 0 0 26px;
+  gap: 28px;
+  border-bottom: 1px solid #dce4df;
+  flex-wrap: wrap;
+}
+.design-steps li {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  font-size: 15px;
+}
+.design-steps li span {
+  font-size: 13px;
+  color: #647770;
+}
+.design-start form {
+  margin: 28px 0;
+}
+.design-start textarea {
+  min-height: 160px;
+}
+.design-job {
+  border-block: 1px solid #dce4df;
+  padding: 26px 0;
+  margin: 24px 0;
+}
+.design-job > button {
+  margin: 18px 0 0;
+}
+.design-history {
+  margin-top: 44px;
+}
+.design-history > a {
+  display: flex;
+  gap: 16px;
+  align-items: center;
+  padding: 18px 0;
+  border-bottom: 1px solid #dce4df;
+}
+.design-history > a > span:first-child {
+  flex: 1;
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+.product-plan {
+  overflow: auto;
+  padding: 28px;
+  background: #f7faf8;
+  min-width: 0;
+}
+.product-plan h2 {
+  font-size: 21px;
+}
+.product-plan h3 {
+  font-size: 17px;
+  margin: 30px 0 16px;
+}
+.plan-modules {
+  display: grid;
+  gap: 0;
+}
+.plan-modules article {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  padding: 22px 0;
+  border-bottom: 1px solid #d5e0da;
+}
+.plan-modules article.selected {
+  background: #e6f1e9;
+}
+.plan-module-name {
+  display: grid;
+  gap: 8px;
+  text-align: left;
+  border: 0;
+  background: transparent;
+  padding: 0;
+  flex: 1;
+  min-width: 0;
+}
+.plan-module-name strong {
+  font-size: 17px;
+}
+.plan-module-name span {
+  color: #596a61;
+  line-height: 1.7;
+  font-weight: 400;
+}
+.plan-support {
+  display: flex;
+  gap: 18px;
+  flex-wrap: wrap;
+}
+.plan-support > span {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.plan-relations {
+  display: grid;
+  gap: 8px;
+  margin-bottom: 20px;
+}
+.plan-features {
+  padding-left: 20px;
+  line-height: 1.8;
+}
+[hidden] {
+  display: none !important;
+}
+body,
+input,
+select,
+textarea,
+button {
+  font-synthesis: none;
+}
+code,
+pre {
+  font-family: Consolas, "Microsoft YaHei UI", "PingFang SC", monospace;
+}
+@media (max-width: 900px) {
+  .atlas-nav {
+    gap: 12px;
+  }
+  .atlas-nav .language-select {
+    margin-left: auto;
+  }
+  .atlas-nav-cta {
+    display: none;
+  }
+  .community-nav {
+    flex-wrap: wrap;
+  }
+  .community-nav .language-select {
+    order: 3;
+  }
+  .design-start h1 {
+    font-size: 28px;
+  }
+  .product-plan {
+    padding: 20px;
+  }
+}
+@media (max-width: 600px) {
+  .topbar {
+    gap: 8px;
+  }
+  .topbar > span:not(.topbar-right) {
+    display: none;
+  }
+  .topbar-right {
+    margin-left: auto;
+  }
+  .project-list-item {
+    gap: 4px;
+    padding-right: 6px;
+  }
+  .project-list-item .project-row {
+    padding: 16px 8px;
+  }
+  .design-steps {
+    gap: 16px;
+  }
+  .design-steps li {
+    font-size: 14px;
+  }
+  .app-header {
+    flex-wrap: wrap;
+  }
+  .app-header .language-select {
+    order: 3;
+  }
+}

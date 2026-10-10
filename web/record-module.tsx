@@ -1,3 +1,4 @@
+import { t } from "./i18n";
 import { useEffect, useState, type FormEvent } from "react";
 import {
   Archive,
@@ -32,7 +33,7 @@ export function FieldInput({
 }) {
   return (
     <label>
-      {field.label}
+      {t(field.label)}
       {field.required && <span className="required-mark"> *</span>}
       {field.type === "textarea" ? (
         <textarea
@@ -47,9 +48,14 @@ export function FieldInput({
           value={String(value ?? "")}
           onChange={(e) => onChange(e.target.value)}
         >
-          <option value="">选择{field.label}</option>
+          <option value="">
+            {t("选择")}
+            {t(field.label)}
+          </option>
           {field.options?.map((option) => (
-            <option key={option}>{option}</option>
+            <option key={option} value={option}>
+              {t(option)}
+            </option>
           ))}
         </select>
       ) : field.type === "boolean" ? (
@@ -100,7 +106,7 @@ export function sampleData(module: ModuleManifest) {
               ? "https://example.org"
               : f.type === "boolean"
                 ? false
-                : `${f.label}示例`,
+                : `${t(f.label)}示例`,
     ]),
   );
 }
@@ -227,7 +233,7 @@ export function RecordModule({
       <dl>
         {definition.fields.slice(0, 3).map((field) => (
           <div key={field.key}>
-            <dt>{field.label}</dt>
+            <dt>{t(field.label)}</dt>
             <dd>{String(item.data[field.key] ?? "—")}</dd>
           </div>
         ))}
@@ -241,7 +247,9 @@ export function RecordModule({
             onChange={(e) => void changeStatus(item, e.target.value)}
           >
             {definition.statuses.map((s) => (
-              <option key={s}>{s}</option>
+              <option key={s} value={s}>
+                {t(s)}
+              </option>
             ))}
           </select>
         ) : (
@@ -264,15 +272,15 @@ export function RecordModule({
           </h2>
           <small className="muted">
             {preview
-              ? "交互预览 · 示例数据仅保留本页"
+              ? t("交互预览 · 示例数据仅保留本页")
               : definition.visibility === "owner"
-                ? "仅自己可见"
-                : "应用内共享 · 创建者可编辑"}
+                ? t("仅自己可见")
+                : t("应用内共享 · 创建者可编辑")}
           </small>
         </div>
         <button className="primary" onClick={() => setEditing("new")}>
           <Plus size={16} />
-          新增
+          {t("新增")}
         </button>
       </div>
       {error && <Notice>{error}</Notice>}
@@ -283,7 +291,7 @@ export function RecordModule({
             <Search size={16} />
             <input
               aria-label={`搜索${module.name}`}
-              placeholder="搜索记录"
+              placeholder={t("搜索记录")}
               value={query}
               onChange={(e) => setQuery(e.target.value)}
             />
@@ -293,13 +301,15 @@ export function RecordModule({
           <label className="status-control">
             <ListFilter size={16} />
             <select
-              aria-label="筛选状态"
+              aria-label={t("筛选状态")}
               value={status}
               onChange={(e) => setStatus(e.target.value)}
             >
-              <option value="">全部状态</option>
+              <option value="">{t("全部状态")}</option>
               {definition.statuses.map((s) => (
-                <option key={s}>{s}</option>
+                <option key={s} value={s}>
+                  {t(s)}
+                </option>
               ))}
             </select>
           </label>
@@ -314,8 +324,8 @@ export function RecordModule({
           ).map(([id, Icon, label]) => (
             <button
               key={id}
-              aria-label={label}
-              title={label}
+              aria-label={t(label)}
+              title={t(label)}
               className={view === id ? "selected" : ""}
               onClick={() => setView(id)}
             >
@@ -329,12 +339,12 @@ export function RecordModule({
         <div className="record-metrics">
           <strong>
             {preview ? visible.length : counts.reduce((n, c) => n + c.count, 0)}{" "}
-            <small>条记录</small>
+            <small>{t("条记录")}</small>
           </strong>
           {display.includes("status-summary") &&
             definition.statuses.map((s) => (
               <span key={s}>
-                {s}{" "}
+                {t(s)}{" "}
                 <b>
                   {preview
                     ? visible.filter((r) => r.status === s).length
@@ -345,19 +355,19 @@ export function RecordModule({
         </div>
       )}
       {loading ? (
-        <p className="muted">正在加载…</p>
+        <p className="muted">{t("正在加载…")}</p>
       ) : !visible.length ? (
-        <Empty>暂无符合条件的记录</Empty>
+        <Empty>{t("暂无符合条件的记录")}</Empty>
       ) : view === "table" ? (
         <div className="table-scroll">
           <table>
             <thead>
               <tr>
-                <th>{definition.titleLabel}</th>
+                <th>{t(definition.titleLabel)}</th>
                 {definition.fields.slice(0, 4).map((f) => (
-                  <th key={f.key}>{f.label}</th>
+                  <th key={f.key}>{t(f.label)}</th>
                 ))}
-                <th>状态</th>
+                <th>{t("状态")}</th>
               </tr>
             </thead>
             <tbody>
@@ -374,7 +384,7 @@ export function RecordModule({
                   {definition.fields.slice(0, 4).map((f) => (
                     <td key={f.key}>{String(r.data[f.key] ?? "—")}</td>
                   ))}
-                  <td>{r.status}</td>
+                  <td>{t(r.status)}</td>
                 </tr>
               ))}
             </tbody>
@@ -385,7 +395,7 @@ export function RecordModule({
           {definition.statuses.map((s) => (
             <section key={s}>
               <h3>
-                {s}
+                {t(s)}
                 <span>{visible.filter((r) => r.status === s).length}</span>
               </h3>
               {visible.filter((r) => r.status === s).map(card)}
@@ -446,11 +456,11 @@ export function RecordModule({
       )}
       {selected && (
         <Modal title={selected.title} onClose={() => setSelected(null)}>
-          <span className="badge">{selected.status}</span>
+          <span className="badge">{t(selected.status)}</span>
           <dl className="definition-list">
             {definition.fields.map((f) => (
               <div key={f.key}>
-                <dt>{f.label}</dt>
+                <dt>{t(f.label)}</dt>
                 <dd>
                   {f.type === "url" &&
                   /^https?:\/\//.test(String(selected.data[f.key])) ? (
@@ -476,7 +486,7 @@ export function RecordModule({
                   setSelected(null);
                 }}
               >
-                编辑
+                {t("编辑")}
               </button>
               <button
                 disabled={action.busy}
@@ -497,7 +507,7 @@ export function RecordModule({
                 }
               >
                 <Archive size={15} />
-                归档
+                {t("归档")}
               </button>
             </div>
           )}
@@ -560,13 +570,15 @@ function RecordEditor({
   }
   return (
     <Modal
-      title={`${record ? "编辑" : "新增"}${module.name}`}
+      title={t(record ? "编辑{{module}}" : "新增{{module}}", {
+        module: t(module.name),
+      })}
       onClose={onClose}
     >
       <form className="record-form" onSubmit={submit}>
         {action.error && <Notice>{action.error}</Notice>}
         <label>
-          {module.recordDefinition!.titleLabel}
+          {t(module.recordDefinition!.titleLabel)}
           <input
             value={title}
             onChange={(e) => setTitle(e.target.value)}
@@ -583,15 +595,17 @@ function RecordEditor({
           />
         ))}
         <label>
-          状态
+          {t("状态")}
           <select value={status} onChange={(e) => setStatus(e.target.value)}>
             {module.recordDefinition!.statuses.map((s) => (
-              <option key={s}>{s}</option>
+              <option key={s} value={s}>
+                {t(s)}
+              </option>
             ))}
           </select>
         </label>
         <button className="primary" disabled={action.busy}>
-          保存
+          {t("保存")}
         </button>
       </form>
     </Modal>

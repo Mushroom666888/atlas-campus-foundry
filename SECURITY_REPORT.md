@@ -1,5 +1,14 @@
 # Security report
 
+## Project lifecycle, export and design follow-up
+
+- DELETE/restore/export require project ownership; deleted projects cannot be edited, restarted, exported or selected for new Agent tasks. Deletion cancels active/blocked tasks and stops real processes. Restore preserves business data and files without restarting instances.
+- Independent review identified an archive/restore race and quota bypass through concurrent create/restore. Shared application lifecycle locks plus transactional account row locks fix them. Integration tests and native PostgreSQL concurrency checks pass. Multi-process control-plane leases remain outside this local boundary.
+- Independent export uses an explicit shared-source allowlist, symlink rejection, size limits and authenticated/no-store download. The extracted package was installed and run independently with fresh accounts, real writes and persistence after restart. Secret sentinel and control-account exclusion were tested. User-authored source is exported as source and can contain values its author wrote there; this is not a general secret scanner or backup.
+- Design-only jobs have a restricted tool allowlist and persist validated proposals. They cannot create projects, change files or deploy. Large automatically expanded plans are revalidated after bounded layout and unique edge assignment. This was contract-tested, not tested against a live model.
+- Exported Compose now forwards database and SMTP settings; HTTP verification probes loopback even when a public origin is configured. Actual Docker startup, cloud ingress, HTTPS and hostile-code containment remain BLOCKED. Exported code is for the recipient's trusted local machine or dedicated deployment, not arbitrary untrusted tenants.
+- UI localization preserves enum values, identities and user content; React continues escaping interpolation. The Canvas loading guard prevents delayed draft initialization from overwriting editable input.
+
 ## Commerce, community and guided Canvas
 
 - Commercial modules enforce shop ownership, buyer/seller order roles, expected-price consent, integer cents and row-locked inventory/coupon/booking capacity. Order retry keys are idempotent; cancellation restores reserved capacity once. Future appointments cannot be marked complete. Native PostgreSQL and local PGlite transaction tests pass.

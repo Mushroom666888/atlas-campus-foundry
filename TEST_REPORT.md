@@ -2,6 +2,29 @@
 
 Date: 2026-10-10 (Asia/Shanghai). Platform: Windows, Node 24.17.0, npm 11.13.0. Other operating systems are not claimed as validated.
 
+## Current lifecycle and bilingual release
+
+Evidence: `docs/evidence/2026-10-10-followup/`. Earlier release counts below are historical.
+
+| Command | Actual result | Scope |
+|---|---|---|
+| `npm run check` | PASS: lint/build, 25 Node tests, zero skips | Existing modules plus design-only tools, large proposals, independent export, deletion/restore and quota races |
+| `npm run e2e` | PASS: 10 journeys | Minimal homepage, three actual apps, commerce/community, language persistence, deletion/restore, ZIP download, Canvas and 24 bilingual route/viewport screenshots |
+| `npx playwright test tests/lifecycle.browser.spec.ts tests/modules.browser.spec.ts tests/community.browser.spec.ts` | PASS: 7 final regressions | Final translations, Canvas loading/form preservation and graph sizing, existing real drag/connect/deploy workflow |
+| `npx tsx --test tests/project-lifecycle.test.ts`, `npx tsx --test tests/export.test.ts` | PASS: 2 + 1 final regressions | Deleted deployments disappear and return on restore; exported start/verify read a nondefault port from the package's own .env |
+| `npm run verify-postgres` | PASS: PostgreSQL 18.4 | Additive lifecycle migration, concurrent creation/restoration cannot exceed 20 active projects, runtime and database-server restart persistence |
+| `npx tsx scripts/audit-studio.ts` | PASS: 69 checks | Existing account; 23 real routes at 1440/390/320px, no page errors or horizontal overflow |
+| `npm run deploy-local -- --redeploy`, `deploy-visual -- --redeploy`, `deploy-commerce -- --redeploy` | PASS: local HTTP healthy | Refreshed five declared samples while preserving application data |
+| `npm run reuse-report -- --showcase` | PASS: 5 declared samples | One shared implementation; unrelated historical source remains explicitly outside scope |
+| Font inspection | PASS on this Windows host | Browser CDP reports actual Microsoft YaHei UI regular/bold; old partial Atlas Sans subset not used |
+| Live LLM / exported Compose startup | BLOCKED | No configured live model or Docker; scripted tools and local Node execution are distinguished |
+
+The full suite passed before the final translation/Canvas-loading refinements; the seven affected journeys were then rerun on the final UI. The deployment-list filtering follow-up has its own lifecycle regression evidence. No claim is made that cloud startup passed.
+
+Failures preserved: exported runtime entry omitted the installed module list; bodyless DELETE incorrectly sent JSON Content-Type; English search legitimately matched two modules; font inspection queried before async content existed; translated Chinese dialog title gained an unwanted space; a TypeScript test variable shadowed `document`; adding interpolation required replacing `map(t)` with an explicit callback; Canvas permitted editing before saved draft initialization and could overwrite input. All were fixed at their cause. Initial failed browser traces remain under ignored `.data/followup-*`; tracked reports exclude authentication traces. API assertions were retained, and no required workflow was skipped.
+
+Export acceptance executes `npm ci --ignore-scripts` in the extracted temporary directory, starts the package through its own entry, creates an account/business record, restarts it and reads the same record. The platform's account and secret sentinel are absent. `npm run verify` succeeds against loopback while the configured public origin is deliberately unreachable.
+
 ## Current commercial/community release
 
 | Command | Actual result | Scope |

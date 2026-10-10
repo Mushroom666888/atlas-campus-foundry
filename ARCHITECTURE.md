@@ -2,7 +2,7 @@
 
 ## Components
 
-- `web/`: Chinese Developer Studio and shared runtime UI; React/Vite static bundle.
+- `web/`: Chinese/English Developer Studio and shared runtime UI; React/Vite static bundle with persistent i18next language choice.
 - `server/control.ts`: Fastify control plane, identity, projects, registry, durable jobs, audit and deployment records.
 - `server/agent.ts`: interchangeable LLM provider, tool schemas, bounded validation/repair loop. Chat Completions compatible protocol; actual provider verification requires credentials. Official documentation fetches were blocked by HTTP 403 in this environment.
 - `packages/contracts`: machine-readable Zod module and product specifications.
@@ -21,7 +21,7 @@ Version 2 graphs require a product description, explicit dependency nodes/edges 
 
 Commercial flows use integer-cent price snapshots, explicit expected-price consent, idempotent orders and locked inventory/coupon updates. Payments are offline only. Quota creation uses a transaction and per-owner advisory lock. Public community APIs expose opt-in profile fields, never account email/session/password. Runtime route gates enforce installed module dependencies. See `docs/COMMERCIAL_COMMUNITY.md` for workflows and limits.
 
-The public Atlas homepage is `/`; authenticated tools are `/studio`, `/modules`, `/builder` and `/compose`. Runtime app routing remains independent. The homepage receives a build-time projection of catalog names/IDs/categories, avoiding loading the contract validator just for navigation. Studio/runtime/canvas bundles are lazy loaded; static responses support HTTP compression. Only matched GET `/assets/` routes bypass the API limiter. Module detail previews are explicitly local examples; deployed application views use authenticated APIs.
+The public Atlas homepage is `/`; authenticated tools are `/studio`, `/modules`, `/builder` and `/compose`. Runtime app routing remains independent. The homepage has no module list or catalog projection; navigation opens the module library. Studio/runtime/canvas bundles are lazy loaded; static responses support HTTP compression. Only matched GET `/assets/` routes bypass the API limiter. Module detail previews are explicitly local examples; deployed application views use authenticated APIs.
 
 ## Data boundaries
 
@@ -35,9 +35,15 @@ Manifest validates interfaces, configuration, permissions, dependencies, version
 
 ## Builder and agent
 
+`mode=design` restricts the Agent to inspection, module discovery/dependency resolution, diagnosis and `proposeDesign`. It persists a schema-validated product plan without writing files, creating projects or deploying. Users open the product plan and refine it before saving an application. The tool contract and persistence are tested with an explicitly scripted provider; actual LLM output awaits a configured provider. The normal development mode retains controlled real project/build/test tools.
+
 Explicit module assembly creates product.json, package.json, tsconfig and source workspace; this is not represented as AI generation. Real model tasks persist input, plan, tool arguments/results, files, failures and final status. Model/tool budgets cap work. File operations are scoped to owner workspace, deny traversal/symlinks/secrets and impose quotas. Untrusted README or module metadata cannot grant tool privileges. Freeform TypeScript is stored but only compiled/tested/executed in Docker. Without credentials, a job is durably BLOCKED, never mocked as successful.
 
 ## Deployment and recovery
+
+Project lifecycle migration `control/003_project_lifecycle.sql` adds reversible deletion. Normal project and deployment lists exclude trashed projects. Archive marks the project unavailable, cancels its jobs and stops active instances under the application lock; errors restore its active status. Restore uses the same lock and leaves processes stopped. Per-account row locks serialize creation/restoration against the 20-active/100-retained quotas. Files, application databases, encrypted configuration and deployment history remain available after restoration. These are single-control-process lifecycle locks, not a distributed-worker lease.
+
+`server/export.ts` creates an owner-only ZIP from an explicit shared-runtime source allowlist and a bounded project workspace. It omits databases, platform accounts, environment files and control services. The standalone entry reads product/modules/recipes, runs the real runtime and stores fresh data under `app-data`; Compose uses a named volume. Custom workspace sources are included but never automatically loaded. Checksums support artifact inspection, not publisher authenticity. Independent local install/start/restart is tested; cloud/Docker deployment remains unverified.
 
 Local-trusted mode starts ONLY shipped runtime source in an independent process with sanitized environment and per-app data directory. It is for the local machine owner, not a public multi-tenant security boundary. Any project containing executable custom code is rejected. Health checks use an actual HTTP endpoint and database query. Artifacts record module versions and a SHA-256 of shared source. Stops retain data. Restart and rollback start a new revision; rollback is application revision recovery, not destructive database downgrade. Control restart marks active jobs/deployments interrupted.
 

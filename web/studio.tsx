@@ -1,3 +1,5 @@
+import { t, LanguageSelect, localeTag } from "./i18n";
+import { DeleteProject, ExportProject } from "./project-actions";
 import { lazy, Suspense, useEffect, useState, type FormEvent } from "react";
 import {
   Link,
@@ -84,7 +86,7 @@ type Deployment = {
   previous_id: string | null;
 };
 const formatDate = (value: string) =>
-  new Date(value).toLocaleString("zh-CN", {
+  new Date(value).toLocaleString(localeTag(), {
     month: "2-digit",
     day: "2-digit",
     hour: "2-digit",
@@ -122,12 +124,12 @@ export function Studio({
             <MoveUpRight size={25} strokeWidth={3} />
           </span>
           <span>
-            atlas<small>开发者工作台</small>
+            atlas<small>{t("开发者工作台")}</small>
           </span>
         </Link>
         <button
           className="mobile-close icon-button"
-          aria-label="关闭导航"
+          aria-label={t("关闭导航")}
           onClick={() => setOpen(false)}
         >
           <X />
@@ -138,12 +140,12 @@ export function Studio({
           onClick={() => setOpen(false)}
         >
           <Plus size={18} />
-          创建产品
+          {t("创建产品")}
         </Link>
         <nav onClick={() => setOpen(false)}>
           <NavLink end to="/studio">
             <LayoutDashboard size={18} />
-            项目总览
+            {t("项目总览")}
           </NavLink>
           <NavLink to="/builder">
             <WandSparkles size={18} />
@@ -151,27 +153,27 @@ export function Studio({
           </NavLink>
           <NavLink to="/modules">
             <Boxes size={18} />
-            模块仓库
+            {t("模块仓库")}
           </NavLink>
           <NavLink to="/compose">
             <GitBranch size={18} />
-            可视化编排
+            {t("可视化编排")}
           </NavLink>
           <NavLink to="/deployments">
             <Rocket size={18} />
-            应用部署
+            {t("应用部署")}
           </NavLink>
           <NavLink to="/publisher">
             <Upload size={18} />
-            模块发布
+            {t("模块发布")}
           </NavLink>
           <NavLink to="/community">
             <MessageCircle size={18} />
-            创作者社区
+            {t("创作者社区")}
           </NavLink>
           <NavLink to={`/creators/${user.id}`}>
             <UserRound size={18} />
-            我的主页
+            {t("我的主页")}
           </NavLink>
         </nav>
         <div className="sidebar-bottom">
@@ -179,7 +181,7 @@ export function Studio({
             <span
               className={system.data?.llm.configured ? "dot" : "dot amber"}
             />{" "}
-            {system.data?.llm.configured ? "模型已连接" : "模型待连接"}
+            {system.data?.llm.configured ? t("模型已连接") : t("模型待连接")}
           </div>
           <div className="user-row">
             <span className="avatar">
@@ -187,12 +189,14 @@ export function Studio({
             </span>
             <span>
               {user.name}
-              <small>{user.role === "admin" ? "平台管理员" : "开发者"}</small>
+              <small>
+                {user.role === "admin" ? t("平台管理员") : t("开发者")}
+              </small>
             </span>
             <button
               className="icon-button"
-              title="退出登录"
-              aria-label="退出登录"
+              title={t("退出登录")}
+              aria-label={t("退出登录")}
               onClick={() => void post("/api/auth/logout").then(onLogout)}
             >
               <LogOut size={16} />
@@ -204,15 +208,17 @@ export function Studio({
         <header className="topbar">
           <button
             className="icon-button mobile-menu"
-            aria-label="打开导航"
+            aria-label={t("打开导航")}
             onClick={() => setOpen(true)}
           >
             <Menu />
           </button>
-          <span>个人工作空间</span>
+          <span>{t("个人工作空间")}</span>
           <span className="topbar-right">
+            <LanguageSelect />
             <span className="dot" />
-            本地环境<span className="version">v0.1</span>
+            {t("本地环境")}
+            <span className="version">v0.1</span>
           </span>
         </header>
         <main className="workspace">
@@ -237,7 +243,8 @@ export function Studio({
               path="*"
               element={
                 <Empty>
-                  页面不存在。<Link to="/studio">返回项目总览</Link>
+                  {t("页面不存在。")}
+                  <Link to="/studio">{t("返回项目总览")}</Link>
                 </Empty>
               }
             />
@@ -270,32 +277,44 @@ function Heading({
   );
 }
 function Dashboard() {
-  const projects = useLoad<{ items: Project[] }>("/api/projects"),
+  const [trash, setTrash] = useState(false);
+  const action = useAction();
+  const projects = useLoad<{ items: Project[] }>(
+      `/api/projects?trash=${trash}`,
+    ),
     deployments = useLoad<{ items: Deployment[] }>("/api/deployments"),
     jobs = useLoad<{ items: Job[] }>("/api/jobs");
   return (
     <>
       <Heading
         eyebrow="ATLAS STUDIO"
-        title="项目总览"
-        subtitle="你的校园产品、共享能力与运行状态。"
+        title={t("项目总览")}
+        subtitle={t("你的校园产品、共享能力与运行状态。")}
       >
+        <button
+          className={trash ? "selected" : ""}
+          onClick={() => setTrash(!trash)}
+        >
+          <Trash2 size={17} />
+          {trash ? t("返回我的项目") : t("回收站")}
+        </button>
         <Link className="primary" to="/create">
           <Plus size={17} />
-          新建项目
+          {t("新建项目")}
         </Link>
       </Heading>
       <section className="metrics">
         <div>
           <Folder size={19} />
           <span>
-            产品项目<strong>{projects.data?.items.length ?? "—"}</strong>
+            {t("产品项目")}
+            <strong>{projects.data?.items.length ?? "—"}</strong>
           </span>
         </div>
         <div>
           <Activity size={19} />
           <span>
-            运行中的应用
+            {t("运行中的应用")}
             <strong>
               {deployments.data?.items.filter((d) => d.status === "running")
                 .length ?? "—"}
@@ -305,56 +324,96 @@ function Dashboard() {
         <div>
           <GitBranch size={19} />
           <span>
-            开发任务<strong>{jobs.data?.items.length ?? "—"}</strong>
+            {t("开发任务")}
+            <strong>{jobs.data?.items.length ?? "—"}</strong>
           </span>
         </div>
       </section>
       <section>
         <div className="section-head">
-          <h2>我的项目</h2>
+          <h2>{trash ? t("回收站") : t("我的项目")}</h2>
           <span className="muted">
-            {projects.data?.items.length ?? 0} 个项目
+            {projects.data?.items.length ?? 0}
+            {t("个项目")}
           </span>
         </div>
         {projects.error && <Notice>{projects.error}</Notice>}
+        {action.error && <Notice>{action.error}</Notice>}
         {projects.loading ? (
           <Loading />
         ) : !projects.data?.items.length ? (
           <Empty>
-            还没有项目。
+            {trash ? t("回收站为空") : t("还没有项目。")}
             <Link to="/create">
-              创建第一个校园产品 <ArrowRight size={14} />
+              {t("创建第一个校园产品")}
+              <ArrowRight size={14} />
             </Link>
           </Empty>
         ) : (
           <div className="project-list">
             {projects.data.items.map((p) => (
-              <Link to={`/projects/${p.id}`} className="project-row" key={p.id}>
-                <span className={`project-icon ${p.spec.kind}`}>
-                  <Package size={24} />
-                </span>
-                <div className="project-summary">
-                  <h3>{p.name}</h3>
-                  <p>{p.spec.description}</p>
-                  <div className="project-meta">
-                    <span>{kindNames[p.spec.kind]}</span>
-                    <span>{p.spec.modules.length} 个模块</span>
+              <div className="project-list-item" key={p.id}>
+                <Link
+                  to={trash ? "#" : `/projects/${p.id}`}
+                  onClick={(e) => {
+                    if (trash) e.preventDefault();
+                  }}
+                  className="project-row"
+                >
+                  <span className={`project-icon ${p.spec.kind}`}>
+                    <Package size={24} />
+                  </span>
+                  <div className="project-summary">
+                    <h3>{p.name}</h3>
+                    <p>{p.spec.description}</p>
+                    <div className="project-meta">
+                      <span>{t(kindNames[p.spec.kind])}</span>
+                      <span>
+                        {p.spec.modules.length}
+                        {t("个模块")}
+                      </span>
+                    </div>
                   </div>
-                </div>
-                <div className="project-right">
-                  <span>{formatDate(p.updated_at)}</span>
-                  <ChevronRight size={18} />
-                </div>
-              </Link>
+                  <div className="project-right">
+                    <span>{formatDate(p.updated_at)}</span>
+                    <ChevronRight size={18} />
+                  </div>
+                </Link>
+                {trash ? (
+                  <button
+                    disabled={action.busy}
+                    onClick={() =>
+                      void action.run(async () => {
+                        await post(`/api/projects/${p.id}/restore`);
+                        await projects.refresh();
+                      })
+                    }
+                  >
+                    <RefreshCw size={16} />
+                    {t("恢复项目")}
+                  </button>
+                ) : (
+                  <DeleteProject
+                    id={p.id}
+                    name={p.name}
+                    onDeleted={async () => {
+                      await projects.refresh();
+                      await deployments.refresh();
+                      await jobs.refresh();
+                    }}
+                  />
+                )}
+              </div>
             ))}
           </div>
         )}
       </section>
       <section className="recent-section">
         <div className="section-head">
-          <h2>最近执行</h2>
+          <h2>{t("最近执行")}</h2>
           <Link to="/builder">
-            全部任务 <ArrowRight size={14} />
+            {t("全部任务")}
+            <ArrowRight size={14} />
           </Link>
         </div>
         {jobs.data?.items.length ? (
@@ -362,9 +421,9 @@ function Dashboard() {
             <table>
               <thead>
                 <tr>
-                  <th>需求</th>
-                  <th>状态</th>
-                  <th>时间</th>
+                  <th>{t("需求")}</th>
+                  <th>{t("状态")}</th>
+                  <th>{t("时间")}</th>
                 </tr>
               </thead>
               <tbody>
@@ -385,7 +444,7 @@ function Dashboard() {
             </table>
           </div>
         ) : (
-          <Empty>暂无开发任务</Empty>
+          <Empty>{t("暂无开发任务")}</Empty>
         )}
       </section>
     </>
@@ -432,7 +491,7 @@ function CreateProduct() {
   }
   return (
     <>
-      <Heading eyebrow="NEW PRODUCT" title="创建校园产品" />
+      <Heading eyebrow="NEW PRODUCT" title={t("创建校园产品")} />
       <div className="create-layout">
         <section>
           <div className="tabs">
@@ -441,38 +500,38 @@ function CreateProduct() {
               onClick={() => setMode("llm")}
             >
               <WandSparkles size={16} />
-              AI 开发
+              {t("AI 开发")}
             </button>
             <button
               className={mode === "assembly" ? "selected" : ""}
               onClick={() => setMode("assembly")}
             >
               <Boxes size={16} />
-              模块组装
+              {t("模块组装")}
             </button>
           </div>
           {action.error && <Notice>{action.error}</Notice>}
           <form className="product-form" onSubmit={submit}>
             {mode === "assembly" && (
               <label>
-                产品名称
+                {t("产品名称")}
                 <input
                   name="name"
                   required
                   minLength={2}
                   maxLength={80}
-                  placeholder="例如：校园学习搭子"
+                  placeholder={t("例如：校园学习搭子")}
                 />
               </label>
             )}
             <label>
-              产品需求
+              {t("产品需求")}
               <ModuleMentionInput name="idea" rows={7} />
             </label>
             {mode === "assembly" && (
               <>
                 <label>
-                  产品类型
+                  {t("产品类型")}
                   <select
                     value={kind}
                     onChange={(e) => {
@@ -489,15 +548,15 @@ function CreateProduct() {
                   </select>
                 </label>
                 <label>
-                  产品功能
+                  {t("产品功能")}
                   <textarea
                     name="features"
                     rows={3}
-                    placeholder="每行一项需求"
+                    placeholder={t("每行一项需求")}
                   />
                 </label>
                 <fieldset>
-                  <legend>安装模块</legend>
+                  <legend>{t("安装模块")}</legend>
                   <div className="module-checkboxes">
                     {registry.data?.items
                       .filter((m) => m.securityMetadata.review !== "pending")
@@ -518,8 +577,8 @@ function CreateProduct() {
                             }
                           />
                           <span>
-                            {m.name}
-                            <small>{m.description}</small>
+                            {t(m.name)}
+                            <small>{t(m.description)}</small>
                           </span>
                         </label>
                       ))}
@@ -535,23 +594,23 @@ function CreateProduct() {
             >
               {mode === "llm" ? <WandSparkles size={17} /> : <Plus size={17} />}{" "}
               {action.busy
-                ? "正在提交…"
+                ? t("正在提交…")
                 : mode === "llm"
-                  ? "启动 AI 开发"
-                  : "创建并安装模块"}
+                  ? t("启动 AI 开发")
+                  : t("创建并安装模块")}
               <ArrowRight size={17} />
             </button>
           </form>
         </section>
         <aside className="context-panel">
-          <span className="eyebrow">执行环境</span>
-          <h3>{mode === "llm" ? "AI 开发任务" : "确定性模块组装"}</h3>
+          <span className="eyebrow">{t("执行环境")}</span>
+          <h3>{mode === "llm" ? t("AI 开发任务") : t("确定性模块组装")}</h3>
           <SystemSummary />
           <div className="rule" />
           <p>
             {mode === "llm"
-              ? "模型未连接时，需求会保存为等待配置的任务。"
-              : "依据所选能力生成项目和依赖；此模式不属于 AI 自主代码生成。"}
+              ? t("模型未连接时，需求会保存为等待配置的任务。")
+              : t("依据所选能力生成项目和依赖；此模式不属于 AI 自主代码生成。")}
           </p>
         </aside>
       </div>
@@ -566,20 +625,22 @@ function SystemSummary() {
   return (
     <dl className="definition-list">
       <div>
-        <dt>模型服务</dt>
+        <dt>{t("模型服务")}</dt>
         <dd>
-          {system.data?.llm.configured ? system.data.llm.model : "未连接"}
+          {system.data?.llm.configured ? system.data.llm.model : t("未连接")}
         </dd>
       </div>
       <div>
-        <dt>代码隔离环境</dt>
+        <dt>{t("代码隔离环境")}</dt>
         <dd>
-          {system.data?.deployment.docker ? "Docker 可用" : "Docker 不可用"}
+          {system.data?.deployment.docker
+            ? t("Docker 可用")
+            : t("Docker 不可用")}
         </dd>
       </div>
       <div>
-        <dt>本地应用运行</dt>
-        <dd>平台共享模块</dd>
+        <dt>{t("本地应用运行")}</dt>
+        <dd>{t("平台共享模块")}</dd>
       </div>
     </dl>
   );
@@ -615,11 +676,11 @@ function Builder() {
       <Heading
         eyebrow="PRODUCT AGENT"
         title="AI Builder"
-        subtitle="需求、计划、工具执行与验证记录。"
+        subtitle={t("需求、计划、工具执行与验证记录。")}
       />
       <div className="builder-layout">
         <section className="job-list">
-          <h2>开发任务</h2>
+          <h2>{t("开发任务")}</h2>
           {jobs.data?.items.length ? (
             jobs.data.items.map((j) => (
               <button
@@ -636,21 +697,21 @@ function Builder() {
               </button>
             ))
           ) : (
-            <Empty>暂无任务</Empty>
+            <Empty>{t("暂无任务")}</Empty>
           )}
         </section>
         <section className="builder-main">
           {selected ? (
             <JobDetail id={selected} />
           ) : (
-            <Empty>提交一个需求，开始开发任务</Empty>
+            <Empty>{t("提交一个需求，开始开发任务")}</Empty>
           )}
           {action.error && <Notice>{action.error}</Notice>}
           <form className="composer" onSubmit={submit}>
             <label>
-              关联项目
+              {t("关联项目")}
               <select name="projectId">
-                <option value="">创建新项目</option>
+                <option value="">{t("创建新项目")}</option>
                 {projects.data?.items.map((p) => (
                   <option value={p.id} key={p.id}>
                     {p.name}
@@ -659,7 +720,7 @@ function Builder() {
               </select>
             </label>
             <label>
-              新的需求
+              {t("新的需求")}
               <ModuleMentionInput
                 key={query.get("modules") || "input"}
                 name="input"
@@ -673,7 +734,7 @@ function Builder() {
             </label>
             <button className="primary" disabled={action.busy}>
               <Send size={16} />
-              提交需求
+              {t("提交需求")}
             </button>
           </form>
         </section>
@@ -698,14 +759,14 @@ function JobDetail({ id }: { id: string }) {
   return (
     <div className="job-detail">
       <div className="section-head">
-        <h2>任务记录</h2>
+        <h2>{t("任务记录")}</h2>
         <Badge status={data.job.status} />
       </div>
       <p className="requirement">{data.job.input}</p>
       {data.job.error && (
         <Notice kind="info">
           {data.job.error === "LLM_UNCONFIGURED"
-            ? "模型尚未连接。需求已经保存，可在配置完成后重试。"
+            ? t("模型尚未连接。需求已经保存，可在配置完成后重试。")
             : data.job.error}
         </Notice>
       )}
@@ -721,7 +782,7 @@ function JobDetail({ id }: { id: string }) {
           }
         >
           <RefreshCw size={15} />
-          重试
+          {t("重试")}
         </button>
         {["running", "queued"].includes(data.job.status) && (
           <button
@@ -730,12 +791,13 @@ function JobDetail({ id }: { id: string }) {
             }
           >
             <Square size={15} />
-            取消
+            {t("取消")}
           </button>
         )}
         {data.job.project_id && (
           <Link to={`/projects/${data.job.project_id}`}>
-            打开项目 <ArrowRight size={15} />
+            {t("打开项目")}
+            <ArrowRight size={15} />
           </Link>
         )}
       </div>
@@ -751,10 +813,10 @@ function JobDetail({ id }: { id: string }) {
                     : event.type === "tool_result"
                       ? `执行结果 · ${event.payload.name}`
                       : event.type === "requested"
-                        ? "需求已保存"
+                        ? t("需求已保存")
                         : event.type === "assistant"
                           ? "Agent"
-                          : "执行异常"}
+                          : t("执行异常")}
                 </strong>
                 <time>{formatDate(event.created_at)}</time>
               </div>
@@ -772,6 +834,7 @@ function Modules() {
 }
 function ProjectWorkspace() {
   const { id } = useParams();
+  const navigate = useNavigate();
   const project = useLoad<{
     project: Project;
     application: { id: string };
@@ -791,20 +854,26 @@ function ProjectWorkspace() {
     <>
       <Link className="back-link" to="/">
         <ArrowLeft size={15} />
-        全部项目
+        {t("全部项目")}
       </Link>
       <Heading
-        eyebrow={kindNames[data.project.spec.kind]}
+        eyebrow={t(kindNames[data.project.spec.kind])}
         title={data.project.name}
         subtitle={data.project.spec.description}
       >
+        <ExportProject id={id!} />
+        <DeleteProject
+          id={id!}
+          name={data.project.name}
+          onDeleted={() => navigate("/studio")}
+        />
         <Link className="button" to={`/compose?project=${id}`}>
           <GitBranch size={16} />
-          可视化编排
+          {t("可视化编排")}
         </Link>
         <Link to="/builder" className="button">
           <WandSparkles size={16} />
-          继续开发
+          {t("继续开发")}
         </Link>
         <button
           className="primary"
@@ -821,7 +890,7 @@ function ProjectWorkspace() {
           }
         >
           <Play size={16} />
-          {action.busy ? "正在执行…" : "创建预览"}
+          {action.busy ? t("正在执行…") : t("创建预览")}
         </button>
       </Heading>
       {action.error && <Notice>{action.error}</Notice>}
@@ -832,42 +901,42 @@ function ProjectWorkspace() {
           onClick={() => setTab("overview")}
         >
           <Folder size={16} />
-          产品与模块
+          {t("产品与模块")}
         </button>
         <button
           className={tab === "files" ? "selected" : ""}
           onClick={() => setTab("files")}
         >
           <FileCode2 size={16} />
-          项目文件
+          {t("项目文件")}
         </button>
         <button
           className={tab === "deploy" ? "selected" : ""}
           onClick={() => setTab("deploy")}
         >
           <Rocket size={16} />
-          预览与部署
+          {t("预览与部署")}
         </button>
         <button
           className={tab === "settings" ? "selected" : ""}
           onClick={() => setTab("settings")}
         >
           <Settings2 size={16} />
-          配置
+          {t("配置")}
         </button>
       </div>
       {tab === "overview" && (
         <div className="project-overview">
           <section>
-            <h2>产品规格</h2>
+            <h2>{t("产品规格")}</h2>
             <SpecEditor project={data.project} refresh={project.refresh} />
           </section>
           <section>
             <div className="section-head">
-              <h2>已安装能力</h2>
+              <h2>{t("已安装能力")}</h2>
               <Link to="/modules">
                 <Plus size={15} />
-                安装
+                {t("安装")}
               </Link>
             </div>
             <div className="installed-list">
@@ -905,7 +974,7 @@ function ProjectWorkspace() {
               }
             >
               <RefreshCw size={15} />
-              回滚上次安装
+              {t("回滚上次安装")}
             </button>
           </section>
         </div>
@@ -914,11 +983,11 @@ function ProjectWorkspace() {
         <section className="file-editor">
           <div className="file-tree">
             <div className="section-head">
-              <h3>文件</h3>
+              <h3>{t("文件")}</h3>
               <button
                 className="icon-button"
-                title="新建文件"
-                aria-label="新建文件"
+                title={t("新建文件")}
+                aria-label={t("新建文件")}
                 onClick={() => {
                   setFile("src/feature.ts");
                   setContent("");
@@ -952,14 +1021,14 @@ function ProjectWorkspace() {
           <div className="code-pane">
             <div className="toolbar">
               <input
-                aria-label="文件路径"
+                aria-label={t("文件路径")}
                 value={file}
                 onChange={(e) => setFile(e.target.value)}
                 placeholder="src/feature.ts"
               />
               <button
-                title="保存文件"
-                aria-label="保存文件"
+                title={t("保存文件")}
+                aria-label={t("保存文件")}
                 disabled={!file || action.busy}
                 onClick={() =>
                   void action.run(async () => {
@@ -985,7 +1054,7 @@ function ProjectWorkspace() {
                 }
               >
                 <Code2 size={16} />
-                构建
+                {t("构建")}
               </button>
               <button
                 onClick={() =>
@@ -999,7 +1068,7 @@ function ProjectWorkspace() {
                 }
               >
                 <Check size={16} />
-                测试
+                {t("测试")}
               </button>
             </div>
             <textarea
@@ -1007,7 +1076,7 @@ function ProjectWorkspace() {
               spellCheck={false}
               value={content}
               onChange={(e) => setContent(e.target.value)}
-              aria-label="文件内容"
+              aria-label={t("文件内容")}
             />
           </div>
         </section>
@@ -1044,11 +1113,11 @@ function SpecEditor({
   return (
     <form onSubmit={submit}>
       <label>
-        名称
+        {t("名称")}
         <input name="name" defaultValue={project.name} required minLength={2} />
       </label>
       <label>
-        需求描述
+        {t("需求描述")}
         <textarea
           name="description"
           defaultValue={project.spec.description}
@@ -1058,7 +1127,7 @@ function SpecEditor({
         />
       </label>
       <label>
-        功能清单
+        {t("功能清单")}
         <textarea
           name="features"
           defaultValue={project.spec.features.join("\n")}
@@ -1069,7 +1138,7 @@ function SpecEditor({
       {action.message && <Notice kind="success">{action.message}</Notice>}
       <button disabled={action.busy}>
         <Save size={15} />
-        保存规格
+        {t("保存规格")}
       </button>
     </form>
   );
@@ -1079,9 +1148,9 @@ function EnvironmentSettings({ id }: { id: string }) {
   const action = useAction();
   return (
     <section className="settings-form">
-      <h2>环境变量</h2>
+      <h2>{t("环境变量")}</h2>
       <Notice kind="info">
-        密钥加密保存，仅供隔离部署使用。本地共享模块不接收自定义密钥。
+        {t("密钥加密保存，仅供隔离部署使用。本地共享模块不接收自定义密钥。")}
       </Notice>
       {env.data?.items.map((item) => (
         <div className="env-row" key={item.name}>
@@ -1089,7 +1158,7 @@ function EnvironmentSettings({ id }: { id: string }) {
           <span>••••••••</span>
           <button
             className="icon-button"
-            title="删除变量"
+            title={t("删除变量")}
             aria-label={`删除 ${item.name}`}
             onClick={() =>
               void action.run(async () => {
@@ -1120,7 +1189,7 @@ function EnvironmentSettings({ id }: { id: string }) {
         }}
       >
         <label>
-          变量名称
+          {t("变量名称")}
           <input
             name="name"
             pattern="APP_[A-Z0-9_]+"
@@ -1129,12 +1198,13 @@ function EnvironmentSettings({ id }: { id: string }) {
           />
         </label>
         <label>
-          值<input name="value" type="password" autoComplete="off" required />
+          {t("值")}
+          <input name="value" type="password" autoComplete="off" required />
         </label>
         {action.error && <Notice>{action.error}</Notice>}
         <button className="primary" disabled={action.busy}>
           <Save size={16} />
-          保存变量
+          {t("保存变量")}
         </button>
       </form>
     </section>
@@ -1159,8 +1229,8 @@ function DeploymentView({
       {!compact && (
         <Heading
           eyebrow="APPLICATION HOSTING"
-          title="应用部署"
-          subtitle="本地运行实例、版本记录与健康状态。"
+          title={t("应用部署")}
+          subtitle={t("本地运行实例、版本记录与健康状态。")}
         />
       )}
       {action.error && <Notice>{action.error}</Notice>}
@@ -1193,11 +1263,11 @@ function DeploymentView({
                       rel="noreferrer"
                     >
                       <ExternalLink size={15} />
-                      打开应用
+                      {t("打开应用")}
                     </a>
                   )}
                   <button
-                    title="查看日志"
+                    title={t("查看日志")}
                     onClick={() =>
                       void action.run(async () =>
                         setLogs(
@@ -1211,10 +1281,10 @@ function DeploymentView({
                     }
                   >
                     <Terminal size={15} />
-                    日志
+                    {t("日志")}
                   </button>
                   <button
-                    title="健康检查"
+                    title={t("健康检查")}
                     aria-label={`健康检查 ${d.id.slice(0, 8)}`}
                     onClick={() =>
                       void action.run(async () => {
@@ -1230,7 +1300,7 @@ function DeploymentView({
                     <Activity size={16} />
                   </button>
                   <button
-                    title="重新部署"
+                    title={t("重新部署")}
                     aria-label={`重新部署 ${d.id.slice(0, 8)}`}
                     disabled={action.busy}
                     onClick={() =>
@@ -1244,7 +1314,7 @@ function DeploymentView({
                   </button>
                   {d.status === "running" && (
                     <button
-                      title="停止应用"
+                      title={t("停止应用")}
                       aria-label={`停止 ${d.id.slice(0, 8)}`}
                       onClick={() =>
                         void action.run(async () => {
@@ -1267,11 +1337,11 @@ function DeploymentView({
                       }
                     >
                       <GitBranch size={15} />
-                      回滚
+                      {t("回滚")}
                     </button>
                   )}
                   <button
-                    title="移除实例，保留数据"
+                    title={t("移除实例，保留数据")}
                     aria-label={`移除 ${d.id.slice(0, 8)}`}
                     onClick={() =>
                       void action.run(async () => {
@@ -1289,10 +1359,10 @@ function DeploymentView({
             ))}
         </div>
       ) : (
-        <Empty>暂无部署。在项目中创建预览以启动应用。</Empty>
+        <Empty>{t("暂无部署。在项目中创建预览以启动应用。")}</Empty>
       )}
       {logs !== null && (
-        <Modal title="部署日志" onClose={() => setLogs(null)}>
+        <Modal title={t("部署日志")} onClose={() => setLogs(null)}>
           <pre className="log-view">{logs || "暂时没有日志"}</pre>
         </Modal>
       )}
@@ -1314,12 +1384,12 @@ function Publisher({ user }: { user: PublicUser }) {
     <>
       <Heading
         eyebrow="MODULE LIFECYCLE"
-        title="模块发布"
-        subtitle="从项目能力提取契约，经审核后供其他应用安装。"
+        title={t("模块发布")}
+        subtitle={t("从项目能力提取契约，经审核后供其他应用安装。")}
       />
       <div className="publisher-layout">
         <section>
-          <h2>提取项目能力</h2>
+          <h2>{t("提取项目能力")}</h2>
           <form
             onSubmit={(e) => {
               e.preventDefault();
@@ -1336,9 +1406,9 @@ function Publisher({ user }: { user: PublicUser }) {
             }}
           >
             <label>
-              源项目
+              {t("源项目")}
               <select name="projectId" required>
-                <option value="">选择项目</option>
+                <option value="">{t("选择项目")}</option>
                 {projects.data?.items.map((p) => (
                   <option key={p.id} value={p.id}>
                     {p.name}
@@ -1347,7 +1417,7 @@ function Publisher({ user }: { user: PublicUser }) {
               </select>
             </label>
             <label>
-              契约文件路径
+              {t("契约文件路径")}
               <input
                 name="sourceFile"
                 required
@@ -1355,7 +1425,7 @@ function Publisher({ user }: { user: PublicUser }) {
               />
             </label>
             <label>
-              模块标识
+              {t("模块标识")}
               <input
                 name="moduleId"
                 required
@@ -1364,11 +1434,11 @@ function Publisher({ user }: { user: PublicUser }) {
               />
             </label>
             <label>
-              模块名称
-              <input name="name" required placeholder="学习小组候补" />
+              {t("模块名称")}
+              <input name="name" required placeholder={t("学习小组候补")} />
             </label>
             <label>
-              版本
+              {t("版本")}
               <input
                 name="version"
                 required
@@ -1380,12 +1450,12 @@ function Publisher({ user }: { user: PublicUser }) {
             {action.message && <Notice kind="success">{action.message}</Notice>}
             <button className="primary" disabled={action.busy}>
               <Upload size={16} />
-              提取并提交审核
+              {t("提取并提交审核")}
             </button>
           </form>
         </section>
         <section>
-          <h2>待审核版本</h2>
+          <h2>{t("待审核版本")}</h2>
           {pending.data?.items.length ? (
             pending.data.items.map((m) => (
               <article
@@ -1397,7 +1467,7 @@ function Publisher({ user }: { user: PublicUser }) {
                   {m.module_id}@{m.version}
                 </code>
                 <details>
-                  <summary>查看契约与权限</summary>
+                  <summary>{t("查看契约与权限")}</summary>
                   <pre>
                     {JSON.stringify(
                       { manifest: m.manifest, recipe: m.recipe },
@@ -1419,18 +1489,19 @@ function Publisher({ user }: { user: PublicUser }) {
                     }
                   >
                     <ShieldCheck size={16} />
-                    审核并发布
+                    {t("审核并发布")}
                   </button>
                 )}
               </article>
             ))
           ) : (
-            <Empty>没有等待审核的模块</Empty>
+            <Empty>{t("没有等待审核的模块")}</Empty>
           )}
           <div className="rule" />
           <p className="muted">
-            当前发布范围：经过验证的容量与 FIFO
-            候补契约。自定义可执行模块暂不开放发布。
+            {t(
+              "当前发布范围：经过验证的容量与 FIFO 候补契约。自定义可执行模块暂不开放发布。",
+            )}
           </p>
         </section>
       </div>

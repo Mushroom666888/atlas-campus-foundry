@@ -1,3 +1,4 @@
+import { t } from "./i18n";
 import { Component, type ReactNode } from "react";
 import { ArrowLeft, RefreshCw } from "lucide-react";
 
@@ -16,16 +17,16 @@ export class PageBoundary extends Component<
         <a className="atlas-logo" href="/">
           atlas
         </a>
-        <h1>这个页面暂时无法打开</h1>
-        <p>你的项目仍然保存在工作台。可以重新加载，或返回首页。</p>
+        <h1>{t("这个页面暂时无法打开")}</h1>
+        <p>{t("你的项目仍然保存在工作台。可以重新加载，或返回首页。")}</p>
         <div className="inline-actions">
           <button className="primary" onClick={() => window.location.reload()}>
             <RefreshCw size={18} />
-            重新加载
+            {t("重新加载")}
           </button>
           <a className="button" href="/">
             <ArrowLeft size={18} />
-            返回首页
+            {t("返回首页")}
           </a>
         </div>
       </main>

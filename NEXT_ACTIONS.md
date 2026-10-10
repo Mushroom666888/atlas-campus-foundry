@@ -1,5 +1,15 @@
 # Resume here
 
+Read `docs/FOLLOWUP_DELIVERY.md` and `docs/evidence/2026-10-10-followup/` first. The latest user request removes the whole homepage module recommendation area; retain the simple Atlas scene and route module discovery to `/modules`. Do not restore the deleted section. Project deletion/restore, owner ZIP export, bilingual UI and idea-first Canvas are implemented. Local Studio remains http://127.0.0.1:3000; credentials/data stay in ignored `.data` files.
+
+Current checks: 25 Node tests, 10 full browser journeys plus 7 final relevant regression journeys, 69 live existing-account route/viewport checks, native PostgreSQL row-lock quota race, and independent exported-app install/HTTP/restart. The initial export/browser failures are retained in evidence. Canvas now waits for registry/project/draft loading before accepting input, and fits nodes after the technical view becomes visible. Do not remove these guards.
+
+Design tasks use `mode=design`, a restricted tool allowlist and persisted `proposeDesign` results. Missing model configuration is BLOCKED. ZIP export starts the shipped shared runtime independently with fresh accounts/data; arbitrary workspace code is included for review but not automatically executed. Docker/cloud definitions are IMPLEMENTED only. Export is not a data backup. Trash is reversible, not permanent erasure. Restore keeps deployments stopped; quotas are 20 active / 100 retained per account.
+
+The remaining external/production work below is unchanged. No further language/homepage/deletion confirmation is needed. For configured integrations use the existing `npm run complete-connected` entry point; never claim it completes unfinished runner/ingress engineering automatically.
+
+## Earlier release context
+
 Latest work is the 94-module commercial/community release: read `docs/COMMERCIAL_COMMUNITY.md` and `docs/evidence/2026-10-10-commerce/` first. Current check is 21 Node tests / 7 browser journeys; native PostgreSQL verifies new migrations, concurrent orders and community persistence. Community is shared between Atlas and installed runtime apps. Canvas v2 requires product description, wired dependencies and valid inputs; it is not a live AI understanding test. Preserve version 1 compatibility and replacement-graph save regression. New showcase metadata: `.data/commercial-showcase.json`; `npm run deploy-commerce -- --redeploy` refreshes its source.
 
 `npm run reuse-report -- --showcase` validates the 5 declared sample apps. The unscoped historical report also contains another account's old application and currently returns failure for its older source. Do not bypass ownership or rewrite its project to make a report green. `scripts/audit-studio.ts` now includes 23 existing-account routes at three widths and deliberately paces requests to respect the live API limit. It requires commercial showcase setup.

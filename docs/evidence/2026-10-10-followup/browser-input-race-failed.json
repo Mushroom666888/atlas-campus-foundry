@@ -1,0 +1,368 @@
+{
+  "config": {
+    "argv": [
+      "C:\\Program Files\\nodejs\\node.exe",
+      "C:\\Users\\14237\\Desktop\\Campus AI App Foundry\\node_modules\\@playwright\\test\\cli.js",
+      "test",
+      "tests/lifecycle.browser.spec.ts",
+      "tests/community.browser.spec.ts"
+    ],
+    "configFile": "C:\\Users\\14237\\Desktop\\Campus AI App Foundry\\playwright.config.ts",
+    "rootDir": "C:/Users/14237/Desktop/Campus AI App Foundry/tests",
+    "failOnFlakyTests": false,
+    "forbidOnly": false,
+    "fullyParallel": false,
+    "globalSetup": null,
+    "globalTeardown": null,
+    "globalTimeout": 0,
+    "grep": {},
+    "grepInvert": null,
+    "maxFailures": 0,
+    "metadata": {
+      "actualWorkers": 1
+    },
+    "preserveOutput": "always",
+    "projects": [
+      {
+        "outputDir": "C:/Users/14237/Desktop/Campus AI App Foundry/test-results",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "actualWorkers": 1
+        },
+        "id": "",
+        "name": "",
+        "testDir": "C:/Users/14237/Desktop/Campus AI App Foundry/tests",
+        "testIgnore": [],
+        "testMatch": [
+          "**/browser.spec.ts",
+          "**/modules.browser.spec.ts",
+          "**/atlas.browser.spec.ts",
+          "**/community.browser.spec.ts",
+          "**/commerce.browser.spec.ts",
+          "**/lifecycle.browser.spec.ts"
+        ],
+        "timeout": 90000
+      }
+    ],
+    "filteredProjects": [
+      {
+        "grep": {},
+        "grepInvert": null,
+        "outputDir": "C:\\Users\\14237\\Desktop\\Campus AI App Foundry\\test-results",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "actualWorkers": 1
+        },
+        "name": "",
+        "testDir": "C:\\Users\\14237\\Desktop\\Campus AI App Foundry\\tests",
+        "snapshotDir": "C:\\Users\\14237\\Desktop\\Campus AI App Foundry\\tests",
+        "testIgnore": [],
+        "testMatch": [
+          "**/browser.spec.ts",
+          "**/modules.browser.spec.ts",
+          "**/atlas.browser.spec.ts",
+          "**/community.browser.spec.ts",
+          "**/commerce.browser.spec.ts",
+          "**/lifecycle.browser.spec.ts"
+        ],
+        "timeout": 90000,
+        "use": {
+          "actionTimeout": 15000,
+          "baseURL": "http://127.0.0.1:3100",
+          "trace": "retain-on-failure",
+          "screenshot": "only-on-failure",
+          "viewport": {
+            "width": 1440,
+            "height": 960
+          }
+        },
+        "dependencies": [],
+        "ignoreSnapshots": false,
+        "__projectId": ""
+      }
+    ],
+    "quiet": false,
+    "reporter": [
+      [
+        "list",
+        null
+      ],
+      [
+        "html",
+        {
+          "open": "never"
+        }
+      ],
+      [
+        "json",
+        {
+          "outputFile": "artifacts/browser-results.json"
+        }
+      ]
+    ],
+    "reportSlowTests": {
+      "max": 5,
+      "threshold": 300000
+    },
+    "shard": null,
+    "tags": [],
+    "updateSnapshots": "default",
+    "updateSourceMethod": "patch",
+    "version": "1.64.0",
+    "workers": 1,
+    "webServer": {
+      "command": "node --import tsx server/main.ts",
+      "url": "http://127.0.0.1:3100/api/health",
+      "reuseExistingServer": false,
+      "timeout": 60000,
+      "env": {
+        "PORT": "3100",
+        "DATA_DIR": ".data/browser-tests",
+        "DEPLOYMENT_PROVIDER": "local-trusted",
+        "ALLOW_REGISTRATION": "true",
+        "PUBLIC_ORIGIN": "http://127.0.0.1:3100",
+        "LLM_API_KEY": "",
+        "LLM_MODEL": ""
+      }
+    }
+  },
+  "suites": [
+    {
+      "title": "community.browser.spec.ts",
+      "file": "community.browser.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [
+        {
+          "title": "creator forum, public profile and product showcase persist across users and mobile routes",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 90000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 10411,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-10T10:43:39.824Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "23e7e1da5773d494eb8a-4d7441ef0d77c313bc1c",
+          "file": "community.browser.spec.ts",
+          "line": 4,
+          "column": 1
+        },
+        {
+          "title": "canvas marks incompatible links red, requires intent and preserves validated dependencies",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 90000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 2943,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-10T10:43:50.555Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "23e7e1da5773d494eb8a-b5b924cfb5901318f448",
+          "file": "community.browser.spec.ts",
+          "line": 123,
+          "column": 1
+        }
+      ]
+    },
+    {
+      "title": "lifecycle.browser.spec.ts",
+      "file": "lifecycle.browser.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [
+        {
+          "title": "bilingual Studio: persisted language, owner deletion/restore and ZIP download",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 90000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 4155,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-10T10:43:53.535Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "eb9ad9f599d9b550af8d-2a22fd8a226394aea5fe",
+          "file": "lifecycle.browser.spec.ts",
+          "line": 4,
+          "column": 1
+        },
+        {
+          "title": "idea-first Canvas: blocked design saved, manual refinement, English filters and responsive UI",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 90000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 4583,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-10T10:43:57.704Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "eb9ad9f599d9b550af8d-70167d3d46c65a5240b8",
+          "file": "lifecycle.browser.spec.ts",
+          "line": 89,
+          "column": 1
+        },
+        {
+          "title": "bilingual visual audit: readable CJK font, mobile layouts, working routes and preserved form state",
+          "ok": false,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 120000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "failed",
+                  "duration": 38454,
+                  "error": {
+                    "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoHaveValue\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m)\u001b[22m failed\n\nLocator:  getByLabel('产品描述', { exact: true })\nExpected: \u001b[32m\"Do not erase this unsaved input\"\u001b[39m\nReceived: \u001b[31m\"\"\u001b[39m\nTimeout:  10000ms\n\nCall log:\n\u001b[2m  - Expect \"toHaveValue\" getByLabel('产品描述', { exact: true }) with timeout 10000ms\u001b[22m\n\u001b[2m  - waiting for getByLabel('产品描述', { exact: true })\u001b[22m\n\u001b[2m    23 × locator resolved to <textarea rows=\"2\" maxlength=\"4000\" aria-label=\"产品描述\" placeholder=\"例如：学生买卖二手教材，商家发布商品与库存，买家下单，卖家约定取货地点，收货后评价。\"></textarea>\u001b[22m\n\u001b[2m       - unexpected value \"\"\u001b[22m\n",
+                    "stack": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoHaveValue\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m)\u001b[22m failed\n\nLocator:  getByLabel('产品描述', { exact: true })\nExpected: \u001b[32m\"Do not erase this unsaved input\"\u001b[39m\nReceived: \u001b[31m\"\"\u001b[39m\nTimeout:  10000ms\n\nCall log:\n\u001b[2m  - Expect \"toHaveValue\" getByLabel('产品描述', { exact: true }) with timeout 10000ms\u001b[22m\n\u001b[2m  - waiting for getByLabel('产品描述', { exact: true })\u001b[22m\n\u001b[2m    23 × locator resolved to <textarea rows=\"2\" maxlength=\"4000\" aria-label=\"产品描述\" placeholder=\"例如：学生买卖二手教材，商家发布商品与库存，买家下单，卖家约定取货地点，收货后评价。\"></textarea>\u001b[22m\n\u001b[2m       - unexpected value \"\"\u001b[22m\n\n    at C:\\Users\\14237\\Desktop\\Campus AI App Foundry\\tests\\lifecycle.browser.spec.ts:231:58",
+                    "location": {
+                      "file": "C:\\Users\\14237\\Desktop\\Campus AI App Foundry\\tests\\lifecycle.browser.spec.ts",
+                      "column": 58,
+                      "line": 231
+                    },
+                    "snippet": "  229 |     .fill(\"Do not erase this unsaved input\");\n  230 |   await page.getByLabel(\"语言 / Language\").selectOption(\"zh-CN\");\n> 231 |   await expect(page.getByLabel(\"产品描述\", { exact: true })).toHaveValue(\n      |                                                          ^\n  232 |     \"Do not erase this unsaved input\",\n  233 |   );\n  234 |   await page.goto(\"/modules\");"
+                  },
+                  "errors": [
+                    {
+                      "location": {
+                        "file": "C:\\Users\\14237\\Desktop\\Campus AI App Foundry\\tests\\lifecycle.browser.spec.ts",
+                        "column": 58,
+                        "line": 231
+                      },
+                      "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoHaveValue\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m)\u001b[22m failed\n\nLocator:  getByLabel('产品描述', { exact: true })\nExpected: \u001b[32m\"Do not erase this unsaved input\"\u001b[39m\nReceived: \u001b[31m\"\"\u001b[39m\nTimeout:  10000ms\n\nCall log:\n\u001b[2m  - Expect \"toHaveValue\" getByLabel('产品描述', { exact: true }) with timeout 10000ms\u001b[22m\n\u001b[2m  - waiting for getByLabel('产品描述', { exact: true })\u001b[22m\n\u001b[2m    23 × locator resolved to <textarea rows=\"2\" maxlength=\"4000\" aria-label=\"产品描述\" placeholder=\"例如：学生买卖二手教材，商家发布商品与库存，买家下单，卖家约定取货地点，收货后评价。\"></textarea>\u001b[22m\n\u001b[2m       - unexpected value \"\"\u001b[22m\n\n\n  229 |     .fill(\"Do not erase this unsaved input\");\n  230 |   await page.getByLabel(\"语言 / Language\").selectOption(\"zh-CN\");\n> 231 |   await expect(page.getByLabel(\"产品描述\", { exact: true })).toHaveValue(\n      |                                                          ^\n  232 |     \"Do not erase this unsaved input\",\n  233 |   );\n  234 |   await page.goto(\"/modules\");\n    at C:\\Users\\14237\\Desktop\\Campus AI App Foundry\\tests\\lifecycle.browser.spec.ts:231:58"
+                    }
+                  ],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-10T10:44:02.300Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "screenshot",
+                      "contentType": "image/png",
+                      "path": "C:\\Users\\14237\\Desktop\\Campus AI App Foundry\\test-results\\lifecycle.browser-bilingua-5be45-es-and-preserved-form-state\\test-failed-1.png"
+                    },
+                    {
+                      "name": "error-context",
+                      "contentType": "text/markdown",
+                      "path": "C:\\Users\\14237\\Desktop\\Campus AI App Foundry\\test-results\\lifecycle.browser-bilingua-5be45-es-and-preserved-form-state\\error-context.md"
+                    },
+                    {
+                      "name": "trace",
+                      "contentType": "application/zip",
+                      "path": "C:\\Users\\14237\\Desktop\\Campus AI App Foundry\\test-results\\lifecycle.browser-bilingua-5be45-es-and-preserved-form-state\\trace.zip"
+                    }
+                  ],
+                  "errorLocation": {
+                    "file": "C:\\Users\\14237\\Desktop\\Campus AI App Foundry\\tests\\lifecycle.browser.spec.ts",
+                    "column": 58,
+                    "line": 231
+                  }
+                }
+              ],
+              "status": "unexpected"
+            }
+          ],
+          "id": "eb9ad9f599d9b550af8d-6b21d7b8ba74998af7bf",
+          "file": "lifecycle.browser.spec.ts",
+          "line": 169,
+          "column": 1
+        }
+      ]
+    }
+  ],
+  "errors": [],
+  "stats": {
+    "startTime": "2026-10-10T10:43:37.527Z",
+    "duration": 64673.091,
+    "expected": 4,
+    "skipped": 0,
+    "unexpected": 1,
+    "flaky": 0
+  }
+}

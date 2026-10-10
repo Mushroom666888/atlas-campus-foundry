@@ -82,9 +82,68 @@ export class Deployments {
       throw new AppError(409, "DEPLOYMENT_BUSY", "当前应用正在部署");
     this.locks.add(app.id);
     try {
+      await this.projects.get(projectId, actor);
       return await this.perform(app, actor, options);
     } finally {
       this.locks.delete(app.id);
+    }
+  }
+  async archiveProject(
+    projectId: string,
+    actor: string,
+    cancelJobs: () => Promise<void>,
+  ) {
+    const app = await this.projects.application(projectId, actor);
+    if (this.locks.has(app.id))
+      throw new AppError(
+        409,
+        "DEPLOYMENT_BUSY",
+        "应用正在部署，请在部署结束后删除项目",
+      );
+    this.locks.add(app.id);
+    try {
+      await this.projects.db.query(
+        "UPDATE projects SET deleted_at=now(),updated_at=now() WHERE id=$1 AND owner_id=$2 AND deleted_at IS NULL",
+        [projectId, actor],
+      );
+      await cancelJobs();
+      const rows = (
+        await this.projects.db.query<{ id: string }>(
+          "SELECT id FROM deployments WHERE app_id=$1 AND status IN ('running','starting','building')",
+          [app.id],
+        )
+      ).rows;
+      for (const row of rows) await this.stop(row.id, actor);
+      await this.projects.audit(actor, "project.trashed", projectId, {
+        dataRetained: true,
+      });
+      return { ok: true, dataRetained: true };
+    } catch (error) {
+      await this.projects.db.query(
+        "UPDATE projects SET deleted_at=NULL WHERE id=$1",
+        [projectId],
+      );
+      throw error;
+    } finally {
+      this.locks.delete(app.id);
+    }
+  }
+  async restoreProject(projectId: string, actor: string) {
+    const row = (
+      await this.projects.db.query<{ id: string }>(
+        "SELECT a.id FROM applications a JOIN projects p ON p.id=a.project_id WHERE p.id=$1 AND p.owner_id=$2 AND p.deleted_at IS NOT NULL",
+        [projectId, actor],
+      )
+    ).rows[0];
+    if (!row)
+      throw new AppError(404, "PROJECT_NOT_FOUND", "回收站中没有这个项目");
+    if (this.locks.has(row.id))
+      throw new AppError(409, "PROJECT_BUSY", "项目正在停止，请稍后恢复");
+    this.locks.add(row.id);
+    try {
+      return await this.projects.restore(projectId, actor);
+    } finally {
+      this.locks.delete(row.id);
     }
   }
   private async perform(

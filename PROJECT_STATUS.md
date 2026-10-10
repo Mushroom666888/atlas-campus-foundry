@@ -2,6 +2,12 @@
 
 Date: 2026-10-10 (Asia/Shanghai).
 
+Latest follow-up: project deletion with confirmation, retained-data trash/restore, independent ZIP export, persistent Chinese/English switching, complete system Chinese fonts and idea-first visual design are implemented. The homepage module block was removed entirely following the latest feedback; the brand scene, subtle motion and real navigation remain. Details: `docs/FOLLOWUP_DELIVERY.md`.
+
+Current evidence: `npm run check` passed lint/build and 25 Node tests. Full browser suite passed 10 journeys; after translation/loading refinements, 7 relevant journeys passed again, including preserved unsaved Canvas input. Native PostgreSQL verifies concurrent project create/restore quota limits. Existing-account audit passed 69 route/viewport checks. Export acceptance actually extracted the ZIP, installed dependencies, started an independent HTTP server, and verified business data after restart. Cloud Compose and real model design remain BLOCKED, not tested success. Current live Studio: http://127.0.0.1:3000. Do not reintroduce homepage recommendations without a new user request.
+
+The commercial release and earlier repair counts below are historical; the current acceptance is above and in `docs/evidence/2026-10-10-followup/`.
+
 The live existing-account audit passed all 69 route/viewport checks (23 routes at 1440/390/320px), with no browser page errors or document overflow. Its request pacing respects unchanged API limits.
 
 Latest release: 94 built-in modules, including 10 transactional commerce modules and 4 community modules reusable in developers' own apps. Shared forum/profiles/product showcases, guided Canvas v2, typed red error links, explicit dependency wiring and subtle homepage motion are implemented. `npm run check`: 21/21 tests; `npm run e2e`: 7/7 journeys; strengthened community screenshot/viewport rerun: 2/2. Native PostgreSQL 18.4 additionally passed concurrent orders and full server restart persistence for commerce/community. Details: `docs/COMMERCIAL_COMMUNITY.md`, `docs/evidence/2026-10-10-commerce/`.

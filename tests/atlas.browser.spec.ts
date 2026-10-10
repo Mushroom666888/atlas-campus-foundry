@@ -92,11 +92,11 @@ test("Atlas brand home: real imagery, working navigation, responsive composition
     page.getByRole("navigation", { name: "首页导航" }),
   ).toBeVisible();
   await page.getByRole("button", { name: "关闭菜单" }).click();
-  await page.getByRole("tab", { name: /校园功能/ }).click();
-  await expect(page.getByRole("tabpanel", { name: "校园功能" })).toContainText(
-    "课程笔记",
-  );
   await page.setViewportSize({ width: 1440, height: 960 });
+  await page.getByRole("link", { name: "探索模块", exact: true }).click();
+  await expect(page).toHaveURL(/\/modules$/);
+  await expect(page.getByRole("heading", { name: "登录工作台" })).toBeVisible();
+  await page.goto("/");
   await page.screenshot({
     path: "artifacts/screenshots/atlas-home-full.png",
     fullPage: true,

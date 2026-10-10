@@ -1,3 +1,4 @@
+import { t, LanguageSelect } from "./i18n";
 import { useState, type ReactNode, type FormEvent } from "react";
 import {
   Boxes,
@@ -23,7 +24,7 @@ export function Notice({
       role={kind === "error" ? "alert" : "status"}
     >
       <AlertCircle size={17} />
-      <span>{children}</span>
+      <span>{typeof children === "string" ? t(children) : children}</span>
     </div>
   );
 }
@@ -39,7 +40,7 @@ export function Loading() {
   return (
     <div className="loading">
       <LoaderCircle className="spin" size={22} />
-      正在加载
+      {t("正在加载")}
     </div>
   );
 }
@@ -66,7 +67,9 @@ export function Badge({ status }: { status: string }) {
     sold: "已售出",
     closed: "已关闭",
   };
-  return <span className={`badge ${status}`}>{names[status] ?? status}</span>;
+  return (
+    <span className={`badge ${status}`}>{t(names[status] ?? status)}</span>
+  );
 }
 export function Modal({
   title,
@@ -90,8 +93,8 @@ export function Modal({
           <h2>{title}</h2>
           <button
             className="icon-button"
-            aria-label="关闭"
-            title="关闭"
+            aria-label={t("关闭")}
+            title={t("关闭")}
             onClick={onClose}
           >
             <X size={20} />
@@ -136,12 +139,13 @@ export function Auth({
       <div className="auth-brand">
         <Boxes size={32} />
         {runtime ? <span>{title}</span> : <a href="/">{title}</a>}
+        <LanguageSelect />
       </div>
       <section className="auth-form">
         <span className="eyebrow">
-          {runtime ? "校园应用账户" : "DEVELOPER STUDIO"}
+          {runtime ? t("校园应用账户") : "DEVELOPER STUDIO"}
         </span>
-        <h1>{register ? "创建账户" : "登录工作台"}</h1>
+        <h1>{register ? t("创建账户") : t("登录工作台")}</h1>
         <div className="tabs">
           <button
             className={!register ? "selected" : ""}
@@ -150,7 +154,7 @@ export function Auth({
               setError("");
             }}
           >
-            登录
+            {t("登录")}
           </button>
           <button
             className={register ? "selected" : ""}
@@ -159,23 +163,23 @@ export function Auth({
               setError("");
             }}
           >
-            注册
+            {t("注册")}
           </button>
         </div>
         {error && <Notice>{error}</Notice>}
         <form onSubmit={submit}>
           {register && (
             <label>
-              称呼
+              {t("称呼")}
               <input name="name" autoComplete="name" required maxLength={80} />
             </label>
           )}
           <label>
-            邮箱
+            {t("邮箱")}
             <input name="email" type="email" autoComplete="email" required />
           </label>
           <label>
-            密码
+            {t("密码")}
             <input
               name="password"
               type="password"
@@ -191,13 +195,13 @@ export function Auth({
             ) : (
               <LogIn size={18} />
             )}{" "}
-            {register ? "注册并进入" : "登录"}
+            {register ? t("注册并进入") : t("登录")}
             <ArrowRight size={17} />
           </button>
         </form>
       </section>
       <p className="auth-footer">
-        Atlas · {runtime ? "应用空间" : "校园产品开发工作台"}
+        Atlas · {runtime ? t("应用空间") : t("校园产品开发工作台")}
       </p>
     </main>
   );

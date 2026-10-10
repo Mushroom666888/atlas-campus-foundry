@@ -1,0 +1,85 @@
+x  1 tests\lifecycle.browser.spec.ts:4:1 › bilingual Studio: persisted language, owner deletion/restore and ZIP download (14.5s)
+(node:28980) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  x  2 tests\lifecycle.browser.spec.ts:87:1 › idea-first Canvas: blocked design saved, manual refinement, English filters and responsive UI (13.9s)
+
+
+  1) tests\lifecycle.browser.spec.ts:4:1 › bilingual Studio: persisted language, owner deletion/restore and ZIP download
+
+    Error: expect(page).toHaveURL(expected) failed
+
+    Expected pattern: /\/studio$/
+    Received string:  "http://127.0.0.1:3100/projects/7069c3dd-a79c-4c6c-b464-8e206d57449d"
+    Timeout: 10000ms
+
+    Call log:
+      - Expect "toHaveURL" with timeout 10000ms
+        23 × locator resolved to <html lang="en-US">…</html>
+           - unexpected value "http://127.0.0.1:3100/projects/7069c3dd-a79c-4c6c-b464-8e206d57449d"
+
+
+      62 |     .click();
+      63 |   await page.getByRole("button", { name: "Confirm deletion" }).click();
+    > 64 |   await expect(page).toHaveURL(/\/studio$/);
+         |                      ^
+      65 |   await expect(page.locator(".project-list-item")).toHaveCount(0);
+      66 |   await page.getByRole("button", { name: "Trash", exact: true }).click();
+      67 |   await expect(
+        at C:\Users\14237\Desktop\Campus AI App Foundry\tests\lifecycle.browser.spec.ts:64:22
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    test-results\lifecycle.browser-bilingua-8ede1-on-restore-and-ZIP-download\test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: test-results\lifecycle.browser-bilingua-8ede1-on-restore-and-ZIP-download\error-context.md
+
+    attachment #3: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results\lifecycle.browser-bilingua-8ede1-on-restore-and-ZIP-download\trace.zip
+    Usage:
+
+        npx playwright show-trace test-results\lifecycle.browser-bilingua-8ede1-on-restore-and-ZIP-download\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  2) tests\lifecycle.browser.spec.ts:87:1 › idea-first Canvas: blocked design saved, manual refinement, English filters and responsive UI
+
+    Error: expect(locator).toHaveCount(expected) failed
+
+    Locator:  locator('.catalog-card')
+    Expected: 1
+    Received: 2
+    Timeout:  10000ms
+
+    Call log:
+      - Expect "toHaveCount" locator('.catalog-card') with timeout 10000ms
+      - waiting for locator('.catalog-card')
+        23 × locator resolved to 2 elements
+           - unexpected value "2"
+
+
+      142 |   await page.goto("/modules");
+      143 |   await page.getByLabel("Search modules", { exact: true }).fill("booking");
+    > 144 |   await expect(page.locator(".catalog-card")).toHaveCount(1);
+          |                                               ^
+      145 |   await page.getByLabel("Search modules", { exact: true }).fill("");
+      146 |   await page
+      147 |     .getByLabel("Filter by domain")
+        at C:\Users\14237\Desktop\Campus AI App Foundry\tests\lifecycle.browser.spec.ts:144:47
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    test-results\lifecycle.browser-idea-fir-4bde6-h-filters-and-responsive-UI\test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: test-results\lifecycle.browser-idea-fir-4bde6-h-filters-and-responsive-UI\error-context.md
+
+    attachment #3: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results\lifecycle.browser-idea-fir-4bde6-h-filters-and-responsive-UI\trace.zip
+    Usage:
+
+        npx playwright show-trace test-results\lifecycle.browser-idea-fir-4bde6-h-filters-and-responsive-UI\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  2 failed
+    tests\lifecycle.browser.spec.ts:4:1 › bilingual Studio: persisted language, owner deletion/restore and ZIP download
+    tests\lifecycle.browser.spec.ts:87:1 › idea-first Canvas: blocked design saved, manual refinement, English filters and responsive UI

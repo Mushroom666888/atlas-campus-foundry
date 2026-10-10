@@ -1,5 +1,15 @@
 # Implementation plan and acceptance ledger
 
+## Latest follow-up (2026-10-10)
+
+| ID | Goal / dependency | Scope | Acceptance | State |
+|---|---|---|---|---|
+| U08 | Consistent typography and bilingual UI / U07 | web, locale resources | Persistent language switch, stable canonical values, desktop/mobile checks | DONE: browser language/form-state checks and actual CJK font inspection |
+| U09 | Minimal homepage / U07 | homepage | Remove the entire module section per latest feedback; module navigation remains functional | DONE: 9 viewport checks and bilingual screenshots |
+| U10 | Idea-first visual design / G01,U06 | agent, Canvas | Persisted proposal, user review, manual editing, advanced graph validation; honest missing-provider state | DONE for UI/tool contract; live AI proposal BLOCKED by provider configuration |
+| D04 | Independent local/cloud export / D03 | export API, ZIP, runtime entry | Owner-only secret-free ZIP; extracted app runs and retains data after restart | DONE for export/local execution; cloud Compose IMPLEMENTED, Docker verification BLOCKED |
+| C02 | Delete and restore projects / C01,D03 | migration, lifecycle API, Studio | Owner-only trash, running apps stop, active tasks cancel, restore retains files/data | DONE: real-process/API/browser tests and native PostgreSQL concurrent quota verification |
+
 Task states: TODO / IN_PROGRESS / TESTING / DONE / BLOCKED. Evidence: IMPLEMENTED / TESTED / DEPLOYED / BLOCKED / PLANNED.
 
 | ID | Goal / dependency | Scope | Acceptance | State / result |
@@ -35,4 +45,4 @@ Task states: TODO / IN_PROGRESS / TESTING / DONE / BLOCKED. Evidence: IMPLEMENTE
 | D03 | Commercial local showcase / M03,M04,U06 | deployment script and reuse report | Real healthy app with shared modules; same current source for declared samples | DONE: 5 declared showcase apps share source; unrelated historical app remains outside this acceptance scope |
 | P201 | Production / D02 | runner, TLS, offsite backup schedules | Public hosting and hostile-tenant acceptance | TODO / PLANNED |
 
-Team collaboration and cross-app sharing have schema only. They are not enabled. External blockers are separate from independently completed local work. Current suite: 21 Node tests and 7 browser journeys, with 2 additional community/Canvas reruns after screenshot-readiness correction. Earlier row counts refer to their original acceptance.
+Team collaboration and cross-app sharing have schema only. They are not enabled. External blockers are separate from independently completed local work. Current evidence: 25 Node tests and 10 browser journeys, then 7 affected browser regressions after final UI refinements and focused lifecycle/export tests after the last backend adjustments. Earlier row counts refer to their original acceptance.

@@ -1,0 +1,13 @@
+Command: npx tsx --test tests/project-lifecycle.test.ts tests/export.test.ts
+
+FAIL export: owner-only source ZIP; independent install, HTTP app, fresh accounts and persistence after restart (28696.9363ms)
+PASS project trash: owner permission, task cancellation, real process shutdown, data and file restoration (10073.3166ms)
+Tests: 2, passed: 1, failed: 1, skipped: 0.
+
+AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+500 !== 201
+at TestContext.<anonymous> (tests/export.test.ts:68:12)
+
+Cause: exported standalone entry omitted RuntimeConfig.modules.
+Fix: derive modules from the validated product specification.
+Targeted rerun: export passed (34345.6964ms); 1 passed, 0 failed.

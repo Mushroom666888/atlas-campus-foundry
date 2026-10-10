@@ -25,7 +25,7 @@
 .community-nav nav a {
   padding: 10px 0;
   color: #5c636c;
-  font-weight: 600;
+  font-weight: 700;
 }
 .community-nav nav a.active {
   color: #d3462d;
@@ -154,7 +154,7 @@
   gap: 10px;
   align-items: center;
   min-width: 0;
-  font-weight: 600;
+  font-weight: 700;
   overflow-wrap: anywhere;
 }
 .community-author small {

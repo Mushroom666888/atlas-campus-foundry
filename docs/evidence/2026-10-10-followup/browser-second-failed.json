@@ -1,0 +1,613 @@
+{
+  "config": {
+    "argv": [
+      "C:\\Program Files\\nodejs\\node.exe",
+      "C:\\Users\\14237\\Desktop\\Campus AI App Foundry\\node_modules\\@playwright\\test\\cli.js",
+      "test"
+    ],
+    "configFile": "C:\\Users\\14237\\Desktop\\Campus AI App Foundry\\playwright.config.ts",
+    "rootDir": "C:/Users/14237/Desktop/Campus AI App Foundry/tests",
+    "failOnFlakyTests": false,
+    "forbidOnly": false,
+    "fullyParallel": false,
+    "globalSetup": null,
+    "globalTeardown": null,
+    "globalTimeout": 0,
+    "grep": {},
+    "grepInvert": null,
+    "maxFailures": 0,
+    "metadata": {
+      "actualWorkers": 1
+    },
+    "preserveOutput": "always",
+    "projects": [
+      {
+        "outputDir": "C:/Users/14237/Desktop/Campus AI App Foundry/test-results",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "actualWorkers": 1
+        },
+        "id": "",
+        "name": "",
+        "testDir": "C:/Users/14237/Desktop/Campus AI App Foundry/tests",
+        "testIgnore": [],
+        "testMatch": [
+          "**/browser.spec.ts",
+          "**/modules.browser.spec.ts",
+          "**/atlas.browser.spec.ts",
+          "**/community.browser.spec.ts",
+          "**/commerce.browser.spec.ts",
+          "**/lifecycle.browser.spec.ts"
+        ],
+        "timeout": 90000
+      }
+    ],
+    "filteredProjects": [
+      {
+        "grep": {},
+        "grepInvert": null,
+        "outputDir": "C:\\Users\\14237\\Desktop\\Campus AI App Foundry\\test-results",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "actualWorkers": 1
+        },
+        "name": "",
+        "testDir": "C:\\Users\\14237\\Desktop\\Campus AI App Foundry\\tests",
+        "snapshotDir": "C:\\Users\\14237\\Desktop\\Campus AI App Foundry\\tests",
+        "testIgnore": [],
+        "testMatch": [
+          "**/browser.spec.ts",
+          "**/modules.browser.spec.ts",
+          "**/atlas.browser.spec.ts",
+          "**/community.browser.spec.ts",
+          "**/commerce.browser.spec.ts",
+          "**/lifecycle.browser.spec.ts"
+        ],
+        "timeout": 90000,
+        "use": {
+          "actionTimeout": 15000,
+          "baseURL": "http://127.0.0.1:3100",
+          "trace": "retain-on-failure",
+          "screenshot": "only-on-failure",
+          "viewport": {
+            "width": 1440,
+            "height": 960
+          }
+        },
+        "dependencies": [],
+        "ignoreSnapshots": false,
+        "__projectId": ""
+      }
+    ],
+    "quiet": false,
+    "reporter": [
+      [
+        "list",
+        null
+      ],
+      [
+        "html",
+        {
+          "open": "never"
+        }
+      ],
+      [
+        "json",
+        {
+          "outputFile": "artifacts/browser-results.json"
+        }
+      ]
+    ],
+    "reportSlowTests": {
+      "max": 5,
+      "threshold": 300000
+    },
+    "shard": null,
+    "tags": [],
+    "updateSnapshots": "default",
+    "updateSourceMethod": "patch",
+    "version": "1.64.0",
+    "workers": 1,
+    "webServer": {
+      "command": "node --import tsx server/main.ts",
+      "url": "http://127.0.0.1:3100/api/health",
+      "reuseExistingServer": false,
+      "timeout": 60000,
+      "env": {
+        "PORT": "3100",
+        "DATA_DIR": ".data/browser-tests",
+        "DEPLOYMENT_PROVIDER": "local-trusted",
+        "ALLOW_REGISTRATION": "true",
+        "PUBLIC_ORIGIN": "http://127.0.0.1:3100",
+        "LLM_API_KEY": "",
+        "LLM_MODEL": ""
+      }
+    }
+  },
+  "suites": [
+    {
+      "title": "atlas.browser.spec.ts",
+      "file": "atlas.browser.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [
+        {
+          "title": "Atlas brand home: real imagery, working navigation, responsive composition and reduced motion",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 90000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 3675,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-10T10:05:55.831Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "610b69f7d22c14d346d4-71906cd5e458024a3c18",
+          "file": "atlas.browser.spec.ts",
+          "line": 4,
+          "column": 1
+        }
+      ]
+    },
+    {
+      "title": "browser.spec.ts",
+      "file": "browser.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [
+        {
+          "title": "Studio and three deployed products: persisted workflows, module reuse, upload, chat, mobile",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 90000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 35168,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-10T10:05:59.866Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "fbeac1b2decfba2c3acd-d6cd9dce433c6ea55bd6",
+          "file": "browser.spec.ts",
+          "line": 12,
+          "column": 1
+        }
+      ]
+    },
+    {
+      "title": "commerce.browser.spec.ts",
+      "file": "commerce.browser.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [
+        {
+          "title": "commercial modules deploy a real multiuser shop, orders, appointments and reusable forum",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 180000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 21788,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-10T10:06:35.203Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "b123422b5cfb6c84e4bd-24e219582c11cc898558",
+          "file": "commerce.browser.spec.ts",
+          "line": 16,
+          "column": 1
+        }
+      ]
+    },
+    {
+      "title": "community.browser.spec.ts",
+      "file": "community.browser.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [
+        {
+          "title": "creator forum, public profile and product showcase persist across users and mobile routes",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 90000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 11384,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-10T10:06:57.009Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "23e7e1da5773d494eb8a-4d7441ef0d77c313bc1c",
+          "file": "community.browser.spec.ts",
+          "line": 4,
+          "column": 1
+        },
+        {
+          "title": "canvas marks incompatible links red, requires intent and preserves validated dependencies",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 90000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 2935,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-10T10:07:08.401Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "23e7e1da5773d494eb8a-b5b924cfb5901318f448",
+          "file": "community.browser.spec.ts",
+          "line": 123,
+          "column": 1
+        }
+      ]
+    },
+    {
+      "title": "lifecycle.browser.spec.ts",
+      "file": "lifecycle.browser.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [
+        {
+          "title": "bilingual Studio: persisted language, owner deletion/restore and ZIP download",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 90000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 4127,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-10T10:07:11.352Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "eb9ad9f599d9b550af8d-2a22fd8a226394aea5fe",
+          "file": "lifecycle.browser.spec.ts",
+          "line": 4,
+          "column": 1
+        },
+        {
+          "title": "idea-first Canvas: blocked design saved, manual refinement, English filters and responsive UI",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 90000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 4287,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-10T10:07:15.490Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "eb9ad9f599d9b550af8d-70167d3d46c65a5240b8",
+          "file": "lifecycle.browser.spec.ts",
+          "line": 87,
+          "column": 1
+        },
+        {
+          "title": "bilingual visual audit: readable CJK font, mobile layouts, working routes and preserved form state",
+          "ok": false,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 120000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "failed",
+                  "duration": 29762,
+                  "error": {
+                    "message": "Error: cdpSession.send: Protocol error (CSS.getPlatformFontsForNode): Could not find node with given id",
+                    "stack": "Error: cdpSession.send: Protocol error (CSS.getPlatformFontsForNode): Could not find node with given id\n    at C:\\Users\\14237\\Desktop\\Campus AI App Foundry\\tests\\lifecycle.browser.spec.ts:241:27",
+                    "location": {
+                      "file": "C:\\Users\\14237\\Desktop\\Campus AI App Foundry\\tests\\lifecycle.browser.spec.ts",
+                      "column": 27,
+                      "line": 241
+                    },
+                    "snippet": "  239 |     selector: \".catalog-card h3\",\n  240 |   });\n> 241 |   const fonts = await cdp.send(\"CSS.getPlatformFontsForNode\", {\n      |                           ^\n  242 |     nodeId: element.nodeId,\n  243 |   });\n  244 |   expect("
+                  },
+                  "errors": [
+                    {
+                      "location": {
+                        "file": "C:\\Users\\14237\\Desktop\\Campus AI App Foundry\\tests\\lifecycle.browser.spec.ts",
+                        "column": 27,
+                        "line": 241
+                      },
+                      "message": "Error: cdpSession.send: Protocol error (CSS.getPlatformFontsForNode): Could not find node with given id\n\n  239 |     selector: \".catalog-card h3\",\n  240 |   });\n> 241 |   const fonts = await cdp.send(\"CSS.getPlatformFontsForNode\", {\n      |                           ^\n  242 |     nodeId: element.nodeId,\n  243 |   });\n  244 |   expect(\n    at C:\\Users\\14237\\Desktop\\Campus AI App Foundry\\tests\\lifecycle.browser.spec.ts:241:27"
+                    }
+                  ],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-10T10:07:19.789Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "screenshot",
+                      "contentType": "image/png",
+                      "path": "C:\\Users\\14237\\Desktop\\Campus AI App Foundry\\test-results\\lifecycle.browser-bilingua-5be45-es-and-preserved-form-state\\test-failed-1.png"
+                    },
+                    {
+                      "name": "error-context",
+                      "contentType": "text/markdown",
+                      "path": "C:\\Users\\14237\\Desktop\\Campus AI App Foundry\\test-results\\lifecycle.browser-bilingua-5be45-es-and-preserved-form-state\\error-context.md"
+                    },
+                    {
+                      "name": "trace",
+                      "contentType": "application/zip",
+                      "path": "C:\\Users\\14237\\Desktop\\Campus AI App Foundry\\test-results\\lifecycle.browser-bilingua-5be45-es-and-preserved-form-state\\trace.zip"
+                    }
+                  ],
+                  "errorLocation": {
+                    "file": "C:\\Users\\14237\\Desktop\\Campus AI App Foundry\\tests\\lifecycle.browser.spec.ts",
+                    "column": 27,
+                    "line": 241
+                  }
+                }
+              ],
+              "status": "unexpected"
+            }
+          ],
+          "id": "eb9ad9f599d9b550af8d-6b21d7b8ba74998af7bf",
+          "file": "lifecycle.browser.spec.ts",
+          "line": 167,
+          "column": 1
+        }
+      ]
+    },
+    {
+      "title": "modules.browser.spec.ts",
+      "file": "modules.browser.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [
+        {
+          "title": "94-module explorer, interactive details and persisted +references",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 90000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 8662,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-10T10:07:51.838Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "d15f93675f41ffadd6a7-ee5787365c72ba4618c7",
+          "file": "modules.browser.spec.ts",
+          "line": 15,
+          "column": 1
+        },
+        {
+          "title": "described drag and connect builds a validated application with notifications, embedded records and display widgets",
+          "ok": false,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 180000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 0,
+                  "status": "failed",
+                  "duration": 28078,
+                  "error": {
+                    "message": "TimeoutError: locator.fill: Timeout 15000ms exceeded.\nCall log:\n\u001b[2m  - waiting for getByRole('dialog', { name: '新增个人待办', exact: true }).getByRole('textbox').first()\u001b[22m\n",
+                    "stack": "TimeoutError: locator.fill: Timeout 15000ms exceeded.\nCall log:\n\u001b[2m  - waiting for getByRole('dialog', { name: '新增个人待办', exact: true }).getByRole('textbox').first()\u001b[22m\n\n    at C:\\Users\\14237\\Desktop\\Campus AI App Foundry\\tests\\modules.browser.spec.ts:254:47",
+                    "location": {
+                      "file": "C:\\Users\\14237\\Desktop\\Campus AI App Foundry\\tests\\modules.browser.spec.ts",
+                      "column": 47,
+                      "line": 254
+                    },
+                    "snippet": "  252 |       exact: true,\n  253 |     });\n> 254 |     await editor.getByRole(\"textbox\").first().fill(\"联系失物中心\");\n      |                                               ^\n  255 |     await editor.getByLabel(\"优先级\").selectOption(\"高\");\n  256 |     await editor.getByLabel(\"截止日期\").fill(\"2026-10-11\");\n  257 |     await editor.getByRole(\"button\", { name: \"保存\", exact: true }).click();"
+                  },
+                  "errors": [
+                    {
+                      "location": {
+                        "file": "C:\\Users\\14237\\Desktop\\Campus AI App Foundry\\tests\\modules.browser.spec.ts",
+                        "column": 47,
+                        "line": 254
+                      },
+                      "message": "TimeoutError: locator.fill: Timeout 15000ms exceeded.\nCall log:\n\u001b[2m  - waiting for getByRole('dialog', { name: '新增个人待办', exact: true }).getByRole('textbox').first()\u001b[22m\n\n\n  252 |       exact: true,\n  253 |     });\n> 254 |     await editor.getByRole(\"textbox\").first().fill(\"联系失物中心\");\n      |                                               ^\n  255 |     await editor.getByLabel(\"优先级\").selectOption(\"高\");\n  256 |     await editor.getByLabel(\"截止日期\").fill(\"2026-10-11\");\n  257 |     await editor.getByRole(\"button\", { name: \"保存\", exact: true }).click();\n    at C:\\Users\\14237\\Desktop\\Campus AI App Foundry\\tests\\modules.browser.spec.ts:254:47"
+                    }
+                  ],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-10T10:08:00.825Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "screenshot",
+                      "contentType": "image/png",
+                      "path": "C:\\Users\\14237\\Desktop\\Campus AI App Foundry\\test-results\\modules.browser-described--2fb82-records-and-display-widgets\\test-failed-1.png"
+                    },
+                    {
+                      "name": "screenshot",
+                      "contentType": "image/png",
+                      "path": "C:\\Users\\14237\\Desktop\\Campus AI App Foundry\\test-results\\modules.browser-described--2fb82-records-and-display-widgets\\test-failed-2.png"
+                    },
+                    {
+                      "name": "error-context",
+                      "contentType": "text/markdown",
+                      "path": "C:\\Users\\14237\\Desktop\\Campus AI App Foundry\\test-results\\modules.browser-described--2fb82-records-and-display-widgets\\error-context.md"
+                    },
+                    {
+                      "name": "trace",
+                      "contentType": "application/zip",
+                      "path": "C:\\Users\\14237\\Desktop\\Campus AI App Foundry\\test-results\\modules.browser-described--2fb82-records-and-display-widgets\\trace.zip"
+                    }
+                  ],
+                  "errorLocation": {
+                    "file": "C:\\Users\\14237\\Desktop\\Campus AI App Foundry\\tests\\modules.browser.spec.ts",
+                    "column": 47,
+                    "line": 254
+                  }
+                }
+              ],
+              "status": "unexpected"
+            }
+          ],
+          "id": "d15f93675f41ffadd6a7-7ec44ea7fd6484bd8bf7",
+          "file": "modules.browser.spec.ts",
+          "line": 123,
+          "column": 1
+        }
+      ]
+    }
+  ],
+  "errors": [],
+  "stats": {
+    "startTime": "2026-10-10T10:05:53.088Z",
+    "duration": 157755.217,
+    "expected": 8,
+    "skipped": 0,
+    "unexpected": 2,
+    "flaky": 0
+  }
+}

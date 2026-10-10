@@ -1,0 +1,577 @@
+{
+  "at": "2026-10-10T10:46:50.712Z",
+  "scope": "declared showcase applications",
+  "sharedRuntimeLines": 5056,
+  "sourceFiles": [
+    "migrations/runtime/001_initial.sql",
+    "migrations/runtime/002_module_records.sql",
+    "migrations/runtime/003_commerce.sql",
+    "migrations/runtime/004_community.sql",
+    "packages/contracts/src/commerce.ts",
+    "packages/contracts/src/community.ts",
+    "packages/contracts/src/index.ts",
+    "packages/modules/src/business-catalog.ts",
+    "packages/modules/src/catalog.ts",
+    "packages/modules/src/commerce-catalog.ts",
+    "packages/modules/src/commerce.ts",
+    "packages/modules/src/community-catalog.ts",
+    "packages/modules/src/community.ts",
+    "packages/modules/src/composition.ts",
+    "packages/modules/src/connection-catalog.ts",
+    "packages/modules/src/quota.ts",
+    "packages/modules/src/records.ts",
+    "packages/modules/src/runtime.ts",
+    "server/auth.ts",
+    "server/db.ts",
+    "server/http.ts",
+    "server/providers.ts",
+    "server/runtime-main.ts",
+    "server/runtime-server.ts"
+  ],
+  "uniqueApplications": 6,
+  "validatedApplications": 5,
+  "outsideScope": [
+    {
+      "applicationId": "29d090d2-3e4b-4654-9622-93ca3f67939d",
+      "name": "我的校园应用",
+      "sameCurrentSource": false
+    }
+  ],
+  "applications": [
+    {
+      "deploymentId": "365a66ce-6c85-435e-8542-7d7aa1b33e72",
+      "applicationId": "f1f8594f-b001-4175-82d9-e53c4089877b",
+      "name": "Campus Events",
+      "createdAt": "2026-10-10T10:45:36.596Z",
+      "modules": [
+        {
+          "app_id": "f1f8594f-b001-4175-82d9-e53c4089877b",
+          "module_id": "identity",
+          "version": "1.0.0",
+          "configuration": {},
+          "installed_at": "2026-10-09T18:39:07.574Z"
+        },
+        {
+          "app_id": "f1f8594f-b001-4175-82d9-e53c4089877b",
+          "module_id": "campus",
+          "version": "1.0.0",
+          "configuration": {},
+          "installed_at": "2026-10-09T18:39:07.574Z"
+        },
+        {
+          "app_id": "f1f8594f-b001-4175-82d9-e53c4089877b",
+          "module_id": "chat",
+          "version": "1.0.0",
+          "configuration": {},
+          "installed_at": "2026-10-09T18:39:07.574Z"
+        },
+        {
+          "app_id": "f1f8594f-b001-4175-82d9-e53c4089877b",
+          "module_id": "content",
+          "version": "1.0.0",
+          "configuration": {},
+          "installed_at": "2026-10-09T18:39:07.574Z"
+        },
+        {
+          "app_id": "f1f8594f-b001-4175-82d9-e53c4089877b",
+          "module_id": "notifications",
+          "version": "1.0.0",
+          "configuration": {},
+          "installed_at": "2026-10-09T18:39:07.574Z"
+        },
+        {
+          "app_id": "f1f8594f-b001-4175-82d9-e53c4089877b",
+          "module_id": "events",
+          "version": "1.0.0",
+          "configuration": {},
+          "installed_at": "2026-10-09T18:39:07.574Z"
+        },
+        {
+          "app_id": "f1f8594f-b001-4175-82d9-e53c4089877b",
+          "module_id": "profiles",
+          "version": "1.0.0",
+          "configuration": {},
+          "installed_at": "2026-10-09T18:39:07.574Z"
+        },
+        {
+          "app_id": "f1f8594f-b001-4175-82d9-e53c4089877b",
+          "module_id": "groups",
+          "version": "1.0.0",
+          "configuration": {},
+          "installed_at": "2026-10-09T18:39:07.574Z"
+        },
+        {
+          "app_id": "f1f8594f-b001-4175-82d9-e53c4089877b",
+          "module_id": "search",
+          "version": "1.0.0",
+          "configuration": {},
+          "installed_at": "2026-10-09T18:39:07.574Z"
+        }
+      ],
+      "sharedSource": "@campus/modules",
+      "sourceHash": "90cbe1ac12d3cd330aff515a13ec5c6f32a89587fc9e56d11a7d983081614dd7",
+      "sameCurrentSource": true,
+      "customExecutableCode": false
+    },
+    {
+      "deploymentId": "0381f9cb-573b-4eca-83c6-1fc3cc721f9b",
+      "applicationId": "823374ce-21f3-43fa-bc1c-b934199f9304",
+      "name": "Campus Marketplace",
+      "createdAt": "2026-10-10T10:45:38.076Z",
+      "modules": [
+        {
+          "app_id": "823374ce-21f3-43fa-bc1c-b934199f9304",
+          "module_id": "identity",
+          "version": "1.0.0",
+          "configuration": {},
+          "installed_at": "2026-10-09T18:39:10.886Z"
+        },
+        {
+          "app_id": "823374ce-21f3-43fa-bc1c-b934199f9304",
+          "module_id": "chat",
+          "version": "1.0.0",
+          "configuration": {},
+          "installed_at": "2026-10-09T18:39:10.886Z"
+        },
+        {
+          "app_id": "823374ce-21f3-43fa-bc1c-b934199f9304",
+          "module_id": "content",
+          "version": "1.0.0",
+          "configuration": {},
+          "installed_at": "2026-10-09T18:39:10.886Z"
+        },
+        {
+          "app_id": "823374ce-21f3-43fa-bc1c-b934199f9304",
+          "module_id": "media",
+          "version": "1.0.0",
+          "configuration": {},
+          "installed_at": "2026-10-09T18:39:10.886Z"
+        },
+        {
+          "app_id": "823374ce-21f3-43fa-bc1c-b934199f9304",
+          "module_id": "profiles",
+          "version": "1.0.0",
+          "configuration": {},
+          "installed_at": "2026-10-09T18:39:10.886Z"
+        },
+        {
+          "app_id": "823374ce-21f3-43fa-bc1c-b934199f9304",
+          "module_id": "search",
+          "version": "1.0.0",
+          "configuration": {},
+          "installed_at": "2026-10-09T18:39:10.886Z"
+        }
+      ],
+      "sharedSource": "@campus/modules",
+      "sourceHash": "90cbe1ac12d3cd330aff515a13ec5c6f32a89587fc9e56d11a7d983081614dd7",
+      "sameCurrentSource": true,
+      "customExecutableCode": false
+    },
+    {
+      "deploymentId": "2aff6a2e-ba31-445b-be9e-4ec8f82f319a",
+      "applicationId": "34dd7277-d889-4131-8c7d-2a89a3dd0d7e",
+      "name": "Study Buddy",
+      "createdAt": "2026-10-10T10:45:39.655Z",
+      "modules": [
+        {
+          "app_id": "34dd7277-d889-4131-8c7d-2a89a3dd0d7e",
+          "module_id": "identity",
+          "version": "1.0.0",
+          "configuration": {},
+          "installed_at": "2026-10-10T10:45:39.569Z"
+        },
+        {
+          "app_id": "34dd7277-d889-4131-8c7d-2a89a3dd0d7e",
+          "module_id": "campus",
+          "version": "1.0.0",
+          "configuration": {},
+          "installed_at": "2026-10-10T10:45:39.569Z"
+        },
+        {
+          "app_id": "34dd7277-d889-4131-8c7d-2a89a3dd0d7e",
+          "module_id": "chat",
+          "version": "1.0.0",
+          "configuration": {},
+          "installed_at": "2026-10-10T10:45:39.569Z"
+        },
+        {
+          "app_id": "34dd7277-d889-4131-8c7d-2a89a3dd0d7e",
+          "module_id": "content",
+          "version": "1.0.0",
+          "configuration": {},
+          "installed_at": "2026-10-10T10:45:39.569Z"
+        },
+        {
+          "app_id": "34dd7277-d889-4131-8c7d-2a89a3dd0d7e",
+          "module_id": "profiles",
+          "version": "1.0.0",
+          "configuration": {},
+          "installed_at": "2026-10-10T10:45:39.569Z"
+        },
+        {
+          "app_id": "34dd7277-d889-4131-8c7d-2a89a3dd0d7e",
+          "module_id": "groups",
+          "version": "1.0.0",
+          "configuration": {},
+          "installed_at": "2026-10-10T10:45:39.569Z"
+        },
+        {
+          "app_id": "34dd7277-d889-4131-8c7d-2a89a3dd0d7e",
+          "module_id": "notifications",
+          "version": "1.0.0",
+          "configuration": {},
+          "installed_at": "2026-10-10T10:45:39.569Z"
+        },
+        {
+          "app_id": "34dd7277-d889-4131-8c7d-2a89a3dd0d7e",
+          "module_id": "search",
+          "version": "1.0.0",
+          "configuration": {},
+          "installed_at": "2026-10-10T10:45:39.569Z"
+        },
+        {
+          "app_id": "34dd7277-d889-4131-8c7d-2a89a3dd0d7e",
+          "module_id": "study-waitlist",
+          "version": "1.0.0",
+          "configuration": {},
+          "installed_at": "2026-10-10T10:45:39.569Z"
+        }
+      ],
+      "sharedSource": "@campus/modules",
+      "sourceHash": "90cbe1ac12d3cd330aff515a13ec5c6f32a89587fc9e56d11a7d983081614dd7",
+      "sameCurrentSource": true,
+      "customExecutableCode": false
+    },
+    {
+      "deploymentId": "cd393ab3-4e3a-487b-ab99-6c62914539e4",
+      "applicationId": "97d595af-a9f6-4f61-8ca9-9567b534c528",
+      "name": "校园失物协作台",
+      "createdAt": "2026-10-10T10:46:17.576Z",
+      "modules": [
+        {
+          "app_id": "97d595af-a9f6-4f61-8ca9-9567b534c528",
+          "module_id": "identity",
+          "version": "1.0.0",
+          "configuration": {},
+          "installed_at": "2026-10-09T20:20:36.944Z"
+        },
+        {
+          "app_id": "97d595af-a9f6-4f61-8ca9-9567b534c528",
+          "module_id": "checklists",
+          "version": "1.0.0",
+          "configuration": {},
+          "installed_at": "2026-10-09T20:20:36.944Z"
+        },
+        {
+          "app_id": "97d595af-a9f6-4f61-8ca9-9567b534c528",
+          "module_id": "embedded-list",
+          "version": "1.0.0",
+          "configuration": {},
+          "installed_at": "2026-10-09T20:20:36.944Z"
+        },
+        {
+          "app_id": "97d595af-a9f6-4f61-8ca9-9567b534c528",
+          "module_id": "keyword-search",
+          "version": "1.0.0",
+          "configuration": {},
+          "installed_at": "2026-10-09T20:20:36.944Z"
+        },
+        {
+          "app_id": "97d595af-a9f6-4f61-8ca9-9567b534c528",
+          "module_id": "lost-found",
+          "version": "1.0.0",
+          "configuration": {},
+          "installed_at": "2026-10-09T20:20:36.944Z"
+        },
+        {
+          "app_id": "97d595af-a9f6-4f61-8ca9-9567b534c528",
+          "module_id": "metric-counter",
+          "version": "1.0.0",
+          "configuration": {},
+          "installed_at": "2026-10-09T20:20:36.944Z"
+        },
+        {
+          "app_id": "97d595af-a9f6-4f61-8ca9-9567b534c528",
+          "module_id": "notifications",
+          "version": "1.0.0",
+          "configuration": {},
+          "installed_at": "2026-10-09T20:20:36.944Z"
+        },
+        {
+          "app_id": "97d595af-a9f6-4f61-8ca9-9567b534c528",
+          "module_id": "notify-author",
+          "version": "1.0.0",
+          "configuration": {},
+          "installed_at": "2026-10-09T20:20:36.944Z"
+        },
+        {
+          "app_id": "97d595af-a9f6-4f61-8ca9-9567b534c528",
+          "module_id": "status-picker",
+          "version": "1.0.0",
+          "configuration": {},
+          "installed_at": "2026-10-09T20:20:36.944Z"
+        },
+        {
+          "app_id": "97d595af-a9f6-4f61-8ca9-9567b534c528",
+          "module_id": "status-summary",
+          "version": "1.0.0",
+          "configuration": {},
+          "installed_at": "2026-10-09T20:20:36.944Z"
+        },
+        {
+          "app_id": "97d595af-a9f6-4f61-8ca9-9567b534c528",
+          "module_id": "table-view",
+          "version": "1.0.0",
+          "configuration": {},
+          "installed_at": "2026-10-09T20:20:36.944Z"
+        },
+        {
+          "app_id": "97d595af-a9f6-4f61-8ca9-9567b534c528",
+          "module_id": "when-created",
+          "version": "1.0.0",
+          "configuration": {},
+          "installed_at": "2026-10-09T20:20:36.944Z"
+        }
+      ],
+      "sharedSource": "@campus/modules",
+      "sourceHash": "90cbe1ac12d3cd330aff515a13ec5c6f32a89587fc9e56d11a7d983081614dd7",
+      "sameCurrentSource": true,
+      "customExecutableCode": false
+    },
+    {
+      "deploymentId": "a423d316-21e2-457a-afee-243ef906047b",
+      "applicationId": "29d090d2-3e4b-4654-9622-93ca3f67939d",
+      "name": "我的校园应用",
+      "createdAt": "2026-10-10T08:53:27.383Z",
+      "modules": [
+        {
+          "app_id": "29d090d2-3e4b-4654-9622-93ca3f67939d",
+          "module_id": "identity",
+          "version": "1.0.0",
+          "configuration": {},
+          "installed_at": "2026-10-10T06:35:38.308Z"
+        },
+        {
+          "app_id": "29d090d2-3e4b-4654-9622-93ca3f67939d",
+          "module_id": "campus",
+          "version": "1.0.0",
+          "configuration": {},
+          "installed_at": "2026-10-10T06:35:38.308Z"
+        },
+        {
+          "app_id": "29d090d2-3e4b-4654-9622-93ca3f67939d",
+          "module_id": "lab-reports",
+          "version": "1.0.0",
+          "configuration": {},
+          "installed_at": "2026-10-10T06:35:38.308Z"
+        },
+        {
+          "app_id": "29d090d2-3e4b-4654-9622-93ca3f67939d",
+          "module_id": "mentors",
+          "version": "1.0.0",
+          "configuration": {},
+          "installed_at": "2026-10-10T06:35:38.308Z"
+        },
+        {
+          "app_id": "29d090d2-3e4b-4654-9622-93ca3f67939d",
+          "module_id": "peer-tutoring",
+          "version": "1.0.0",
+          "configuration": {},
+          "installed_at": "2026-10-10T06:35:38.308Z"
+        }
+      ],
+      "sharedSource": "@campus/modules",
+      "sourceHash": "a3bf07d6e728af4d405722c828e95ecfa6d5ffe4b3a242564576af9239818dee",
+      "sameCurrentSource": false,
+      "customExecutableCode": false
+    },
+    {
+      "deploymentId": "490b5719-c516-4631-bbb7-c8ee836636ae",
+      "applicationId": "6d0b7741-19cd-49ef-8747-f6c376e0dcf3",
+      "name": "Campus Commerce",
+      "createdAt": "2026-10-10T10:46:33.070Z",
+      "modules": [
+        {
+          "app_id": "6d0b7741-19cd-49ef-8747-f6c376e0dcf3",
+          "module_id": "identity",
+          "version": "1.0.0",
+          "configuration": {},
+          "installed_at": "2026-10-10T08:13:06.502Z"
+        },
+        {
+          "app_id": "6d0b7741-19cd-49ef-8747-f6c376e0dcf3",
+          "module_id": "chat",
+          "version": "1.0.0",
+          "configuration": {},
+          "installed_at": "2026-10-10T08:13:06.502Z"
+        },
+        {
+          "app_id": "6d0b7741-19cd-49ef-8747-f6c376e0dcf3",
+          "module_id": "creator-profiles",
+          "version": "1.0.0",
+          "configuration": {},
+          "installed_at": "2026-10-10T08:13:06.502Z"
+        },
+        {
+          "app_id": "6d0b7741-19cd-49ef-8747-f6c376e0dcf3",
+          "module_id": "notifications",
+          "version": "1.0.0",
+          "configuration": {},
+          "installed_at": "2026-10-10T08:13:06.502Z"
+        },
+        {
+          "app_id": "6d0b7741-19cd-49ef-8747-f6c376e0dcf3",
+          "module_id": "media",
+          "version": "1.0.0",
+          "configuration": {},
+          "installed_at": "2026-10-10T08:13:06.502Z"
+        },
+        {
+          "app_id": "6d0b7741-19cd-49ef-8747-f6c376e0dcf3",
+          "module_id": "merchant-storefront",
+          "version": "1.0.0",
+          "configuration": {},
+          "installed_at": "2026-10-10T08:13:06.502Z"
+        },
+        {
+          "app_id": "6d0b7741-19cd-49ef-8747-f6c376e0dcf3",
+          "module_id": "product-catalog",
+          "version": "1.0.0",
+          "configuration": {},
+          "installed_at": "2026-10-10T08:13:06.502Z"
+        },
+        {
+          "app_id": "6d0b7741-19cd-49ef-8747-f6c376e0dcf3",
+          "module_id": "stock-inventory",
+          "version": "1.0.0",
+          "configuration": {},
+          "installed_at": "2026-10-10T08:13:06.502Z"
+        },
+        {
+          "app_id": "6d0b7741-19cd-49ef-8747-f6c376e0dcf3",
+          "module_id": "sales-orders",
+          "version": "1.0.0",
+          "configuration": {},
+          "installed_at": "2026-10-10T08:13:06.502Z"
+        },
+        {
+          "app_id": "6d0b7741-19cd-49ef-8747-f6c376e0dcf3",
+          "module_id": "discount-coupons",
+          "version": "1.0.0",
+          "configuration": {},
+          "installed_at": "2026-10-10T08:13:06.502Z"
+        },
+        {
+          "app_id": "6d0b7741-19cd-49ef-8747-f6c376e0dcf3",
+          "module_id": "discussion-forum",
+          "version": "1.0.0",
+          "configuration": {},
+          "installed_at": "2026-10-10T08:13:06.502Z"
+        },
+        {
+          "app_id": "6d0b7741-19cd-49ef-8747-f6c376e0dcf3",
+          "module_id": "member-directory",
+          "version": "1.0.0",
+          "configuration": {},
+          "installed_at": "2026-10-10T08:13:06.502Z"
+        },
+        {
+          "app_id": "6d0b7741-19cd-49ef-8747-f6c376e0dcf3",
+          "module_id": "service-booking",
+          "version": "1.0.0",
+          "configuration": {},
+          "installed_at": "2026-10-10T08:13:06.502Z"
+        },
+        {
+          "app_id": "6d0b7741-19cd-49ef-8747-f6c376e0dcf3",
+          "module_id": "order-fulfillment",
+          "version": "1.0.0",
+          "configuration": {},
+          "installed_at": "2026-10-10T08:13:06.502Z"
+        },
+        {
+          "app_id": "6d0b7741-19cd-49ef-8747-f6c376e0dcf3",
+          "module_id": "merchant-analytics",
+          "version": "1.0.0",
+          "configuration": {},
+          "installed_at": "2026-10-10T08:13:06.502Z"
+        },
+        {
+          "app_id": "6d0b7741-19cd-49ef-8747-f6c376e0dcf3",
+          "module_id": "product-favorites",
+          "version": "1.0.0",
+          "configuration": {},
+          "installed_at": "2026-10-10T08:13:06.502Z"
+        },
+        {
+          "app_id": "6d0b7741-19cd-49ef-8747-f6c376e0dcf3",
+          "module_id": "product-showcase",
+          "version": "1.0.0",
+          "configuration": {},
+          "installed_at": "2026-10-10T08:13:06.502Z"
+        },
+        {
+          "app_id": "6d0b7741-19cd-49ef-8747-f6c376e0dcf3",
+          "module_id": "transaction-reviews",
+          "version": "1.0.0",
+          "configuration": {},
+          "installed_at": "2026-10-10T08:13:06.502Z"
+        }
+      ],
+      "sharedSource": "@campus/modules",
+      "sourceHash": "90cbe1ac12d3cd330aff515a13ec5c6f32a89587fc9e56d11a7d983081614dd7",
+      "sameCurrentSource": true,
+      "customExecutableCode": false
+    }
+  ],
+  "sharedCodeImplementations": 1,
+  "applicationSpecificExecutableLines": 0,
+  "moduleInstallationCount": 59,
+  "distinctModuleIds": [
+    "identity",
+    "campus",
+    "chat",
+    "content",
+    "notifications",
+    "events",
+    "profiles",
+    "groups",
+    "search",
+    "media",
+    "study-waitlist",
+    "checklists",
+    "embedded-list",
+    "keyword-search",
+    "lost-found",
+    "metric-counter",
+    "notify-author",
+    "status-picker",
+    "status-summary",
+    "table-view",
+    "when-created",
+    "lab-reports",
+    "mentors",
+    "peer-tutoring",
+    "creator-profiles",
+    "merchant-storefront",
+    "product-catalog",
+    "stock-inventory",
+    "sales-orders",
+    "discount-coupons",
+    "discussion-forum",
+    "member-directory",
+    "service-booking",
+    "order-fulfillment",
+    "merchant-analytics",
+    "product-favorites",
+    "product-showcase",
+    "transaction-reviews"
+  ],
+  "integrationWorkflow": [
+    "create product specification",
+    "resolve and install shared modules",
+    "assemble immutable deployment artifact",
+    "start independent runtime and probe HTTP health"
+  ],
+  "interpretation": "All module invocations use @campus/modules. Deterministic composition is not LLM-generated bespoke code. Runtime source hash equality proves shared artifact provenance, not behavior by itself."
+}

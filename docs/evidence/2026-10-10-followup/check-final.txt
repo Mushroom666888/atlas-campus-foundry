@@ -1,0 +1,69 @@
+
+> campus-ai-app-foundry@0.1.0 check
+> npm run lint && npm run build && npm test
+
+
+> campus-ai-app-foundry@0.1.0 lint
+> eslint .
+
+
+> campus-ai-app-foundry@0.1.0 build
+> tsc --noEmit && vite build
+
+vite v8.3.4 building client environment for production...
+transforming...
+✓ 2259 modules transformed.
+rendering chunks...
+computing gzip size...
+dist/index.html                              0.75 kB │ gzip:   0.47 kB
+dist/assets/commerce-Cg-Im8CW.css            3.30 kB │ gzip:   1.02 kB
+dist/assets/community-FFTY-jQH.css           6.10 kB │ gzip:   1.68 kB
+dist/assets/visual-builder-Cv5Ieqy_.css     19.19 kB │ gzip:   3.58 kB
+dist/assets/index-BVjLbBE8.css              60.83 kB │ gzip:  13.01 kB
+dist/assets/community-catalog-jafX-Y4W.js    2.07 kB │ gzip:   1.15 kB
+dist/assets/runtime-BFD-fEtB.js             21.30 kB │ gzip:   6.39 kB
+dist/assets/community-BX1aHfXj.js           25.62 kB │ gzip:   7.17 kB
+dist/assets/studio-Bb3mihgL.js              57.59 kB │ gzip:  16.51 kB
+dist/assets/commerce-CZFs3tEb.js            67.44 kB │ gzip:  21.15 kB
+dist/assets/schemas-9hqwlbGV.js             91.09 kB │ gzip:  25.99 kB
+dist/assets/visual-builder-Bw6benlJ.js     235.75 kB │ gzip:  76.70 kB
+dist/assets/index-C36Y-VEt.js              386.85 kB │ gzip: 130.58 kB
+
+✓ built in 738ms
+
+> campus-ai-app-foundry@0.1.0 test
+> tsx --test tests/*.test.ts
+
+✔ Agent contract-only provider: real tools, durable trace, stale preview rejected, repair budget enforced (27822.9444ms)
+✔ offline backup: live-storage refusal, checksums, fresh-root restore, accounts, media, secrets and HTTP redeploy (60883.3234ms)
+✔ kernel storage ownership survives an unresponsive owner and releases after process death (11254.1665ms)
+✔ 94 catalog modules, typed graph contracts and exact multilingual module references (38.7749ms)
+✔ dense invalid graphs are rejected within a bounded validation budget (7.0595ms)
+✔ all 50 business modules execute real validated CRUD, private reads, ownership, search and database restart (24342.8294ms)
+✔ 12 connectors execute events, conditions, field mapping, notification, linked records, audit and transactional rollback (8956.3248ms)
+✔ embedded records enforce declared parent contracts; Agent +references persist and constrain module tools (11590.4664ms)
+✔ private records cannot be embedded or copied into shared modules, including stale runtime graphs (6377.8461ms)
+✔ commerce: multimerchant authorization, atomic stock, coupons, idempotency, fulfillment, reviews, bookings and persistence (21261.5602ms)
+✔ creator community: real persistence, public privacy, author permissions, search, replies, moderation and quota (16321.9493ms)
+✔ community modules reuse the platform implementation in isolated application databases and enforce installation (9648.0041ms)
+✔ guided canvas validates intent, complete dependency wiring, port types and missing inputs (30.2063ms)
+✔ saving a v2 graph replaces removed branches atomically even when connector types remain installed (18574.861ms)
+✔ control: owner boundaries, real project files, module publication/reuse and blocked model job (26447.4496ms)
+✔ actual local deployment: HTTP, persistence across restart, immutable rollback, failed deployment and secrets (36379.444ms)
+✔ design-only Agent contract provider: validated persistent plan, no project mutation or deployment (19391.261ms)
+✔ export: owner-only source ZIP; independent install, HTTP app, fresh accounts and persistence after restart (61140.1304ms)
+✔ frontend serves fresh build assets, uncached deep links and real asset 404s (763.2429ms)
+✔ project trash: owner permission, task cancellation, real process shutdown, data and file restoration (31742.4593ms)
+✔ project lifecycle concurrency: restore waits for archive, jobs stay blocked, create/restore quota is atomic (6931.628ms)
+✔ static assets preserve API rate budget while real API requests remain limited (10585.8748ms)
+✔ SSE authorization is revoked after logout and open streams do not prevent shutdown (19225.4649ms)
+✔ manifest contracts and dependency resolution reject cycles, conflicts and missing modules (30.9535ms)
+✔ real runtime: identity, events, FIFO waitlist, notifications, search, chat, authorization and persistence (18058.6492ms)
+ℹ tests 25
+ℹ suites 0
+ℹ pass 25
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 74795.1837

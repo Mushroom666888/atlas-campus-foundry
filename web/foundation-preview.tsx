@@ -1,3 +1,4 @@
+import { t } from "./i18n";
 import { useEffect, useState } from "react";
 import type {
   ModuleManifest,
@@ -103,10 +104,10 @@ export function FoundationPreview({ module }: { module: ModuleManifest }) {
   if (module.moduleId === "media")
     return (
       <div className="capability-preview">
-        <small>本地图片预览，未上传到服务器</small>
-        <h2>图片与媒体</h2>
+        <small>{t("本地图片预览，未上传到服务器")}</small>
+        <h2>{t("图片与媒体")}</h2>
         <label>
-          选择图片
+          {t("选择图片")}
           <input
             type="file"
             accept="image/png,image/jpeg,image/webp"
@@ -140,10 +141,10 @@ export function FoundationPreview({ module }: { module: ModuleManifest }) {
     );
   return (
     <div className="capability-preview">
-      <small>地图预览采用你输入的坐标，不包含预置校园地点</small>
-      <h2>校园地点</h2>
+      <small>{t("地图预览采用你输入的坐标，不包含预置校园地点")}</small>
+      <h2>{t("校园地点")}</h2>
       <label>
-        纬度
+        {t("纬度")}
         <input
           type="number"
           min={-90}
@@ -154,7 +155,7 @@ export function FoundationPreview({ module }: { module: ModuleManifest }) {
         />
       </label>
       <label>
-        经度
+        {t("经度")}
         <input
           type="number"
           min={-180}
@@ -174,10 +175,10 @@ export function FoundationPreview({ module }: { module: ModuleManifest }) {
           target="_blank"
           rel="noreferrer"
         >
-          在 OpenStreetMap 查看地点
+          {t("在 OpenStreetMap 查看地点")}
         </a>
       ) : (
-        <p className="muted">输入有效经纬度后查看地图。</p>
+        <p className="muted">{t("输入有效经纬度后查看地图。")}</p>
       )}
     </div>
   );

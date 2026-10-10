@@ -19,6 +19,19 @@ Backup follow-up review found no remaining material defect within its offline/lo
 
 No production isolation certification was issued. Local-trusted execution is restricted to shipped first-party runtime source. Pending Docker and live model tests are not substituted by mocks.
 
+## Lifecycle, design and export follow-up (2026-10-10)
+
+The existing reviewer performed another read-only pass; the implementation agent applied the fixes and ran regressions.
+
+| Finding | Resolution | Verification |
+|---|---|---|
+| Restore could reactivate a project while archive was still stopping it | Use the same application lock for archive, restore and deployment | Controlled concurrency integration test; reviewer independently reproduced the corrected refusal |
+| Concurrent creates/restores could exceed the active quota | Serialize through an account row lock and check quota in the insert/update transaction | PGlite integration test and native PostgreSQL race: 19 active plus three attempts yields exactly 20 active |
+| Large generated design exceeded coordinate schema bounds | Wrap automatic lanes, use UUID edges and parse the complete expanded specification again | Large 50-collection contract-provider proposal regression |
+| Exported Compose ignored DB/SMTP environment settings | Explicitly forward DB, mail and origin/cookie configuration; verify local health independently of public origin | Source inspection and independent local export tests; Docker execution remains BLOCKED |
+
+No direct private-data export or design-tool allowlist bypass was found in this review. This does not certify hostile multi-tenant isolation.
+
 ## Commerce, community and Canvas review (2026-10-10)
 
 The existing independent reviewer performed a second read-only pass. Findings were repaired by the implementation agent:

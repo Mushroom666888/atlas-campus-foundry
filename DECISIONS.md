@@ -1,5 +1,11 @@
 # Decisions
 
+- Latest user preference: remove the complete homepage module section, including recommendations, count and heading. Keep the Atlas scene, navigation and creation entry; use the actual module library for discovery.
+- Use complete OS CJK font families with real 400/700 weights instead of a 616-glyph partial subset. i18next changes labels and module metadata while preserving canonical values, user content and form state.
+- Make visual creation start with a design request. A restricted design-only Agent can propose a validated plan; users review the product view and optionally open technical wiring. Absent model configuration remains visibly BLOCKED.
+- Treat project deletion as reversible trash. Stop instances, cancel jobs, preserve storage/history and require explicit redeployment after restoration. Serialize create/restore quotas with the account row lock and archive/restore with the app deployment lock.
+- Export a bounded, owner-only standalone source ZIP with pinned lockfile and fresh data. Explicitly exclude control-plane state/secrets and do not automatically run custom workspace code. Exported Compose forwards runtime DB/email/origin settings; cloud testing awaits Docker.
+- Wait for Canvas initialization before enabling editing so delayed draft data cannot replace user input. Fit the technical graph only after its container is visible.
 - Use TypeScript with an explicit shared module contract and a modular control plane.
 - Research code is read as data; repositories without a license are reference-only.
 - Prefer PostgreSQL semantics. Evaluate PGlite for real durable local Windows execution and PostgreSQL server adapter for deployment.

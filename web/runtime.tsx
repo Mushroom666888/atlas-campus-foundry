@@ -1,3 +1,4 @@
+import { t, LanguageSelect, localeTag } from "./i18n";
 import { useEffect, useState, type FormEvent } from "react";
 import {
   Bell,
@@ -167,21 +168,22 @@ export function CampusApplication({
   return (
     <div className={`campus-app theme-${info.spec.primaryColor}`}>
       <header className="app-header">
+        <LanguageSelect />
         <div className="app-brand">
           <span className="brand-symbol">
             <Package size={22} />
           </span>
           <div>
             <strong>{info.spec.name}</strong>
-            <span>校园社区</span>
+            <span>{t("校园社区")}</span>
           </div>
         </div>
         <div className="inline-actions">
           {info.modules.includes("notifications") && (
             <button
               className={`icon-button ${view === "notifications" ? "active" : ""}`}
-              title="通知"
-              aria-label="通知"
+              title={t("通知")}
+              aria-label={t("通知")}
               onClick={() => setView("notifications")}
             >
               <Bell size={20} />
@@ -190,8 +192,8 @@ export function CampusApplication({
           {info.modules.includes("chat") && (
             <button
               className={`icon-button ${view === "chat" ? "active" : ""}`}
-              title="聊天"
-              aria-label="聊天"
+              title={t("聊天")}
+              aria-label={t("聊天")}
               onClick={() => setView("chat")}
             >
               <MessageCircle size={20} />
@@ -199,16 +201,16 @@ export function CampusApplication({
           )}
           <button
             className="avatar-button"
-            title="账户"
-            aria-label="账户"
+            title={t("账户")}
+            aria-label={t("账户")}
             onClick={() => setAccount(true)}
           >
             {user.name.slice(0, 1)}
           </button>
           <button
             className="icon-button"
-            title="退出"
-            aria-label="退出"
+            title={t("退出")}
+            aria-label={t("退出")}
             onClick={() => void post("/api/auth/logout").then(onLogout)}
           >
             <LogOut size={18} />
@@ -246,7 +248,7 @@ export function CampusApplication({
               }
             >
               <Users size={17} />
-              {m.name}
+              {t(m.name)}
             </Link>
           ))}
         {commerce.map((module) => (
@@ -256,7 +258,7 @@ export function CampusApplication({
             onClick={() => setView(module.moduleId)}
           >
             <ShoppingBag size={17} />
-            {module.name}
+            {t(module.name)}
           </button>
         ))}
         {business.map((module) => (
@@ -280,7 +282,7 @@ export function CampusApplication({
               onClick={() => setView(kind)}
             >
               <Icon size={17} />
-              {labels[kind]}
+              {t(labels[kind])}
             </button>
           );
         })}
@@ -289,8 +291,11 @@ export function CampusApplication({
         {view === "community-home" ? (
           <div className="community-heading">
             <div>
-              <h2>欢迎，{user.name}</h2>
-              <p>今天有什么新的进展？</p>
+              <h2>
+                {t("欢迎，")}
+                {user.name}
+              </h2>
+              <p>{t("今天有什么新的进展？")}</p>
             </div>
             <Link
               className="button primary"
@@ -302,7 +307,8 @@ export function CampusApplication({
                     : `/creators/${user.id}`
               }
             >
-              进入社区 <ChevronRight size={17} />
+              {t("进入社区")}
+              <ChevronRight size={17} />
             </Link>
           </div>
         ) : commerce.some((m) => m.moduleId === view) ? (
@@ -347,7 +353,7 @@ export function CampusApplication({
         <span>Powered by Atlas</span>
       </footer>
       {account && (
-        <Modal title="我的账户" onClose={() => setAccount(false)}>
+        <Modal title={t("我的账户")} onClose={() => setAccount(false)}>
           <Account user={user} />
         </Modal>
       )}
@@ -374,16 +380,16 @@ function EntityView({
   return (
     <>
       <div className="section-head">
-        <h2>{labels[kind]}</h2>
+        <h2>{t(labels[kind])}</h2>
         <button className="primary" onClick={() => setCreate(true)}>
           <Plus size={17} />
           {kind === "profile"
-            ? "创建学习资料"
+            ? t("创建学习资料")
             : kind === "location"
-              ? "添加地点"
+              ? t("添加地点")
               : kind === "group"
-                ? "创建小组"
-                : "发布"}
+                ? t("创建小组")
+                : t("发布")}
         </button>
       </div>
       {info.modules.includes("search") && (
@@ -399,11 +405,11 @@ function EntityView({
             <input
               value={query}
               onChange={(e) => setQuery(e.target.value)}
-              aria-label="搜索内容"
-              placeholder={`搜索${labels[kind]}`}
+              aria-label={t("搜索内容")}
+              placeholder={`${t("搜索")} ${t(labels[kind])}`}
             />
           </div>
-          <button type="submit">搜索</button>
+          <button type="submit">{t("搜索")}</button>
         </form>
       )}
       {entities.error && <Notice>{entities.error}</Notice>}
@@ -430,14 +436,14 @@ function EntityView({
                   <Icon size={35} />
                   {kind === "event" && typeof item.data.date === "string" && (
                     <span>
-                      {new Date(item.data.date).toLocaleDateString("zh-CN")}
+                      {new Date(item.data.date).toLocaleDateString(localeTag())}
                     </span>
                   )}
                 </div>
               )}
               <div className="entity-copy">
                 <div className="section-head">
-                  <span className="eyebrow">{labels[kind]}</span>
+                  <span className="eyebrow">{t(labels[kind])}</span>
                   <Badge status={item.status} />
                 </div>
                 <h3>{item.title}</h3>
@@ -450,11 +456,14 @@ function EntityView({
                   ) : typeof item.data.capacity === "number" ? (
                     <span>
                       <Users size={14} />
-                      {item.data.capacity} 人上限
+                      {item.data.capacity}
+                      {t("人上限")}
                     </span>
                   ) : (
                     <span>
-                      {new Date(item.created_at).toLocaleDateString("zh-CN")}
+                      {new Date(item.created_at).toLocaleDateString(
+                        localeTag(),
+                      )}
                     </span>
                   )}
                   <ChevronRight size={17} />
@@ -464,11 +473,19 @@ function EntityView({
           ))}
         </div>
       ) : (
-        <Empty>还没有{labels[kind]}，发布第一条内容。</Empty>
+        <Empty>
+          {t("还没有")}
+          {t(labels[kind])}
+          {t("，发布第一条内容。")}
+        </Empty>
       )}
       {create && (
         <Modal
-          title={kind === "location" ? "添加校园地点" : `发布${labels[kind]}`}
+          title={
+            kind === "location"
+              ? t("添加校园地点")
+              : `${t("发布")} ${t(labels[kind])}`
+          }
           onClose={() => setCreate(false)}
         >
           <EntityForm
@@ -534,16 +551,16 @@ function EntityForm({
   return (
     <form onSubmit={submit}>
       <label>
-        {kind === "profile" ? "姓名或称呼" : "标题"}
+        {kind === "profile" ? t("姓名或称呼") : t("标题")}
         <input name="title" required maxLength={160} />
       </label>
       <label>
-        {kind === "profile" ? "学习介绍" : "描述"}
+        {kind === "profile" ? t("学习介绍") : t("描述")}
         <textarea name="body" rows={3} maxLength={10000} />
       </label>
       {["event", "group"].includes(kind) && (
         <label>
-          人数上限
+          {t("人数上限")}
           <input
             name="capacity"
             type="number"
@@ -556,13 +573,13 @@ function EntityForm({
       )}
       {kind === "event" && (
         <label>
-          活动时间
+          {t("活动时间")}
           <input name="date" type="datetime-local" required />
         </label>
       )}
       {kind === "listing" && (
         <label>
-          价格（元）
+          {t("价格（元）")}
           <input
             name="price"
             type="number"
@@ -575,20 +592,20 @@ function EntityForm({
       )}
       {["profile", "group", "course"].includes(kind) && (
         <label>
-          课程或学习主题
+          {t("课程或学习主题")}
           <input name="course" maxLength={120} />
         </label>
       )}
       {kind === "profile" && (
         <label>
-          兴趣与可用时间
+          {t("兴趣与可用时间")}
           <input name="interests" maxLength={300} />
         </label>
       )}
       {kind === "location" && (
         <div className="form-row">
           <label>
-            纬度
+            {t("纬度")}
             <input
               name="latitude"
               type="number"
@@ -599,7 +616,7 @@ function EntityForm({
             />
           </label>
           <label>
-            经度
+            {t("经度")}
             <input
               name="longitude"
               type="number"
@@ -613,9 +630,9 @@ function EntityForm({
       )}
       {["event", "group"].includes(kind) && info.modules.includes("campus") && (
         <label>
-          地点
+          {t("地点")}
           <select name="locationId">
-            <option value="">暂未确定</option>
+            <option value="">{t("暂未确定")}</option>
             {locations.data?.items.map((item) => (
               <option value={item.id} key={item.id}>
                 {item.title}
@@ -627,9 +644,9 @@ function EntityForm({
       {["listing", "post"].includes(kind) && info.modules.includes("media") && (
         <label className="upload-field">
           <ImagePlus size={22} />
-          {imageId ? "图片已上传" : "上传图片"}
+          {imageId ? t("图片已上传") : t("上传图片")}
           <input
-            aria-label="上传图片"
+            aria-label={t("上传图片")}
             type="file"
             accept="image/png,image/jpeg,image/webp"
             onChange={(e) => {
@@ -650,7 +667,7 @@ function EntityForm({
             <img
               className="upload-preview"
               src={`/api/uploads/${imageId}`}
-              alt="待发布图片"
+              alt={t("待发布图片")}
             />
           )}
         </label>
@@ -658,7 +675,7 @@ function EntityForm({
       {action.error && <Notice>{action.error}</Notice>}
       <button className="primary" disabled={action.busy}>
         <Plus size={16} />
-        {action.busy ? "正在保存…" : "发布"}
+        {action.busy ? t("正在保存…") : t("发布")}
       </button>
     </form>
   );
@@ -723,7 +740,8 @@ function EntityDetail({
               })
             }
           >
-            <MapPin size={16} />在 OpenStreetMap 中查看
+            <MapPin size={16} />
+            {t("在 OpenStreetMap 中查看")}
           </button>
         )}
         {item.kind === "school" && (
@@ -736,7 +754,7 @@ function EntityDetail({
             }
           >
             <Plus size={16} />
-            加入学校
+            {t("加入学校")}
           </button>
         )}
         {info.modules.includes("chat") && item.owner_id !== user.id && (
@@ -752,12 +770,14 @@ function EntityDetail({
             }
           >
             <MessageCircle size={16} />
-            {item.kind === "listing" ? "联系卖家" : "发起聊天"}
+            {item.kind === "listing" ? t("联系卖家") : t("发起聊天")}
           </button>
         )}
         {item.owner_id === user.id && (
           <>
-            <button onClick={() => setEditing(!editing)}>编辑内容</button>
+            <button onClick={() => setEditing(!editing)}>
+              {t("编辑内容")}
+            </button>
             <button
               onClick={() =>
                 void action.run(async () => {
@@ -779,9 +799,9 @@ function EntityDetail({
               <Check size={16} />
               {item.status === "active"
                 ? item.kind === "listing"
-                  ? "标记已售"
-                  : "关闭"
-                : "重新开放"}
+                  ? t("标记已售")
+                  : t("关闭")
+                : t("重新开放")}
             </button>
           </>
         )}
@@ -803,16 +823,16 @@ function EntityDetail({
           }}
         >
           <label>
-            标题
+            {t("标题")}
             <input name="title" defaultValue={item.title} required />
           </label>
           <label>
-            描述
+            {t("描述")}
             <textarea name="body" defaultValue={item.body} />
           </label>
           <button className="primary">
             <Check size={16} />
-            保存修改
+            {t("保存修改")}
           </button>
         </form>
       )}
@@ -843,12 +863,12 @@ function Membership({ id, active }: { id: string; active: boolean }) {
   return (
     <section className="membership">
       <div className="section-head">
-        <h3>报名情况</h3>
+        <h3>{t("报名情况")}</h3>
         <span>
           {data.data?.counts.find((c) => c.status === "joined")?.count ?? 0}{" "}
-          人已加入 ·{" "}
+          {t("人已加入 ·")}{" "}
           {data.data?.counts.find((c) => c.status === "waiting")?.count ?? 0}{" "}
-          人候补
+          {t("人候补")}
         </span>
       </div>
       {data.data?.mine ? (
@@ -864,7 +884,7 @@ function Membership({ id, active }: { id: string; active: boolean }) {
             }
           >
             <X size={15} />
-            退出报名
+            {t("退出报名")}
           </button>
         </div>
       ) : (
@@ -879,7 +899,7 @@ function Membership({ id, active }: { id: string; active: boolean }) {
           }
         >
           <Plus size={16} />
-          报名加入
+          {t("报名加入")}
         </button>
       )}
       {data.data?.members.length ? (
@@ -909,10 +929,10 @@ function Chat({ user }: { user: PublicUser }) {
   return (
     <>
       <div className="section-head">
-        <h2>聊天</h2>
+        <h2>{t("聊天")}</h2>
         <button className="primary" onClick={() => setCreate(true)}>
           <Plus size={16} />
-          新建会话
+          {t("新建会话")}
         </button>
       </div>
       <section className="chat-layout">
@@ -929,17 +949,17 @@ function Chat({ user }: { user: PublicUser }) {
               </button>
             ))
           ) : (
-            <Empty>还没有会话</Empty>
+            <Empty>{t("还没有会话")}</Empty>
           )}
         </div>
         {selected ? (
           <Messages id={selected} user={user} />
         ) : (
-          <Empty>选择一个会话</Empty>
+          <Empty>{t("选择一个会话")}</Empty>
         )}
       </section>
       {create && (
-        <Modal title="新建会话" onClose={() => setCreate(false)}>
+        <Modal title={t("新建会话")} onClose={() => setCreate(false)}>
           <form
             onSubmit={(e) => {
               e.preventDefault();
@@ -956,13 +976,13 @@ function Chat({ user }: { user: PublicUser }) {
             }}
           >
             <label>
-              会话名称
+              {t("会话名称")}
               <input name="title" required maxLength={100} />
             </label>
             <label>
-              联系谁
+              {t("联系谁")}
               <select name="member" required>
-                <option value="">选择成员</option>
+                <option value="">{t("选择成员")}</option>
                 {people.data?.items
                   .filter((p) => p.id !== user.id)
                   .map((p) => (
@@ -975,7 +995,7 @@ function Chat({ user }: { user: PublicUser }) {
             {action.error && <Notice>{action.error}</Notice>}
             <button className="primary" disabled={action.busy}>
               <Plus size={16} />
-              创建会话
+              {t("创建会话")}
             </button>
           </form>
         </Modal>
@@ -1009,7 +1029,7 @@ function Messages({ id, user }: { id: string; user: PublicUser }) {
           >
             <small>
               {m.sender_name} ·{" "}
-              {new Date(m.created_at).toLocaleTimeString("zh-CN", {
+              {new Date(m.created_at).toLocaleTimeString(localeTag(), {
                 hour: "2-digit",
                 minute: "2-digit",
               })}
@@ -1017,7 +1037,7 @@ function Messages({ id, user }: { id: string; user: PublicUser }) {
             <p>{m.body}</p>
           </div>
         ))}
-        {!messages.data?.items.length && <Empty>开始你们的对话</Empty>}
+        {!messages.data?.items.length && <Empty>{t("开始你们的对话")}</Empty>}
       </div>
       {action.error && <Notice>{action.error}</Notice>}
       <form
@@ -1037,16 +1057,16 @@ function Messages({ id, user }: { id: string; user: PublicUser }) {
       >
         <input
           name="body"
-          aria-label="聊天消息"
+          aria-label={t("聊天消息")}
           required
           maxLength={4000}
-          placeholder="发送消息…"
+          placeholder={t("发送消息…")}
         />
         <button
           className="primary"
           disabled={action.busy}
-          aria-label="发送消息"
-          title="发送消息"
+          aria-label={t("发送消息")}
+          title={t("发送消息")}
         >
           <Send size={18} />
         </button>
@@ -1061,7 +1081,7 @@ function Notifications() {
   const action = useAction();
   return (
     <section>
-      <h2>通知</h2>
+      <h2>{t("通知")}</h2>
       {action.error && <Notice>{action.error}</Notice>}
       {notifications.data?.items.length ? (
         notifications.data.items.map((n) => (
@@ -1073,8 +1093,8 @@ function Notifications() {
             <p>{n.body}</p>
             {!n.read_at && (
               <button
-                aria-label="标为已读"
-                title="标为已读"
+                aria-label={t("标为已读")}
+                title={t("标为已读")}
                 onClick={() =>
                   void action.run(async () => {
                     await post(`/api/notifications/${n.id}/read`);
@@ -1088,7 +1108,7 @@ function Notifications() {
           </div>
         ))
       ) : (
-        <Empty>暂无通知</Empty>
+        <Empty>{t("暂无通知")}</Empty>
       )}
     </section>
   );
@@ -1099,16 +1119,16 @@ function Account({ user }: { user: PublicUser }) {
     <>
       <dl className="definition-list">
         <div>
-          <dt>称呼</dt>
+          <dt>{t("称呼")}</dt>
           <dd>{user.name}</dd>
         </div>
         <div>
-          <dt>邮箱</dt>
+          <dt>{t("邮箱")}</dt>
           <dd>{user.email}</dd>
         </div>
         <div>
-          <dt>验证状态</dt>
-          <dd>{user.verified ? "邮箱已验证" : "邮箱未验证"}</dd>
+          <dt>{t("验证状态")}</dt>
+          <dd>{user.verified ? t("邮箱已验证") : t("邮箱未验证")}</dd>
         </div>
       </dl>
       <button
@@ -1122,7 +1142,7 @@ function Account({ user }: { user: PublicUser }) {
           })
         }
       >
-        发送验证邮件
+        {t("发送验证邮件")}
       </button>
       <form
         onSubmit={(e) => {
@@ -1135,12 +1155,12 @@ function Account({ user }: { user: PublicUser }) {
         }}
       >
         <label>
-          验证码
+          {t("验证码")}
           <input name="token" required />
         </label>
         <button>
           <Check size={16} />
-          验证邮箱
+          {t("验证邮箱")}
         </button>
       </form>
       {action.error && <Notice kind="info">{action.error}</Notice>}

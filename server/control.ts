@@ -6,6 +6,7 @@ import { Database } from "./db.js";
 import { setupAuth, requireUser } from "./auth.js";
 import { errors, serveFrontend } from "./http.js";
 import { Projects } from "./projects.js";
+import { exportProject } from "./export.js";
 import { Deployments } from "./deployment.js";
 import { Agent, toolContracts } from "./agent.js";
 import {
@@ -91,11 +92,14 @@ export async function createControl(
   });
   app.get("/api/projects", async (request) => {
     const user = requireUser(request);
+    const { trash } = z
+      .object({ trash: z.enum(["true", "false"]).default("false") })
+      .parse(request.query);
     return {
       items: (
         await db.query(
-          "SELECT p.*,a.id AS app_id FROM projects p JOIN applications a ON a.project_id=p.id WHERE p.owner_id=$1 ORDER BY p.updated_at DESC",
-          [user.id],
+          "SELECT p.*,a.id AS app_id FROM projects p JOIN applications a ON a.project_id=p.id WHERE p.owner_id=$1 AND (p.deleted_at IS NOT NULL)=$2 ORDER BY p.updated_at DESC",
+          [user.id, trash === "true"],
         )
       ).rows,
     };
@@ -123,6 +127,27 @@ export async function createControl(
   app.put("/api/projects/:id", async (request) =>
     projects.update(id(request), requireUser(request).id, request.body),
   );
+  app.delete("/api/projects/:id", async (request) => {
+    const actor = requireUser(request).id;
+    return deployments.archiveProject(id(request), actor, () =>
+      agent.cancelProject(id(request), actor),
+    );
+  });
+  app.post("/api/projects/:id/restore", async (request) =>
+    deployments.restoreProject(id(request), requireUser(request).id),
+  );
+  app.get("/api/projects/:id/export", async (request, reply) => {
+    const actor = requireUser(request).id;
+    const archive = await exportProject(projects, id(request), actor);
+    return reply
+      .header("Cache-Control", "no-store")
+      .header(
+        "Content-Disposition",
+        `attachment; filename="atlas-${z.uuid().parse(id(request))}.zip"`,
+      )
+      .type("application/zip")
+      .send(archive);
+  });
   app.get("/api/projects/:id/files", async (request) => ({
     items: await projects.files(id(request), requireUser(request).id),
   }));
@@ -226,11 +251,17 @@ export async function createControl(
   app.post("/api/jobs", async (request, reply) => {
     const user = requireUser(request);
     const input = z
-      .object({ input: z.string(), projectId: z.uuid().optional() })
+      .object({
+        input: z.string(),
+        projectId: z.uuid().optional(),
+        mode: z.enum(["llm", "design"]).default("llm"),
+      })
       .parse(request.body);
     return reply
       .code(202)
-      .send(await agent.create(user.id, input.input, input.projectId));
+      .send(
+        await agent.create(user.id, input.input, input.projectId, input.mode),
+      );
   });
   app.get("/api/jobs/:id", async (request) => {
     const user = requireUser(request);
@@ -250,7 +281,12 @@ export async function createControl(
   app.post("/api/jobs/:id/retry", async (request) => {
     const user = requireUser(request),
       job = await agent.get(id(request), user.id);
-    return agent.create(user.id, job.input, job.project_id ?? undefined);
+    return agent.create(
+      user.id,
+      job.input,
+      job.project_id ?? undefined,
+      job.mode === "design" ? "design" : "llm",
+    );
   });
   app.post("/api/projects/:id/validate", async (request) => {
     const user = requireUser(request);
@@ -270,7 +306,7 @@ export async function createControl(
     return {
       items: (
         await db.query(
-          "SELECT d.*,p.name AS project_name FROM deployments d JOIN applications a ON a.id=d.app_id JOIN projects p ON p.id=a.project_id WHERE d.owner_id=$1 AND ($2::text IS NULL OR p.id=$2) ORDER BY d.created_at DESC LIMIT 100",
+          "SELECT d.*,p.name AS project_name FROM deployments d JOIN applications a ON a.id=d.app_id JOIN projects p ON p.id=a.project_id WHERE d.owner_id=$1 AND p.deleted_at IS NULL AND ($2::text IS NULL OR p.id=$2) ORDER BY d.created_at DESC LIMIT 100",
           [user.id, projectId ?? null],
         )
       ).rows,

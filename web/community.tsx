@@ -1,3 +1,4 @@
+import { t, LanguageSelect, localeTag } from "./i18n";
 import {
   createContext,
   useContext,
@@ -50,7 +51,7 @@ const CommunityContext = createContext<{
   runtime: boolean;
   has: (id: string) => boolean;
 }>({ runtime: false, has: () => true });
-const date = (value: string) => new Date(value).toLocaleDateString("zh-CN");
+const date = (value: string) => new Date(value).toLocaleDateString(localeTag());
 const parseTags = (value: string) =>
   value
     .split(/[,，]/)
@@ -96,17 +97,21 @@ function Pager({
   return (
     <div className="community-pager">
       <button
-        aria-label="上一页"
-        title="上一页"
+        aria-label={t("上一页")}
+        title={t("上一页")}
         disabled={page === 1}
         onClick={() => onPage(page - 1)}
       >
         <ChevronLeft size={18} />
       </button>
-      <span>第 {page} 页</span>
+      <span>
+        {t("第")}
+        {page}
+        {t("页")}
+      </span>
       <button
-        aria-label="下一页"
-        title="下一页"
+        aria-label={t("下一页")}
+        title={t("下一页")}
         disabled={!hasMore}
         onClick={() => onPage(page + 1)}
       >
@@ -128,18 +133,18 @@ function DeleteButton({
     <>
       <button
         className="icon-button"
-        title="删除"
-        aria-label="删除"
+        title={t("删除")}
+        aria-label={t("删除")}
         onClick={() => setOpen(true)}
       >
         <Trash2 size={17} />
       </button>
       {open && (
-        <Modal title="确认删除这条内容？" onClose={() => setOpen(false)}>
-          <p>删除后将不再公开展示。讨论下的回复也会一起删除。</p>
+        <Modal title={t("确认删除这条内容？")} onClose={() => setOpen(false)}>
+          <p>{t("删除后将不再公开展示。讨论下的回复也会一起删除。")}</p>
           {action.error && <Notice>{action.error}</Notice>}
           <div className="inline-actions">
-            <button onClick={() => setOpen(false)}>保留</button>
+            <button onClick={() => setOpen(false)}>{t("保留")}</button>
             <button
               className="danger"
               disabled={action.busy}
@@ -151,7 +156,7 @@ function DeleteButton({
                 })
               }
             >
-              确认删除
+              {t("确认删除")}
             </button>
           </div>
         </Modal>
@@ -181,29 +186,32 @@ export function Community({
     <CommunityContext.Provider value={{ runtime, has }}>
       <div className="community-shell">
         <header className="community-nav">
+          <LanguageSelect />
           <Link className="atlas-logo" to="/">
             <MoveUpRight strokeWidth={3} />
             <span>{brand}</span>
           </Link>
-          <nav aria-label="社区导航">
+          <nav aria-label={t("社区导航")}>
             {has("discussion-forum") && (
               <NavLink end to="/community">
-                创作者论坛
+                {t("创作者论坛")}
               </NavLink>
             )}
             {has("product-showcase") && (
-              <NavLink to="/community/products">产品广场</NavLink>
+              <NavLink to="/community/products">{t("产品广场")}</NavLink>
             )}
             {has("member-directory") && (
-              <NavLink to="/community/creators">发现创作者</NavLink>
+              <NavLink to="/community/creators">{t("发现创作者")}</NavLink>
             )}
-            {user && <NavLink to={`/creators/${user.id}`}>我的主页</NavLink>}
+            {user && (
+              <NavLink to={`/creators/${user.id}`}>{t("我的主页")}</NavLink>
+            )}
           </nav>
           <Link
             className="button"
             to={user ? (runtime ? "/" : "/studio") : "/login"}
           >
-            {user ? (runtime ? "返回应用" : "工作台") : "登录 / 注册"}
+            {user ? (runtime ? t("返回应用") : t("工作台")) : t("登录 / 注册")}
             <ArrowUpRight size={17} />
           </Link>
         </header>
@@ -248,14 +256,14 @@ export function Community({
             <Route path="/creators/:id" element={<CreatorPage user={user} />} />
             <Route
               path="*"
-              element={<Empty>此应用没有安装对应的社区模块</Empty>}
+              element={<Empty>{t("此应用没有安装对应的社区模块")}</Empty>}
             />
           </Routes>
         </main>
         <footer className="community-footer">
           <span>ATLAS / CREATOR NETWORK</span>
           <Link to={runtime ? "/" : "/modules"}>
-            {runtime ? "返回应用" : "发现模块"} <ArrowUpRight size={16} />
+            {runtime ? t("返回应用") : t("发现模块")} <ArrowUpRight size={16} />
           </Link>
         </footer>
       </div>
@@ -285,21 +293,24 @@ function CommunityFeed({
           <span className="eyebrow">
             {products ? "MADE BY CREATORS" : "THE CREATOR NETWORK"}
           </span>
-          <h1>{products ? "校园里的下一门生意。" : "一起，把产品做出来。"}</h1>
+          <h1>
+            {products ? t("校园里的下一门生意。") : t("一起，把产品做出来。")}
+          </h1>
           <p>
             {products
-              ? "发现独立创作者正在经营的产品。"
-              : "分享进展、交换经验，遇见一起做事的人。"}
+              ? t("发现独立创作者正在经营的产品。")
+              : t("分享进展、交换经验，遇见一起做事的人。")}
           </p>
         </div>
         {user ? (
           <button className="primary" onClick={() => setEditing(true)}>
             <Plus size={18} />
-            {products ? "发布产品" : "发起讨论"}
+            {products ? t("发布产品") : t("发起讨论")}
           </button>
         ) : (
           <Link className="button primary" to="/login">
-            加入社区 <ArrowUpRight size={17} />
+            {t("加入社区")}
+            <ArrowUpRight size={17} />
           </Link>
         )}
       </div>
@@ -316,13 +327,13 @@ function CommunityFeed({
             <Search size={19} />
             <input
               name="q"
-              aria-label={products ? "搜索产品" : "搜索讨论"}
-              placeholder={products ? "搜索产品、标签" : "搜索讨论、标签"}
+              aria-label={products ? t("搜索产品") : t("搜索讨论")}
+              placeholder={products ? t("搜索产品、标签") : t("搜索讨论、标签")}
               maxLength={100}
             />
-            <button type="submit">搜索</button>
+            <button type="submit">{t("搜索")}</button>
           </form>
-          <div className="community-filter" aria-label="内容分类">
+          <div className="community-filter" aria-label={t("内容分类")}>
             {["", ...(products ? productCategories : postCategories)].map(
               (c) => (
                 <button
@@ -334,7 +345,7 @@ function CommunityFeed({
                     setPage(1);
                   }}
                 >
-                  {c || "全部"}
+                  {t(c || "全部")}
                 </button>
               ),
             )}
@@ -358,7 +369,9 @@ function CommunityFeed({
               )}
             </div>
           ) : (
-            <Empty>{products ? "还没有公开产品。" : "这里还没有讨论。"}</Empty>
+            <Empty>
+              {products ? t("还没有公开产品。") : t("这里还没有讨论。")}
+            </Empty>
           )}
           <Pager
             page={page}
@@ -370,18 +383,20 @@ function CommunityFeed({
           <aside className="community-aside">
             <span className="eyebrow">BUILD SOMETHING REAL</span>
             <h2>
-              从创作者，
+              {t("从创作者，")}
               <br />
-              到经营者。
+              {t("到经营者。")}
             </h2>
-            <p>交易、预约、社区。让你的校园洞察成为有人使用的产品。</p>
+            <p>{t("交易、预约、社区。让你的校园洞察成为有人使用的产品。")}</p>
             <Link to="/modules" className="community-aside-link">
               <Boxes size={20} />
-              探索商业模块 <ArrowUpRight size={18} />
+              {t("探索商业模块")}
+              <ArrowUpRight size={18} />
             </Link>
             <Link to="/compose" className="community-aside-link">
               <Plus size={20} />
-              创建新产品 <ArrowUpRight size={18} />
+              {t("创建新产品")}
+              <ArrowUpRight size={18} />
             </Link>
             {user && (
               <Link
@@ -389,7 +404,8 @@ function CommunityFeed({
                 className="community-aside-link"
               >
                 <UserRound size={20} />
-                我的创作者主页 <ArrowUpRight size={18} />
+                {t("我的创作者主页")}
+                <ArrowUpRight size={18} />
               </Link>
             )}
           </aside>
@@ -421,8 +437,8 @@ function ProductCard({ product: p }: { product: CreatorProduct }) {
     <article className="creator-product-card">
       <div className="product-mark">
         <Store size={30} />
-        <span>{p.category}</span>
-        <span className="badge">{p.stage}</span>
+        <span>{t(p.category)}</span>
+        <span className="badge">{t(p.stage)}</span>
       </div>
       <Link to={`/community/products/${p.id}`} className="product-title">
         <h2>{p.name}</h2>
@@ -438,7 +454,7 @@ function PostRow({ item: p }: { item: CommunityPost }) {
   return (
     <article className="community-post-row">
       <div className="post-meta">
-        <span>{p.category}</span>
+        <span>{t(p.category)}</span>
         <time>{date(p.created_at)}</time>
       </div>
       <Link to={`/community/posts/${p.id}`}>
@@ -453,7 +469,8 @@ function PostRow({ item: p }: { item: CommunityPost }) {
         <Author id={p.author_id} name={p.author_name} school={p.school} />
         <Link to={`/community/posts/${p.id}`} className="reply-count">
           <MessageCircle size={17} />
-          {p.reply_count} 条回复
+          {p.reply_count}
+          {t("条回复")}
         </Link>
       </div>
     </article>
@@ -483,7 +500,7 @@ function CreatorPage({ user }: { user: User }) {
     <>
       <Link className="back-link" to={runtime ? "/" : "/community"}>
         <ArrowLeft size={16} />
-        创作者社区
+        {t("创作者社区")}
       </Link>
       <section className="creator-profile">
         <div className="creator-monogram">{p.display_name.slice(0, 1)}</div>
@@ -494,19 +511,22 @@ function CreatorPage({ user }: { user: User }) {
             <div className="creator-school">
               <GraduationCap size={20} />
               {p.school}
-              <span>本人填写</span>
+              <span>{t("本人填写")}</span>
             </div>
           )}
           <p className="preserve-lines">
             {p.bio || "这位创作者还没有填写简介。"}
           </p>
           <Tags values={p.tags} />
-          <span className="muted">{date(p.created_at)} 加入</span>
+          <span className="muted">
+            {date(p.created_at)}
+            {t("加入")}
+          </span>
         </div>
         {mine && (
           <button onClick={() => setEdit(true)}>
             <Pencil size={17} />
-            编辑主页
+            {t("编辑主页")}
           </button>
         )}
       </section>
@@ -522,7 +542,7 @@ function CreatorPage({ user }: { user: User }) {
                     setPage(1);
                   }}
                 >
-                  公开产品
+                  {t("公开产品")}
                 </button>
               )}
               {hasPosts && (
@@ -533,14 +553,14 @@ function CreatorPage({ user }: { user: User }) {
                     setPage(1);
                   }}
                 >
-                  发起的讨论
+                  {t("发起的讨论")}
                 </button>
               )}
             </div>
             {mine && (
               <button className="primary" onClick={() => setAdd(true)}>
                 <Plus size={17} />
-                {tab === "products" ? "发布产品" : "发起讨论"}
+                {tab === "products" ? t("发布产品") : t("发起讨论")}
               </button>
             )}
           </div>
@@ -550,7 +570,7 @@ function CreatorPage({ user }: { user: User }) {
             <Loading />
           ) : !feed.data?.items.length ? (
             <Empty>
-              {tab === "products" ? "还没有公开产品" : "还没有发起讨论"}
+              {tab === "products" ? t("还没有公开产品") : t("还没有发起讨论")}
             </Empty>
           ) : (
             <div
@@ -618,7 +638,7 @@ function CreatorDirectory() {
       <div className="community-heading">
         <div>
           <span className="eyebrow">MEET THE CREATORS</span>
-          <h1>找到一起做事的人。</h1>
+          <h1>{t("找到一起做事的人。")}</h1>
         </div>
       </div>
       <form
@@ -636,24 +656,24 @@ function CreatorDirectory() {
         <Search size={19} />
         <input
           name="q"
-          aria-label="搜索创作者"
-          placeholder="名称、简介或标签"
+          aria-label={t("搜索创作者")}
+          placeholder={t("名称、简介或标签")}
           maxLength={100}
         />
         <input
           name="school"
-          aria-label="按学校筛选"
-          placeholder="学校"
+          aria-label={t("按学校筛选")}
+          placeholder={t("学校")}
           maxLength={100}
         />
-        <button>搜索</button>
+        <button>{t("搜索")}</button>
       </form>
       {load.error ? (
         <Notice>{load.error}</Notice>
       ) : load.loading ? (
         <Loading />
       ) : !load.data?.items.length ? (
-        <Empty>没有找到匹配的公开主页</Empty>
+        <Empty>{t("没有找到匹配的公开主页")}</Empty>
       ) : (
         <div className="creator-product-grid">
           {load.data.items.map((p) => (
@@ -662,7 +682,8 @@ function CreatorDirectory() {
               <p>{p.bio.slice(0, 180)}</p>
               <Tags values={p.tags} />
               <Link to={`/creators/${p.id}`}>
-                查看主页 <ArrowUpRight size={16} />
+                {t("查看主页")}
+                <ArrowUpRight size={16} />
               </Link>
             </article>
           ))}
@@ -684,14 +705,14 @@ export function CommunityPreview({ moduleId }: { moduleId: string }) {
     [query, setQuery] = useState("");
   return (
     <div className="community-preview">
-      <Notice kind="info">交互示例，内容仅保留在当前预览中。</Notice>
+      <Notice kind="info">{t("交互示例，内容仅保留在当前预览中。")}</Notice>
       {moduleId === "member-directory" ? (
         <>
           <div className="community-search">
             <Search size={19} />
             <input
-              aria-label="搜索示例成员"
-              placeholder="名称、学校或标签"
+              aria-label={t("搜索示例成员")}
+              placeholder={t("名称、学校或标签")}
               value={query}
               onChange={(e) => setQuery(e.target.value)}
             />
@@ -719,7 +740,10 @@ export function CommunityPreview({ moduleId }: { moduleId: string }) {
               .map((person) => (
                 <article className="community-post-row" key={person.name}>
                   <h3>{person.name}</h3>
-                  <span>{person.school} · 本人填写</span>
+                  <span>
+                    {person.school}
+                    {t("· 本人填写")}
+                  </span>
                   <p>{person.bio}</p>
                   <Tags values={person.tags} />
                 </article>
@@ -729,9 +753,11 @@ export function CommunityPreview({ moduleId }: { moduleId: string }) {
       ) : moduleId === "discussion-forum" ? (
         <>
           <article className="community-post-row">
-            <span className="eyebrow">寻找合作</span>
-            <h2>一起做一个校园二手循环平台</h2>
-            <p>想找对产品设计和校园运营感兴趣的同学，一起把第一版做出来。</p>
+            <span className="eyebrow">{t("寻找合作")}</span>
+            <h2>{t("一起做一个校园二手循环平台")}</h2>
+            <p>
+              {t("想找对产品设计和校园运营感兴趣的同学，一起把第一版做出来。")}
+            </p>
             <Tags values={["校园创业", "交易市场"]} />
           </article>
           {items.map((r, i) => (
@@ -750,7 +776,7 @@ export function CommunityPreview({ moduleId }: { moduleId: string }) {
             }}
           >
             <label>
-              回复
+              {t("回复")}
               <textarea
                 value={reply}
                 onChange={(e) => setReply(e.target.value)}
@@ -760,7 +786,7 @@ export function CommunityPreview({ moduleId }: { moduleId: string }) {
             </label>
             <button>
               <Send size={17} />
-              发布示例回复
+              {t("发布示例回复")}
             </button>
           </form>
         </>
@@ -768,12 +794,12 @@ export function CommunityPreview({ moduleId }: { moduleId: string }) {
         <article className="creator-product-card">
           <div className="product-mark">
             <Store size={28} />
-            <span>交易市场</span>
+            <span>{t("交易市场")}</span>
           </div>
-          <h2>校园好物循环</h2>
-          <p>闲置教材与原创手作的校园市集。</p>
+          <h2>{t("校园好物循环")}</h2>
+          <p>{t("闲置教材与原创手作的校园市集。")}</p>
           <Tags values={["二手交易", "校园创业"]} />
-          <span className="badge">内测中</span>
+          <span className="badge">{t("内测中")}</span>
         </article>
       ) : (
         <>
@@ -781,13 +807,16 @@ export function CommunityPreview({ moduleId }: { moduleId: string }) {
             <div className="creator-monogram">{name.slice(0, 1)}</div>
             <div>
               <h2>{name}</h2>
-              <p>{school} · 本人填写</p>
+              <p>
+                {school}
+                {t("· 本人填写")}
+              </p>
               <Tags values={["独立开发", "产品设计"]} />
             </div>
           </div>
           <div className="commerce-form">
             <label>
-              公开名称
+              {t("公开名称")}
               <input
                 value={name}
                 onChange={(e) => setName(e.target.value)}
@@ -795,7 +824,7 @@ export function CommunityPreview({ moduleId }: { moduleId: string }) {
               />
             </label>
             <label>
-              学校
+              {t("学校")}
               <input
                 value={school}
                 onChange={(e) => setSchool(e.target.value)}
@@ -822,13 +851,13 @@ function ProductDetail({ user }: { user: User }) {
     <>
       <Link className="back-link" to="/community/products">
         <ArrowLeft size={16} />
-        产品广场
+        {t("产品广场")}
       </Link>
       <article className="community-detail">
         <div className="product-mark">
           <Store size={34} />
-          <span>{p.category}</span>
-          <span className="badge">{p.stage}</span>
+          <span>{t(p.category)}</span>
+          <span className="badge">{t(p.stage)}</span>
         </div>
         <h1>{p.name}</h1>
         <p className="detail-tagline">{p.tagline}</p>
@@ -843,13 +872,14 @@ function ProductDetail({ user }: { user: User }) {
               target="_blank"
               rel="noopener noreferrer nofollow ugc"
             >
-              访问产品 <ArrowUpRight size={18} />
+              {t("访问产品")}
+              <ArrowUpRight size={18} />
             </a>
           )}
           {user?.id === p.owner_id && (
             <button onClick={() => setEdit(true)}>
               <Pencil size={17} />
-              编辑产品
+              {t("编辑产品")}
             </button>
           )}
           {(user?.id === p.owner_id || user?.role === "admin") && (
@@ -890,11 +920,11 @@ function PostDetail({ user }: { user: User }) {
     <>
       <Link className="back-link" to="/community">
         <ArrowLeft size={16} />
-        创作者论坛
+        {t("创作者论坛")}
       </Link>
       <article className="community-detail">
         <div className="post-meta">
-          <span>{p.category}</span>
+          <span>{t(p.category)}</span>
           <time>{date(p.created_at)}</time>
         </div>
         <h1>{p.title}</h1>
@@ -905,7 +935,7 @@ function PostDetail({ user }: { user: User }) {
           {user?.id === p.author_id && (
             <button onClick={() => setEdit(true)}>
               <Pencil size={17} />
-              编辑讨论
+              {t("编辑讨论")}
             </button>
           )}
           {(user?.id === p.author_id || user?.role === "admin") && (
@@ -916,7 +946,7 @@ function PostDetail({ user }: { user: User }) {
           )}
         </div>
         <section className="community-replies">
-          <h2>交流与回复</h2>
+          <h2>{t("交流与回复")}</h2>
           {action.error && <Notice>{action.error}</Notice>}
           {user ? (
             <form
@@ -934,17 +964,17 @@ function PostDetail({ user }: { user: User }) {
               }}
             >
               <label>
-                你的回复
+                {t("你的回复")}
                 <textarea name="body" required maxLength={3000} rows={3} />
               </label>
               <button className="primary" disabled={action.busy}>
                 <Send size={17} />
-                发布回复
+                {t("发布回复")}
               </button>
             </form>
           ) : (
             <Link to="/login" className="button">
-              登录后参与讨论
+              {t("登录后参与讨论")}
             </Link>
           )}
           {action.message && <Notice kind="success">{action.message}</Notice>}
@@ -1012,7 +1042,7 @@ function Editor({
         {action.error && <Notice>{action.error}</Notice>}
         <button className="primary" disabled={action.busy}>
           <CheckIcon />
-          {action.busy ? "正在保存" : "保存并公开"}
+          {action.busy ? t("正在保存") : t("保存并公开")}
         </button>
       </form>
     </Modal>
@@ -1032,7 +1062,7 @@ function ProfileEditor({
 }) {
   return (
     <Editor
-      title="编辑创作者主页"
+      title={t("编辑创作者主页")}
       onClose={onClose}
       onSubmit={async (f) => {
         await api("/api/community/profile", {
@@ -1046,7 +1076,7 @@ function ProfileEditor({
       }}
     >
       <label>
-        公开名称
+        {t("公开名称")}
         <input
           name="displayName"
           defaultValue={p.display_name}
@@ -1055,20 +1085,20 @@ function ProfileEditor({
         />
       </label>
       <label>
-        学校（选填）
+        {t("学校（选填）")}
         <input name="school" defaultValue={p.school} maxLength={100} />
       </label>
       <label>
-        个人简介
+        {t("个人简介")}
         <textarea name="bio" defaultValue={p.bio} rows={4} maxLength={1200} />
       </label>
       <label>
-        标签（最多 8 个，用逗号分隔）
+        {t("标签（最多 8 个，用逗号分隔）")}
         <input
           name="tags"
           defaultValue={p.tags.join(", ")}
           maxLength={167}
-          placeholder="独立开发, 校园创业, 产品设计"
+          placeholder={t("独立开发, 校园创业, 产品设计")}
         />
       </label>
     </Editor>
@@ -1085,7 +1115,7 @@ function ProductEditor({
 }) {
   return (
     <Editor
-      title={p ? "编辑产品" : "发布产品"}
+      title={p ? t("编辑产品") : t("发布产品")}
       onClose={onClose}
       onSubmit={async (f) => {
         await api(`/api/community/products${p ? `/${p.id}` : ""}`, {
@@ -1099,11 +1129,11 @@ function ProductEditor({
       }}
     >
       <label>
-        产品名称
+        {t("产品名称")}
         <input name="name" defaultValue={p?.name} required maxLength={80} />
       </label>
       <label>
-        一句话介绍
+        {t("一句话介绍")}
         <input
           name="tagline"
           defaultValue={p?.tagline}
@@ -1113,24 +1143,28 @@ function ProductEditor({
       </label>
       <div className="form-grid">
         <label>
-          领域
+          {t("领域")}
           <select name="category" defaultValue={p?.category}>
             {productCategories.map((c) => (
-              <option key={c}>{c}</option>
+              <option key={c} value={c}>
+                {t(c)}
+              </option>
             ))}
           </select>
         </label>
         <label>
-          当前阶段
+          {t("当前阶段")}
           <select name="stage" defaultValue={p?.stage || "构建中"}>
             {["构建中", "内测中", "已发布"].map((s) => (
-              <option key={s}>{s}</option>
+              <option key={s} value={s}>
+                {t(s)}
+              </option>
             ))}
           </select>
         </label>
       </div>
       <label>
-        产品简介
+        {t("产品简介")}
         <textarea
           name="description"
           defaultValue={p?.description}
@@ -1140,7 +1174,7 @@ function ProductEditor({
         />
       </label>
       <label>
-        访问地址（选填）
+        {t("访问地址（选填）")}
         <input
           name="url"
           type="url"
@@ -1150,7 +1184,7 @@ function ProductEditor({
         />
       </label>
       <label>
-        标签（最多 8 个，用逗号分隔）
+        {t("标签（最多 8 个，用逗号分隔）")}
         <input name="tags" defaultValue={p?.tags.join(", ")} maxLength={167} />
       </label>
     </Editor>
@@ -1167,7 +1201,7 @@ function PostEditor({
 }) {
   return (
     <Editor
-      title={p ? "编辑讨论" : "发起讨论"}
+      title={p ? t("编辑讨论") : t("发起讨论")}
       onClose={onClose}
       onSubmit={async (f) => {
         await api(`/api/community/posts${p ? `/${p.id}` : ""}`, {
@@ -1181,7 +1215,7 @@ function PostEditor({
       }}
     >
       <label>
-        标题
+        {t("标题")}
         <input
           name="title"
           defaultValue={p?.title}
@@ -1191,15 +1225,17 @@ function PostEditor({
         />
       </label>
       <label>
-        话题
+        {t("话题")}
         <select name="category" defaultValue={p?.category || "经验交流"}>
           {postCategories.map((c) => (
-            <option key={c}>{c}</option>
+            <option key={c} value={c}>
+              {t(c)}
+            </option>
           ))}
         </select>
       </label>
       <label>
-        内容
+        {t("内容")}
         <textarea
           name="body"
           defaultValue={p?.body}
@@ -1210,7 +1246,7 @@ function PostEditor({
         />
       </label>
       <label>
-        标签（最多 8 个，用逗号分隔）
+        {t("标签（最多 8 个，用逗号分隔）")}
         <input name="tags" defaultValue={p?.tags.join(", ")} maxLength={167} />
       </label>
     </Editor>

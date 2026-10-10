@@ -1,3 +1,4 @@
+import { t, useLanguage } from "./i18n";
 import React, { lazy, Suspense, useEffect, useState } from "react";
 import { createRoot } from "react-dom/client";
 import { BrowserRouter, Navigate, useLocation } from "react-router-dom";
@@ -22,6 +23,7 @@ import type {
 import "./styles.css";
 import "./module-studio.css";
 import "./atlas.css";
+import "./followup.css";
 
 export type RuntimeInfo = {
   appId: string;
@@ -31,6 +33,7 @@ export type RuntimeInfo = {
   emailProvider: string;
 };
 function Root() {
+  useLanguage();
   const location = useLocation();
   const [user, setUser] = useState<PublicUser | null>(null),
     [runtime, setRuntime] = useState<RuntimeInfo | null>(null),
@@ -55,11 +58,13 @@ function Root() {
   if (error)
     return (
       <main className="page-recovery">
-        <h1>暂时无法连接工作台</h1>
+        <h1>{t("暂时无法连接工作台")}</h1>
         <Notice>{error}</Notice>
-        <button onClick={() => window.location.reload()}>重新连接</button>
+        <button onClick={() => window.location.reload()}>
+          {t("重新连接")}
+        </button>
         <a className="button" href="/">
-          返回首页
+          {t("返回首页")}
         </a>
       </main>
     );

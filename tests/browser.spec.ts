@@ -195,6 +195,20 @@ test("Studio and three deployed products: persisted workflows, module reuse, upl
     await expect(
       p.getByRole("heading", { name: app.name, exact: true }),
     ).toBeVisible();
+    await p.getByLabel("语言 / Language").selectOption("en");
+    await expect(
+      p.getByRole("button", { name: "Account", exact: true }),
+    ).toBeVisible();
+    await expect(
+      p.getByRole("heading", { name: app.name, exact: true }),
+    ).toBeVisible();
+    await p.reload();
+    await expect(p.getByLabel("语言 / Language")).toHaveValue("en");
+    await p.screenshot({
+      path: `artifacts/screenshots/${app.kind}-en-desktop.png`,
+      fullPage: true,
+    });
+    await p.getByLabel("语言 / Language").selectOption("zh-CN");
     await p.screenshot({
       path: `artifacts/screenshots/${app.kind}-desktop.png`,
       fullPage: true,

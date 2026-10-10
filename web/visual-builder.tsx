@@ -1,3 +1,5 @@
+import { t, useLanguage } from "./i18n";
+import { VisualDesignStart } from "./visual-design";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { Link, useSearchParams } from "react-router-dom";
 import {
@@ -45,7 +47,7 @@ import {
 } from "../packages/modules/src/composition";
 import { resolveModules } from "../packages/modules/src/catalog";
 import { api, post, useLoad } from "./api";
-import { Notice, useAction } from "./components";
+import { Loading, Notice, useAction } from "./components";
 import { categoryLabels, ModuleIcon } from "./module-studio";
 import { FieldInput } from "./record-module";
 import "./canvas-guided.css";
@@ -61,6 +63,7 @@ type ModuleNode = Node<
   "module"
 >;
 function CanvasNode({ data, selected }: NodeProps<ModuleNode>) {
+  useLanguage();
   return (
     <div
       className={`canvas-module ${selected ? "selected" : ""} ${data.module.category} ${data.issues?.length ? "invalid" : ""}`}
@@ -68,34 +71,36 @@ function CanvasNode({ data, selected }: NodeProps<ModuleNode>) {
       <Handle
         type="target"
         position={Position.Left}
-        aria-label={`${data.module.name}输入`}
+        aria-label={`${t(data.module.name)}${t("输入")}`}
       />
       <header>
         <ModuleIcon module={data.module} size={19} />
         <div>
-          <strong>{data.title}</strong>
-          <small>{categoryLabels[data.module.category]}</small>
+          <strong>
+            {data.title === data.module.name ? t(data.title) : data.title}
+          </strong>
+          <small>{t(categoryLabels[data.module.category])}</small>
         </div>
       </header>
       <div className="node-contract">
         <span>
           {data.module.category === "connector"
-            ? "事件"
+            ? t("事件")
             : data.module.category === "presentation"
-              ? "记录"
-              : "账号 / 数据"}
+              ? t("记录")
+              : t("账号 / 数据")}
         </span>
         <span>
           {data.module.category === "presentation"
-            ? "界面"
+            ? t("界面")
             : data.module.category === "connector"
-              ? "结果"
-              : "记录 / 事件"}
+              ? t("结果")
+              : t("记录 / 事件")}
         </span>
       </div>
       <div className="canvas-port-labels">
-        <span>输入</span>
-        <span>输出</span>
+        <span>{t("输入")}</span>
+        <span>{t("输出")}</span>
       </div>
       {!!data.issues?.length && (
         <div className="canvas-node-error">
@@ -106,7 +111,7 @@ function CanvasNode({ data, selected }: NodeProps<ModuleNode>) {
       <Handle
         type="source"
         position={Position.Right}
-        aria-label={`${data.module.name}输出`}
+        aria-label={`${t(data.module.name)}${t("输出")}`}
       />
     </div>
   );
@@ -179,6 +184,14 @@ function defaults(
   );
 }
 export function VisualBuilder({ user }: { user: PublicUser }) {
+  const [params] = useSearchParams();
+  if (
+    !params.has("project") &&
+    !params.has("proposal") &&
+    !params.has("add") &&
+    params.get("mode") !== "manual"
+  )
+    return <VisualDesignStart />;
   return (
     <ReactFlowProvider>
       <CanvasEditor user={user} />
@@ -194,12 +207,15 @@ function CanvasEditor({ user }: { user: PublicUser }) {
     [edgeId, setEdgeId] = useState(""),
     [query, setQuery] = useState(""),
     [category, setCategory] = useState("all"),
-    [name, setName] = useState("我的校园应用"),
+    [name, setName] = useState(() => t("我的校园应用")),
     [description, setDescription] = useState(""),
     [linkSource, setLinkSource] = useState(""),
     [linkTarget, setLinkTarget] = useState(""),
     [mode, setMode] = useState("auto"),
     [preview, setPreview] = useState("");
+  const [advanced, setAdvanced] = useState(false),
+    [loaded, setLoaded] = useState(false),
+    [features, setFeatures] = useState<string[]>([]);
   const [currentProject, setCurrentProject] = useState(
       params.get("project") || "",
     ),
@@ -208,6 +224,14 @@ function CanvasEditor({ user }: { user: PublicUser }) {
   const action = useAction(),
     flow = useReactFlow<ModuleNode>(),
     initialized = useRef(false);
+  useEffect(() => {
+    if (!advanced) return;
+    const timer = setTimeout(
+      () => void flow.fitView({ padding: 0.18, maxZoom: 0.9, duration: 150 }),
+      100,
+    );
+    return () => clearTimeout(timer);
+  }, [advanced, flow]);
   const registryItems =
     registry.data?.items.filter(
       (m) => m.securityMetadata.review !== "pending",
@@ -238,17 +262,27 @@ function CanvasEditor({ user }: { user: PublicUser }) {
     void (async () => {
       try {
         let graph: Composition | undefined;
-        if (params.get("project")) {
-          const data = await api<{ project: { spec: ProductSpec } }>(
-            `/api/projects/${params.get("project")}`,
-          );
-          setName(data.project.spec.name);
-          setDescription(data.project.spec.description);
-          graph = data.project.spec.composition;
+        if (params.get("project") || params.get("proposal")) {
+          const spec = params.get("project")
+            ? (
+                await api<{ project: { spec: ProductSpec } }>(
+                  `/api/projects/${params.get("project")}`,
+                )
+              ).project.spec
+            : (
+                await api<{ job: { plan: ProductSpec } }>(
+                  `/api/jobs/${params.get("proposal")}`,
+                )
+              ).job.plan;
+          if (!spec) throw new Error("设计方案尚未生成");
+          setName(spec.name);
+          setDescription(spec.description);
+          setFeatures(spec.features);
+          graph = spec.composition;
           if (!graph)
             graph = {
               version: 1,
-              nodes: data.project.spec.modules.map((id, i) => ({
+              nodes: spec.modules.map((id, i) => ({
                 id: crypto.randomUUID(),
                 moduleId: id,
                 position: {
@@ -316,6 +350,7 @@ function CanvasEditor({ user }: { user: PublicUser }) {
             setEdges(dependencyEdges(all, []));
           }
         }
+        setLoaded(true);
       } catch (e) {
         setError((e as Error).message);
       }
@@ -451,11 +486,11 @@ function CanvasEditor({ user }: { user: PublicUser }) {
     description,
     kind: "custom",
     modules: [...new Set(nodes.map((n) => n.data.module.moduleId))],
-    features: [],
+    features,
     primaryColor: "green",
     composition: graph(),
   };
-  const issues = compositionIssues(workingSpec, available);
+  const issues = compositionIssues(workingSpec, available, t);
   const edgeIssue = (edge: Edge) =>
     issues.find((i) => i.edgeId === edge.id) ||
     issues.find(
@@ -482,8 +517,8 @@ function CanvasEditor({ user }: { user: PublicUser }) {
     },
     className: edgeIssue(e) ? "invalid-edge" : "",
     label: edgeIssue(e)
-      ? `无效 · ${edgeLabels[e.data?.mode as keyof typeof edgeLabels]}`
-      : edgeLabels[e.data?.mode as keyof typeof edgeLabels],
+      ? `${t("无效")} · ${t(edgeLabels[e.data?.mode as keyof typeof edgeLabels])}`
+      : t(edgeLabels[e.data?.mode as keyof typeof edgeLabels]),
   }));
   const drawnNodes = nodes.map((n) => ({
     ...n,
@@ -542,7 +577,7 @@ function CanvasEditor({ user }: { user: PublicUser }) {
           description: description.trim(),
           kind: "custom",
           modules,
-          features: [],
+          features,
           primaryColor: "green",
           composition: graph(),
         };
@@ -582,15 +617,42 @@ function CanvasEditor({ user }: { user: PublicUser }) {
       run ? "应用已生成并运行" : "编排已保存到项目",
     );
   }
+  if (!loaded) {
+    if (registry.error || error)
+      return (
+        <Notice>
+          {registry.error || error}
+          <button onClick={() => window.location.reload()}>{t("重试")}</button>
+        </Notice>
+      );
+    return <Loading />;
+  }
   return (
     <div className="visual-builder">
+      <div className="section-head">
+        <Link to="/compose">{t("描述新想法")}</Link>
+        <div className="tabs">
+          <button
+            className={!advanced ? "selected" : ""}
+            onClick={() => setAdvanced(false)}
+          >
+            {t("产品方案")}
+          </button>
+          <button
+            className={advanced ? "selected" : ""}
+            onClick={() => setAdvanced(true)}
+          >
+            {t("技术连线")}
+          </button>
+        </div>
+      </div>
       <header className="canvas-toolbar">
-        <Link className="icon-button" to="/modules" title="模块仓库">
+        <Link className="icon-button" to="/modules" title={t("模块仓库")}>
           <ArrowLeft size={18} />
         </Link>
         <GitBranch size={21} />
         <input
-          aria-label="应用名称"
+          aria-label={t("应用名称")}
           value={name}
           onChange={(e) => {
             setName(e.target.value);
@@ -598,13 +660,13 @@ function CanvasEditor({ user }: { user: PublicUser }) {
           }}
           maxLength={80}
         />
-        <span className="save-state">{saved ? "已保存" : "草稿"}</span>
+        <span className="save-state">{saved ? t("已保存") : t("草稿")}</span>
         <button
           disabled={action.busy || !nodes.length || !!issues.length}
           onClick={() => void save(false)}
         >
           <Save size={16} />
-          保存
+          {t("保存")}
         </button>
         <button
           className="primary"
@@ -612,14 +674,14 @@ function CanvasEditor({ user }: { user: PublicUser }) {
           onClick={() => void save(true)}
         >
           <Play size={16} />
-          {action.busy ? "正在生成…" : "生成应用"}
+          {action.busy ? t("正在生成…") : t("生成应用")}
         </button>
       </header>
       <div className="canvas-brief">
         <label>
-          产品描述
+          {t("产品描述")}
           <textarea
-            aria-label="产品描述"
+            aria-label={t("产品描述")}
             value={description}
             onChange={(e) => {
               setDescription(e.target.value);
@@ -627,7 +689,9 @@ function CanvasEditor({ user }: { user: PublicUser }) {
             }}
             maxLength={4000}
             rows={2}
-            placeholder="例如：学生买卖二手教材，商家发布商品与库存，买家下单，卖家约定取货地点，收货后评价。"
+            placeholder={t(
+              "例如：学生买卖二手教材，商家发布商品与库存，买家下单，卖家约定取货地点，收货后评价。",
+            )}
           />
         </label>
         <div
@@ -641,21 +705,21 @@ function CanvasEditor({ user }: { user: PublicUser }) {
           )}
           <strong>
             {!nodes.length
-              ? "等待添加模块"
+              ? t("等待添加模块")
               : issues.length
-                ? `${issues.length} 项待处理`
-                : "结构校验通过"}
+                ? t("{{count}} 项待处理", { count: issues.length })
+                : t("结构校验通过")}
           </strong>
           <span>
             {issues.length
               ? issues[0].message
-              : "接口与依赖已匹配，生成后仍需构建和业务测试。"}
+              : t("接口与依赖已匹配，生成后仍需构建和业务测试。")}
           </span>
         </div>
       </div>
       {!!nodes.length && !!issues.length && (
         <details className="canvas-validation-details">
-          <summary>查看校验问题</summary>
+          <summary>{t("查看校验问题")}</summary>
           <ul>
             {issues.map((issue, i) => (
               <li key={i}>
@@ -681,11 +745,12 @@ function CanvasEditor({ user }: { user: PublicUser }) {
       {(error || action.error) && <Notice>{error || action.error}</Notice>}
       {action.message && (
         <Notice kind="success">
-          {action.message}
+          {t(action.message)}
           {preview && (
             <a target="_blank" rel="noreferrer" href={preview}>
               {" "}
-              打开应用 <ExternalLink size={14} />
+              {t("打开应用")}
+              <ExternalLink size={14} />
             </a>
           )}
         </Notice>
@@ -697,18 +762,18 @@ function CanvasEditor({ user }: { user: PublicUser }) {
           <div className="search-input">
             <Search size={15} />
             <input
-              aria-label="搜索画布模块"
-              placeholder="查找模块"
+              aria-label={t("搜索画布模块")}
+              placeholder={t("查找模块")}
               value={query}
               onChange={(e) => setQuery(e.target.value)}
             />
           </div>
           <select
-            aria-label="画布模块分类"
+            aria-label={t("画布模块分类")}
             value={category}
             onChange={(e) => setCategory(e.target.value)}
           >
-            <option value="all">全部类型</option>
+            <option value="all">{t("全部类型")}</option>
             {[
               "commerce",
               "community",
@@ -719,7 +784,7 @@ function CanvasEditor({ user }: { user: PublicUser }) {
               "extension",
             ].map((id) => (
               <option value={id} key={id}>
-                {categoryLabels[id]}
+                {t(categoryLabels[id])}
               </option>
             ))}
           </select>
@@ -730,7 +795,7 @@ function CanvasEditor({ user }: { user: PublicUser }) {
                   (category === "all" ||
                     m.category === category ||
                     (category === "campus" && m.category === "scenario")) &&
-                  `${m.name} ${m.moduleId} ${m.tags.join(" ")}`
+                  `${m.name} ${t(m.name)} ${m.moduleId} ${m.tags.join(" ")}`
                     .toLowerCase()
                     .includes(query.toLowerCase()),
               )
@@ -746,21 +811,123 @@ function CanvasEditor({ user }: { user: PublicUser }) {
                     e.dataTransfer.effectAllowed = "copy";
                   }}
                   onClick={() => add(module)}
-                  aria-label={`添加${module.name}`}
+                  aria-label={`${t("添加")}${t(module.name)}`}
                 >
                   <ModuleIcon module={module} size={17} />
                   <span>
-                    {module.name}
-                    <small>{categoryLabels[module.category]}</small>
+                    {t(module.name)}
+                    <small>{t(categoryLabels[module.category])}</small>
                   </span>
                   <Plus size={14} />
                 </button>
               ))}
           </div>
         </aside>
+        {!advanced && (
+          <section className="product-plan" aria-label={t("产品方案")}>
+            <h2>{t("用户会用到的功能")}</h2>
+            {!!features.length && (
+              <ul className="plan-features">
+                {features.map((feature, i) => (
+                  <li key={i}>{feature}</li>
+                ))}
+              </ul>
+            )}
+            <div className="plan-modules">
+              {nodes
+                .filter(
+                  (n) =>
+                    !["connector", "presentation"].includes(
+                      n.data.module.category,
+                    ) &&
+                    !["identity", "media", "search", "notifications"].includes(
+                      n.data.module.moduleId,
+                    ),
+                )
+                .map((n) => (
+                  <article
+                    key={n.id}
+                    className={selectedId === n.id ? "selected" : ""}
+                  >
+                    <ModuleIcon module={n.data.module} />
+                    <button
+                      className="plan-module-name"
+                      onClick={() => {
+                        setSelectedId(n.id);
+                        setEdgeId("");
+                      }}
+                    >
+                      <strong>
+                        {n.data.title === n.data.module.name
+                          ? t(n.data.title)
+                          : n.data.title}
+                      </strong>
+                      <span>{t(n.data.module.description)}</span>
+                    </button>
+                    <button
+                      className="icon-button"
+                      title={t("移除节点")}
+                      aria-label={`${t("移除节点")} ${t(n.data.module.name)}`}
+                      onClick={() => {
+                        setNodes((all) => all.filter((a) => a.id !== n.id));
+                        setEdges((all) =>
+                          all.filter(
+                            (e) => e.source !== n.id && e.target !== n.id,
+                          ),
+                        );
+                        setSaved(false);
+                      }}
+                    >
+                      <Trash2 size={16} />
+                    </button>
+                  </article>
+                ))}
+            </div>
+            <h3>{t("自动配套能力")}</h3>
+            <div className="plan-support">
+              {nodes
+                .filter((n) =>
+                  ["identity", "media", "search", "notifications"].includes(
+                    n.data.module.moduleId,
+                  ),
+                )
+                .map((n) => (
+                  <span key={n.id}>
+                    <ModuleIcon module={n.data.module} size={16} />
+                    {t(n.data.module.name)}
+                  </span>
+                ))}
+            </div>
+            <h3>{t("功能之间的关系")}</h3>
+            <div className="plan-relations">
+              {edges
+                .filter((e) => e.data?.mode !== "dependency")
+                .map((e) => (
+                  <button
+                    key={e.id}
+                    className={edgeIssue(e) ? "danger-text" : ""}
+                    onClick={() => {
+                      setEdgeId(e.id);
+                      setSelectedId("");
+                      setAdvanced(true);
+                    }}
+                  >
+                    {t(nodes.find((n) => n.id === e.source)?.data.title || "")}{" "}
+                    → {t(edgeLabels[e.data?.mode as keyof typeof edgeLabels])} →{" "}
+                    {t(nodes.find((n) => n.id === e.target)?.data.title || "")}
+                  </button>
+                ))}
+            </div>
+            <button onClick={() => setAdvanced(true)}>
+              <GitBranch size={17} />
+              {t("调整功能连接")}
+            </button>
+          </section>
+        )}
         <section
           className="canvas-surface"
-          aria-label="模块编排画布"
+          hidden={!advanced}
+          aria-label={t("模块编排画布")}
           onDragOver={(e) => {
             e.preventDefault();
             e.dataTransfer.dropEffect = "copy";
@@ -781,32 +948,35 @@ function CanvasEditor({ user }: { user: PublicUser }) {
         >
           <div className="canvas-mode">
             <label>
-              连接类型
+              {t("连接类型")}
               <select
-                aria-label="连接类型"
+                aria-label={t("连接类型")}
                 value={mode}
                 onChange={(e) => setMode(e.target.value)}
               >
-                <option value="auto">自动识别</option>
+                <option value="auto">{t("自动识别")}</option>
                 {Object.entries(edgeLabels).map(([id, label]) => (
                   <option key={id} value={id}>
-                    {label}
+                    {t(label)}
                   </option>
                 ))}
               </select>
             </label>
             <span>
-              {nodes.length} 个节点 · {edges.length} 条连接
+              {nodes.length}
+              {t("个节点 ·")}
+              {edges.length}
+              {t("条连接")}
             </span>
             <button
-              title="按模块层次排列"
-              aria-label="按层次排列"
+              title={t("按模块层次排列")}
+              aria-label={t("按层次排列")}
               onClick={arrange}
             >
               <LayoutGrid size={17} />
             </button>
             <button onClick={repairDependencies} disabled={!nodes.length}>
-              补齐依赖
+              {t("补齐依赖")}
             </button>
           </div>
           <ReactFlow
@@ -815,11 +985,18 @@ function CanvasEditor({ user }: { user: PublicUser }) {
             nodeTypes={nodeTypes}
             onNodesChange={(changes) => {
               onNodesChange(changes);
-              setSaved(false);
+              if (
+                changes.some(
+                  (change) =>
+                    change.type !== "dimensions" && change.type !== "select",
+                )
+              )
+                setSaved(false);
             }}
             onEdgesChange={(changes) => {
               onEdgesChange(changes);
-              setSaved(false);
+              if (changes.some((change) => change.type !== "select"))
+                setSaved(false);
             }}
             onConnect={connect}
             onNodeDragStop={(_, node) =>
@@ -870,8 +1047,8 @@ function CanvasEditor({ user }: { user: PublicUser }) {
                     ),
                   }}
                 >
-                  <strong>{lane.name}</strong>
-                  <span>{lane.subtitle}</span>
+                  <strong>{t(lane.name)}</strong>
+                  <span>{t(lane.subtitle)}</span>
                 </div>
               ))}
             </ViewportPortal>
@@ -880,41 +1057,41 @@ function CanvasEditor({ user }: { user: PublicUser }) {
           {!nodes.length && (
             <div className="canvas-empty">
               <GitBranch size={36} />
-              <h2>新建应用</h2>
-              <span>0 个模块</span>
+              <h2>{t("新建应用")}</h2>
+              <span>{t("0 个模块")}</span>
             </div>
           )}
         </section>
-        <aside className="canvas-inspector">
+        <aside className="canvas-inspector" hidden={!advanced && !selected}>
           {selected ? (
             <>
               <div className="section-head">
-                <h3>模块属性</h3>
+                <h3>{t("模块属性")}</h3>
                 <button
                   className="icon-button"
-                  aria-label="关闭属性"
+                  aria-label={t("关闭属性")}
                   onClick={() => setSelectedId("")}
                 >
                   <X size={16} />
                 </button>
               </div>
               <ModuleIcon module={selected.data.module} />
-              <h3>{selected.data.module.name}</h3>
-              <p className="muted">{selected.data.module.description}</p>
-              <div className="canvas-interface-list">
-                <strong>提供的接口</strong>
+              <h3>{t(selected.data.module.name)}</h3>
+              <p className="muted">{t(selected.data.module.description)}</p>
+              <div className="canvas-interface-list" hidden={!advanced}>
+                <strong>{t("提供的接口")}</strong>
                 {selected.data.module.providedInterfaces.map((i) => (
                   <code key={i}>{i}</code>
                 ))}
-                <strong>依赖</strong>
+                <strong>{t("依赖")}</strong>
                 {Object.keys(selected.data.module.dependencies).map((id) => (
                   <span key={id}>
-                    {available.find((m) => m.moduleId === id)?.name || id}
+                    {t(available.find((m) => m.moduleId === id)?.name || id)}
                   </span>
                 ))}
               </div>
               <label>
-                显示名称
+                {t("显示名称")}
                 <input
                   value={selected.data.title}
                   onChange={(e) => updateNode({ title: e.target.value })}
@@ -923,7 +1100,7 @@ function CanvasEditor({ user }: { user: PublicUser }) {
               </label>
               {selected.data.module.recordDefinition && (
                 <label>
-                  默认视图
+                  {t("默认视图")}
                   <select
                     value={selected.data.view}
                     onChange={(e) =>
@@ -932,16 +1109,16 @@ function CanvasEditor({ user }: { user: PublicUser }) {
                       })
                     }
                   >
-                    <option value="cards">卡片</option>
-                    <option value="table">表格</option>
-                    <option value="board">看板</option>
+                    <option value="cards">{t("卡片")}</option>
+                    <option value="table">{t("表格")}</option>
+                    <option value="board">{t("看板")}</option>
                   </select>
                 </label>
               )}
               {selected.data.module.configurationFields.map((field) =>
                 ["targetModule", "childModule"].includes(field.key) ? (
                   <label key={field.key}>
-                    目标模块
+                    {t("目标模块")}
                     <select
                       value={String(
                         selected.data.configuration[field.key] || "",
@@ -955,7 +1132,7 @@ function CanvasEditor({ user }: { user: PublicUser }) {
                         })
                       }
                     >
-                      <option value="">选择画布中的业务模块</option>
+                      <option value="">{t("选择画布中的业务模块")}</option>
                       {nodes
                         .filter((n) => n.data.module.recordDefinition)
                         .map((n) => (
@@ -1009,7 +1186,8 @@ function CanvasEditor({ user }: { user: PublicUser }) {
                   ))}
               <hr />
               <Link to={`/modules/${selected.data.module.moduleId}`}>
-                查看模块详情 <ExternalLink size={14} />
+                {t("查看模块详情")}
+                <ExternalLink size={14} />
               </Link>
               <button
                 className="danger-button"
@@ -1026,17 +1204,17 @@ function CanvasEditor({ user }: { user: PublicUser }) {
                 }}
               >
                 <Trash2 size={15} />
-                移除节点
+                {t("移除节点")}
               </button>
             </>
           ) : selectedEdge ? (
             <>
-              <h3>连接属性</h3>
+              <h3>{t("连接属性")}</h3>
               {edgeIssue(selectedEdge) && (
                 <Notice>{edgeIssue(selectedEdge)!.message}</Notice>
               )}
               <label>
-                行为
+                {t("行为")}
                 <select
                   value={String(selectedEdge.data?.mode)}
                   onChange={(e) => {
@@ -1059,7 +1237,7 @@ function CanvasEditor({ user }: { user: PublicUser }) {
                 >
                   {Object.entries(edgeLabels).map(([id, label]) => (
                     <option key={id} value={id}>
-                      {label}
+                      {t(label)}
                     </option>
                   ))}
                 </select>
@@ -1074,40 +1252,47 @@ function CanvasEditor({ user }: { user: PublicUser }) {
                 }}
               >
                 <Trash2 size={15} />
-                删除连接
+                {t("删除连接")}
               </button>
             </>
           ) : (
             <>
-              <h3>应用结构</h3>
-              <p>{nodes.length} 个可配置节点</p>
-              <p>{edges.length} 条连接</p>
+              <h3>{t("应用结构")}</h3>
+              <p>
+                {nodes.length}
+                {t("个可配置节点")}
+              </p>
+              <p>
+                {edges.length}
+                {t("条连接")}
+              </p>
               {currentProject && (
                 <Link to={`/projects/${currentProject}`}>
-                  项目工作区 <ExternalLink size={15} />
+                  {t("项目工作区")}
+                  <ExternalLink size={15} />
                 </Link>
               )}
             </>
           )}
         </aside>
       </div>
-      <div className="canvas-layer-legend">
+      <div className="canvas-layer-legend" hidden={!advanced}>
         {lanes.map((lane, i) => (
           <span key={lane.name}>
             <i style={{ background: lane.color }} />
-            {lane.name} ·{" "}
+            {t(lane.name)} ·{" "}
             {nodes.filter((n) => laneOf(n.data.module) === i).length}
           </span>
         ))}
       </div>
-      <div className="canvas-link-editor">
-        <strong>连接模块</strong>
+      <div className="canvas-link-editor" hidden={!advanced}>
+        <strong>{t("连接模块")}</strong>
         <select
-          aria-label="连线起点"
+          aria-label={t("连线起点")}
           value={linkSource}
           onChange={(e) => setLinkSource(e.target.value)}
         >
-          <option value="">选择输出模块</option>
+          <option value="">{t("选择输出模块")}</option>
           {nodes.map((n) => (
             <option key={n.id} value={n.id}>
               {n.data.title}
@@ -1116,11 +1301,11 @@ function CanvasEditor({ user }: { user: PublicUser }) {
         </select>
         <span>→</span>
         <select
-          aria-label="连线终点"
+          aria-label={t("连线终点")}
           value={linkTarget}
           onChange={(e) => setLinkTarget(e.target.value)}
         >
-          <option value="">选择输入模块</option>
+          <option value="">{t("选择输入模块")}</option>
           {nodes.map((n) => (
             <option key={n.id} value={n.id}>
               {n.data.title}
@@ -1139,7 +1324,7 @@ function CanvasEditor({ user }: { user: PublicUser }) {
           }
         >
           <Plus size={17} />
-          添加连线
+          {t("添加连线")}
         </button>
       </div>
     </div>

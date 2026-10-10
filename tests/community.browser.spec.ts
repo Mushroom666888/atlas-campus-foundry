@@ -132,6 +132,7 @@ test("canvas marks incompatible links red, requires intent and preserves validat
   });
   expect(registered.status()).toBe(201);
   await page.goto("/compose?add=sales-orders");
+  await page.getByRole("button", { name: "技术连线", exact: true }).click();
   await expect(page.locator(".react-flow__node")).toHaveCount(7);
   await expect(
     page.getByRole("button", { name: "生成应用", exact: true }),
