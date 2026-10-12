@@ -7,6 +7,7 @@ import {
   Controls,
   Handle,
   MarkerType,
+  MiniMap,
   ViewportPortal,
   Position,
   ReactFlow,
@@ -14,6 +15,7 @@ import {
   addEdge,
   useEdgesState,
   useNodesState,
+  useNodesInitialized,
   useReactFlow,
   type Connection,
   type Edge,
@@ -34,6 +36,8 @@ import {
   CheckCircle2,
   AlertTriangle,
   LayoutGrid,
+  Scan,
+  Focus,
 } from "lucide-react";
 import type {
   Composition,
@@ -44,6 +48,7 @@ import type {
 import {
   validateComposition,
   compositionIssues,
+  compositionLayer,
 } from "../packages/modules/src/composition";
 import { resolveModules } from "../packages/modules/src/catalog";
 import { api, post, useLoad } from "./api";
@@ -131,18 +136,34 @@ const lanes = [
   { name: "连接自动化", subtitle: "触发 / 条件 / 动作", color: "#faf0e5" },
   { name: "界面展示", subtitle: "列表 / 看板 / 统计", color: "#f3eef7" },
 ];
-const laneOf = (m: ModuleManifest) =>
-  m.category === "foundation"
-    ? 0
-    : m.category === "connector"
-      ? 2
-      : m.category === "presentation"
-        ? 3
-        : 1;
+const laneOf = compositionLayer;
 const lanePosition = (m: ModuleManifest, all: ModuleNode[]) => ({
   x: 40 + laneOf(m) * 400,
   y: 140 + all.filter((n) => laneOf(n.data.module) === laneOf(m)).length * 215,
 });
+function readableViewport(all: ModuleNode[]) {
+  const zoom = window.innerWidth < 600 ? 0.85 : 1;
+  return {
+    x:
+      28 -
+      (all.length ? Math.min(...all.map((n) => n.position.x)) - 20 : 0) * zoom,
+    y:
+      24 -
+      (all.length ? Math.min(...all.map((n) => n.position.y)) - 80 : 0) * zoom,
+    zoom,
+  };
+}
+function CanvasViewport() {
+  const ready = useNodesInitialized();
+  const flow = useReactFlow<ModuleNode>();
+  const positioned = useRef(false);
+  useEffect(() => {
+    if (!ready || positioned.current) return;
+    positioned.current = true;
+    void flow.setViewport(readableViewport(flow.getNodes()));
+  }, [ready, flow]);
+  return null;
+}
 function dependencyEdges(all: ModuleNode[], existing: Edge[]) {
   const result = [...existing];
   for (const target of all)
@@ -216,6 +237,7 @@ function CanvasEditor({ user }: { user: PublicUser }) {
   const [advanced, setAdvanced] = useState(false),
     [loaded, setLoaded] = useState(false),
     [features, setFeatures] = useState<string[]>([]);
+  const [baseSpec, setBaseSpec] = useState<ProductSpec>();
   const [currentProject, setCurrentProject] = useState(
       params.get("project") || "",
     ),
@@ -224,14 +246,6 @@ function CanvasEditor({ user }: { user: PublicUser }) {
   const action = useAction(),
     flow = useReactFlow<ModuleNode>(),
     initialized = useRef(false);
-  useEffect(() => {
-    if (!advanced) return;
-    const timer = setTimeout(
-      () => void flow.fitView({ padding: 0.18, maxZoom: 0.9, duration: 150 }),
-      100,
-    );
-    return () => clearTimeout(timer);
-  }, [advanced, flow]);
   const registryItems =
     registry.data?.items.filter(
       (m) => m.securityMetadata.review !== "pending",
@@ -262,6 +276,7 @@ function CanvasEditor({ user }: { user: PublicUser }) {
     void (async () => {
       try {
         let graph: Composition | undefined;
+        let initializeDependencies = false;
         if (params.get("project") || params.get("proposal")) {
           const spec = params.get("project")
             ? (
@@ -278,8 +293,10 @@ function CanvasEditor({ user }: { user: PublicUser }) {
           setName(spec.name);
           setDescription(spec.description);
           setFeatures(spec.features);
+          setBaseSpec(spec);
           graph = spec.composition;
-          if (!graph)
+          if (!graph) {
+            initializeDependencies = true;
             graph = {
               version: 1,
               nodes: spec.modules.map((id, i) => ({
@@ -293,6 +310,7 @@ function CanvasEditor({ user }: { user: PublicUser }) {
               })),
               edges: [],
             };
+          }
         } else if (!params.get("add")) {
           const draft = localStorage.getItem(`foundry-canvas-${user.id}`);
           if (draft) {
@@ -303,37 +321,46 @@ function CanvasEditor({ user }: { user: PublicUser }) {
           }
         }
         if (graph) {
-          setNodes(
-            graph.nodes.flatMap((n) => {
-              const module = registry.data!.items.find(
-                (m) => m.moduleId === n.moduleId,
-              );
-              return module
-                ? [
-                    {
-                      id: n.id,
-                      type: "module" as const,
-                      position: n.position,
-                      data: {
-                        module,
-                        title: n.title || module.name,
-                        configuration: n.configuration || defaults(module),
-                        view: n.view || module.recordDefinition?.view,
-                      },
+          const restoredNodes = graph.nodes.flatMap((n) => {
+            const module = registry.data!.items.find(
+              (m) => m.moduleId === n.moduleId,
+            );
+            return module
+              ? [
+                  {
+                    id: n.id,
+                    type: "module" as const,
+                    position: n.position,
+                    data: {
+                      module,
+                      title: n.title || module.name,
+                      configuration: n.configuration || defaults(module),
+                      view: n.view || module.recordDefinition?.view,
                     },
-                  ]
-                : [];
-            }),
-          );
+                  },
+                ]
+              : [];
+          });
+          if (initializeDependencies)
+            restoredNodes.forEach((node, index) => {
+              node.position = lanePosition(
+                node.data.module,
+                restoredNodes.slice(0, index),
+              );
+            });
+          setNodes(restoredNodes);
+          const restoredEdges = graph.edges.map((e) => ({
+            id: e.id,
+            source: e.source,
+            target: e.target,
+            label: edgeLabels[e.mode],
+            data: { mode: e.mode },
+            animated: e.mode === "flow",
+          }));
           setEdges(
-            graph.edges.map((e) => ({
-              id: e.id,
-              source: e.source,
-              target: e.target,
-              label: edgeLabels[e.mode],
-              data: { mode: e.mode },
-              animated: e.mode === "flow",
-            })),
+            initializeDependencies
+              ? dependencyEdges(restoredNodes, restoredEdges)
+              : restoredEdges,
           );
         } else if (params.get("add")) {
           const module = registry.data!.items.find(
@@ -412,6 +439,15 @@ function CanvasEditor({ user }: { user: PublicUser }) {
       module.category !== "presentation"
     ) {
       setSelectedId(existing.id);
+      if (advanced)
+        void flow.setCenter(
+          existing.position.x + 140,
+          existing.position.y + 75,
+          {
+            zoom: 1,
+            duration: 200,
+          },
+        );
       return;
     }
     if (nodes.length >= 80) {
@@ -441,10 +477,17 @@ function CanvasEditor({ user }: { user: PublicUser }) {
       setEdgeId("");
       setSaved(false);
       setError("");
-      requestAnimationFrame(
-        () =>
-          void flow.fitView({ duration: 250, padding: 0.18, maxZoom: 0.85 }),
-      );
+      const added = all.find(
+        (n) => n.data.module.moduleId === module.moduleId,
+      )!;
+      if (advanced)
+        requestAnimationFrame(
+          () =>
+            void flow.setCenter(added.position.x + 140, added.position.y + 75, {
+              zoom: 1,
+              duration: 200,
+            }),
+        );
     } catch (e) {
       setError((e as Error).message);
     }
@@ -482,12 +525,13 @@ function CanvasEditor({ user }: { user: PublicUser }) {
   const selected = nodes.find((n) => n.id === selectedId),
     selectedEdge = edges.find((e) => e.id === edgeId);
   const workingSpec: ProductSpec = {
+    ...baseSpec,
     name,
     description,
-    kind: "custom",
+    kind: baseSpec?.kind ?? "custom",
     modules: [...new Set(nodes.map((n) => n.data.module.moduleId))],
     features,
-    primaryColor: "green",
+    primaryColor: baseSpec?.primaryColor ?? "green",
     composition: graph(),
   };
   const issues = compositionIssues(workingSpec, available, t);
@@ -534,7 +578,8 @@ function CanvasEditor({ user }: { user: PublicUser }) {
     setNodes(arranged);
     setSaved(false);
     requestAnimationFrame(
-      () => void flow.fitView({ duration: 250, padding: 0.15, maxZoom: 0.9 }),
+      () =>
+        void flow.setViewport(readableViewport(arranged), { duration: 200 }),
     );
   }
   function repairDependencies() {
@@ -573,12 +618,13 @@ function CanvasEditor({ user }: { user: PublicUser }) {
           available,
         ).map((m) => m.moduleId);
         const spec: ProductSpec = {
+          ...baseSpec,
           name: name.trim() || "我的校园应用",
           description: description.trim(),
-          kind: "custom",
+          kind: baseSpec?.kind ?? "custom",
           modules,
           features,
-          primaryColor: "green",
+          primaryColor: baseSpec?.primaryColor ?? "green",
           composition: graph(),
         };
         validateComposition(spec, available);
@@ -978,82 +1024,123 @@ function CanvasEditor({ user }: { user: PublicUser }) {
             <button onClick={repairDependencies} disabled={!nodes.length}>
               {t("补齐依赖")}
             </button>
+            <button
+              className="canvas-overview-button"
+              title={t("查看全部连线")}
+              aria-label={t("查看全部连线")}
+              onClick={() => void flow.fitView({ padding: 0.15 })}
+            >
+              <Scan size={17} />
+            </button>
+            <button
+              title={t("恢复可读视图")}
+              aria-label={t("恢复可读视图")}
+              onClick={() =>
+                void flow.setViewport(readableViewport(nodes), {
+                  duration: 200,
+                })
+              }
+            >
+              <Focus size={17} />
+            </button>
           </div>
-          <ReactFlow
-            nodes={drawnNodes}
-            edges={drawnEdges}
-            nodeTypes={nodeTypes}
-            onNodesChange={(changes) => {
-              onNodesChange(changes);
-              if (
-                changes.some(
-                  (change) =>
-                    change.type !== "dimensions" && change.type !== "select",
+          {advanced && (
+            <ReactFlow
+              nodes={drawnNodes}
+              edges={drawnEdges}
+              nodeTypes={nodeTypes}
+              onNodesChange={(changes) => {
+                onNodesChange(changes);
+                if (
+                  changes.some(
+                    (change) =>
+                      change.type !== "dimensions" && change.type !== "select",
+                  )
                 )
-              )
-                setSaved(false);
-            }}
-            onEdgesChange={(changes) => {
-              onEdgesChange(changes);
-              if (changes.some((change) => change.type !== "select"))
-                setSaved(false);
-            }}
-            onConnect={connect}
-            onNodeDragStop={(_, node) =>
-              setNodes((all) =>
-                all.map((n) =>
-                  n.id === node.id
-                    ? {
-                        ...n,
-                        position: {
-                          x: 40 + laneOf(n.data.module) * 400,
-                          y: Math.max(140, node.position.y),
-                        },
-                      }
-                    : n,
-                ),
-              )
-            }
-            onNodeClick={(_, n) => {
-              setSelectedId(n.id);
-              setEdgeId("");
-            }}
-            onEdgeClick={(_, e) => {
-              setEdgeId(e.id);
-              setSelectedId("");
-            }}
-            onPaneClick={() => {
-              setSelectedId("");
-              setEdgeId("");
-            }}
-            fitView
-            fitViewOptions={{ maxZoom: 1, padding: 0.18 }}
-            minZoom={0.15}
-            maxZoom={1.6}
-            deleteKeyCode={["Backspace", "Delete"]}
-          >
-            <Background gap={20} color="#ccd5dc" />
-            <ViewportPortal>
-              {lanes.map((lane, i) => (
-                <div
-                  key={lane.name}
-                  className="canvas-lane"
-                  style={{
-                    left: i * 400 + 20,
-                    background: lane.color,
-                    height: Math.max(
-                      850,
-                      ...nodes.map((n) => n.position.y + 230),
-                    ),
-                  }}
-                >
-                  <strong>{t(lane.name)}</strong>
-                  <span>{t(lane.subtitle)}</span>
-                </div>
-              ))}
-            </ViewportPortal>
-            <Controls />
-          </ReactFlow>
+                  setSaved(false);
+              }}
+              onEdgesChange={(changes) => {
+                onEdgesChange(changes);
+                if (changes.some((change) => change.type !== "select"))
+                  setSaved(false);
+              }}
+              onConnect={connect}
+              onNodeDragStop={(_, node) =>
+                setNodes((all) =>
+                  all.map((n) =>
+                    n.id === node.id
+                      ? {
+                          ...n,
+                          position: {
+                            x: 40 + laneOf(n.data.module) * 400,
+                            y: Math.max(140, node.position.y),
+                          },
+                        }
+                      : n,
+                  ),
+                )
+              }
+              onNodeClick={(_, n) => {
+                setSelectedId(n.id);
+                setEdgeId("");
+              }}
+              onEdgeClick={(_, e) => {
+                setEdgeId(e.id);
+                setSelectedId("");
+              }}
+              onPaneClick={() => {
+                setSelectedId("");
+                setEdgeId("");
+              }}
+              minZoom={0.15}
+              maxZoom={1.6}
+              deleteKeyCode={["Backspace", "Delete"]}
+            >
+              <CanvasViewport />
+              <Background gap={20} color="#ccd5dc" />
+              <ViewportPortal>
+                {lanes.map((lane, i) => (
+                  <div
+                    key={lane.name}
+                    className="canvas-lane"
+                    style={{
+                      left: i * 400 + 20,
+                      background: lane.color,
+                      height: Math.max(
+                        850,
+                        ...nodes.map((n) => n.position.y + 230),
+                      ),
+                    }}
+                  >
+                    <strong>{t(lane.name)}</strong>
+                    <span>{t(lane.subtitle)}</span>
+                  </div>
+                ))}
+              </ViewportPortal>
+              <Controls showFitView={false} showInteractive={false} />
+            </ReactFlow>
+          )}
+          {advanced && (
+            <div className="canvas-navigator">
+              <span>{t("连线总览")}</span>
+              <MiniMap
+                pannable
+                zoomable
+                bgColor="#ffffff"
+                maskColor="#dce4e780"
+                nodeStrokeColor="#b8c6cf"
+                style={{
+                  position: "relative",
+                  margin: 0,
+                  width: 144,
+                  height: 80,
+                }}
+                nodeColor={(node) =>
+                  lanes[laneOf((node as ModuleNode).data.module)].color
+                }
+              />
+            </div>
+          )}
           {!nodes.length && (
             <div className="canvas-empty">
               <GitBranch size={36} />

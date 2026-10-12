@@ -21,6 +21,22 @@ import {
   Users,
   Workflow,
   Store,
+  ShoppingBag,
+  Package,
+  Receipt,
+  Truck,
+  CalendarClock,
+  CalendarDays,
+  Star,
+  TicketPercent,
+  Heart,
+  ChartColumn,
+  Contact,
+  UserRound,
+  PanelsTopLeft,
+  GraduationCap,
+  Image,
+  type LucideIcon,
 } from "lucide-react";
 import type { ModuleManifest } from "../packages/contracts/src/index";
 import { moduleReferences } from "../packages/modules/src/composition";
@@ -41,6 +57,27 @@ export const categoryLabels: Record<string, string> = {
   presentation: "展示组件",
   extension: "社区扩展",
 };
+const moduleIcons: Record<string, LucideIcon> = {
+  "merchant-storefront": Store,
+  "product-catalog": ShoppingBag,
+  "stock-inventory": Package,
+  "sales-orders": Receipt,
+  "order-fulfillment": Truck,
+  "service-booking": CalendarClock,
+  "transaction-reviews": Star,
+  "discount-coupons": TicketPercent,
+  "product-favorites": Heart,
+  "merchant-analytics": ChartColumn,
+  "creator-profiles": UserRound,
+  "discussion-forum": MessageCircle,
+  "product-showcase": PanelsTopLeft,
+  "member-directory": Contact,
+  profiles: UserRound,
+  events: CalendarDays,
+  campus: GraduationCap,
+  media: Image,
+  search: Search,
+};
 export function ModuleIcon({
   module,
   size = 22,
@@ -49,7 +86,8 @@ export function ModuleIcon({
   size?: number;
 }) {
   const Icon =
-    module.category === "commerce"
+    moduleIcons[module.moduleId] ??
+    (module.category === "commerce"
       ? Store
       : module.category === "connector"
         ? Workflow
@@ -65,7 +103,7 @@ export function ModuleIcon({
                   ? BookOpen
                   : module.moduleId === "groups"
                     ? Users
-                    : Boxes;
+                    : Boxes);
   return (
     <span className={`module-glyph ${module.category}`}>
       <Icon size={size} />
@@ -263,6 +301,7 @@ export function ModuleDetail() {
           notifications: "/api/notifications",
           media: "/api/uploads",
           search: "/api/entities?q=关键词",
+          campus: "/api/campus/contracts",
         } as Record<string, string>
       )[module.moduleId] || "/api/entities";
   return (

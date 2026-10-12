@@ -114,10 +114,20 @@ for (const spec of specs) {
     });
   }
   if (spec.kind === "study") {
+    const existingFile = await fetch(
+      `${base}/api/projects/${project.id}/file?path=features%2Fwaitlist.json`,
+      { headers: { cookie } },
+    );
+    if (!existingFile.ok && existingFile.status !== 404)
+      throw new Error(`Read recipe: HTTP ${existingFile.status}`);
+    const expectedHash = existingFile.ok
+      ? (await existingFile.json()).hash
+      : null;
     await request(
       `/api/projects/${project.id}/file`,
       {
         path: "features/waitlist.json",
+        expectedHash,
         content: JSON.stringify(
           {
             type: "capacity-waitlist",

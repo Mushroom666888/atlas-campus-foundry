@@ -8,6 +8,7 @@ export default defineConfig({
     "**/community.browser.spec.ts",
     "**/commerce.browser.spec.ts",
     "**/lifecycle.browser.spec.ts",
+    "**/requirements.browser.spec.ts",
   ],
   timeout: 90000,
   expect: { timeout: 10000 },

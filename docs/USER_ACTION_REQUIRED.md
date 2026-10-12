@@ -2,6 +2,8 @@
 
 本地平台、数据库、三个应用和现有验收已经可以运行。不要在聊天中发送 API Key、密码或私钥。已建立忽略 Git 的 `.env`，只需在本机填写对应字段。
 
+2026-10-12：新增的结构化规格、源文件历史/冲突处理、校园关系模型与界面改版均不增加第三方资源要求。现有缺口仍是下表中的模型、隔离执行环境及可选外部服务。用户已经说明 Agent 接口稍后接入；无需再次确认或在聊天中提供密钥。
+
 本次的项目删除/恢复、中英文切换、模块编辑和独立 ZIP 导出不需要额外凭据。导出包的本地安装、启动与重启持久化已经实际验证。先描述想法的 Canvas 会保存需求，但真实 AI 设计仍等待模型接入；用户已说明 Agent 接口稍后配置，因此不会以此阻止其他功能交付。导出包的云部署配置已提供，尚未运行 Docker 验收。
 
 导出包使用自己的 `.env.example`：`RUNTIME_PORT`/`RUNTIME_HOST` 控制本地监听，`RUNTIME_PUBLIC_ORIGIN`/`COOKIE_SECURE` 控制访问与 Cookie，`APP_DATABASE_URL` 可接独立 PostgreSQL；缺省使用包内 `app-data`。邮件可选字段为 `EMAIL_PROVIDER`/`SMTP_URL`/`EMAIL_FROM`。这些值不会从平台导出。解压目录中的 `npm run verify` 读取 `.env` 并检查本地运行服务；`npm run deploy` 启动该包的 Compose，执行前仍需本机具备 Docker。Compose 默认固定映射本机 4100 端口；公网 TLS/反向代理需要独立配置，不会由导出自动完成。

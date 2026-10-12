@@ -1,0 +1,52 @@
+node.exe : [WebServer] (node:3312) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+所在位置 行:1 字符: 1
++ & "C:\Program Files\nodejs/node.exe" "C:\Program Files\nodejs/node_mo ...
++ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: ([WebServer] (no... env being set.:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+Running 2 tests using 1 worker
+
+(node:34732) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  x  1 tests\requirements.browser.spec.ts:4:1 › structured specification, Canvas retention, conflicting source edits and history recovery (3.8s)
+(node:31592) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ok 2 tests\requirements.browser.spec.ts:165:1 › deployed campus directory: hierarchy forms, private affiliation, event venue and bilingual mobile (9.0s)
+
+
+  1) tests\requirements.browser.spec.ts:4:1 › structured specification, Canvas retention, conflicting source edits and history recovery
+
+    Error: expect(received).toBe(expected) // Object.is equality
+
+    Expected: 440
+    Received: 40
+
+      89 |       (node: { moduleId: string }) => node.moduleId === "events",
+      90 |     ).position.x,
+    > 91 |   ).toBe(440);
+         |     ^
+      92 |   await page.goto(projectUrl);
+      93 |   await page.getByRole("button", { name: "项目文件", exact: true }).click();
+      94 |   await page.getByRole("button", { name: "新建文件", exact: true }).click();
+        at C:\Users\14237\Desktop\Campus AI App Foundry\tests\requirements.browser.spec.ts:91:5
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    test-results\requirements.browser-struc-758a6--edits-and-history-recovery\test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: test-results\requirements.browser-struc-758a6--edits-and-history-recovery\error-context.md
+
+    attachment #3: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results\requirements.browser-struc-758a6--edits-and-history-recovery\trace.zip
+    Usage:
+
+        npx playwright show-trace test-results\requirements.browser-struc-758a6--edits-and-history-recovery\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  1 failed
+    tests\requirements.browser.spec.ts:4:1 › structured specification, Canvas retention, conflicting source edits and history recovery
+  1 passed (17.3s)

@@ -1,0 +1,117 @@
+.campus-directory {
+  min-width: 0;
+}
+.campus-contract-chain {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+  list-style: none;
+  padding: 0;
+  margin-block: 20px;
+}
+.campus-contract-chain li {
+  padding: 10px 12px;
+  border-left: 3px solid #167974;
+  background: #e8f3f1;
+  font-size: 16px;
+}
+.campus-directory .tabs {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+.campus-filters {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  margin: 18px 0;
+}
+.campus-picker,
+.campus-filters label {
+  min-width: 0;
+}
+.campus-search {
+  position: relative;
+  display: block;
+}
+.campus-search svg {
+  position: absolute;
+  top: 14px;
+  left: 12px;
+}
+.campus-search input {
+  padding-left: 38px;
+}
+.campus-record {
+  display: flex;
+  gap: 14px;
+  align-items: center;
+  border-bottom: 1px solid #d8dde3;
+  padding: 16px 0;
+}
+.campus-record > div:first-of-type {
+  flex: 1;
+  min-width: 0;
+}
+.campus-record strong,
+.campus-record span {
+  display: block;
+  overflow-wrap: anywhere;
+}
+.campus-record span {
+  font-size: 14px;
+  color: #546270;
+  margin-top: 5px;
+}
+.campus-record > svg {
+  flex-shrink: 0;
+  color: #176969;
+}
+.campus-pagination {
+  display: flex;
+  justify-content: end;
+  gap: 16px;
+  align-items: center;
+  margin: 16px 0 32px;
+}
+.campus-form {
+  display: grid;
+  gap: 12px;
+}
+.campus-form fieldset {
+  border: 0;
+  margin: 0;
+  padding: 0;
+  min-width: 0;
+}
+.campus-form .campus-checkbox {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+.campus-checkbox input {
+  width: auto;
+}
+.campus-affiliations {
+  padding-top: 24px;
+  border-top: 1px solid #d8dde3;
+}
+.event-campus-location {
+  padding-block: 16px;
+  border-block: 1px solid #d8dde3;
+  margin-bottom: 18px;
+}
+@media (max-width: 600px) {
+  .campus-filters {
+    grid-template-columns: 1fr;
+    gap: 6px;
+  }
+  .campus-record {
+    flex-wrap: wrap;
+  }
+  .campus-directory .section-head {
+    align-items: start;
+    gap: 12px;
+    flex-wrap: wrap;
+  }
+}

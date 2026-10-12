@@ -1,5 +1,21 @@
 # Campus AI App Foundry architecture
 
+## Requirements and source integrity (2026-10-12)
+
+ProductSpec optionally carries bounded roles, typed data models, model references and Given/When/Then scenarios with module traceability. Optionality keeps existing JSON specifications compatible. Duplicate keys and missing role/model references are rejected; module updates cannot leave scenarios pointing to uninstalled modules. `/api/projects/:id/requirements` distinguishes incomplete versus specified intent, and scenarios remain `NOT_RUN`. These specifications are planning contracts, not executable migrations or proof that arbitrary business requirements work. Canvas preserves the specification, app kind and theme during visual editing.
+
+Human file PUT and Agent write tools require `expectedHash`: null only creates a new file, otherwise SHA-256 must match. A per-project single-process queue serializes quota/preflight/compare/write. Atomic file replacement avoids partial bytes. Restore writes a new revision and never removes old history; ownership is checked before reading revisions. `product.json` is managed through project/Canvas updates. Empty path segments, traversal, symlinks and case variants of reserved directories are rejected. This is not a multi-worker distributed lock or a transaction spanning database and filesystem.
+
+Agent reads return an 8,000-character page with whole-file hash, offset, nextOffset and totalChars. Large other tool results become valid JSON summaries, with complete results in durable events. Mutation tools invalidate previous build/test/preview evidence before execution. If a multi-file operation partially fails, prior writes are retained, individually audited and listed in its error; the task must validate again and cannot report its stale preview as success.
+
+## Relational campus runtime
+
+Migration `runtime/005_campus_domain.sql` adds universities, campuses, buildings, venues, courses, clubs, student affiliations and event links. Compound foreign keys enforce university/campus/building/venue ownership relationships even for direct SQL. Domain services reuse each app's account and event tables. A student may have several self-declared affiliations; only their own account can read or change them. These affiliations do not establish official student verification.
+
+The `campus` module exposes `/api/campus/contracts`, paginated `/api/campus/:collection`, owner-managed CRUD, `/api/campus/me/affiliations` and owner-managed `/api/campus/events/:id/location`. Runtime users see readable directory, relationship forms, event venue and real OpenStreetMap links for supplied coordinates. Only university record owners or app administrators maintain its directory; individual event owners select their event location. Links are metadata, not verified venue reservations or club endorsement. School-level locks enforce per-school collection quotas; account locks enforce university and affiliation quotas. Removing a referenced parent fails with 409, preserving references.
+
+Existing generic school/location/course data remains unchanged for compatibility. New relational records are canonical for these APIs; no guessed backfill or cross-application sharing is performed. Module count stays at 94. Shared runtime exports automatically include these contracts, services and migrations.
+
 ## Components
 
 - `web/`: Chinese/English Developer Studio and shared runtime UI; React/Vite static bundle with persistent i18next language choice.

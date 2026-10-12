@@ -1,0 +1,13 @@
+✔ Agent contract-only provider: real tools, durable trace, stale preview rejected, repair budget enforced (18646.0948ms)
+✔ campus domain: relational integrity, permissions, affiliation privacy, event linkage and restart (14191.8046ms)
+✔ design-only Agent contract provider: validated persistent plan, no project mutation or deployment (8182.5305ms)
+✔ requirements: references, module traceability, legacy specs, honest readiness and restart persistence (8671.8733ms)
+✔ workspace: conditional writes, revision recovery, managed configuration and owner boundaries (5220.8465ms)
+ℹ tests 5
+ℹ suites 0
+ℹ pass 5
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 19420.1562

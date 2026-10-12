@@ -25,6 +25,7 @@ import type { RuntimeInfo } from "./main";
 import { businessCatalog } from "../packages/modules/src/business-catalog";
 import { RecordModule } from "./record-module";
 import { CommerceModule } from "./commerce";
+import { CampusDomain, EventCampusLocation } from "./campus-domain";
 import { commerceCatalog } from "../packages/modules/src/commerce-catalog";
 import { communityCatalog } from "../packages/modules/src/community-catalog";
 import { Link, useNavigate } from "react-router-dom";
@@ -231,6 +232,15 @@ export function CampusApplication({
         <p>{info.spec.description}</p>
       </div>
       <nav className="app-tabs">
+        {info.modules.includes("campus") && (
+          <button
+            className={view === "campus-directory" ? "selected" : ""}
+            onClick={() => setView("campus-directory")}
+          >
+            <MapPin size={17} />
+            {t("校园目录")}
+          </button>
+        )}
         {communityCatalog
           .filter((m) => info.modules.includes(m.moduleId))
           .map((m) => (
@@ -288,7 +298,9 @@ export function CampusApplication({
         })}
       </nav>
       <main className="app-content">
-        {view === "community-home" ? (
+        {view === "campus-directory" ? (
+          <CampusDomain user={user} />
+        ) : view === "community-home" ? (
           <div className="community-heading">
             <div>
               <h2>
@@ -727,6 +739,12 @@ function EntityDetail({
       </dl>
       {typeof item.data.locationId === "string" && (
         <LocationName id={item.data.locationId} />
+      )}
+      {item.kind === "event" && info.modules.includes("campus") && (
+        <EventCampusLocation
+          eventId={item.id}
+          editable={item.owner_id === user.id}
+        />
       )}
       <div className="inline-actions">
         {item.kind === "location" && (

@@ -1,5 +1,39 @@
 # Test report
 
+## Final frontend/full-stack pass - 2026-10-12
+
+- `npm run check`: PASS again, lint/build/typecheck and 28 real Node tests, zero skips (`check-final.txt`).
+- `npm run e2e`: all 12 complete journeys PASS (`browser-polish-final.txt`). After the final shared layer placement fix, `tests/requirements.browser.spec.ts tests/modules.browser.spec.ts tests/community.browser.spec.ts`: six PASS (`browser-lane-regression.txt`).
+- `tests/design-agent.test.ts tests/agent.test.ts tests/composition.test.ts`: four PASS after shared layer changes (`layer-agent-tests.txt`). Final build and lint pass.
+- `npx tsx scripts/audit-studio.ts`: 69 existing-account checks PASS (`live-audit-final.txt`), including actual transformed node width >= 230px, minimap presence, no page errors and no document overflow. Representative desktop/phone screenshots were visually inspected.
+- `npx tsx scripts/audit-locales.ts`: 685 literal keys, zero missing. `npm audit --omit=dev`: zero known production advisories, not a general safety guarantee.
+- Restarted control plane and redeployed all five declared samples on final sources. `reuse-report -- --showcase`: PASS, 5 applications, 59 module installations, one shared runtime implementation. Native PostgreSQL evidence below is from this increment; no database code changed during the visual pass.
+- Final post-restart smoke: five actual `.localhost` browser frontends, loopback health/application APIs and final Canvas rendering passed with zero console/page errors (`final-smoke.json`). An earlier APIRequestContext request to a `.localhost` hostname reset the connection; that incomplete attempt is retained as `smoke-first-incomplete.json`. The subsequent check independently verified actual browser hostnames and loopback HTTP instead of suppressing the failure. Minimap colors are explicit because it now sits outside React Flow's default CSS-variable scope.
+
+UI failures retained under ignored `.data/ui-polish-failures/`: an overlay minimap intercepted node clicks (now a reserved footer), mobile CSS hid the minimap (removed), fast pointer jumps could miss small zoomed handles (stable handle dimensions, immediate fit, realistic stepwise pointer gesture and per-edge assertions), and the original catalog classified domain services as foundations (shared compositionLayer now places them in the business lane without changing registry counts). A failed lane assertion and earlier browser traces remain recorded; no core assertion was weakened or skipped.
+
+Evidence directory: `docs/evidence/2026-10-12-requirements/`. Generated scenario descriptions still report NOT_RUN. Model/Docker/public hosting remain BLOCKED; general executable-module/team/production engineering remains incomplete.
+
+## Requirements increment - 2026-10-12
+
+Windows, Node 24.17.0, PostgreSQL 18.4. Evidence: `docs/evidence/2026-10-12-requirements/`. Earlier entries are historical.
+
+| Command | Actual result |
+|---|---|
+| `npm run check` | PASS: lint, typecheck, production build, 28 Node tests, zero skips |
+| `npx tsx --test tests/requirements-workspace.test.ts tests/campus-domain.test.ts tests/agent.test.ts tests/design-agent.test.ts` | PASS: five affected tests after security fixes, including actual preview then partial write conflict |
+| `npm run build`, `npm run lint` | PASS after new frontend and security refinements |
+| `npm run e2e` | PASS: all 12 journeys; new spec/source/domain operations plus existing three apps, commerce/community, drag/connect, lifecycle, export and translations |
+| `npm run verify-postgres` | PASS: native server migration/restart, existing commerce races, and concurrent campus create cannot exceed 1000 records |
+| `npx tsx scripts/audit-locales.ts` | PASS: 679 literal translation keys, no missing keys; dynamic user input is not translated |
+| `npm run deploy-local -- --redeploy`, `deploy-visual`, `deploy-commerce` | PASS: five declared applications started locally and passed HTTP health |
+| `npm run reuse-report -- --showcase` | PASS: five declared samples share the current runtime fingerprint; an unrelated historical app is outside scope and preserved |
+| `npm run verify-integrations` | BLOCKED: model, Docker, optional SMTP; no live AI or isolation success claimed |
+
+Browser screenshots cover new screens at 1440, 390 and 320px, with no document overflow or page exceptions. Saved acceptance scenarios deliberately report NOT_RUN; these browser tests verify the platform workflow, not arbitrary user-authored scenarios.
+
+Failures retained: initial source path test checked translated text instead of stable UNSAFE_PATH; browser locators initially matched duplicate links/text; the event venue select lacked a stable accessible label and now has an explicit aria-label. Independent review reproduced managed-file path alias bypass, large file hash truncation, partial-write stale success and a first-100-schools permission-display issue; all were corrected and relevant checks rerun. Raw authenticated browser traces remain ignored under `.data/requirements-failures/`; reviewed logs and screenshots are in the evidence directory.
+
 Date: 2026-10-10 (Asia/Shanghai). Platform: Windows, Node 24.17.0, npm 11.13.0. Other operating systems are not claimed as validated.
 
 ## Current lifecycle and bilingual release

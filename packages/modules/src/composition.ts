@@ -403,3 +403,18 @@ export function connectedModules(
     });
   return [...direct, ...embedded];
 }
+export function compositionLayer(module: {
+  moduleId: string;
+  category: string;
+}): 0 | 1 | 2 | 3 {
+  // These original domain services remain in the foundation catalog for compatibility.
+  if (["profiles", "campus", "events", "groups"].includes(module.moduleId))
+    return 1;
+  return module.category === "foundation"
+    ? 0
+    : module.category === "connector"
+      ? 2
+      : module.category === "presentation"
+        ? 3
+        : 1;
+}

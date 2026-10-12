@@ -1,5 +1,19 @@
 # Implementation plan and acceptance ledger
 
+## Requirements audit increment (2026-10-12)
+
+Task dependencies, scopes and explicit remaining requirements: `docs/REQUIREMENTS_AUDIT.md` (RA01-RA09).
+
+| ID | Goal | Acceptance / evidence | State |
+|---|---|---|---|
+| RA01 | Structured specification and Canvas preservation | Role/model/reference validation, module traceability, legacy compatibility, persistence and real UI editing | DONE / TESTED |
+| RA02 | Human/Agent source conflict handling and recovery | Hash compare/write, full hash with paged reads, revision inspection/restore, protected managed files, partial write invalidates validation | DONE / TESTED |
+| RA03 | Relational campus capabilities | Shared runtime tables, composite foreign keys, creator permissions, own affiliations, event links, paging and bilingual UI; PGlite/PostgreSQL/browser | DONE / TESTED / DEPLOYED locally |
+| RA04 | Regression and existing-data rollout | 28 Node tests, five final affected regressions, 12 browser journeys; five preserved showcases redeployed | DONE / TESTED |
+| UX01 | Full-stack and frontend refinement / RA01-04 | Wide form sections, readable Canvas/minimap, shared domain lane placement, icons, mobile navigation, visible load failures | DONE: 28 Node + 12 browser; final 4 Node + 6 browser regressions; 69 live route/viewport checks |
+
+RA05-RA09 remain blocked or planned as recorded in the audit. These entries do not replace or falsely complete G02/D02/V02/E02 below.
+
 ## Latest follow-up (2026-10-10)
 
 | ID | Goal / dependency | Scope | Acceptance | State |

@@ -1,0 +1,98 @@
+node.exe : [WebServer] (node:29692) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+所在位置 行:1 字符: 1
++ & "C:\Program Files\nodejs/node.exe" "C:\Program Files\nodejs/node_mo ...
++ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: ([WebServer] (no... env being set.:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+Running 2 tests using 1 worker
+
+(node:32204) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  x  1 tests\requirements.browser.spec.ts:4:1 › structured specification, Canvas retention, conflicting source edits and history recovery (2.7s)
+(node:32176) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  x  2 tests\requirements.browser.spec.ts:149:1 › deployed campus directory: hierarchy forms, private affiliation, event venue and bilingual mobile (5.7s)
+
+
+  1) tests\requirements.browser.spec.ts:4:1 › structured specification, Canvas retention, conflicting source edits and history recovery
+
+    Error: locator.click: Error: strict mode violation: getByRole('link', { name: '可视化编排', exact: true }) resolved to 2 elements:
+        1) <a class="" href="/compose" data-discover="true">…</a> aka getByRole('navigation').getByRole('link', { name: '可视化编排' })
+        2) <a class="button" data-discover="true" href="/compose?project=db0a5c50-769c-4ed3-876d-1fabdf209e54">…</a> aka getByRole('main').getByRole('link', { name: '可视化编排' })
+
+    Call log:
+      - waiting for getByRole('link', { name: '可视化编排', exact: true })
+
+
+      64 |     ).scenarios[0].status,
+      65 |   ).toBe("NOT_RUN");
+    > 66 |   await page.getByRole("link", { name: "可视化编排", exact: true }).click();
+         |                                                                ^
+      67 |   await expect(page.getByText("结构校验通过", { exact: true })).toBeVisible();
+      68 |   await page.getByRole("button", { name: "保存", exact: true }).click();
+      69 |   await expect(page.getByText("已保存", { exact: true }).first()).toBeVisible();
+        at C:\Users\14237\Desktop\Campus AI App Foundry\tests\requirements.browser.spec.ts:66:64
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    test-results\requirements.browser-struc-758a6--edits-and-history-recovery\test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: test-results\requirements.browser-struc-758a6--edits-and-history-recovery\error-context.md
+
+    attachment #3: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results\requirements.browser-struc-758a6--edits-and-history-recovery\trace.zip
+    Usage:
+
+        npx playwright show-trace test-results\requirements.browser-struc-758a6--edits-and-history-recovery\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  2) tests\requirements.browser.spec.ts:149:1 › deployed campus directory: hierarchy forms, private affiliation, event venue and bilingual mobile
+
+    Error: expect(locator).toBeVisible() failed
+
+    Locator: locator('.campus-records').getByText('Acceptance university', { exact: true })
+    Expected: visible
+    Error: strict mode violation: locator('.campus-records').getByText('Acceptance university', { exact: true }) resolved to 2 elements:
+        1) <strong>Acceptance university</strong> aka getByRole('strong').filter({ hasText: 'Acceptance university' })
+        2) <span>Acceptance university</span> aka locator('span').filter({ hasText: 'Acceptance university' })
+
+    Call log:
+      - Expect "toBeVisible" locator('.campus-records').getByText('Acceptance university', { exact: true }) with timeout 10000ms
+      - waiting for locator('.campus-records').getByText('Acceptance university', { exact: true })
+
+
+      208 |       await expect(
+      209 |         app.locator(".campus-records").getByText(name, { exact: true }),
+    > 210 |       ).toBeVisible();
+          |         ^
+      211 |     }
+      212 |     await add("学校", "Acceptance university");
+      213 |     const university = (
+        at add (C:\Users\14237\Desktop\Campus AI App Foundry\tests\requirements.browser.spec.ts:210:9)
+        at C:\Users\14237\Desktop\Campus AI App Foundry\tests\requirements.browser.spec.ts:212:5
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    test-results\requirements.browser-deplo-7a4e2--venue-and-bilingual-mobile\test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #2: screenshot (image/png) ──────────────────────────────────────────────────────────
+    test-results\requirements.browser-deplo-7a4e2--venue-and-bilingual-mobile\test-failed-2.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: test-results\requirements.browser-deplo-7a4e2--venue-and-bilingual-mobile\error-context.md
+
+    attachment #4: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results\requirements.browser-deplo-7a4e2--venue-and-bilingual-mobile\trace.zip
+    Usage:
+
+        npx playwright show-trace test-results\requirements.browser-deplo-7a4e2--venue-and-bilingual-mobile\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  2 failed
+    tests\requirements.browser.spec.ts:4:1 › structured specification, Canvas retention, conflicting source edits and history recovery
+    tests\requirements.browser.spec.ts:149:1 › deployed campus directory: hierarchy forms, private affiliation, event venue and bilingual mobile

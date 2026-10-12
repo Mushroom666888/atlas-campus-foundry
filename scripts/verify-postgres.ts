@@ -222,7 +222,8 @@ try {
     buyerSession = "",
     productId = "",
     orderId = "",
-    postId = "";
+    postId = "",
+    venueId = "";
   try {
     const account = await runtime.app.inject({
       method: "POST",
@@ -243,6 +244,64 @@ try {
     });
     assert.equal(created.statusCode, 201, created.body);
     entityId = created.json().id;
+    const university = await runtime.app.inject({
+      method: "POST",
+      url: "/api/campus/universities",
+      headers: { cookie: session },
+      payload: { name: "Native PG University" },
+    });
+    assert.equal(university.statusCode, 201, university.body);
+    const universityId = university.json().id;
+    const campus = await runtime.app.inject({
+      method: "POST",
+      url: "/api/campus/campuses",
+      headers: { cookie: session },
+      payload: { name: "Native PG Campus", university_id: universityId },
+    });
+    assert.equal(campus.statusCode, 201, campus.body);
+    const venue = await runtime.app.inject({
+      method: "POST",
+      url: "/api/campus/venues",
+      headers: { cookie: session },
+      payload: {
+        name: "Native PG Venue",
+        university_id: universityId,
+        campus_id: campus.json().id,
+        capacity: 50,
+      },
+    });
+    assert.equal(venue.statusCode, 201, venue.body);
+    venueId = venue.json().id;
+    const linked = await runtime.app.inject({
+      method: "PUT",
+      url: `/api/campus/events/${entityId}/location`,
+      headers: { cookie: session },
+      payload: { university_id: universityId, venue_id: venueId },
+    });
+    assert.equal(linked.statusCode, 200, linked.body);
+    await runtime.db.query(
+      "INSERT INTO campus_campuses(id,university_id,name,timezone) SELECT 'quota-' || n::text,$1,'Quota fixture ' || n::text,'Asia/Taipei' FROM generate_series(1,998) AS n",
+      [universityId],
+    );
+    const campusRaces = await Promise.all(
+      ["A", "B"].map((suffix) =>
+        runtime.app.inject({
+          method: "POST",
+          url: "/api/campus/campuses",
+          headers: { cookie: session },
+          payload: {
+            name: `Concurrent quota ${suffix}`,
+            university_id: universityId,
+          },
+        }),
+      ),
+    );
+    assert.deepEqual(campusRaces.map((r) => r.statusCode).sort(), [201, 429]);
+    const pagedVenue = await runtime.app.inject({
+      url: "/api/campus/venues?limit=1",
+      headers: { cookie: session },
+    });
+    assert.equal(pagedVenue.json().items[0].owner_id, account.json().user.id);
     const joined = await runtime.app.inject({
       method: "POST",
       url: `/api/entities/${entityId}/join`,
@@ -338,6 +397,16 @@ try {
     });
     assert.equal(entity.statusCode, 200);
     assert.equal(entity.json().title, "Persistent SQL event");
+    const location = await runtime.app.inject({
+      url: `/api/campus/events/${entityId}/location`,
+      headers: { cookie: session },
+    });
+    assert.equal(location.statusCode, 200, location.body);
+    assert.equal(location.json().location.venue_id, venueId);
+    assert.equal(
+      location.json().location.university_name,
+      "Native PG University",
+    );
     const orders = await runtime.app.inject({
       url: "/api/commerce/orders",
       headers: { cookie: buyerSession },
@@ -386,6 +455,9 @@ try {
           "exact control/runtime migration ledger and repeat-run idempotence",
           "concurrent orders cannot oversell on PostgreSQL server",
           "orders, stock and community posts survive database server restart",
+          "campus composite foreign keys and event venue survive PostgreSQL restart",
+          "concurrent campus creation enforces the 1000-record quota with row locks",
+          "paged campus records carry actual owner independently of school directory pages",
         ],
         clusterDirectory: cluster,
       },

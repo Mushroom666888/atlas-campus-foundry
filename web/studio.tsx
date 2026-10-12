@@ -1,6 +1,15 @@
 import { t, LanguageSelect, localeTag } from "./i18n";
 import { DeleteProject, ExportProject } from "./project-actions";
-import { lazy, Suspense, useEffect, useState, type FormEvent } from "react";
+import { RequirementsEditor, emptyRequirements } from "./requirements-editor";
+import { FileHistory } from "./file-history";
+import {
+  lazy,
+  Suspense,
+  useEffect,
+  useState,
+  type FormEvent,
+  type ReactNode,
+} from "react";
 import {
   Link,
   NavLink,
@@ -20,6 +29,7 @@ import {
   ExternalLink,
   FileCode2,
   Folder,
+  History,
   GitBranch,
   LayoutDashboard,
   LogOut,
@@ -681,7 +691,11 @@ function Builder() {
       <div className="builder-layout">
         <section className="job-list">
           <h2>{t("开发任务")}</h2>
-          {jobs.data?.items.length ? (
+          {jobs.error ? (
+            <Notice>{jobs.error}</Notice>
+          ) : jobs.loading ? (
+            <Loading />
+          ) : jobs.data?.items.length ? (
             jobs.data.items.map((j) => (
               <button
                 key={j.id}
@@ -707,6 +721,7 @@ function Builder() {
             <Empty>{t("提交一个需求，开始开发任务")}</Empty>
           )}
           {action.error && <Notice>{action.error}</Notice>}
+          {projects.error && <Notice>{projects.error}</Notice>}
           <form className="composer" onSubmit={submit}>
             <label>
               {t("关联项目")}
@@ -843,6 +858,16 @@ function ProjectWorkspace() {
   const [tab, setTab] = useState("overview"),
     [file, setFile] = useState(""),
     [content, setContent] = useState("");
+  const [fileHash, setFileHash] = useState<string | null>(null),
+    [original, setOriginal] = useState(""),
+    [showHistory, setShowHistory] = useState(false);
+  const dirty = content !== original;
+  useEffect(() => {
+    if (!dirty) return;
+    const prevent = (event: BeforeUnloadEvent) => event.preventDefault();
+    window.addEventListener("beforeunload", prevent);
+    return () => window.removeEventListener("beforeunload", prevent);
+  }, [dirty]);
   const files = useLoad<{ items: { path: string; size: number }[] }>(
     `/api/projects/${id}/files`,
   );
@@ -927,56 +952,56 @@ function ProjectWorkspace() {
       </div>
       {tab === "overview" && (
         <div className="project-overview">
-          <section>
-            <h2>{t("产品规格")}</h2>
-            <SpecEditor project={data.project} refresh={project.refresh} />
-          </section>
-          <section>
-            <div className="section-head">
-              <h2>{t("已安装能力")}</h2>
-              <Link to="/modules">
-                <Plus size={15} />
-                {t("安装")}
-              </Link>
-            </div>
-            <div className="installed-list">
-              {data.installs.map((m) => (
-                <div key={m.module_id}>
-                  <Boxes size={17} />
-                  <strong>{m.module_id}</strong>
-                  <code>{m.version}</code>
-                  <button
-                    className="icon-button"
-                    aria-label={`卸载 ${m.module_id}`}
-                    title={`卸载 ${m.module_id}`}
-                    onClick={() =>
-                      void action.run(async () => {
-                        await post(`/api/projects/${id}/modules`, {
-                          modules: data.project.spec.modules.filter(
-                            (n) => n !== m.module_id,
-                          ),
-                        });
-                        await project.refresh();
-                      }, "安装方案已更新；依赖仍被需要的模块会保留")
-                    }
-                  >
-                    <Trash2 size={15} />
-                  </button>
-                </div>
-              ))}
-            </div>
-            <button
-              onClick={() =>
-                void action.run(async () => {
-                  await post(`/api/projects/${id}/modules/rollback`);
-                  await project.refresh();
-                }, "模块版本已回滚")
-              }
-            >
-              <RefreshCw size={15} />
-              {t("回滚上次安装")}
-            </button>
-          </section>
+          <SpecEditor project={data.project} refresh={project.refresh}>
+            <section className="project-capabilities">
+              <div className="section-head">
+                <h2>{t("已安装能力")}</h2>
+                <Link to="/modules">
+                  <Plus size={15} />
+                  {t("安装")}
+                </Link>
+              </div>
+              <div className="installed-list">
+                {data.installs.map((m) => (
+                  <div key={m.module_id}>
+                    <Boxes size={17} />
+                    <Link to={`/modules/${m.module_id}`}>{m.module_id}</Link>
+                    <code>{m.version}</code>
+                    <button
+                      className="icon-button"
+                      type="button"
+                      aria-label={`卸载 ${m.module_id}`}
+                      title={`卸载 ${m.module_id}`}
+                      onClick={() =>
+                        void action.run(async () => {
+                          await post(`/api/projects/${id}/modules`, {
+                            modules: data.project.spec.modules.filter(
+                              (n) => n !== m.module_id,
+                            ),
+                          });
+                          await project.refresh();
+                        }, "安装方案已更新；依赖仍被需要的模块会保留")
+                      }
+                    >
+                      <Trash2 size={15} />
+                    </button>
+                  </div>
+                ))}
+              </div>
+              <button
+                type="button"
+                onClick={() =>
+                  void action.run(async () => {
+                    await post(`/api/projects/${id}/modules/rollback`);
+                    await project.refresh();
+                  }, "模块版本已回滚")
+                }
+              >
+                <RefreshCw size={15} />
+                {t("回滚上次安装")}
+              </button>
+            </section>
+          </SpecEditor>
         </div>
       )}
       {tab === "files" && (
@@ -989,8 +1014,12 @@ function ProjectWorkspace() {
                 title={t("新建文件")}
                 aria-label={t("新建文件")}
                 onClick={() => {
+                  if (dirty && !window.confirm(t("放弃未保存的文件修改？")))
+                    return;
                   setFile("src/feature.ts");
                   setContent("");
+                  setOriginal("");
+                  setFileHash(null);
                 }}
               >
                 <Plus size={16} />
@@ -1000,15 +1029,20 @@ function ProjectWorkspace() {
               <button
                 key={f.path}
                 className={f.path === file ? "selected" : ""}
+                disabled={action.busy}
                 onClick={() =>
                   void action.run(async () => {
-                    setContent(
-                      (
-                        await api<{ content: string }>(
-                          `/api/projects/${id}/file?path=${encodeURIComponent(f.path)}`,
-                        )
-                      ).content,
+                    if (dirty && !window.confirm(t("放弃未保存的文件修改？")))
+                      return;
+                    const version = await api<{
+                      content: string;
+                      hash: string;
+                    }>(
+                      `/api/projects/${id}/file?path=${encodeURIComponent(f.path)}`,
                     );
+                    setContent(version.content);
+                    setOriginal(version.content);
+                    setFileHash(version.hash);
                     setFile(f.path);
                   })
                 }
@@ -1023,24 +1057,44 @@ function ProjectWorkspace() {
               <input
                 aria-label={t("文件路径")}
                 value={file}
-                onChange={(e) => setFile(e.target.value)}
+                onChange={(e) => {
+                  setFile(e.target.value);
+                  setFileHash(null);
+                }}
                 placeholder="src/feature.ts"
               />
               <button
                 title={t("保存文件")}
                 aria-label={t("保存文件")}
-                disabled={!file || action.busy}
+                disabled={!file || action.busy || file === "product.json"}
                 onClick={() =>
                   void action.run(async () => {
-                    await api(`/api/projects/${id}/file`, {
-                      method: "PUT",
-                      body: JSON.stringify({ path: file, content }),
-                    });
+                    const result = await api<{ hash: string }>(
+                      `/api/projects/${id}/file`,
+                      {
+                        method: "PUT",
+                        body: JSON.stringify({
+                          path: file,
+                          content,
+                          expectedHash: fileHash,
+                        }),
+                      },
+                    );
+                    setFileHash(result.hash);
+                    setOriginal(content);
                     await files.refresh();
                   }, "文件已保存")
                 }
               >
                 <Save size={16} />
+              </button>
+              <button
+                title={t("文件历史")}
+                aria-label={t("文件历史")}
+                disabled={!file || action.busy}
+                onClick={() => setShowHistory(true)}
+              >
+                <History size={16} />
               </button>
               <button
                 onClick={() =>
@@ -1077,9 +1131,29 @@ function ProjectWorkspace() {
               value={content}
               onChange={(e) => setContent(e.target.value)}
               aria-label={t("文件内容")}
+              readOnly={file === "product.json" || action.busy}
             />
+            {file === "product.json" && (
+              <Notice kind="info">{t("产品配置由产品规格与画布管理")}</Notice>
+            )}
+            {dirty && <span className="muted">{t("未保存")}</span>}
           </div>
         </section>
+      )}
+      {showHistory && (
+        <FileHistory
+          projectId={id!}
+          path={file}
+          hash={fileHash}
+          canRestore={!dirty}
+          onClose={() => setShowHistory(false)}
+          onRestore={(text, hash) => {
+            setContent(text);
+            setOriginal(text);
+            setFileHash(hash);
+            void files.refresh();
+          }}
+        />
       )}
       {tab === "deploy" && <DeploymentView projectId={id} compact />}
       {tab === "settings" && <EnvironmentSettings id={id!} />}
@@ -1089,11 +1163,16 @@ function ProjectWorkspace() {
 function SpecEditor({
   project,
   refresh,
+  children,
 }: {
   project: Project;
   refresh: () => Promise<void>;
+  children: ReactNode;
 }) {
   const action = useAction();
+  const [requirements, setRequirements] = useState(
+    project.spec.requirements ?? emptyRequirements,
+  );
   function submit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
     const values = Object.fromEntries(new FormData(e.currentTarget));
@@ -1105,41 +1184,60 @@ function SpecEditor({
           name: values.name,
           description: values.description,
           features: String(values.features).split("\n").filter(Boolean),
+          requirements,
         }),
       });
       await refresh();
     }, "产品规格已更新");
   }
   return (
-    <form onSubmit={submit}>
-      <label>
-        {t("名称")}
-        <input name="name" defaultValue={project.name} required minLength={2} />
-      </label>
-      <label>
-        {t("需求描述")}
-        <textarea
-          name="description"
-          defaultValue={project.spec.description}
-          required
-          minLength={5}
-          rows={4}
-        />
-      </label>
-      <label>
-        {t("功能清单")}
-        <textarea
-          name="features"
-          defaultValue={project.spec.features.join("\n")}
-          rows={4}
-        />
-      </label>
+    <form className="product-spec-form" onSubmit={submit}>
+      <div className="spec-summary-layout">
+        <section>
+          <h2>{t("产品规格")}</h2>
+          <label>
+            {t("名称")}
+            <input
+              name="name"
+              defaultValue={project.name}
+              required
+              minLength={2}
+            />
+          </label>
+          <label>
+            {t("需求描述")}
+            <textarea
+              name="description"
+              defaultValue={project.spec.description}
+              required
+              minLength={5}
+              rows={4}
+            />
+          </label>
+          <label>
+            {t("功能清单")}
+            <textarea
+              name="features"
+              defaultValue={project.spec.features.join("\n")}
+              rows={4}
+            />
+          </label>
+        </section>
+        {children}
+      </div>
       {action.error && <Notice>{action.error}</Notice>}
       {action.message && <Notice kind="success">{action.message}</Notice>}
-      <button disabled={action.busy}>
-        <Save size={15} />
-        {t("保存规格")}
-      </button>
+      <RequirementsEditor
+        value={requirements}
+        onChange={setRequirements}
+        modules={project.spec.modules}
+      />
+      <div className="spec-save-bar">
+        <button className="primary" disabled={action.busy}>
+          <Save size={15} />
+          {t("保存规格")}
+        </button>
+      </div>
     </form>
   );
 }
@@ -1149,6 +1247,7 @@ function EnvironmentSettings({ id }: { id: string }) {
   return (
     <section className="settings-form">
       <h2>{t("环境变量")}</h2>
+      {env.error && <Notice>{env.error}</Notice>}
       <Notice kind="info">
         {t("密钥加密保存，仅供隔离部署使用。本地共享模块不接收自定义密钥。")}
       </Notice>
@@ -1224,6 +1323,8 @@ function DeploymentView({
   const [logs, setLogs] = useState<string | null>(null),
     [health, setHealth] = useState("");
   const action = useAction();
+  const visibleRecords =
+    records.data?.items.filter((d) => d.status !== "deleted") ?? [];
   return (
     <>
       {!compact && (
@@ -1235,128 +1336,128 @@ function DeploymentView({
       )}
       {action.error && <Notice>{action.error}</Notice>}
       {health && <Notice kind="info">{health}</Notice>}
-      {records.loading ? (
+      {records.error ? (
+        <Notice>{records.error}</Notice>
+      ) : records.loading ? (
         <Loading />
-      ) : records.data?.items.length ? (
+      ) : visibleRecords.length ? (
         <div className="deployment-list">
-          {records.data.items
-            .filter((d) => d.status !== "deleted")
-            .map((d) => (
-              <article className="deployment-row" key={d.id}>
-                <div className="deployment-info">
-                  <Rocket size={21} />
-                  <div>
-                    <h3>{d.project_name}</h3>
-                    <small>
-                      {d.id.slice(0, 8)} · {d.provider} ·{" "}
-                      {formatDate(d.created_at)}
-                    </small>
-                  </div>
-                  <Badge status={d.status} />
+          {visibleRecords.map((d) => (
+            <article className="deployment-row" key={d.id}>
+              <div className="deployment-info">
+                <Rocket size={21} />
+                <div>
+                  <h3>{d.project_name}</h3>
+                  <small>
+                    {d.id.slice(0, 8)} · {d.provider} ·{" "}
+                    {formatDate(d.created_at)}
+                  </small>
                 </div>
-                <div className="inline-actions">
-                  {d.status === "running" && (
-                    <a
-                      className="button primary"
-                      href={`http://app-${d.app_id}.localhost:${d.port}`}
-                      target="_blank"
-                      rel="noreferrer"
-                    >
-                      <ExternalLink size={15} />
-                      {t("打开应用")}
-                    </a>
-                  )}
-                  <button
-                    title={t("查看日志")}
-                    onClick={() =>
-                      void action.run(async () =>
-                        setLogs(
-                          (
-                            await api<{ logs: string }>(
-                              `/api/deployments/${d.id}/logs`,
-                            )
-                          ).logs,
-                        ),
-                      )
-                    }
+                <Badge status={d.status} />
+              </div>
+              <div className="inline-actions">
+                {d.status === "running" && (
+                  <a
+                    className="button primary"
+                    href={`http://app-${d.app_id}.localhost:${d.port}`}
+                    target="_blank"
+                    rel="noreferrer"
                   >
-                    <Terminal size={15} />
-                    {t("日志")}
-                  </button>
+                    <ExternalLink size={15} />
+                    {t("打开应用")}
+                  </a>
+                )}
+                <button
+                  title={t("查看日志")}
+                  onClick={() =>
+                    void action.run(async () =>
+                      setLogs(
+                        (
+                          await api<{ logs: string }>(
+                            `/api/deployments/${d.id}/logs`,
+                          )
+                        ).logs,
+                      ),
+                    )
+                  }
+                >
+                  <Terminal size={15} />
+                  {t("日志")}
+                </button>
+                <button
+                  title={t("健康检查")}
+                  aria-label={`健康检查 ${d.id.slice(0, 8)}`}
+                  onClick={() =>
+                    void action.run(async () => {
+                      const result = await api<{ healthy: boolean }>(
+                        `/api/deployments/${d.id}/health`,
+                      );
+                      setHealth(
+                        `${d.project_name}：${result.healthy ? "健康检查通过" : "服务当前不可达"}`,
+                      );
+                    })
+                  }
+                >
+                  <Activity size={16} />
+                </button>
+                <button
+                  title={t("重新部署")}
+                  aria-label={`重新部署 ${d.id.slice(0, 8)}`}
+                  disabled={action.busy}
+                  onClick={() =>
+                    void action.run(async () => {
+                      await post(`/api/deployments/${d.id}/restart`);
+                      await records.refresh();
+                    })
+                  }
+                >
+                  <RefreshCw size={16} />
+                </button>
+                {d.status === "running" && (
                   <button
-                    title={t("健康检查")}
-                    aria-label={`健康检查 ${d.id.slice(0, 8)}`}
+                    title={t("停止应用")}
+                    aria-label={`停止 ${d.id.slice(0, 8)}`}
                     onClick={() =>
                       void action.run(async () => {
-                        const result = await api<{ healthy: boolean }>(
-                          `/api/deployments/${d.id}/health`,
-                        );
-                        setHealth(
-                          `${d.project_name}：${result.healthy ? "健康检查通过" : "服务当前不可达"}`,
-                        );
+                        await post(`/api/deployments/${d.id}/stop`);
+                        await records.refresh();
                       })
                     }
                   >
-                    <Activity size={16} />
+                    <Square size={15} />
                   </button>
+                )}
+                {d.previous_id && (
                   <button
-                    title={t("重新部署")}
-                    aria-label={`重新部署 ${d.id.slice(0, 8)}`}
                     disabled={action.busy}
                     onClick={() =>
                       void action.run(async () => {
-                        await post(`/api/deployments/${d.id}/restart`);
+                        await post(`/api/deployments/${d.id}/rollback`);
                         await records.refresh();
                       })
                     }
                   >
-                    <RefreshCw size={16} />
+                    <GitBranch size={15} />
+                    {t("回滚")}
                   </button>
-                  {d.status === "running" && (
-                    <button
-                      title={t("停止应用")}
-                      aria-label={`停止 ${d.id.slice(0, 8)}`}
-                      onClick={() =>
-                        void action.run(async () => {
-                          await post(`/api/deployments/${d.id}/stop`);
-                          await records.refresh();
-                        })
-                      }
-                    >
-                      <Square size={15} />
-                    </button>
-                  )}
-                  {d.previous_id && (
-                    <button
-                      disabled={action.busy}
-                      onClick={() =>
-                        void action.run(async () => {
-                          await post(`/api/deployments/${d.id}/rollback`);
-                          await records.refresh();
-                        })
-                      }
-                    >
-                      <GitBranch size={15} />
-                      {t("回滚")}
-                    </button>
-                  )}
-                  <button
-                    title={t("移除实例，保留数据")}
-                    aria-label={`移除 ${d.id.slice(0, 8)}`}
-                    onClick={() =>
-                      void action.run(async () => {
-                        await api(`/api/deployments/${d.id}`, {
-                          method: "DELETE",
-                        });
-                        await records.refresh();
-                      })
-                    }
-                  >
-                    <Trash2 size={15} />
-                  </button>
-                </div>
-              </article>
-            ))}
+                )}
+                <button
+                  title={t("移除实例，保留数据")}
+                  aria-label={`移除 ${d.id.slice(0, 8)}`}
+                  onClick={() =>
+                    void action.run(async () => {
+                      await api(`/api/deployments/${d.id}`, {
+                        method: "DELETE",
+                      });
+                      await records.refresh();
+                    })
+                  }
+                >
+                  <Trash2 size={15} />
+                </button>
+              </div>
+            </article>
+          ))}
         </div>
       ) : (
         <Empty>{t("暂无部署。在项目中创建预览以启动应用。")}</Empty>
@@ -1390,6 +1491,7 @@ function Publisher({ user }: { user: PublicUser }) {
       <div className="publisher-layout">
         <section>
           <h2>{t("提取项目能力")}</h2>
+          {projects.error && <Notice>{projects.error}</Notice>}
           <form
             onSubmit={(e) => {
               e.preventDefault();
@@ -1456,7 +1558,11 @@ function Publisher({ user }: { user: PublicUser }) {
         </section>
         <section>
           <h2>{t("待审核版本")}</h2>
-          {pending.data?.items.length ? (
+          {pending.error ? (
+            <Notice>{pending.error}</Notice>
+          ) : pending.loading ? (
+            <Loading />
+          ) : pending.data?.items.length ? (
             pending.data.items.map((m) => (
               <article
                 className="review-item"

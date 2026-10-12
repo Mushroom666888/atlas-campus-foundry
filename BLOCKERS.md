@@ -1,5 +1,7 @@
 # Blockers and remaining work
 
+Rechecked 2026-10-12. The requirements audit and frontend refinement do not remove the external or engineering gaps below. New campus directory, structured specification and revision recovery work without external credentials. A saved acceptance scenario is NOT_RUN until its business implementation has actually been tested.
+
 ## External resources
 
 - LLM credentials/model: live requests, custom code generation and self-repair remain BLOCKED. Real adapter and tools are implemented.

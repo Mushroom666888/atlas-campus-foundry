@@ -1,0 +1,52 @@
+{
+  "at": "2026-10-12T10:46:00.487Z",
+  "status": "TESTED",
+  "applications": [
+    {
+      "url": "http://app-f1f8594f-b001-4175-82d9-e53c4089877b.localhost:58381",
+      "status": "TESTED",
+      "checks": [
+        "loopback health",
+        "application metadata",
+        "browser .localhost frontend"
+      ]
+    },
+    {
+      "url": "http://app-823374ce-21f3-43fa-bc1c-b934199f9304.localhost:58389",
+      "status": "TESTED",
+      "checks": [
+        "loopback health",
+        "application metadata",
+        "browser .localhost frontend"
+      ]
+    },
+    {
+      "url": "http://app-34dd7277-d889-4131-8c7d-2a89a3dd0d7e.localhost:58397",
+      "status": "TESTED",
+      "checks": [
+        "loopback health",
+        "application metadata",
+        "browser .localhost frontend"
+      ]
+    },
+    {
+      "url": "http://app-97d595af-a9f6-4f61-8ca9-9567b534c528.localhost:58420",
+      "status": "TESTED",
+      "checks": [
+        "loopback health",
+        "application metadata",
+        "browser .localhost frontend"
+      ]
+    },
+    {
+      "url": "http://app-6d0b7741-19cd-49ef-8747-f6c376e0dcf3.localhost:58429",
+      "status": "TESTED",
+      "checks": [
+        "loopback health",
+        "application metadata",
+        "browser .localhost frontend"
+      ]
+    }
+  ],
+  "errors": []
+}

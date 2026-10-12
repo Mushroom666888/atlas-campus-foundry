@@ -1,6 +1,12 @@
 # Atlas / Campus AI App Foundry status
 
-Date: 2026-10-10 (Asia/Shanghai).
+Date: 2026-10-12 (Asia/Taipei).
+
+Latest requirements audit: `docs/REQUIREMENTS_AUDIT.md` and `docs/REQUIREMENTS_DELIVERY.md`. Structured editable roles/models/acceptance scenarios, conditional source saves and revision recovery, and a relational campus directory with private student affiliations and event venue links are IMPLEMENTED / TESTED. Canvas preserves requirements/type/theme and initializes dependency edges for older projects. The 94-module count is unchanged; the existing campus module gained real relational behavior.
+
+Current verification: full lint/build/28 Node tests passed; after security refinements, five affected Node tests passed again. All 12 browser journeys passed on the final frontend, including 1440/390/320px checks. Native PostgreSQL 18.4 passed migration/restart and concurrent campus quota checks. Five declared showcase applications were redeployed locally and have the same current shared source fingerprint. Studio is running at http://127.0.0.1:3000. Live LLM, Docker isolation and public hosting remain BLOCKED; production/team/general executable-module engineering is still incomplete. October 10 counts below are historical.
+
+Latest frontend/full-stack pass: wide structured-spec sections and checkboxes, 16px form inputs, commerce/community icons, compact mobile filters/navigation, explicit API-load errors and readable technical Canvas with a reserved minimap footer. Full 28-test check and 12 browser journeys passed again; final shared layer changes additionally passed four relevant Node tests and six browser journeys. Live-account audit: 69 checks; 685 translation keys complete; production npm audit: zero known vulnerabilities. Startup and five showcase redeploys were repeated on the final sources. Failures and limitations are retained in TEST_REPORT.md; this is not a claim that core-platform final acceptance is complete.
 
 Latest follow-up: project deletion with confirmation, retained-data trash/restore, independent ZIP export, persistent Chinese/English switching, complete system Chinese fonts and idea-first visual design are implemented. The homepage module block was removed entirely following the latest feedback; the brand scene, subtle motion and real navigation remain. Details: `docs/FOLLOWUP_DELIVERY.md`.
 

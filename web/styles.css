@@ -152,7 +152,7 @@ label {
   display: flex;
   flex-direction: column;
   gap: 8px;
-  font-size: 14px;
+  font-size: 15px;
   font-weight: 400;
   margin-bottom: 18px;
 }
@@ -167,6 +167,7 @@ select {
   padding: 10px 11px;
   min-width: 0;
   line-height: 1.5;
+  font-size: 16px;
 }
 textarea {
   resize: vertical;
@@ -735,7 +736,7 @@ dd {
   border-right: 1px solid var(--border);
 }
 .job-list h2 {
-  font-size: 14px;
+  font-size: 16px;
   color: var(--muted);
 }
 .job-item {
@@ -756,7 +757,7 @@ dd {
 }
 .job-item > span:first-child {
   grid-column: 1/-1;
-  font-size: 14px;
+  font-size: 15px;
   line-height: 1.6;
   overflow-wrap: anywhere;
 }
@@ -774,7 +775,7 @@ dd {
   background: white;
   border: 1px solid var(--border);
   border-radius: 5px;
-  font-size: 14px;
+  font-size: 16px;
   white-space: pre-wrap;
 }
 .composer {

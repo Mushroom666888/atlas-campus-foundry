@@ -1,0 +1,52 @@
+node.exe : [WebServer] (node:11288) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+所在位置 行:1 字符: 1
++ & "C:\Program Files\nodejs/node.exe" "C:\Program Files\nodejs/node_mo ...
++ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: ([WebServer] (no... env being set.:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+Running 1 test using 1 worker
+
+(node:31984) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  x  1 tests\requirements.browser.spec.ts:152:1 › deployed campus directory: hierarchy forms, private affiliation, event venue and bilingual mobile (24.9s)
+
+
+  1) tests\requirements.browser.spec.ts:152:1 › deployed campus directory: hierarchy forms, private affiliation, event venue and bilingual mobile
+
+    TimeoutError: locator.selectOption: Timeout 15000ms exceeded.
+    Call log:
+      - waiting for getByRole('dialog').getByLabel('活动场地', { exact: true })
+
+
+      290 |       .getByRole("dialog")
+      291 |       .getByLabel("活动场地", { exact: true })
+    > 292 |       .selectOption(venue.id);
+          |        ^
+      293 |     await app
+      294 |       .getByRole("dialog")
+      295 |       .getByRole("button", { name: "保存", exact: true })
+        at C:\Users\14237\Desktop\Campus AI App Foundry\tests\requirements.browser.spec.ts:292:8
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    test-results\requirements.browser-deplo-7a4e2--venue-and-bilingual-mobile\test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #2: screenshot (image/png) ──────────────────────────────────────────────────────────
+    test-results\requirements.browser-deplo-7a4e2--venue-and-bilingual-mobile\test-failed-2.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: test-results\requirements.browser-deplo-7a4e2--venue-and-bilingual-mobile\error-context.md
+
+    attachment #4: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results\requirements.browser-deplo-7a4e2--venue-and-bilingual-mobile\trace.zip
+    Usage:
+
+        npx playwright show-trace test-results\requirements.browser-deplo-7a4e2--venue-and-bilingual-mobile\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  1 failed
+    tests\requirements.browser.spec.ts:152:1 › deployed campus directory: hierarchy forms, private affiliation, event venue and bilingual mobile

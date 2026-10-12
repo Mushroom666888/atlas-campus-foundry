@@ -143,6 +143,11 @@ export function FoundationPreview({ module }: { module: ModuleManifest }) {
     <div className="capability-preview">
       <small>{t("地图预览采用你输入的坐标，不包含预置校园地点")}</small>
       <h2>{t("校园地点")}</h2>
+      <ol className="campus-contract-chain" aria-label={t("校园数据关系")}>
+        {["学校", "校区", "建筑", "场地", "活动"].map((name) => (
+          <li key={name}>{t(name)}</li>
+        ))}
+      </ol>
       <label>
         {t("纬度")}
         <input

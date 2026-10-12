@@ -1,0 +1,6 @@
+
+> campus-ai-app-foundry@0.1.0 verify-postgres
+> tsx scripts/verify-postgres.ts
+
+TESTED: PostgreSQL 18.4 on x86_64-windows, compiled by msvc-19.44.35226, 64-bit
+Native PostgreSQL control/runtime migrations and restart persistence passed.

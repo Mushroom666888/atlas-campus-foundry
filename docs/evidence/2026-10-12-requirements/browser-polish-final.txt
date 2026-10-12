@@ -1,0 +1,31 @@
+
+> campus-ai-app-foundry@0.1.0 e2e
+> playwright test
+
+node.exe : [WebServer] (node:22188) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+所在位置 行:1 字符: 1
++ & "C:\Program Files\nodejs/node.exe" "C:\Program Files\nodejs/node_mo ...
++ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: ([WebServer] (no... env being set.:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+Running 12 tests using 1 worker
+
+(node:3228) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ok  1 tests\atlas.browser.spec.ts:4:1 › Atlas brand home: real imagery, working navigation, responsive composition and reduced motion (3.1s)
+  ok  2 tests\browser.spec.ts:12:1 › Studio and three deployed products: persisted workflows, module reuse, upload, chat, mobile (31.2s)
+  ok  3 tests\commerce.browser.spec.ts:16:1 › commercial modules deploy a real multiuser shop, orders, appointments and reusable forum (19.0s)
+  ok  4 tests\community.browser.spec.ts:4:1 › creator forum, public profile and product showcase persist across users and mobile routes (12.9s)
+  ok  5 tests\community.browser.spec.ts:123:1 › canvas marks incompatible links red, requires intent and preserves validated dependencies (2.8s)
+  ok  6 tests\lifecycle.browser.spec.ts:4:1 › bilingual Studio: persisted language, owner deletion/restore and ZIP download (4.1s)
+  ok  7 tests\lifecycle.browser.spec.ts:89:1 › idea-first Canvas: blocked design saved, manual refinement, English filters and responsive UI (4.7s)
+  ok  8 tests\lifecycle.browser.spec.ts:169:1 › bilingual visual audit: readable CJK font, mobile layouts, working routes and preserved form state (29.9s)
+  ok  9 tests\modules.browser.spec.ts:15:1 › 94-module explorer, interactive details and persisted +references (8.1s)
+  ok 10 tests\modules.browser.spec.ts:123:1 › described drag and connect builds a validated application with notifications, embedded records and display widgets (16.4s)
+  ok 11 tests\requirements.browser.spec.ts:4:1 › structured specification, Canvas retention, conflicting source edits and history recovery (5.4s)
+  ok 12 tests\requirements.browser.spec.ts:155:1 › deployed campus directory: hierarchy forms, private affiliation, event venue and bilingual mobile (9.1s)
+
+  12 passed (2.5m)

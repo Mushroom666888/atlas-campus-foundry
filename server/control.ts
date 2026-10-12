@@ -151,22 +151,70 @@ export async function createControl(
   app.get("/api/projects/:id/files", async (request) => ({
     items: await projects.files(id(request), requireUser(request).id),
   }));
-  app.get("/api/projects/:id/file", async (request) => ({
-    content: await projects.read(
+  app.get("/api/projects/:id/requirements", async (request) =>
+    projects.requirements(id(request), requireUser(request).id),
+  );
+  app.get("/api/projects/:id/file", async (request) =>
+    projects.readVersion(
+      id(request),
+      requireUser(request).id,
+      z.object({ path: z.string() }).parse(request.query).path,
+    ),
+  );
+  app.put("/api/projects/:id/file", async (request) => {
+    const input = z
+      .object({
+        path: z.string(),
+        content: z.string(),
+        expectedHash: z
+          .string()
+          .regex(/^[a-f0-9]{64}$/)
+          .nullable(),
+      })
+      .parse(request.body);
+    return projects.edit(
+      id(request),
+      requireUser(request).id,
+      input.path,
+      input.content,
+      input.expectedHash,
+    );
+  });
+  app.get("/api/projects/:id/file-history", async (request) => ({
+    items: await projects.history(
       id(request),
       requireUser(request).id,
       z.object({ path: z.string() }).parse(request.query).path,
     ),
   }));
-  app.put("/api/projects/:id/file", async (request) => {
-    const input = z
-      .object({ path: z.string(), content: z.string() })
-      .parse(request.body);
-    return projects.write(
+  app.get("/api/projects/:id/revisions/:revision", async (request) =>
+    projects.revision(
       id(request),
       requireUser(request).id,
-      input.path,
-      input.content,
+      (request.params as { revision: string }).revision,
+    ),
+  );
+  app.post("/api/projects/:id/revisions/:revision/restore", async (request) => {
+    const actor = requireUser(request).id;
+    const input = z
+      .object({
+        expectedHash: z
+          .string()
+          .regex(/^[a-f0-9]{64}$/)
+          .nullable(),
+      })
+      .parse(request.body);
+    const revision = await projects.revision(
+      id(request),
+      actor,
+      (request.params as { revision: string }).revision,
+    );
+    return projects.edit(
+      id(request),
+      actor,
+      revision.path,
+      revision.after,
+      input.expectedHash,
     );
   });
   app.get("/api/modules", async (request) => {

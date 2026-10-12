@@ -163,12 +163,26 @@ test("described drag and connect builds a validated application with notificatio
       .getByRole("button", { name: `添加${name}`, exact: true })
       .click();
   }
-  await page.locator(".react-flow__controls-fitview").click();
+  await page.getByRole("button", { name: "查看全部连线", exact: true }).click();
   async function connect(source: string, target: string, mode = "auto") {
+    const before = await page.locator(".react-flow__edge").count();
     await page.getByLabel("连接类型").selectOption(mode);
     const from = page.getByLabel(`${source}输出`, { exact: true });
     const to = page.getByLabel(`${target}输入`, { exact: true });
-    await from.dragTo(to);
+    await page.locator(".react-flow").scrollIntoViewIfNeeded();
+    await from.hover();
+    const start = (await from.boundingBox())!;
+    const end = (await to.boundingBox())!;
+    await page.mouse.move(
+      start.x + start.width / 2,
+      start.y + start.height / 2,
+    );
+    await page.mouse.down();
+    await page.mouse.move(end.x + end.width / 2, end.y + end.height / 2, {
+      steps: 20,
+    });
+    await page.mouse.up();
+    await expect(page.locator(".react-flow__edge")).toHaveCount(before + 1);
   }
   await connect("失物招领", "记录创建触发");
   await connect("记录创建触发", "通知操作者");
@@ -192,6 +206,21 @@ test("described drag and connect builds a validated application with notificatio
   await page.reload();
   await page.getByRole("button", { name: "技术连线", exact: true }).click();
   await expect(page.locator(".react-flow__node")).toHaveCount(12);
+  await expect
+    .poll(
+      async () =>
+        (await page.locator(".canvas-module").first().boundingBox())!.width,
+    )
+    .toBeGreaterThanOrEqual(230);
+  await expect(page.locator(".react-flow__minimap")).toBeVisible();
+  await page.getByRole("button", { name: "查看全部连线", exact: true }).click();
+  await page.getByRole("button", { name: "恢复可读视图", exact: true }).click();
+  await expect
+    .poll(
+      async () =>
+        (await page.locator(".canvas-module").first().boundingBox())!.width,
+    )
+    .toBeGreaterThanOrEqual(230);
   expect(
     (await page.locator(".canvas-library .search-input").boundingBox())!.height,
   ).toBeLessThan(50);

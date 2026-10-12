@@ -1,4 +1,5 @@
 import { z } from "zod";
+import { requirementsSchema } from "./requirements.js";
 
 export const identifier = z.string().regex(/^[a-z][a-z0-9-]{1,63}$/);
 export const moduleFieldSchema = z.object({
@@ -120,6 +121,7 @@ export const productSpecSchema = z.object({
   features: z.array(z.string().min(1).max(400)).max(30),
   primaryColor: z.enum(["green", "blue", "rose"]).default("green"),
   composition: compositionSchema.optional(),
+  requirements: requirementsSchema.optional(),
 });
 export type ProductSpec = z.infer<typeof productSpecSchema>;
 export const featureRecipeSchema = z.object({

@@ -1,0 +1,27 @@
+{
+  "status": "TESTED",
+  "at": "2026-10-12T09:59:51.653Z",
+  "version": "PostgreSQL 18.4 on x86_64-windows, compiled by msvc-19.44.35226, 64-bit",
+  "checks": [
+    "native server startup",
+    "SCRAM authentication",
+    "control migration",
+    "runtime migration",
+    "idempotent migrations",
+    "platform registration",
+    "project creation",
+    "trash hides active projects without deleting data",
+    "concurrent create and restore enforce 20-project quota with PostgreSQL row locks",
+    "runtime registration",
+    "event creation and enrollment",
+    "server restart persistence",
+    "persistent sessions",
+    "exact control/runtime migration ledger and repeat-run idempotence",
+    "concurrent orders cannot oversell on PostgreSQL server",
+    "orders, stock and community posts survive database server restart",
+    "campus composite foreign keys and event venue survive PostgreSQL restart",
+    "concurrent campus creation enforces the 1000-record quota with row locks",
+    "paged campus records carry actual owner independently of school directory pages"
+  ],
+  "clusterDirectory": "C:\\Users\\14237\\Desktop\\Campus AI App Foundry\\.data\\postgres-acceptance-fdd229c0-94bc-4118-b1d2-0d213d22a60c\\cluster"
+}

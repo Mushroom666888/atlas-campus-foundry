@@ -86,8 +86,8 @@
   background: #267762;
 }
 .canvas-module .react-flow__handle:hover {
-  width: 20px;
-  height: 20px;
+  box-shadow: 0 0 0 4px #26776235;
+  background: #155e4b;
 }
 .canvas-port-labels {
   display: flex;
@@ -196,6 +196,36 @@
 }
 .studio .canvas-mode > button {
   font-size: 14px;
+}
+.studio .canvas-mode .canvas-overview-button {
+  margin-left: auto;
+}
+.studio .react-flow__minimap {
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  overflow: hidden;
+  box-shadow: 0 2px 8px #20212214;
+}
+.canvas-navigator {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 16px;
+  padding: 8px 12px;
+  border-top: 1px solid var(--border);
+  background: white;
+  color: var(--muted);
+  font-size: 14px;
+  flex: 0 0 auto;
+}
+.studio .react-flow__controls-button {
+  width: 36px;
+  height: 36px;
+  min-height: 36px;
+  border-radius: 0;
+}
+.studio .canvas-module header strong {
+  font-size: 18px;
 }
 .studio .canvas-module.commerce header,
 .studio .canvas-module.community header {

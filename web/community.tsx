@@ -186,7 +186,6 @@ export function Community({
     <CommunityContext.Provider value={{ runtime, has }}>
       <div className="community-shell">
         <header className="community-nav">
-          <LanguageSelect />
           <Link className="atlas-logo" to="/">
             <MoveUpRight strokeWidth={3} />
             <span>{brand}</span>
@@ -207,6 +206,7 @@ export function Community({
               <NavLink to={`/creators/${user.id}`}>{t("我的主页")}</NavLink>
             )}
           </nav>
+          <LanguageSelect />
           <Link
             className="button"
             to={user ? (runtime ? "/" : "/studio") : "/login"}

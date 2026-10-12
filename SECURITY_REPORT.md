@@ -1,5 +1,17 @@
 # Security report
 
+Final 2026-10-12 production dependency audit (`npm audit --omit=dev`) reports zero known advisories. The full local suite again passed 28 Node and 12 browser journeys; after shared Canvas/Agent layer placement, four Node and six browser regressions passed. UI request failures are surfaced rather than presented as empty successful data. These checks do not verify public hostile-tenant isolation or unfinished cloud infrastructure.
+
+## Requirements and campus increment - 2026-10-12
+
+Independent read-only review and real local regressions covered new writes/recovery, Agent state and campus relationships. Four reproduced issues were fixed: trailing-slash aliases could bypass managed product.json protection; large reads lost their hash to invalid JSON truncation; a partially failed multi-file write could retain old preview success; directory ownership UI depended on the first 100 schools. Empty path segments are now denied, Agent reads are structured pages, mutation attempts invalidate evidence before execution, and directory records carry authoritative owner IDs independent of pagination.
+
+Human/Agent edits and restores use expected SHA-256 under a per-project write queue, with owner authorization and retained revision/audit records. Protected path variants, stale hashes, cross-project revisions and stranger reads are tested. This does not implement distributed writers or an atomic DB/filesystem transaction; the control service remains one writer. A failed batch may leave explicitly logged partial edits, requiring re-read and verification.
+
+Campus records are scoped to each application's independent DB. Composite foreign keys reject cross-school/campus references, school owners/app admins maintain records, and event owners alone change their event links. Self-declared student affiliations are private to that account and never grant an official verified role. Input is validated and values are parameterized; SQL identifiers come only from fixed allowlists. Application-local public directory data has no account email/session/password. Deleting referenced parents is blocked. PGlite and native PostgreSQL restart, access and concurrency checks passed.
+
+All 12 browser journeys and five final affected Node tests passed. Public hostile-tenant execution, dedicated runner separation, TLS ingress, signed executable module publication and shared multi-worker locks remain unverified or unimplemented. The local trusted processes are not an untrusted-code security boundary.
+
 ## Project lifecycle, export and design follow-up
 
 - DELETE/restore/export require project ownership; deleted projects cannot be edited, restarted, exported or selected for new Agent tasks. Deletion cancels active/blocked tasks and stops real processes. Restore preserves business data and files without restarting instances.

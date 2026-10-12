@@ -1,0 +1,12 @@
+✔ Agent contract-only provider: real tools, durable trace, stale preview rejected, repair budget enforced (12730.7678ms)
+✔ guided canvas validates intent, complete dependency wiring, port types and missing inputs (9.5944ms)
+✔ saving a v2 graph replaces removed branches atomically even when connector types remain installed (4051.3747ms)
+✔ design-only Agent contract provider: validated persistent plan, no project mutation or deployment (4131.5343ms)
+ℹ tests 4
+ℹ suites 0
+ℹ pass 4
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 13319.2409

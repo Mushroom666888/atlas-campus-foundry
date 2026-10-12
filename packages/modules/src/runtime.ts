@@ -18,6 +18,7 @@ import { emailProvider, OpenStreetMap } from "../../../server/providers.js";
 import { registerRecords } from "./records.js";
 import { registerCommerce } from "./commerce.js";
 import { registerCommunity } from "./community.js";
+import { registerCampus } from "./campus.js";
 
 export type RuntimeConfig = {
   appId: string;
@@ -45,6 +46,7 @@ export async function registerRuntime(
   await registerRecords(app, db, config.spec);
   registerCommerce(app, db, config.modules);
   registerCommunity(app, db, config.modules);
+  registerCampus(app, db, config.modules);
   const subscribers = new Map<string, Set<(event: unknown) => void>>();
   const closeStreams = new Set<() => void>();
   app.addHook("preClose", async () => {

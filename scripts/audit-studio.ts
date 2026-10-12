@@ -77,6 +77,14 @@ try {
             .first()
             .evaluate((node) => parseFloat(getComputedStyle(node).fontSize)),
         ).toBeGreaterThanOrEqual(16);
+        await expect
+          .poll(
+            async () =>
+              (await page.locator(".canvas-module").first().boundingBox())!
+                .width,
+          )
+          .toBeGreaterThanOrEqual(230);
+        await expect(page.locator(".react-flow__minimap")).toBeVisible();
       }
       expect((await content.innerText()).trim().length).toBeGreaterThan(20);
       expect(

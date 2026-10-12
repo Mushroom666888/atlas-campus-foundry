@@ -1047,9 +1047,6 @@
   .canvas-mode > span {
     display: none;
   }
-  .react-flow__minimap {
-    display: none;
-  }
   .interface-panel table {
     display: block;
     overflow-x: auto;

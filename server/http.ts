@@ -25,6 +25,13 @@ export function errors(app: FastifyInstance) {
     };
     if (known.code === "23505")
       return reply.code(409).send({ code: "CONFLICT", message: "记录已存在" });
+    if (known.code === "23503")
+      return reply
+        .code(409)
+        .send({
+          code: "RELATION_CONFLICT",
+          message: "关联记录已变更或仍被引用，请刷新后重试",
+        });
     if (known.statusCode && known.statusCode < 500)
       return reply
         .code(known.statusCode)

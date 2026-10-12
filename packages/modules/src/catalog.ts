@@ -85,10 +85,16 @@ export const catalog: ModuleManifest[] = [
         properties: {},
         additionalProperties: false,
       },
-      providedInterfaces: [`campus.${moduleId}@1`],
+      providedInterfaces: [
+        `campus.${moduleId}@1`,
+        ...(moduleId === "campus" ? ["campus.domain@1"] : []),
+      ],
       requiredInterfaces: dependencies.map((d) => `campus.${d}@1`),
       dependencies: Object.fromEntries(dependencies.map((d) => [d, "^1.0.0"])),
-      databaseMigrations: ["runtime/001_initial.sql"],
+      databaseMigrations: [
+        "runtime/001_initial.sql",
+        ...(moduleId === "campus" ? ["runtime/005_campus_domain.sql"] : []),
+      ],
       requiredPermissions: [`${moduleId}:own`],
       eventsProduced: (
         {
@@ -113,7 +119,11 @@ export const catalog: ModuleManifest[] = [
       frontendExports: [`CampusApplication/${moduleId}`],
       backendExports: [`runtime/${moduleId}`],
       healthChecks: ["/api/health"],
-      testSpecifications: ["tests/runtime.test.ts", "tests/browser.spec.ts"],
+      testSpecifications: [
+        "tests/runtime.test.ts",
+        "tests/browser.spec.ts",
+        ...(moduleId === "campus" ? ["tests/campus-domain.test.ts"] : []),
+      ],
       compatiblePlatformVersions: "^0.1.0",
       securityMetadata: {
         review: "platform",

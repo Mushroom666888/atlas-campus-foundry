@@ -111,6 +111,7 @@ test("Agent contract-only provider: real tools, durable trace, stale preview rej
           files: [
             {
               path: "src/feature.ts",
+              expectedHash: null,
               content:
                 "export function ordering(position:number){ return position + 1; }",
             },
@@ -125,6 +126,110 @@ test("Agent contract-only provider: real tools, durable trace, stale preview rej
     assert.match(
       await c.projects.read(project.project.id, user.id, "src/feature.ts"),
       /ordering/,
+    );
+    const largeText = "// large source\n" + "x".repeat(65000);
+    const written = await c.projects.write(
+      project.project.id,
+      user.id,
+      "src/large.txt",
+      largeText,
+    );
+    const fourth = await queued(
+      "Read a large file without truncating its hash",
+    );
+    let readerStep = 0;
+    const reader = new Agent(c.projects, c.deployments, {
+      async complete(messages) {
+        if (readerStep++ === 0)
+          return call("readProjectFiles", { path: "src/large.txt" });
+        const output = JSON.parse(messages.at(-1)!.content!);
+        assert.equal(output.hash, written.hash);
+        assert.equal(output.content, largeText.slice(0, 8000));
+        assert.equal(output.totalChars, largeText.length);
+        assert.equal(output.nextOffset, 8000);
+        return {
+          role: "assistant",
+          content: "Contract fixture read first page",
+        };
+      },
+    });
+    await reader.run(fourth);
+    const nextPage = (await reader.execute(
+      await reader.get(fourth, user.id),
+      "readProjectFiles",
+      { path: "src/large.txt", offset: 8000 },
+    )) as { content: string; hash: string };
+    assert.equal(nextPage.hash, written.hash);
+    assert.equal(nextPage.content, largeText.slice(8000, 16000));
+    const clean = await c.projects.create(
+      user.id,
+      project.project.spec,
+      "Partial-write regression",
+    );
+    const fifth = await queued(
+      "A failed bulk write must invalidate prior preview",
+    );
+    await c.db.query("UPDATE jobs SET project_id=$2 WHERE id=$1", [
+      fifth,
+      clean.project.id,
+    ]);
+    const partial = new Agent(
+      c.projects,
+      c.deployments,
+      new ScriptedContractProvider([
+        call("createPreview", {}),
+        call("generateCustomFeature", {
+          files: [
+            {
+              path: "src/partial.ts",
+              content: "export const partial = true;",
+              expectedHash: null,
+            },
+            {
+              path: "README.md",
+              content: "Would overwrite another revision",
+              expectedHash: null,
+            },
+          ],
+          rationale: "Exercise real partial write and stale validation",
+        }),
+        {
+          role: "assistant",
+          content: "Fixture must not report successful completion",
+        },
+      ]),
+    );
+    await partial.run(fifth);
+    const partialJob = await partial.get(fifth, user.id);
+    assert.equal(partialJob.status, "needs_attention");
+    const trace = (
+      await c.db.query<{
+        payload: {
+          result: { status?: string; code?: string; message?: string };
+        };
+      }>(
+        "SELECT payload FROM job_events WHERE job_id=$1 AND type='tool_result' ORDER BY id",
+        [fifth],
+      )
+    ).rows;
+    assert.equal(trace[0].payload.result.status, "running");
+    assert.equal(trace[1].payload.result.code, "FILE_CONFLICT");
+    assert.match(
+      trace[1].payload.result.message!,
+      /persisted files: src\/partial.ts/,
+    );
+    assert.equal(
+      (
+        await c.db.query<{ result: { previewPassed: boolean } }>(
+          "SELECT result FROM jobs WHERE id=$1",
+          [fifth],
+        )
+      ).rows[0].result.previewPassed,
+      false,
+    );
+    assert.match(
+      await c.projects.read(clean.project.id, user.id, "src/partial.ts"),
+      /partial = true/,
     );
   } finally {
     await c.app.close();

@@ -1,5 +1,21 @@
 # Resume here
 
+## Current handoff - 2026-10-12
+
+Read `docs/REQUIREMENTS_DELIVERY.md`, `docs/REQUIREMENTS_AUDIT.md` and `docs/evidence/2026-10-12-requirements/` first. Requirements, expected-hash source/history, and a relational campus runtime have been added without replacing user databases. New migration: runtime/005. No further user confirmation is required for routine development.
+
+The latest user request was full-stack verification and frontend improvement. Full `npm run check` passed 28 Node tests, full E2E passed 12 journeys; after final shared layer placement changes, four affected Node tests and six browser journeys passed again. Native PostgreSQL 18.4 passed migration/restart/quotas earlier in this same increment. Audit: 69 existing-account route/viewport checks; 685 translation keys complete; production npm audit reports zero known advisories. Retained UI regression failures and fixes are documented in TEST_REPORT.md. Raw authenticated traces remain ignored.
+
+The technical graph now mounts only when visible and defaults to readable zoom. Do not restore automatic fit-all on entering the view. Its pannable minimap has a reserved footer so it does not intercept node gestures. `compositionLayer` is shared by Agent design and Canvas. Old projects without a graph get lane placement and dependency edges; existing user positions are preserved. Product roles/models/scenarios describe intent, not executed migrations/RBAC; scenario readiness stays NOT_RUN.
+
+Studio remains http://127.0.0.1:3000, restarted with the final sources; wrapper PID at handoff was 30540 (verify before using). Five sample applications were redeployed and share current source. Use metadata files for current ephemeral ports. The minimal homepage remains unchanged. Fonts use real system CJK weights, with 16px form text. No visual user approval is implied.
+
+Unfinished work: live model/custom-feature validation, Docker isolation, dedicated runner/TLS ingress, executable-module publication and multi-version execution, team/cross-app authorization, commercial pagination/moderation/online payments. Do not mistake these for completed features or only missing credentials. Model connection was explicitly deferred by the user. Continue independent engineering without asking for that key again.
+
+The following October 10 notes are historical. Their automatic fitView advice and older test counts are superseded above.
+
+## Previous handoff
+
 Read `docs/FOLLOWUP_DELIVERY.md` and `docs/evidence/2026-10-10-followup/` first. The latest user request removes the whole homepage module recommendation area; retain the simple Atlas scene and route module discovery to `/modules`. Do not restore the deleted section. Project deletion/restore, owner ZIP export, bilingual UI and idea-first Canvas are implemented. Local Studio remains http://127.0.0.1:3000; credentials/data stay in ignored `.data` files.
 
 Current checks: 25 Node tests, 10 full browser journeys plus 7 final relevant regression journeys, 69 live existing-account route/viewport checks, native PostgreSQL row-lock quota race, and independent exported-app install/HTTP/restart. The initial export/browser failures are retained in evidence. Canvas now waits for registry/project/draft loading before accepting input, and fits nodes after the technical view becomes visible. Do not remove these guards.

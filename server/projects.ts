@@ -1,4 +1,4 @@
-import { randomUUID } from "node:crypto";
+import { randomUUID, createHash } from "node:crypto";
 import {
   mkdir,
   readFile,
@@ -6,6 +6,8 @@ import {
   readdir,
   lstat,
   realpath,
+  rename,
+  rm,
 } from "node:fs/promises";
 import path from "node:path";
 import { z } from "zod";
@@ -23,6 +25,7 @@ import {
 } from "../packages/contracts/src/index.js";
 import { catalog, resolveModules } from "../packages/modules/src/catalog.js";
 import { validateComposition } from "../packages/modules/src/composition.js";
+import { requirementReadiness } from "../packages/contracts/src/requirements.js";
 
 export type Project = {
   id: string;
@@ -35,6 +38,7 @@ export type Project = {
 };
 export type Application = { id: string; project_id: string; spec: ProductSpec };
 export class Projects {
+  private writes = new Map<string, Promise<unknown>>();
   constructor(
     public db: Database,
     public root: string,
@@ -379,9 +383,9 @@ export class Projects {
       throw new AppError(400, "UNSAFE_PATH", "不允许 Windows 保留文件名");
     if (
       !/^[a-zA-Z0-9_./-]{1,180}$/.test(file) ||
-      file.split("/").some((s) => s === ".." || s.startsWith(".")) ||
+      file.split("/").some((s) => !s || s === ".." || s.startsWith(".")) ||
       file.includes("//") ||
-      /^(node_modules|dist|secrets)(\/|$)/.test(file)
+      /^(node_modules|dist|secrets)(\/|$)/i.test(file)
     )
       throw new AppError(400, "UNSAFE_PATH", "路径不允许");
     const root = this.workspace(id),
@@ -445,8 +449,22 @@ export class Projects {
     }
   }
   private checkSpecSize(spec: ProductSpec) {
+    const unknown =
+      spec.requirements?.scenarios.flatMap((s) =>
+        s.moduleIds.filter((m) => !spec.modules.includes(m)),
+      ) ?? [];
+    if (unknown.length)
+      throw new AppError(
+        422,
+        "REQUIREMENT_MODULE_MISSING",
+        `验收场景引用了未安装模块: ${[...new Set(unknown)].join(", ")}`,
+      );
     if (Buffer.byteLength(JSON.stringify(spec, null, 2)) > 200000)
       throw new AppError(413, "FILE_TOO_LARGE", "产品配置最多 200 KB");
+  }
+  async requirements(id: string, actor: string) {
+    const { spec } = await this.get(id, actor);
+    return requirementReadiness(spec.requirements);
   }
   private async preflightWrite(
     id: string,
@@ -472,7 +490,90 @@ export class Projects {
     const target = await this.safePath(id, file);
     return target;
   }
-  async write(id: string, actor: string, file: string, content: string) {
+  async readVersion(id: string, actor: string, file: string) {
+    const content = await this.read(id, actor, file);
+    return {
+      content,
+      hash: createHash("sha256").update(content).digest("hex"),
+    };
+  }
+  async history(id: string, actor: string, file: string) {
+    await this.get(id, actor);
+    await this.safePath(id, file);
+    return (
+      await this.db.query<{
+        revision: string;
+        created_at: string;
+        bytes: number;
+      }>(
+        "SELECT detail->>'revision' AS revision, created_at, (detail->>'bytes')::integer AS bytes FROM audit_log WHERE resource_id=$1 AND action='file.written' AND detail->>'file'=$2 ORDER BY id DESC LIMIT 100",
+        [id, file],
+      )
+    ).rows;
+  }
+  async revision(id: string, actor: string, revision: string) {
+    await this.get(id, actor);
+    z.uuid().parse(revision);
+    const allowed = (
+      await this.db.query(
+        "SELECT id FROM audit_log WHERE resource_id=$1 AND action='file.written' AND detail->>'revision'=$2",
+        [id, revision],
+      )
+    ).rows.length;
+    if (!allowed)
+      throw new AppError(404, "REVISION_NOT_FOUND", "文件版本不存在");
+    return z
+      .object({
+        path: z.string(),
+        at: z.string(),
+        before: z.string().nullable(),
+        after: z.string(),
+      })
+      .parse(
+        JSON.parse(
+          await readFile(
+            path.join(this.root, "revisions", id, `${revision}.json`),
+            "utf8",
+          ),
+        ),
+      );
+  }
+  async edit(
+    id: string,
+    actor: string,
+    file: string,
+    content: string,
+    expectedHash: string | null,
+  ) {
+    if (file.toLowerCase() === "product.json")
+      throw new AppError(409, "MANAGED_FILE", "产品配置由产品规格与画布管理");
+    return this.write(id, actor, file, content, expectedHash);
+  }
+  async write(
+    id: string,
+    actor: string,
+    file: string,
+    content: string,
+    expectedHash?: string | null,
+  ) {
+    // Serialize the compare-and-write and quota check across human and Agent writers.
+    const operation = (this.writes.get(id) ?? Promise.resolve())
+      .catch(() => {})
+      .then(() => this.writeLocked(id, actor, file, content, expectedHash));
+    this.writes.set(id, operation);
+    try {
+      return await operation;
+    } finally {
+      if (this.writes.get(id) === operation) this.writes.delete(id);
+    }
+  }
+  private async writeLocked(
+    id: string,
+    actor: string,
+    file: string,
+    content: string,
+    expectedHash?: string | null,
+  ) {
     const target = await this.preflightWrite(id, actor, file, content);
     let previous: string | null = null;
     try {
@@ -480,6 +581,16 @@ export class Projects {
     } catch (error) {
       if ((error as NodeJS.ErrnoException).code !== "ENOENT") throw error;
     }
+    const hash =
+      previous === null
+        ? null
+        : createHash("sha256").update(previous).digest("hex");
+    if (expectedHash !== undefined && hash !== expectedHash)
+      throw new AppError(
+        409,
+        "FILE_CONFLICT",
+        "文件已有更新，当前编辑已保留。请读取最新版本后合并再保存。",
+      );
     const revision = randomUUID();
     const history = path.resolve(this.root, "revisions", id);
     await mkdir(history, { recursive: true });
@@ -495,13 +606,24 @@ export class Projects {
       { mode: 0o600 },
     );
     await mkdir(path.dirname(target), { recursive: true });
-    await writeFile(target, content);
+    const temporary = path.join(path.dirname(target), `.${revision}.tmp`);
+    try {
+      await writeFile(temporary, content, { mode: 0o600 });
+      await rename(temporary, target);
+    } finally {
+      await rm(temporary, { force: true });
+    }
     await this.audit(actor, "file.written", id, {
       file,
       bytes: Buffer.byteLength(content),
       revision,
     });
-    return { path: file, bytes: Buffer.byteLength(content) };
+    return {
+      path: file,
+      bytes: Buffer.byteLength(content),
+      hash: createHash("sha256").update(content).digest("hex"),
+      revision,
+    };
   }
   async extract(id: string, actor: string, input: unknown) {
     await this.get(id, actor);

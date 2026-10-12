@@ -1,0 +1,74 @@
+
+> campus-ai-app-foundry@0.1.0 check
+> npm run lint && npm run build && npm test
+
+
+> campus-ai-app-foundry@0.1.0 lint
+> eslint .
+
+
+> campus-ai-app-foundry@0.1.0 build
+> tsc --noEmit && vite build
+
+vite v8.3.4 building client environment for production...
+transforming...
+✓ 2266 modules transformed.
+rendering chunks...
+computing gzip size...
+dist/index.html                              0.75 kB │ gzip:   0.47 kB
+dist/assets/studio-LCr11XDc.css              1.08 kB │ gzip:   0.45 kB
+dist/assets/runtime-CVO6-F3u.css             1.55 kB │ gzip:   0.63 kB
+dist/assets/commerce-Cg-Im8CW.css            3.30 kB │ gzip:   1.02 kB
+dist/assets/community-FFTY-jQH.css           6.10 kB │ gzip:   1.68 kB
+dist/assets/visual-builder-Cv5Ieqy_.css     19.19 kB │ gzip:   3.58 kB
+dist/assets/index-BVjLbBE8.css              60.83 kB │ gzip:  13.01 kB
+dist/assets/community-catalog-DCshce5w.js    2.07 kB │ gzip:   1.14 kB
+dist/assets/community-DWUSXfT1.js           24.96 kB │ gzip:   6.90 kB
+dist/assets/runtime-DozyqBMx.js             34.22 kB │ gzip:   9.42 kB
+dist/assets/studio-BBb-bdnv.js              66.57 kB │ gzip:  18.63 kB
+dist/assets/commerce-DZE0Zmol.js            69.14 kB │ gzip:  21.66 kB
+dist/assets/schemas-BQ6FhyP2.js             91.79 kB │ gzip:  26.28 kB
+dist/assets/visual-builder-BHYfqLCe.js     236.16 kB │ gzip:  76.83 kB
+dist/assets/index-CPeNJ5Bj.js              389.83 kB │ gzip: 131.70 kB
+
+✓ built in 770ms
+
+> campus-ai-app-foundry@0.1.0 test
+> tsx --test tests/*.test.ts
+
+✔ Agent contract-only provider: real tools, durable trace, stale preview rejected, repair budget enforced (25361.738ms)
+✔ offline backup: live-storage refusal, checksums, fresh-root restore, accounts, media, secrets and HTTP redeploy (57956.0025ms)
+✔ kernel storage ownership survives an unresponsive owner and releases after process death (11175.3441ms)
+✔ 94 catalog modules, typed graph contracts and exact multilingual module references (14.8938ms)
+✔ dense invalid graphs are rejected within a bounded validation budget (2.7669ms)
+✔ all 50 business modules execute real validated CRUD, private reads, ownership, search and database restart (17837.3023ms)
+✔ 12 connectors execute events, conditions, field mapping, notification, linked records, audit and transactional rollback (10037.7313ms)
+✔ embedded records enforce declared parent contracts; Agent +references persist and constrain module tools (13597.8222ms)
+✔ private records cannot be embedded or copied into shared modules, including stale runtime graphs (5132.8875ms)
+✔ campus domain: relational integrity, permissions, affiliation privacy, event linkage and restart (30681.7182ms)
+✔ commerce: multimerchant authorization, atomic stock, coupons, idempotency, fulfillment, reviews, bookings and persistence (14427.3778ms)
+✔ creator community: real persistence, public privacy, author permissions, search, replies, moderation and quota (14144.8847ms)
+✔ community modules reuse the platform implementation in isolated application databases and enforce installation (10380.9826ms)
+✔ guided canvas validates intent, complete dependency wiring, port types and missing inputs (19.7923ms)
+✔ saving a v2 graph replaces removed branches atomically even when connector types remain installed (17900.2137ms)
+✔ control: owner boundaries, real project files, module publication/reuse and blocked model job (30488.7601ms)
+✔ actual local deployment: HTTP, persistence across restart, immutable rollback, failed deployment and secrets (33725.0894ms)
+✔ design-only Agent contract provider: validated persistent plan, no project mutation or deployment (18419.2087ms)
+✔ export: owner-only source ZIP; independent install, HTTP app, fresh accounts and persistence after restart (59944.5281ms)
+✔ frontend serves fresh build assets, uncached deep links and real asset 404s (344.3762ms)
+✔ project trash: owner permission, task cancellation, real process shutdown, data and file restoration (29236.2711ms)
+✔ project lifecycle concurrency: restore waits for archive, jobs stay blocked, create/restore quota is atomic (7260.6721ms)
+✔ static assets preserve API rate budget while real API requests remain limited (9648.7717ms)
+✔ requirements: references, module traceability, legacy specs, honest readiness and restart persistence (19252.3914ms)
+✔ workspace: conditional writes, revision recovery, managed configuration and owner boundaries (10036.3212ms)
+✔ SSE authorization is revoked after logout and open streams do not prevent shutdown (18651.5876ms)
+✔ manifest contracts and dependency resolution reject cycles, conflicts and missing modules (48.0441ms)
+✔ real runtime: identity, events, FIFO waitlist, notifications, search, chat, authorization and persistence (18458.4718ms)
+ℹ tests 28
+ℹ suites 0
+ℹ pass 28
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 70665.6636

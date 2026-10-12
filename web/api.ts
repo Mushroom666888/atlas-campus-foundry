@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 export async function api<T = Record<string, unknown>>(
   url: string,
   options: RequestInit = {},
@@ -22,10 +22,12 @@ export const post = <T = Record<string, unknown>>(
   body: unknown = {},
 ) => api<T>(url, { method: "POST", body: JSON.stringify(body) });
 export function useLoad<T>(url: string | null, interval = 0) {
+  const generation = useRef(0);
   const [data, setData] = useState<T | null>(null),
     [error, setError] = useState(""),
     [loading, setLoading] = useState(true);
   const refresh = useCallback(async () => {
+    const request = ++generation.current;
     if (!url) {
       setData(null);
       setLoading(false);
@@ -33,21 +35,26 @@ export function useLoad<T>(url: string | null, interval = 0) {
     }
     try {
       const result = await api<T>(url);
+      if (request !== generation.current) return;
       setData(result);
       setError("");
     } catch (e) {
-      setError((e as Error).message);
+      if (request === generation.current) setError((e as Error).message);
     } finally {
-      setLoading(false);
+      if (request === generation.current) setLoading(false);
     }
   }, [url]);
   useEffect(() => {
     setLoading(true);
+    setData(null);
     void refresh();
-    if (interval) {
-      const timer = setInterval(() => void refresh(), interval);
-      return () => clearInterval(timer);
-    }
+    const timer = interval
+      ? setInterval(() => void refresh(), interval)
+      : undefined;
+    return () => {
+      generation.current++;
+      if (timer) clearInterval(timer);
+    };
   }, [refresh, interval]);
   return { data, error, loading, refresh };
 }

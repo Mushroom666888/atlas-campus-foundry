@@ -1,5 +1,11 @@
 # Decisions
 
+- 2026-10-12: add optional structured requirements without rewriting historical projects. Role/model/scenario descriptions are intent; no automatic pass status or hidden execution of user-supplied schemas.
+- Extend the existing campus module with relational tables and public contracts instead of inflating the module count. Preserve legacy generic records; never infer official school identities or fabricate coordinates.
+- Require expected content hashes for external source writes. Preserve audit-backed revisions and implement restore as a new write. Keep one control writer until distributed leases exist.
+- Return whole-file hashes alongside bounded Agent read pages; keep every tool response valid JSON. Invalidate validation evidence before potentially partial mutations.
+- Keep directory management authority on the server; UI ownership must be available on each paginated record, not inferred from another list's first page.
+
 - Latest user preference: remove the complete homepage module section, including recommendations, count and heading. Keep the Atlas scene, navigation and creation entry; use the actual module library for discovery.
 - Use complete OS CJK font families with real 400/700 weights instead of a 616-glyph partial subset. i18next changes labels and module metadata while preserving canonical values, user content and form state.
 - Make visual creation start with a design request. A restricted design-only Agent can propose a validated plan; users review the product view and optionally open technical wiring. Absent model configuration remains visibly BLOCKED.
@@ -25,3 +31,7 @@
 - Require product intent alongside Canvas version 2. Resolve and draw dependencies, separate visual lanes and reject unsupported ports/disconnected automation before saving. Keep generic record automation away from private order/inventory mutations.
 - Apply graph replacements and module installations in one database transaction. Never validate a partially pruned old graph while saving an already validated replacement.
 - Keep homepage bitmap movement subtle and pause it offscreen or in hidden tabs; honor reduced-motion preferences. Avoid overlay controls that intercept Canvas handles.
+
+## 2026-10-12: Readable technical Canvas and specification layout
+
+Technical graphs open at a readable scale; fitting every node is an explicit overview action. Mount React Flow only in its visible view and reserve a separate minimap footer to avoid intercepting editing gestures. Keep port dimensions fixed. Agent proposals and manual initialization share compositionLayer; the original campus/profile/event/group services appear in the business lane while catalog compatibility remains intact. Existing saved coordinates are not silently rearranged. Structured specs use full-width sections and checkbox associations; user scenarios remain unexecuted intent.
